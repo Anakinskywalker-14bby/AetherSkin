@@ -16,7 +16,11 @@ const csp = [
   "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://news.google.com https://va.vercel-scripts.com",
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com data:",
-  "img-src 'self' data: blob: https://raw.githubusercontent.com https://cdn.cosmos.so https://news.google.com https://www.gstatic.com https://ssl.gstatic.com https://lh3.googleusercontent.com",
+  // raw.githubusercontent.com and cdn.cosmos.so were removed once the landing
+  // images moved into public/design — every image is now same-origin. The
+  // gstatic/googleusercontent hosts are required by the Google Preferred
+  // Sources button.
+  "img-src 'self' data: blob: https://news.google.com https://www.gstatic.com https://ssl.gstatic.com https://lh3.googleusercontent.com",
   "connect-src 'self' https://hazjyonpqungkgchqgro.supabase.co https://news.google.com https://va.vercel-scripts.com https://vitals.vercel-insights.com",
   "frame-src https://news.google.com",
   "manifest-src 'self'",

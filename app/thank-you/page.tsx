@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "You're on the list",
-  description: "Your Lumin beta spot is confirmed and your skin profile is saved.",
+  description: "Your AetherSkin beta spot is confirmed and your skin profile is saved.",
   robots: { index: false, follow: false },
 };
 
@@ -73,7 +73,7 @@ export default async function ThankYouPage({
             className="neo-shadow neo-border px-8 py-4"
             style={{ background: "#beeaf8", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 16, letterSpacing: "0.9px", color: "#1a1c1b" }}
           >
-            ABOUT LUMIN
+            ABOUT AETHERSKIN
           </Link>
         </div>
       </div>

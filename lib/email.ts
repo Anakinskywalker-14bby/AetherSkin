@@ -29,7 +29,7 @@ export function hashToken(token: string): string {
  * HTML-escaped, because the web UI relies on React's contextual escaping.
  * Emails are hand-built HTML strings with no such protection, so a name like
  * `<a href="http://evil">click</a>` would render as a live link inside a
- * message that appears to come from Lumin. Escape at the boundary.
+ * message that appears to come from AetherSkin. Escape at the boundary.
  */
 export function escapeHtml(value: string): string {
   return value
@@ -48,7 +48,7 @@ export function safeEqual(a: string, b: string): boolean {
   return crypto.timingSafeEqual(ab, bb);
 }
 
-const FROM = process.env.EMAIL_FROM ?? "Lumin <onboarding@resend.dev>";
+const FROM = process.env.EMAIL_FROM ?? "AetherSkin <onboarding@resend.dev>";
 
 export type SendResult =
   | { sent: true }
@@ -84,10 +84,10 @@ async function send(to: string, subject: string, html: string): Promise<SendResu
 const SHELL = (inner: string) => `
 <div style="background:#f9f9f7;padding:40px 20px;font-family:Helvetica,Arial,sans-serif">
   <div style="max-width:520px;margin:0 auto;background:#f9f9f7;border:3px solid #1a1c1b;box-shadow:8px 8px 0 #1a1c1b;padding:36px">
-    <p style="font-size:26px;font-weight:900;font-style:italic;color:#1a1c1b;margin:0 0 24px">Lumin</p>
+    <p style="font-size:26px;font-weight:900;font-style:italic;color:#1a1c1b;margin:0 0 24px">AetherSkin</p>
     ${inner}
     <p style="font-size:12px;color:#484739;margin:32px 0 0;line-height:1.6">
-      You received this because you asked to join the Lumin beta waitlist.
+      You received this because you asked to join the AetherSkin beta waitlist.
       If that wasn't you, ignore this email and nothing will happen.
     </p>
   </div>
@@ -98,11 +98,11 @@ export function verificationEmail(token: string) {
   const url = `${SITE_URL}/verify?token=${encodeURIComponent(token)}`;
   return SHELL(`
     <h1 style="font-size:28px;font-weight:800;color:#1a1c1b;margin:0 0 16px;line-height:1.2">
-      Thank you for joining Lumin.
+      Thank you for joining AetherSkin.
     </h1>
     <p style="font-size:16px;color:#484739;line-height:1.7;margin:0 0 12px">
       You're one tap from your spot. Confirm your email and we'll take you
-      straight to a 2-minute skin quiz. Your answers are what let Lumin match
+      straight to a 2-minute skin quiz. Your answers are what let AetherSkin match
       you with products that actually fit your skin.
     </p>
     <p style="font-size:16px;color:#484739;line-height:1.7;margin:0 0 28px">
@@ -137,7 +137,7 @@ export function quizCompleteEmail(name: string, position: number) {
 }
 
 export async function sendVerificationEmail(to: string, token: string) {
-  return send(to, "Confirm your Lumin spot (+ 2-minute skin quiz)", verificationEmail(token));
+  return send(to, "Confirm your AetherSkin spot (+ 2-minute skin quiz)", verificationEmail(token));
 }
 
 export async function sendQuizCompleteEmail(to: string, name: string, position: number) {

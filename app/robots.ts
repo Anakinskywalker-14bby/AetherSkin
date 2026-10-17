@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         // AI crawlers (GPTBot, PerplexityBot, ClaudeBot, Google-Extended)
-        // are intentionally allowed so those engines can cite Lumin.
+        // are intentionally allowed so those engines can cite AetherSkin.
         userAgent: "*",
         allow: "/",
         // Private / single-use routes stay out of the index.

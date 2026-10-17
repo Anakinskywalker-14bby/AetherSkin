@@ -3,10 +3,10 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
-const KEY = "lumin-cookie-choice";
+const KEY = "aetherskin-cookie-choice";
 
 /**
- * Cookie notice. Lumin sets no advertising or analytics cookies today, so
+ * Cookie notice. AetherSkin sets no advertising or analytics cookies today, so
  * this is a transparency notice with a real choice recorded locally —
  * not a dark-pattern consent wall.
  */
@@ -43,7 +43,7 @@ export function CookieBanner() {
         style={{ background: "#f9f9f7" }}
       >
         <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: 14, color: "#484739", lineHeight: 1.6, margin: 0 }}>
-          Lumin uses no advertising or tracking cookies. We store one local
+          AetherSkin uses no advertising or tracking cookies. We store one local
           preference so this notice doesn&apos;t reappear.{" "}
           <Link href="/privacy" style={{ color: "#1a1c1b", fontWeight: 700, textDecoration: "underline" }}>
             Privacy Policy

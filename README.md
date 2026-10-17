@@ -1,4 +1,4 @@
-# Lumin — AI Skin Intelligence
+# AetherSkin — AI Skin Intelligence
 
 Production brand website: Next.js 14 (App Router) · Tailwind · TypeScript · Supabase · Stripe · Vercel. Design language: **Clinical Radiance System** (soft teal `#016464`, warm peach `#fbd9c1`, white→icy-mint cards, pill geometry, ambient teal shadows).
 

@@ -35,8 +35,8 @@ export function LegalChrome({ children }: { children: React.ReactNode }) {
         className="flex items-center justify-between px-6 md:px-16 h-[72px]"
         style={{ background: "#f9f9f7", borderBottom: "3px solid #1a1c1b" }}
       >
-        <Link href="/" aria-label="Lumin home" style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 900, fontStyle: "italic", fontSize: 24, letterSpacing: -1.2, color: "#1a1c1b" }}>
-          Lumin
+        <Link href="/" aria-label="AetherSkin home" style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 900, fontStyle: "italic", fontSize: 24, letterSpacing: -1.2, color: "#1a1c1b" }}>
+          AetherSkin
         </Link>
         <Link
           href="/#beta"

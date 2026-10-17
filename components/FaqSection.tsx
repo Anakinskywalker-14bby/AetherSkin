@@ -8,28 +8,28 @@
 
 export const FAQS = [
   {
-    q: "Is Lumin free?",
-    a: "Yes. Joining the waitlist, taking the skin quiz, and getting your scan results at launch all cost nothing. There is no card field anywhere on this site. Lumin earns an affiliate commission when you buy a recommended product, which never changes your price.",
+    q: "Is AetherSkin free?",
+    a: "Yes. Joining the waitlist, taking the skin quiz, and getting your scan results at launch all cost nothing. There is no card field anywhere on this site. AetherSkin earns an affiliate commission when you buy a recommended product, which never changes your price.",
   },
   {
     q: "How does the AI skin analysis work?",
-    a: "You take one photo. Lumin reads everyday characteristics from it — hydration, texture, visible pores, dark spots, fine lines and breakouts — then combines that with your quiz answers to build a skin profile and match you with suitable products.",
+    a: "You take one photo. AetherSkin reads everyday characteristics from it — hydration, texture, visible pores, dark spots, fine lines and breakouts — then combines that with your quiz answers to build a skin profile and match you with suitable products.",
   },
   {
     q: "What happens after I enter my email?",
     a: "We send a confirmation email with a secure link. Opening that link confirms your address and takes you straight to a 13-question skin quiz that takes about two minutes. Your spot is locked once the quiz is done.",
   },
   {
-    q: "Does Lumin store my photos?",
+    q: "Does AetherSkin store my photos?",
     a: "Face scans are not collected before launch. When scanning goes live it will require a separate, explicit consent step, your photo will not be used to train models without a distinct opt-in you can decline, and you will be able to delete it.",
   },
   {
-    q: "Is Lumin medical advice?",
-    a: "No. Lumin gives cosmetic and general wellness guidance to help you choose skincare. It is not a medical device and does not diagnose, treat, or cure any condition. For persistent, painful, or changing skin problems, see a qualified healthcare professional.",
+    q: "Is AetherSkin medical advice?",
+    a: "No. AetherSkin gives cosmetic and general wellness guidance to help you choose skincare. It is not a medical device and does not diagnose, treat, or cure any condition. For persistent, painful, or changing skin problems, see a qualified healthcare professional.",
   },
   {
-    q: "Which brands does Lumin recommend?",
-    a: "Lumin does not make its own products. It recommends items from established skincare brands and retailers you already know, chosen against your quiz answers and scan rather than against who pays the most.",
+    q: "Which brands does AetherSkin recommend?",
+    a: "AetherSkin does not make its own products. It recommends items from established skincare brands and retailers you already know, chosen against your quiz answers and scan rather than against who pays the most.",
   },
   {
     q: "How do I delete my data?",

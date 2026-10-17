@@ -44,10 +44,10 @@ export function SiteNav() {
       >
         <Link
           href="/"
-          aria-label="Lumin home"
+          aria-label="AetherSkin home"
           style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 900, fontStyle: "italic", fontSize: 24, letterSpacing: -1.2, color: "#1a1c1b" }}
         >
-          Lumin
+          AetherSkin
         </Link>
 
         {/* Desktop */}

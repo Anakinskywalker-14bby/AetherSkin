@@ -1,4 +1,4 @@
-# Lumin — Architecture
+# AetherSkin — Architecture
 
 Pre-launch marketing site with a free waitlist and a skin quiz. No payment,
 no login, no user-generated content rendered to other users.

@@ -28,7 +28,7 @@ describe("assertSameOrigin (CSRF defence)", () => {
 
   it("accepts a future custom domain with no config change", () => {
     const r = assertSameOrigin(
-      req({ origin: "https://luminskin.app", "x-forwarded-host": "luminskin.app" })
+      req({ origin: "https://aetherskinskin.app", "x-forwarded-host": "aetherskinskin.app" })
     );
     expect(r.ok).toBe(true);
   });

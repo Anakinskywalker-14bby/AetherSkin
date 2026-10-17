@@ -5,7 +5,7 @@ import { QuizForm } from "@/components/QuizForm";
 export const metadata: Metadata = {
   title: "Your Skin Quiz",
   description:
-    "Two minutes of questions so Lumin can match you with skincare that actually fits your skin.",
+    "Two minutes of questions so AetherSkin can match you with skincare that actually fits your skin.",
   robots: { index: false, follow: false },
 };
 
@@ -25,8 +25,8 @@ export default async function QuizPage({
         className="flex items-center justify-between px-6 md:px-16 h-[72px]"
         style={{ background: "#f9f9f7", borderBottom: "3px solid #1a1c1b" }}
       >
-        <Link href="/" aria-label="Lumin home" style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 900, fontStyle: "italic", fontSize: 24, letterSpacing: -1.2, color: "#1a1c1b" }}>
-          Lumin
+        <Link href="/" aria-label="AetherSkin home" style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 900, fontStyle: "italic", fontSize: 24, letterSpacing: -1.2, color: "#1a1c1b" }}>
+          AetherSkin
         </Link>
         <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1.2px", color: "#484739", textTransform: "uppercase" }}>
           Skin Quiz
@@ -74,7 +74,7 @@ export default async function QuizPage({
             </p>
             <QuizForm token={token} />
             <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: 13, color: "#484739", lineHeight: 1.6, margin: "20px 0 0" }}>
-              Lumin gives cosmetic and wellness guidance, not medical advice.
+              AetherSkin gives cosmetic and wellness guidance, not medical advice.
               See our{" "}
               <Link href="/privacy" style={{ color: "#1a1c1b", fontWeight: 700, textDecoration: "underline" }}>
                 Privacy Policy

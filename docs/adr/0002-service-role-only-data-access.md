@@ -7,7 +7,7 @@
 
 Supabase's normal pattern is a browser client using the anon key, with Row
 Level Security deciding what each authenticated user may read. That model
-assumes there *is* an authenticated user. Lumin has no login: a visitor is
+assumes there *is* an authenticated user. AetherSkin has no login: a visitor is
 anonymous right up to the moment they submit the quiz, identified only by a
 token from an email.
 

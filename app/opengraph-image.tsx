@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "Lumin — AI skin analysis. Stop guessing. Start knowing.";
+export const alt = "AetherSkin — AI skin analysis. Stop guessing. Start knowing.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -47,7 +47,7 @@ export default function OgImage() {
             marginBottom: 24,
           }}
         >
-          Lumin
+          AetherSkin
         </div>
         <div
           style={{

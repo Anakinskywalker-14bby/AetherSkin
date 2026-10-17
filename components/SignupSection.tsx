@@ -167,7 +167,7 @@ export function SignupSection() {
                     style={{ accentColor: "#1a1c1b" }}
                   />
                   <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: 14, color: "#484739", lineHeight: 1.6 }}>
-                    I agree to Lumin storing my email and quiz answers as
+                    I agree to AetherSkin storing my email and quiz answers as
                     described in the{" "}
                     <Link href="/privacy" style={{ color: "#1a1c1b", fontWeight: 700, textDecoration: "underline" }}>
                       Privacy Policy

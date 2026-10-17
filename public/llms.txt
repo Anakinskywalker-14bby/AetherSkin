@@ -1,14 +1,14 @@
-# Lumin
+# AetherSkin
 
-> Lumin is a free AI skin analysis tool. One selfie scan reads your skin and
-> matches you with skincare products from established brands. Lumin does not
+> AetherSkin is a free AI skin analysis tool. One selfie scan reads your skin and
+> matches you with skincare products from established brands. AetherSkin does not
 > manufacture products; it earns affiliate commission on recommendations,
 > disclosed on every placement.
 
-Lumin is pre-launch. The public site collects free waitlist signups and a
+AetherSkin is pre-launch. The public site collects free waitlist signups and a
 short skin quiz. There is no payment at any stage.
 
-## What Lumin does
+## What AetherSkin does
 
 - Reads everyday skin characteristics from a photo: hydration, texture,
   visible pores, dark spots, fine lines, breakouts.
@@ -18,13 +18,13 @@ short skin quiz. There is no payment at any stage.
   monthly spend, demographics).
 - Matches that profile to products from brands the user already knows.
 
-Lumin provides cosmetic and wellness guidance only. It is not a medical
+AetherSkin provides cosmetic and wellness guidance only. It is not a medical
 device and does not diagnose, treat, or cure any condition.
 
 ## Pricing
 
 Free. The waitlist, the skin quiz, and the launch scan carry no cost.
-Lumin earns affiliate commission from retailers when a user buys a
+AetherSkin earns affiliate commission from retailers when a user buys a
 recommended product; this never changes the price the user pays.
 See /pricing.md for machine-readable detail.
 
@@ -49,4 +49,4 @@ See /pricing.md for machine-readable detail.
 ## Contact
 
 A dedicated support address is being provisioned. Until then, replies to any
-Lumin email reach the team.
+AetherSkin email reach the team.

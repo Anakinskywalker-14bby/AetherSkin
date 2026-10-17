@@ -4,14 +4,14 @@ import { FaqSection, FAQS } from "@/components/FaqSection";
 import { organizationJsonLd, webSiteJsonLd, faqJsonLd } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Lumin — Free AI Skin Analysis. Stop Guessing. Start Knowing.",
+  title: "AetherSkin — Free AI Skin Analysis. Stop Guessing. Start Knowing.",
   description:
-    "One free scan. Lumin's AI reads your skin and matches you with products from brands you already love. No payment, no card — join the beta, only 500 spots.",
+    "One free scan. AetherSkin's AI reads your skin and matches you with products from brands you already love. No payment, no card — join the beta, only 500 spots.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "Lumin — Free AI Skin Analysis. Stop Guessing. Start Knowing.",
+    title: "AetherSkin — Free AI Skin Analysis. Stop Guessing. Start Knowing.",
     description:
-      "One free scan. Lumin's AI reads your skin and matches you with skincare from brands you already love. Join the beta.",
+      "One free scan. AetherSkin's AI reads your skin and matches you with skincare from brands you already love. Join the beta.",
     url: "/",
   },
 };

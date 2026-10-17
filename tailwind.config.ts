@@ -1,8 +1,8 @@
 import type { Config } from "tailwindcss";
 
 /**
- * Lumin — "Void cut". Deep-black cinema, one electric volt-lime signal,
- * one bioluminescent pink pulse for detections.
+ * AetherSkin — "Void cut". Deep-black cinema, one electric volt-lime signal,
+ * one bioaetherskinescent pink pulse for detections.
  */
 const config: Config = {
   content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./lib/**/*.{ts,tsx}"],

@@ -1,4 +1,4 @@
-# Pricing — Lumin
+# Pricing — AetherSkin
 
 Last updated: 2026-09-05
 
@@ -13,7 +13,7 @@ Last updated: 2026-09-05
 - Includes: AI skin scan, skin profile, matched product recommendations
 - Payment method required: none
 
-## How Lumin makes money
+## How AetherSkin makes money
 - Affiliate commission from retailers when a user buys a recommended product.
 - The commission never changes the price the user pays.
 - Paid or sponsored placements, if introduced, are labeled and kept visually
@@ -22,4 +22,4 @@ Last updated: 2026-09-05
 ## Not offered
 - No subscription tier at this time.
 - No paid waitlist skip.
-- Lumin does not sell user data.
+- AetherSkin does not sell user data.

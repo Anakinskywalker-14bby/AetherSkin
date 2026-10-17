@@ -8,7 +8,7 @@
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://lumin-site-bay.vercel.app";
 
-export const SITE_NAME = "Lumin";
+export const SITE_NAME = "AetherSkin";
 
 export const SITE_DESCRIPTION =
   "Free AI skin analysis. One scan matches you with skincare from brands you already love. No payment — join the beta.";

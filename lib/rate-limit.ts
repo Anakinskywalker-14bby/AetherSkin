@@ -42,7 +42,7 @@ async function getUpstashLimiter() {
   upstashLimiter = new Ratelimit({
     redis: new Redis({ url, token }),
     limiter: Ratelimit.slidingWindow(MAX_REQUESTS, `${WINDOW_SECONDS} s`),
-    prefix: "lumin:rl",
+    prefix: "aetherskin:rl",
     analytics: false,
   });
   return upstashLimiter;

@@ -6,12 +6,12 @@ import { breadcrumbJsonLd } from "@/lib/site";
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "Lumin is building AI skin analysis that ends the skincare guessing game — one scan, honest recommendations from brands you already love. Meet the mission.",
+    "AetherSkin is building AI skin analysis that ends the skincare guessing game — one scan, honest recommendations from brands you already love. Meet the mission.",
   alternates: { canonical: "/about" },
   openGraph: {
-    title: "About Us · Lumin",
+    title: "About Us · AetherSkin",
     description:
-      "Lumin is building AI skin analysis that ends the skincare guessing game. Meet the mission.",
+      "AetherSkin is building AI skin analysis that ends the skincare guessing game. Meet the mission.",
     url: "/about",
   },
 };
@@ -35,7 +35,7 @@ export default function AboutPage() {
         style={{ background: "#f9f9f7", borderBottom: "3px solid #1a1c1b" }}
       >
         <Link href="/" style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 900, fontStyle: "italic", fontSize: 24, letterSpacing: -1.2, color: "#1a1c1b" }}>
-          Lumin
+          AetherSkin
         </Link>
         <Link
           href="/#beta"
@@ -68,12 +68,12 @@ export default function AboutPage() {
           <p style={{ margin: "0 0 20px" }}>
             Most people build their routine from ads, trends, and whatever a
             friend swears by. The result: cabinets full of half-used products
-            and skin that never quite gets what it needs. Lumin exists to
+            and skin that never quite gets what it needs. AetherSkin exists to
             replace that guesswork with a single, honest starting point — a
             scan of your own skin.
           </p>
           <p style={{ margin: "0 0 20px" }}>
-            Take one photo, and Lumin&apos;s AI reads what your skin is
+            Take one photo, and AetherSkin&apos;s AI reads what your skin is
             actually doing — hydration, texture, and the everyday concerns
             everyone has up close. Then, instead of selling you our own
             products, we match you with ones that fit —{" "}
@@ -121,10 +121,10 @@ export default function AboutPage() {
         {/* Preferred source deeplink */}
         <div className="neo-border p-6" style={{ background: "#f4f4f2" }}>
           <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1.2px", color: "#1a1c1b", textTransform: "uppercase", margin: "0 0 8px" }}>
-            Follow Lumin on Google
+            Follow AetherSkin on Google
           </p>
           <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: 15, color: "#484739", lineHeight: 1.6, margin: "0 0 12px" }}>
-            Add Lumin as a preferred source so our updates surface for you in
+            Add AetherSkin as a preferred source so our updates surface for you in
             Google Search.
           </p>
           <div google-add-preferred-source-btn="" />

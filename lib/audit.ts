@@ -20,7 +20,7 @@ export type AuditEvent =
   | "quiz_rejected"
   | "rate_limited";
 
-const SALT = process.env.IP_HASH_SALT ?? "lumin-default-salt";
+const SALT = process.env.IP_HASH_SALT ?? "aetherskin-default-salt";
 
 export function hashPii(value: string): string {
   return crypto.createHash("sha256").update(value + SALT).digest("hex");

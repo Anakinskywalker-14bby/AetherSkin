@@ -7,11 +7,11 @@ import { breadcrumbJsonLd } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Terms of Service",
   description:
-    "The terms for using Lumin: what the waitlist is, what our recommendations are and aren't, affiliate disclosure, and acceptable use.",
+    "The terms for using AetherSkin: what the waitlist is, what our recommendations are and aren't, affiliate disclosure, and acceptable use.",
   alternates: { canonical: "/terms" },
   openGraph: {
-    title: "Terms of Service · Lumin",
-    description: "The terms that govern using Lumin's AI skin analysis service.",
+    title: "Terms of Service · AetherSkin",
+    description: "The terms that govern using AetherSkin's AI skin analysis service.",
     url: "/terms",
   },
 };
@@ -37,7 +37,7 @@ export default function TermsPage() {
 
       <div className="neo-border p-5 my-8" style={{ background: "#e8e883" }}>
         <p style={{ ...pStyle, margin: 0, color: "#1a1c1b" }}>
-          <strong>The short version:</strong> the waitlist is free. Lumin gives
+          <strong>The short version:</strong> the waitlist is free. AetherSkin gives
           cosmetic suggestions, not medical advice. Some product links earn us
           a commission at no cost to you, and we label them. Be 18+, don&apos;t
           abuse the service.
@@ -46,7 +46,7 @@ export default function TermsPage() {
 
       <h2 style={h2Style}>The waitlist</h2>
       <p style={pStyle}>
-        Joining the Lumin waitlist is free. You give us your email, confirm it,
+        Joining the AetherSkin waitlist is free. You give us your email, confirm it,
         and answer a short skin quiz. Joining doesn&apos;t guarantee a launch
         date, a specific place in line, or that the product will include any
         particular feature. We may change or cancel the beta.
@@ -54,13 +54,13 @@ export default function TermsPage() {
 
       <h2 style={h2Style}>Not medical advice</h2>
       <p style={pStyle}>
-        Lumin provides cosmetic and general wellness information to help you
+        AetherSkin provides cosmetic and general wellness information to help you
         choose skincare products. It is not a medical device, it does not
         diagnose, treat, cure, or prevent any condition, and it is not a
         substitute for a dermatologist or doctor. If you have a persistent,
         painful, spreading, or changing skin problem, please see a qualified
         healthcare professional. Never delay seeking medical advice because of
-        something Lumin suggested.
+        something AetherSkin suggested.
       </p>
       <p style={pStyle}>
         We ask about pregnancy, prescription treatments, and allergies purely
@@ -72,7 +72,7 @@ export default function TermsPage() {
 
       <h2 style={h2Style}>Affiliate disclosure</h2>
       <p style={pStyle}>
-        Lumin recommends products from third-party brands and retailers. Some
+        AetherSkin recommends products from third-party brands and retailers. Some
         links are affiliate links: if you buy through them, the brand or
         retailer may pay us a commission. This never changes the price you pay.
         If a placement is paid or sponsored, we label it as such and keep it
@@ -90,7 +90,7 @@ export default function TermsPage() {
 
       <h2 style={h2Style}>Availability</h2>
       <p style={pStyle}>
-        Lumin is pre-launch software offered as-is, without warranties. We
+        AetherSkin is pre-launch software offered as-is, without warranties. We
         can&apos;t promise uninterrupted availability, and to the extent
         permitted by law we&apos;re not liable for indirect or consequential
         loss arising from use of the site. Nothing here limits rights you have
@@ -99,10 +99,10 @@ export default function TermsPage() {
 
       <h2 style={h2Style}>Changes and contact</h2>
       <p style={pStyle}>
-        We may update these terms as Lumin develops; material changes will be
+        We may update these terms as AetherSkin develops; material changes will be
         announced by email before taking effect. A dedicated support address is
         being set up and will be published here. In the meantime, reply to any
-        email you receive from Lumin to reach us.
+        email you receive from AetherSkin to reach us.
       </p>
 
       <div className="flex flex-wrap gap-4 mt-12">

@@ -117,8 +117,8 @@ describe("getSiteUrl", () => {
   });
 
   it("prefers the explicit site URL", () => {
-    process.env.NEXT_PUBLIC_SITE_URL = "https://lumin.example";
-    expect(getSiteUrl()).toBe("https://lumin.example");
+    process.env.NEXT_PUBLIC_SITE_URL = "https://aetherskin.example";
+    expect(getSiteUrl()).toBe("https://aetherskin.example");
   });
 
   it("falls back to the Vercel deployment URL over https", () => {

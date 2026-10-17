@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * Lumin - neo-brutalist landing.
+ * AetherSkin - neo-brutalist landing.
  *
  * Signup is free: email -> double opt-in -> skin quiz. No payment,
  * no card fields anywhere on this page (see components/SignupSection).
@@ -14,7 +14,16 @@ import { SignupSection } from "@/components/SignupSection";
 import { StickyCta } from "@/components/StickyCta";
 import svgPaths from "@/lib/svg-design";
 
-const ASSET = "https://raw.githubusercontent.com/Anakinskywalker-14bby/Lumin/main/public/design";
+/**
+ * Served from public/design, not from GitHub raw.
+ *
+ * These were previously fetched from raw.githubusercontent.com, which meant
+ * the landing page's images depended on the repo keeping its name and staying
+ * public — renaming the repo would have silently broken every image. They're
+ * in the repo already, so Vercel serves them from the same origin: faster,
+ * cacheable, and one less external host in the CSP.
+ */
+const ASSET = "/design";
 const imgHand = `${ASSET}/hand.png`;
 const imgDropper = `${ASSET}/dropper.png`;
 const imgGlassSkin = `${ASSET}/glass-skin.png`;
@@ -316,7 +325,7 @@ function SolutionSection() {
             THE SOLUTION
           </div>
           <h2 style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 800, fontSize: "clamp(36px, 4vw, 52px)", color: "#1a1c1b", letterSpacing: "-1px", textAlign: "center", margin: 0 }}>
-            Lumin&apos;s AI Skin Analysis
+            AetherSkin&apos;s AI Skin Analysis
           </h2>
         </div>
 
@@ -330,7 +339,7 @@ function SolutionSection() {
               <h3 style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 800, fontSize: 32, color: "#1a1c1b", margin: 0 }}>Deep Scan Tech</h3>
             </div>
             <p style={{ fontFamily: "'Work Sans', sans-serif", fontWeight: 400, fontSize: 16, color: "#1a1c1b", lineHeight: 1.6, margin: 0 }}>
-              One selfie. Lumin&apos;s AI reads your face and maps hydration,
+              One selfie. AetherSkin&apos;s AI reads your face and maps hydration,
               texture, and everyday concerns — instantly.
             </p>
             <div className="neo-border p-6 flex flex-col justify-center gap-4" style={{ background: "#1a1c1b", height: 200 }}>
@@ -382,7 +391,7 @@ function SolutionSection() {
             <div className="flex flex-col gap-4 flex-1">
               <h3 style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 800, fontSize: 30, color: "#1a1c1b", margin: 0 }}>Continuous Tracking</h3>
               <p style={{ fontFamily: "'Work Sans', sans-serif", fontWeight: 400, fontSize: 16, color: "#1a1c1b", lineHeight: 1.6, margin: 0 }}>
-                Your skin changes with the seasons, stress, and sleep. Lumin
+                Your skin changes with the seasons, stress, and sleep. AetherSkin
                 tracks your progress and adjusts your routine dynamically.
               </p>
             </div>
@@ -614,7 +623,7 @@ function NewFooter() {
   return (
     <footer className="flex flex-col md:flex-row gap-6 items-center justify-between px-6 md:px-16 py-12" style={{ background: "#beeaf8", borderTop: "3px solid #1a1c1b" }}>
       <div className="flex flex-col gap-3 items-center md:items-start">
-        <span style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 900, fontSize: 30, color: "#001f27" }}>Lumin</span>
+        <span style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 900, fontSize: 30, color: "#001f27" }}>AetherSkin</span>
         {/* Official Google "Add as preferred source" button */}
         <div google-add-preferred-source-btn="" />
       </div>
@@ -624,7 +633,7 @@ function NewFooter() {
         <Link href="/terms" style={{ fontFamily: "'Work Sans', sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "1.6px", color: "#001f27" }}>TERMS</Link>
         <Link href="/#beta" style={{ fontFamily: "'Work Sans', sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "1.6px", color: "#001f27" }}>JOIN FREE</Link>
       </div>
-      <span style={{ fontFamily: "'Work Sans', sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1.6px", color: "#001f27" }}>{`© ${new Date().getFullYear()} LUMIN. BUILT FOR THE BOLD.`}</span>
+      <span style={{ fontFamily: "'Work Sans', sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1.6px", color: "#001f27" }}>{`© ${new Date().getFullYear()} AETHERSKIN. BUILT FOR THE BOLD.`}</span>
     </footer>
   );
 }

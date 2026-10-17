@@ -7,11 +7,11 @@ import { breadcrumbJsonLd } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
-    "What data Lumin collects, how we use it, how long we keep it, and how to delete it. Plain English, no legalese padding.",
+    "What data AetherSkin collects, how we use it, how long we keep it, and how to delete it. Plain English, no legalese padding.",
   alternates: { canonical: "/privacy" },
   openGraph: {
-    title: "Privacy Policy · Lumin",
-    description: "What Lumin collects, how we use it, and how to delete it.",
+    title: "Privacy Policy · AetherSkin",
+    description: "What AetherSkin collects, how we use it, and how to delete it.",
     url: "/privacy",
   },
 };
@@ -76,7 +76,7 @@ export default function PrivacyPage() {
         combination skin&rdquo;) to decide what to build first.
       </p>
       <p style={pStyle}>
-        We share data only with the vendors that run Lumin: Supabase (database
+        We share data only with the vendors that run AetherSkin: Supabase (database
         hosting), Vercel (site hosting), and Resend (email delivery). They
         process data on our behalf under their own terms. We do not sell or
         rent personal information to anyone.
@@ -93,7 +93,7 @@ export default function PrivacyPage() {
 
       <h2 style={h2Style}>Future scan data</h2>
       <p style={pStyle}>
-        Face scans are not collected today. When the Lumin app launches, scans
+        Face scans are not collected today. When the AetherSkin app launches, scans
         will be governed by a separate, explicit consent step shown before any
         photo is taken. Our standing commitments: your photo is used to
         generate your results, we will not use it to train models without a
@@ -112,7 +112,7 @@ export default function PrivacyPage() {
 
       <h2 style={h2Style}>Cookies</h2>
       <p style={pStyle}>
-        Lumin does not use advertising or tracking cookies. We store a single
+        AetherSkin does not use advertising or tracking cookies. We store a single
         local preference recording your cookie-banner choice so we don&apos;t
         ask you twice. If we add analytics later, it will only load after you
         opt in, and this page will be updated first.
@@ -120,7 +120,7 @@ export default function PrivacyPage() {
 
       <h2 style={h2Style}>Children</h2>
       <p style={pStyle}>
-        Lumin is intended for people 18 and over. We do not knowingly collect
+        AetherSkin is intended for people 18 and over. We do not knowingly collect
         information from children. If you believe a minor has given us data,
         contact us and we will delete it.
       </p>
@@ -128,7 +128,7 @@ export default function PrivacyPage() {
       <h2 style={h2Style}>Contact &amp; changes</h2>
       <p style={pStyle}>
         A dedicated support address is being set up and will be published here.
-        In the meantime you can reply to any email you receive from Lumin to
+        In the meantime you can reply to any email you receive from AetherSkin to
         reach us, including for access or deletion requests. If we change this
         policy materially, we will say so by email before the change takes
         effect.

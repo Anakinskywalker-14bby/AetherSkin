@@ -84,7 +84,7 @@ export async function POST(req: Request) {
     const admin = createAdminClient();
     const { token, hash } = generateToken();
 
-    const ipSalt = process.env.IP_HASH_SALT ?? "lumin-default-salt";
+    const ipSalt = process.env.IP_HASH_SALT ?? "aetherskin-default-salt";
     const signup_ip_hash = crypto
       .createHash("sha256")
       .update(ip + ipSalt)
