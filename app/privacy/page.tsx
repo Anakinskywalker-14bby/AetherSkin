@@ -30,13 +30,13 @@ export default function PrivacyPage() {
       />
       <Breadcrumbs items={crumbs} />
 
-      <h1 style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 900, fontSize: "clamp(34px, 5vw, 52px)", color: "#1a1c1b", letterSpacing: "-1.5px", lineHeight: 1.1, margin: "0 0 8px" }}>
+      <h1 style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 900, fontSize: "clamp(34px, 5vw, 52px)", color: "var(--ink)", letterSpacing: "-1.5px", lineHeight: 1.1, margin: "0 0 8px" }}>
         Privacy Policy
       </h1>
       <p style={{ ...pStyle, fontSize: 14 }}>Last updated: December 31, 2026</p>
 
-      <div className="neo-border p-5 my-8" style={{ background: "#beeaf8" }}>
-        <p style={{ ...pStyle, margin: 0, color: "#1a1c1b" }}>
+      <div className="neo-border p-5 my-8" style={{ background: "var(--blue)" }}>
+        <p style={{ ...pStyle, margin: 0, color: "var(--ink)" }}>
           <strong>The short version:</strong> we collect your email and your
           skin quiz answers. That&apos;s it. No payment, no card details. We
           don&apos;t sell your data. You can ask us to delete everything at any
@@ -135,10 +135,10 @@ export default function PrivacyPage() {
       </p>
 
       <div className="flex flex-wrap gap-4 mt-12">
-        <Link href="/" className="neo-shadow neo-border px-8 py-4" style={{ background: "#f9f9f7", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 16, letterSpacing: "0.9px", color: "#1a1c1b" }}>
+        <Link href="/" className="neo-shadow neo-border px-8 py-4" style={{ background: "var(--surface)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 16, letterSpacing: "0.9px", color: "var(--ink)" }}>
           BACK HOME
         </Link>
-        <Link href="/terms" className="neo-shadow neo-border px-8 py-4" style={{ background: "#beeaf8", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 16, letterSpacing: "0.9px", color: "#1a1c1b" }}>
+        <Link href="/terms" className="neo-shadow neo-border px-8 py-4" style={{ background: "var(--blue)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 16, letterSpacing: "0.9px", color: "var(--ink)" }}>
           TERMS OF SERVICE
         </Link>
       </div>

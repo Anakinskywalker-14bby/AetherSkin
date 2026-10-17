@@ -36,7 +36,24 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${manrope.variable} ${hanken.variable} ${GeistSans.variable}`}>
+    <html
+      lang="en"
+      className={`${manrope.variable} ${hanken.variable} ${GeistSans.variable}`}
+      suppressHydrationWarning
+    >
+      <head>
+        {/*
+          Applies the stored theme before first paint. This has to be inline
+          and render-blocking: anything deferred lets the light theme paint
+          first and then flash to dark. suppressHydrationWarning above is
+          because this script legitimately mutates <html> before React sees it.
+        */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var s=localStorage.getItem("aetherskin-theme");var d=s?s==="dark":matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.classList.add(d?"dark":"light")}catch(e){}})();`,
+          }}
+        />
+      </head>
       <body>
         {/* Keyboard users can jump straight past the nav. */}
         <a href="#main" className="skip-link">

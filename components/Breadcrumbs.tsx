@@ -13,7 +13,7 @@ export function Breadcrumbs({ items }: { items: { name: string; path: string }[]
                 <span
                   aria-current="page"
                   className="neo-border px-3 py-1.5"
-                  style={{ background: "#e8e883", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 12, letterSpacing: "1px", color: "#1a1c1b", textTransform: "uppercase" }}
+                  style={{ background: "var(--yellow)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 12, letterSpacing: "1px", color: "var(--ink)", textTransform: "uppercase" }}
                 >
                   {item.name}
                 </span>
@@ -22,11 +22,11 @@ export function Breadcrumbs({ items }: { items: { name: string; path: string }[]
                   <Link
                     href={item.path}
                     className="neo-border px-3 py-1.5 transition-transform hover:-translate-y-0.5"
-                    style={{ background: "#f9f9f7", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 12, letterSpacing: "1px", color: "#1a1c1b", textTransform: "uppercase" }}
+                    style={{ background: "var(--surface)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 12, letterSpacing: "1px", color: "var(--ink)", textTransform: "uppercase" }}
                   >
                     {item.name}
                   </Link>
-                  <span aria-hidden style={{ fontWeight: 700, color: "#1a1c1b" }}>→</span>
+                  <span aria-hidden style={{ fontWeight: 700, color: "var(--ink)" }}>→</span>
                 </>
               )}
             </li>

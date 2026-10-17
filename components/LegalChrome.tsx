@@ -4,7 +4,7 @@ export const h2Style = {
   fontFamily: "'Hanken Grotesk', sans-serif",
   fontWeight: 800,
   fontSize: 28,
-  color: "#1a1c1b",
+  color: "var(--ink)",
   letterSpacing: "-0.5px",
   margin: "40px 0 12px",
 } as const;
@@ -14,7 +14,7 @@ export const h3Style = {
   fontWeight: 700,
   fontSize: 15,
   letterSpacing: "0.8px",
-  color: "#1a1c1b",
+  color: "var(--ink)",
   textTransform: "uppercase",
   margin: "24px 0 8px",
 } as const;
@@ -22,7 +22,7 @@ export const h3Style = {
 export const pStyle = {
   fontFamily: "'Work Sans', sans-serif",
   fontSize: 16,
-  color: "#484739",
+  color: "var(--muted)",
   lineHeight: 1.75,
   margin: "0 0 14px",
 } as const;
@@ -30,18 +30,18 @@ export const pStyle = {
 /** Shared shell for the legal pages: nav + centered prose column. */
 export function LegalChrome({ children }: { children: React.ReactNode }) {
   return (
-    <main className="relative min-h-screen" style={{ background: "#f9f9f7" }}>
+    <main className="relative min-h-screen" style={{ background: "var(--surface)" }}>
       <nav
         className="flex items-center justify-between px-6 md:px-16 h-[72px]"
-        style={{ background: "#f9f9f7", borderBottom: "3px solid #1a1c1b" }}
+        style={{ background: "var(--surface)", borderBottom: "3px solid var(--ink)" }}
       >
-        <Link href="/" aria-label="AetherSkin home" style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 900, fontStyle: "italic", fontSize: 24, letterSpacing: -1.2, color: "#1a1c1b" }}>
+        <Link href="/" aria-label="AetherSkin home" style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 900, fontStyle: "italic", fontSize: 24, letterSpacing: -1.2, color: "var(--ink)" }}>
           AetherSkin
         </Link>
         <Link
           href="/#beta"
           className="neo-shadow-sm neo-border px-6 py-2.5"
-          style={{ background: "#e8e883", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "0.7px", color: "#1a1c1b" }}
+          style={{ background: "var(--yellow)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "0.7px", color: "var(--ink)" }}
         >
           JOIN FREE
         </Link>

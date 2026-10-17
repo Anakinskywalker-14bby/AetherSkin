@@ -72,12 +72,12 @@ export function StickyCta() {
         href="/#beta"
         className="neo-shadow neo-border block w-full py-4 text-center"
         style={{
-          background: "#e8e883",
+          background: "var(--yellow)",
           fontFamily: "'Space Grotesk', sans-serif",
           fontWeight: 700,
           fontSize: 16,
           letterSpacing: "0.9px",
-          color: "#1a1c1b",
+          color: "var(--ink)",
         }}
         tabIndex={show ? 0 : -1}
       >

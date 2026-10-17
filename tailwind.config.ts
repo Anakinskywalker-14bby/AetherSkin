@@ -2,9 +2,13 @@ import type { Config } from "tailwindcss";
 
 /**
  * AetherSkin — "Void cut". Deep-black cinema, one electric volt-lime signal,
- * one bioaetherskinescent pink pulse for detections.
+ * one bioluminescent pink pulse for detections.
  */
 const config: Config = {
+  // Theme is driven by a `dark` class on <html>, set before first paint by
+  // the inline script in app/layout.tsx. Class-based rather than media-based
+  // so the pull-cord can override the OS preference.
+  darkMode: "class",
   content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./lib/**/*.{ts,tsx}"],
   theme: {
     extend: {

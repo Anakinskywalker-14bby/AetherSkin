@@ -5,29 +5,90 @@
 @tailwind utilities;
 
 /* ── AetherSkin · Neo-brutalist landing + dark utility pages ─────────────── */
+/*
+ * Theme tokens.
+ *
+ * The landing page styles elements with inline hex values rather than Tailwind
+ * classes, so `dark:` variants can't reach them. Every colour is therefore a
+ * CSS variable, and dark mode swaps the variable rather than the rule — which
+ * means one definition here themes all ~300 colour usages across the site.
+ *
+ * Names describe ROLE, not appearance: --surface stays "the page background"
+ * in both themes. A token called --cream that goes dark would be a trap.
+ */
 :root {
-  --cream: #f9f9f7;
-  --ink: #1a1c1b;
-  --yellow: #e8e883;
-  --blue: #beeaf8;
+  --surface: #f9f9f7;    /* page background */
+  --surface-2: #f4f4f2;  /* alternating section background */
+  --ink: #1a1c1b;        /* text, borders, hard shadows */
+  --muted: #484739;      /* secondary text */
+  --yellow: #e8e883;     /* primary accent / CTA */
+  --blue: #beeaf8;       /* secondary accent */
   --olive: #cbcb6a;
-  /* dark palette (success page + legacy components) */
+  --sand: #e8dfd0;
+  --deep: #001f27;       /* footer text */
+  --err-bg: #ffdad6;
+  --err-text: #93000a;
+  --err-border: #ba1a1a;
+
+  /* Legacy dark palette, used by the quiz/verify pages. Not theme-swapped. */
   --night: #050505;
   --signal: #d9ff3b;
   --ember: #ff9ee0;
   --fog: #8a9490;
   --frost: #f2f5f0;
+
+  color-scheme: light;
+}
+
+.dark {
+  --surface: #121311;
+  --surface-2: #1a1b19;
+  --ink: #f2f3ef;        /* inverted: now light text on dark ground */
+  --muted: #a8a898;
+  --yellow: #e8e883;     /* accents hold up on dark, left as-is */
+  --blue: #9fd9ef;
+  --olive: #b4b45c;
+  --sand: #2a2822;
+  --deep: #d6eef7;
+  --err-bg: #3a100c;
+  --err-text: #ffb4ab;
+  --err-border: #ff5449;
+
+  color-scheme: dark;
+}
+
+/*
+ * Respect the OS preference on first visit, but only until a choice is stored.
+ * The inline script in layout.tsx adds .dark/.light to <html> before paint, so
+ * this block applies for the no-JS case and never fights an explicit choice.
+ */
+@media (prefers-color-scheme: dark) {
+  html:not(.light):not(.dark) {
+    --surface: #121311;
+    --surface-2: #1a1b19;
+    --ink: #f2f3ef;
+    --muted: #a8a898;
+    --blue: #9fd9ef;
+    --olive: #b4b45c;
+    --sand: #2a2822;
+    --deep: #d6eef7;
+    --err-bg: #3a100c;
+    --err-text: #ffb4ab;
+    --err-border: #ff5449;
+    color-scheme: dark;
+  }
 }
 
 html {
-  background: var(--cream);
+  background: var(--surface);
   scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
-  background: var(--cream);
+  background: var(--surface);
   color: var(--ink);
+  transition: background-color 0.3s ease, color 0.3s ease;
   font-family: "Work Sans", sans-serif;
   @apply antialiased;
   overflow-x: hidden;
@@ -39,9 +100,11 @@ body {
 }
 
 /* ── Neo-brutalist primitives ───────────────────────────────────────── */
-.neo-shadow { box-shadow: 8px 8px 0px #1a1c1b; }
-.neo-shadow-sm { box-shadow: 4px 4px 0px #1a1c1b; }
-.neo-border { border: 3px solid #1a1c1b; }
+/* The hard offset shadow is the signature of the style, so it follows --ink
+   and becomes a light shadow on dark ground rather than disappearing. */
+.neo-shadow { box-shadow: 8px 8px 0px var(--ink); }
+.neo-shadow-sm { box-shadow: 4px 4px 0px var(--ink); }
+.neo-border { border: 3px solid var(--ink); }
 
 @keyframes dropForm {
   0% { transform: scaleY(0.3) scaleX(0.6); opacity: 0; }

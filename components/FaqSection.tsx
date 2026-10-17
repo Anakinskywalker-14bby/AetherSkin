@@ -43,19 +43,19 @@ export function FaqSection() {
       id="faq"
       aria-labelledby="faq-heading"
       className="relative w-full"
-      style={{ background: "#f4f4f2", borderBottom: "3px solid #1a1c1b" }}
+      style={{ background: "var(--surface-2)", borderBottom: "3px solid var(--ink)" }}
     >
       <div className="max-w-[880px] mx-auto px-5 md:px-16 py-20 md:py-24">
         <div
           className="inline-block neo-border neo-shadow-sm px-4 py-2 mb-6"
           style={{
-            background: "#beeaf8",
+            background: "var(--blue)",
             transform: "rotate(-1.5deg)",
             fontFamily: "'Space Grotesk', sans-serif",
             fontWeight: 700,
             fontSize: 13,
             letterSpacing: "1.4px",
-            color: "#1a1c1b",
+            color: "var(--ink)",
           }}
         >
           QUESTIONS
@@ -67,7 +67,7 @@ export function FaqSection() {
             fontFamily: "'Hanken Grotesk', sans-serif",
             fontWeight: 800,
             fontSize: "clamp(32px, 4vw, 48px)",
-            color: "#1a1c1b",
+            color: "var(--ink)",
             letterSpacing: "-1px",
             lineHeight: 1.1,
             margin: "0 0 32px",
@@ -81,14 +81,14 @@ export function FaqSection() {
             <div
               key={item.q}
               className="neo-border p-5 md:p-6"
-              style={{ background: "#f9f9f7" }}
+              style={{ background: "var(--surface)" }}
             >
               <dt
                 style={{
                   fontFamily: "'Hanken Grotesk', sans-serif",
                   fontWeight: 800,
                   fontSize: 19,
-                  color: "#1a1c1b",
+                  color: "var(--ink)",
                   margin: "0 0 8px",
                   lineHeight: 1.3,
                 }}
@@ -99,7 +99,7 @@ export function FaqSection() {
                 style={{
                   fontFamily: "'Work Sans', sans-serif",
                   fontSize: 16,
-                  color: "#484739",
+                  color: "var(--muted)",
                   lineHeight: 1.7,
                   margin: 0,
                 }}

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const LINKS = [
   { href: "/about", label: "ABOUT" },
@@ -37,15 +38,15 @@ export function SiteNav() {
       <nav
         className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-5 md:px-16 h-[72px] transition-all duration-300"
         style={{
-          background: "#f9f9f7",
-          borderBottom: "3px solid #1a1c1b",
-          boxShadow: scrolled ? "0 4px 0 #1a1c1b" : "4px 4px 0 #1a1c1b",
+          background: "var(--surface)",
+          borderBottom: "3px solid var(--ink)",
+          boxShadow: scrolled ? "0 4px 0 var(--ink)" : "4px 4px 0 var(--ink)",
         }}
       >
         <Link
           href="/"
           aria-label="AetherSkin home"
-          style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 900, fontStyle: "italic", fontSize: 24, letterSpacing: -1.2, color: "#1a1c1b" }}
+          style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 900, fontStyle: "italic", fontSize: 24, letterSpacing: -1.2, color: "var(--ink)" }}
         >
           AetherSkin
         </Link>
@@ -56,20 +57,32 @@ export function SiteNav() {
             <Link
               key={l.href}
               href={l.href}
-              style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "0.7px", color: "#1a1c1b" }}
+              style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "0.7px", color: "var(--ink)" }}
             >
               {l.label}
             </Link>
           ))}
         </div>
 
-        <Link
-          href="/#beta"
-          className="hidden md:inline-block neo-shadow-sm neo-border px-7 py-2.5"
-          style={{ background: "#e8e883", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "0.7px", color: "#1a1c1b" }}
-        >
-          SIGN UP FREE
-        </Link>
+        <div className="hidden md:flex items-center gap-5">
+          <Link
+            href="/#beta"
+            className="neo-shadow-sm neo-border px-7 py-2.5"
+            style={{ background: "var(--yellow)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "0.7px", color: "var(--ink)" }}
+          >
+            SIGN UP FREE
+          </Link>
+        </div>
+
+        {/*
+          The lamp hangs out of the nav rather than sitting inside it — the
+          cord needs vertical room below its anchor to swing, so a 72px-tall
+          bar can't contain it. Pointer events are scoped to the lamp itself
+          in ThemeToggle so this overlay never blocks the hero beneath.
+        */}
+        <div className="pointer-events-none absolute right-4 md:right-16 top-[62px] z-[51]">
+          <ThemeToggle />
+        </div>
 
         {/* Mobile toggle */}
         <button
@@ -79,17 +92,17 @@ export function SiteNav() {
           aria-controls="mobile-menu"
           aria-label={open ? "Close menu" : "Open menu"}
           className="md:hidden neo-border p-3"
-          style={{ background: open ? "#e8e883" : "#f9f9f7" }}
+          style={{ background: open ? "var(--yellow)" : "var(--surface)" }}
         >
           <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
           <svg width="20" height="14" viewBox="0 0 20 14" fill="none" aria-hidden="true">
             {open ? (
               <>
-                <path d="M2 2l16 10M18 2L2 12" stroke="#1a1c1b" strokeWidth="2.5" strokeLinecap="round" />
+                <path d="M2 2l16 10M18 2L2 12" stroke="var(--ink)" strokeWidth="2.5" strokeLinecap="round" />
               </>
             ) : (
               <>
-                <path d="M0 1.25h20M0 7h20M0 12.75h20" stroke="#1a1c1b" strokeWidth="2.5" strokeLinecap="round" />
+                <path d="M0 1.25h20M0 7h20M0 12.75h20" stroke="var(--ink)" strokeWidth="2.5" strokeLinecap="round" />
               </>
             )}
           </svg>
@@ -101,7 +114,7 @@ export function SiteNav() {
         <div
           id="mobile-menu"
           className="fixed inset-x-0 top-[72px] bottom-0 z-40 md:hidden flex flex-col gap-4 p-5"
-          style={{ background: "#f9f9f7", borderTop: "3px solid #1a1c1b" }}
+          style={{ background: "var(--surface)", borderTop: "3px solid var(--ink)" }}
         >
           {LINKS.map((l) => (
             <Link
@@ -109,7 +122,7 @@ export function SiteNav() {
               href={l.href}
               onClick={() => setOpen(false)}
               className="neo-shadow-sm neo-border px-6 py-5"
-              style={{ background: "#f9f9f7", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 18, letterSpacing: "0.8px", color: "#1a1c1b" }}
+              style={{ background: "var(--surface)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 18, letterSpacing: "0.8px", color: "var(--ink)" }}
             >
               {l.label}
             </Link>
@@ -118,7 +131,7 @@ export function SiteNav() {
             href="/#beta"
             onClick={() => setOpen(false)}
             className="neo-shadow neo-border px-6 py-5 text-center mt-2"
-            style={{ background: "#e8e883", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 18, letterSpacing: "0.9px", color: "#1a1c1b" }}
+            style={{ background: "var(--yellow)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 18, letterSpacing: "0.9px", color: "var(--ink)" }}
           >
             SIGN UP FREE
           </Link>
