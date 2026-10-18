@@ -3,7 +3,7 @@ import { assertSameOrigin } from "@/lib/security";
 import { SITE_URL } from "@/lib/site";
 
 const SELF = new URL(SITE_URL).origin;
-const LIVE_HOST = "lumin-site-git-main-luminskin.vercel.app";
+const LIVE_HOST = "aetherskin-git-main-luminskin.vercel.app";
 
 function req(headers: Record<string, string>) {
   return new Request("https://example.test/api/waitlist/join", {
@@ -28,7 +28,7 @@ describe("assertSameOrigin (CSRF defence)", () => {
 
   it("accepts a future custom domain with no config change", () => {
     const r = assertSameOrigin(
-      req({ origin: "https://aetherskinskin.app", "x-forwarded-host": "aetherskinskin.app" })
+      req({ origin: "https://aetherskin.app", "x-forwarded-host": "aetherskin.app" })
     );
     expect(r.ok).toBe(true);
   });

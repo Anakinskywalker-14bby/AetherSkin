@@ -6,7 +6,7 @@
  * that one instead. See the note in .env.production.
  */
 export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://lumin-site-bay.vercel.app";
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://aetherskin.app";
 
 export const SITE_NAME = "AetherSkin";
 
