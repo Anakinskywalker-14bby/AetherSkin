@@ -27,12 +27,26 @@ export function StickyCta() {
     }
 
     const observers: IntersectionObserver[] = [];
-    // Failsafe: reveal after 2s even if no callback arrives.
-    const failsafe = window.setTimeout(() => setHeroGone(true), 2000);
+
+    /*
+     * Failsafe, for the case where the observer never reports at all.
+     *
+     * It used to fire unconditionally after 2s, which meant the CTA forced
+     * itself on screen even while the observer was correctly reporting the
+     * hero as visible — so it floated over the closed wardrobe doors during
+     * the reveal. It now only fires if nothing has been heard back.
+     */
+    let heard = false;
+    const failsafe = window.setTimeout(() => {
+      if (!heard) setHeroGone(true);
+    }, 2000);
 
     if (hero) {
       const o = new IntersectionObserver(
-        ([entry]) => setHeroGone(!entry.isIntersecting),
+        ([entry]) => {
+          heard = true;
+          setHeroGone(!entry.isIntersecting);
+        },
         { threshold: 0 }
       );
       o.observe(hero);

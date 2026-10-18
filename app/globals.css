@@ -152,7 +152,9 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
   font-family: "DM Sans", system-ui, sans-serif;
   @apply antialiased;
-  overflow-x: hidden;
+  /* clip rather than hidden — see the note on html,body at the end of this
+     file. hidden would make body a scroll container and kill sticky. */
+  overflow-x: clip;
 }
 
 ::selection {
@@ -566,8 +568,15 @@ button.neo-shadow-sm.neo-border,
   border: 0;
 }
 
-/* Never allow horizontal scroll on any breakpoint */
+/*
+ * Never allow horizontal scroll on any breakpoint.
+ *
+ * `clip`, not `hidden`. overflow-x:hidden makes the element a scroll
+ * container, and a scroll container silently disables position:sticky for
+ * everything inside it — which broke the door reveal: the pinned hero just
+ * scrolled away. overflow:clip clips identically without creating one.
+ */
 html, body {
   max-width: 100%;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
