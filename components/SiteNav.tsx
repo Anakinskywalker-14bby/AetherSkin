@@ -38,17 +38,34 @@ export function SiteNav() {
       <nav
         className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-5 md:px-16 h-[72px] transition-all duration-300"
         style={{
-          background: "var(--surface)",
-          borderBottom: "3px solid var(--ink)",
-          boxShadow: scrolled ? "0 4px 0 var(--ink)" : "4px 4px 0 var(--ink)",
+          background: "color-mix(in srgb, var(--surface) 88%, transparent)",
+          backdropFilter: "saturate(140%) blur(10px)",
+          WebkitBackdropFilter: "saturate(140%) blur(10px)",
+          borderBottom: "1px solid color-mix(in srgb, var(--ink) 12%, transparent)",
+          boxShadow: scrolled ? "0 10px 30px -18px rgba(90, 24, 50, 0.45)" : "none",
         }}
       >
-        <Link
-          href="/"
-          aria-label="AetherSkin home"
-          style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 900, fontStyle: "italic", fontSize: 24, letterSpacing: -1.2, color: "var(--ink)" }}
-        >
-          AetherSkin
+        {/* Brand lockup. Two files rather than a recolourable inline SVG
+            because the mark is multi-colour (Berry frame, Coral sun, Butter
+            glow) — a single currentColor version would lose the sunrise. */}
+        <Link href="/" aria-label="AetherSkin home" className="shrink-0">
+          {/* eslint-disable-next-line @next/next/no-img-element -- static brand asset, fixed size */}
+          <img
+            src="/brand/lockup-horizontal.svg"
+            alt="AetherSkin"
+            width={137}
+            height={34}
+            className="block h-[34px] w-auto dark:hidden"
+          />
+          {/* eslint-disable-next-line @next/next/no-img-element -- static brand asset, fixed size */}
+          <img
+            src="/brand/lockup-horizontal-reversed.svg"
+            alt=""
+            aria-hidden="true"
+            width={137}
+            height={34}
+            className="hidden h-[34px] w-auto dark:block"
+          />
         </Link>
 
         {/* Desktop */}
@@ -57,7 +74,7 @@ export function SiteNav() {
             <Link
               key={l.href}
               href={l.href}
-              style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "0.7px", color: "var(--ink)" }}
+              style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "0.7px", color: "var(--ink)" }}
             >
               {l.label}
             </Link>
@@ -68,7 +85,7 @@ export function SiteNav() {
           <Link
             href="/#beta"
             className="on-accent neo-shadow-sm neo-border px-7 py-2.5"
-            style={{ background: "var(--yellow)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "0.7px", color: "var(--ink)" }}
+            style={{ background: "var(--yellow)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "0.7px", color: "var(--ink)" }}
           >
             SIGN UP FREE
           </Link>
@@ -80,7 +97,7 @@ export function SiteNav() {
           bar can't contain it. Pointer events are scoped to the lamp itself
           in ThemeToggle so this overlay never blocks the hero beneath.
         */}
-        <div className="pointer-events-none absolute right-4 md:right-16 top-[62px] z-[51]">
+        <div className="pointer-events-none absolute left-2 md:left-6 top-[58px] z-[51]">
           <ThemeToggle />
         </div>
 
@@ -122,7 +139,7 @@ export function SiteNav() {
               href={l.href}
               onClick={() => setOpen(false)}
               className="neo-shadow-sm neo-border px-6 py-5"
-              style={{ background: "var(--surface)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 18, letterSpacing: "0.8px", color: "var(--ink)" }}
+              style={{ background: "var(--surface)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 18, letterSpacing: "0.8px", color: "var(--ink)" }}
             >
               {l.label}
             </Link>
@@ -131,7 +148,7 @@ export function SiteNav() {
             href="/#beta"
             onClick={() => setOpen(false)}
             className="on-accent neo-shadow neo-border px-6 py-5 text-center mt-2"
-            style={{ background: "var(--yellow)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 18, letterSpacing: "0.9px", color: "var(--ink)" }}
+            style={{ background: "var(--yellow)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 18, letterSpacing: "0.9px", color: "var(--ink)" }}
           >
             SIGN UP FREE
           </Link>

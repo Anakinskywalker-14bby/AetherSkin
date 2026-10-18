@@ -1,4 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,700;0,800;0,900;1,700;1,900&family=Epilogue:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Work+Sans:wght@400;700&family=Space+Grotesk:wght@400;700&display=swap");
+/* Brand type: Fraunces for headlines and the wordmark, DM Sans for everything
+   read at small sizes. Replaces the previous Hanken/Work Sans/Space Grotesk
+   stack — see the "Mirror Moment" brand board. */
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -16,19 +19,39 @@
  * Names describe ROLE, not appearance: --surface stays "the page background"
  * in both themes. A token called --cream that goes dark would be a trap.
  */
+/*
+ * Palette: AetherSkin "Mirror Moment".
+ *   Berry  #5A1832  frame, wordmark, text
+ *   Coral  #FF6B5B  the sun — primary accent
+ *   Butter #FFD166  the glow — highlights
+ *   Blush  #FFD3DC  glass, soft grounds
+ *   Cream  #FFF6EC  backgrounds
+ *   Rose   #C2416B  labels, links
+ *
+ * The token names stayed the same through the rebrand on purpose: ~220 call
+ * sites reference them, and renaming --yellow to --butter would have been a
+ * second sweep for no behavioural gain. They are mapped by ROLE, so --yellow
+ * is "the warm primary accent" and now holds Butter.
+ */
 :root {
-  --surface: #f9f9f7;    /* page background */
-  --surface-2: #f4f4f2;  /* alternating section background */
-  --ink: #1a1c1b;        /* text, borders, hard shadows */
-  --muted: #484739;      /* secondary text */
-  --yellow: #e8e883;     /* primary accent / CTA */
-  --blue: #beeaf8;       /* secondary accent */
-  --olive: #cbcb6a;
-  --sand: #e8dfd0;
-  --deep: #001f27;       /* footer text */
-  --err-bg: #ffdad6;
-  --err-text: #93000a;
-  --err-border: #ba1a1a;
+  --surface: #fff6ec;    /* Cream — page background */
+  --surface-2: #fffcf7;  /* lifted card on cream */
+  --ink: #5a1832;        /* Berry — text, borders */
+  --muted: #8a5a6b;      /* Berry lightened to reading weight */
+  --yellow: #ffd166;     /* Butter — the glow */
+  --blue: #ffd3dc;       /* Blush — soft grounds */
+  --olive: #ff6b5b;      /* Coral — the sun, primary CTA */
+  --sand: #ffd3dc;
+  --deep: #5a1832;       /* footer text */
+  --rose: #c2416b;       /* labels, links */
+  --coral: #ff6b5b;
+  --butter: #ffd166;
+  --blush: #ffd3dc;
+  --berry: #5a1832;
+  --cream: #fff6ec;
+  --err-bg: #ffe4e0;
+  --err-text: #9b2c1f;
+  --err-border: #ff6b5b;
 
   /* Legacy dark palette, used by the quiz/verify pages. Not theme-swapped. */
   --night: #050505;
@@ -40,19 +63,24 @@
   color-scheme: light;
 }
 
+/* Dark is Berry taken most of the way down rather than neutral grey, so the
+   brand still reads warm with the lights off. */
 .dark {
-  --surface: #121311;
-  --surface-2: #1a1b19;
-  --ink: #f2f3ef;        /* inverted: now light text on dark ground */
-  --muted: #a8a898;
-  --yellow: #e8e883;     /* accents hold up on dark, left as-is */
-  --blue: #9fd9ef;
-  --olive: #b4b45c;
-  --sand: #2a2822;
-  --deep: #d6eef7;
-  --err-bg: #3a100c;
+  --surface: #1b0a13;    /* deep berry-black */
+  --surface-2: #26101b;
+  --ink: #ffeede;        /* warm cream text */
+  --muted: #c9a3b2;
+  --yellow: #ffd166;     /* Butter and Coral hold up on dark, unchanged */
+  --blue: #3d1b2a;       /* Blush is too light for a dark ground */
+  --olive: #ff6b5b;
+  --sand: #3d1b2a;
+  --deep: #ffeede;
+  --rose: #ff8fae;       /* Rose lifted for contrast on dark */
+  --blush: #3d1b2a;
+  --cream: #1b0a13;
+  --err-bg: #3d1410;
   --err-text: #ffb4ab;
-  --err-border: #ff5449;
+  --err-border: #ff6b5b;
 
   color-scheme: dark;
 }
@@ -64,17 +92,19 @@
  */
 @media (prefers-color-scheme: dark) {
   html:not(.light):not(.dark) {
-    --surface: #121311;
-    --surface-2: #1a1b19;
-    --ink: #f2f3ef;
-    --muted: #a8a898;
-    --blue: #9fd9ef;
-    --olive: #b4b45c;
-    --sand: #2a2822;
-    --deep: #d6eef7;
-    --err-bg: #3a100c;
+    --surface: #1b0a13;
+    --surface-2: #26101b;
+    --ink: #ffeede;
+    --muted: #c9a3b2;
+    --blue: #3d1b2a;
+    --olive: #ff6b5b;
+    --sand: #3d1b2a;
+    --deep: #ffeede;
+    --rose: #ff8fae;
+    --blush: #3d1b2a;
+    --err-bg: #3d1410;
     --err-text: #ffb4ab;
-    --err-border: #ff5449;
+    --err-border: #ff6b5b;
     color-scheme: dark;
   }
 }
@@ -89,14 +119,14 @@ body {
   background: var(--surface);
   color: var(--ink);
   transition: background-color 0.3s ease, color 0.3s ease;
-  font-family: "Work Sans", sans-serif;
+  font-family: "DM Sans", system-ui, sans-serif;
   @apply antialiased;
   overflow-x: hidden;
 }
 
 ::selection {
-  background: #e8e883;
-  color: #1a1c1b;
+  background: var(--butter, #ffd166);
+  color: #5a1832;
 }
 
 /*
@@ -113,20 +143,70 @@ body {
  * added later. Put `on-accent` on anything with an accent background.
  */
 .on-accent {
-  --ink: #1a1c1b;
-  --deep: #1a1c1b;
-  --muted: #45443a;
-  --surface: #f9f9f7;
-  --surface-2: #f4f4f2;
+  --ink: #5a1832;        /* Berry stays legible on Butter, Coral and Blush */
+  --deep: #5a1832;
+  --muted: #7d3a52;
+  --rose: #5a1832;
+  --surface: #fff6ec;
+  --surface-2: #fffcf7;
   color: var(--ink);
 }
 
-/* ── Neo-brutalist primitives ───────────────────────────────────────── */
-/* The hard offset shadow is the signature of the style, so it follows --ink
-   and becomes a light shadow on dark ground rather than disappearing. */
-.neo-shadow { box-shadow: 8px 8px 0px var(--ink); }
-.neo-shadow-sm { box-shadow: 4px 4px 0px var(--ink); }
-.neo-border { border: 3px solid var(--ink); }
+/*
+ * Theme lamp.
+ *
+ * The kokonutui component ships its own card chrome and a "Desk lamp / pull
+ * the cord" caption. Both are styled from inside the component, so they're
+ * neutralised here rather than by forking the file — that keeps the component
+ * byte-identical to the registry and re-installable.
+ */
+.theme-lamp > div > div {
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+}
+/* The caption block, absolutely positioned at the bottom of the component. */
+.theme-lamp .absolute.inset-x-0.bottom-0 {
+  display: none !important;
+}
+/* Tint the lamp hardware to Berry so it belongs to the brand. */
+.theme-lamp .fill-zinc-900,
+.theme-lamp .fill-zinc-800 { fill: var(--berry, #5a1832) !important; }
+.theme-lamp .fill-zinc-300 { fill: #c9a3b2 !important; }
+.theme-lamp .fill-amber-300 { fill: var(--butter, #ffd166) !important; }
+.theme-lamp .fill-zinc-700 { fill: #7d3a52 !important; }
+.theme-lamp .stroke-zinc-300,
+.theme-lamp .stroke-zinc-400 { stroke: color-mix(in srgb, var(--ink) 45%, transparent) !important; }
+.theme-lamp .stroke-zinc-600,
+.theme-lamp .stroke-zinc-700 { stroke: color-mix(in srgb, var(--ink) 35%, transparent) !important; }
+
+/*
+ * Card and button geometry.
+ *
+ * These were a neo-brutalist 3px border with a hard 8px offset shadow. The
+ * "Mirror Moment" brand is soft and rounded — arched mirror, warm grounds —
+ * so the same class names now produce a hairline border, generous radius and
+ * a diffuse warm shadow. Keeping the names means the ~60 elements using them
+ * restyle from here rather than needing to be edited one by one.
+ */
+.neo-shadow {
+  border-radius: 22px;
+  box-shadow: 0 14px 34px -14px rgba(90, 24, 50, 0.3), 0 2px 6px -2px rgba(90, 24, 50, 0.12);
+}
+.neo-shadow-sm {
+  border-radius: 999px;
+  box-shadow: 0 8px 20px -10px rgba(90, 24, 50, 0.32), 0 1px 3px -1px rgba(90, 24, 50, 0.1);
+}
+.neo-border {
+  border: 1.5px solid color-mix(in srgb, var(--ink) 16%, transparent);
+  border-radius: 22px;
+}
+/* Pills rather than slabs for anything that reads as a button. */
+a.neo-shadow-sm.neo-border,
+button.neo-shadow-sm.neo-border,
+.neo-shadow-sm.neo-border {
+  border-radius: 999px;
+}
 
 @keyframes dropForm {
   0% { transform: scaleY(0.3) scaleX(0.6); opacity: 0; }
@@ -277,7 +357,7 @@ body {
   padding: 14px 22px;
   background: #e8e883;
   border: 3px solid #1a1c1b;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'DM Sans', system-ui, sans-serif;
   font-weight: 700;
   color: #1a1c1b;
 }

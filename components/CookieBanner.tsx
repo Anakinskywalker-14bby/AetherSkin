@@ -42,7 +42,7 @@ export function CookieBanner() {
         className="neo-shadow neo-border mx-auto flex max-w-3xl flex-col gap-4 p-5 md:flex-row md:items-center md:justify-between"
         style={{ background: "var(--surface)" }}
       >
-        <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: 14, color: "var(--muted)", lineHeight: 1.6, margin: 0 }}>
+        <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: 14, color: "var(--muted)", lineHeight: 1.6, margin: 0 }}>
           AetherSkin uses no advertising or tracking cookies. We store one local
           preference so this notice doesn&apos;t reappear.{" "}
           <Link href="/privacy" style={{ color: "var(--ink)", fontWeight: 700, textDecoration: "underline" }}>
@@ -54,7 +54,7 @@ export function CookieBanner() {
             type="button"
             onClick={() => choose("essential")}
             className="neo-border px-5 py-3 whitespace-nowrap"
-            style={{ background: "var(--surface)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "0.8px", color: "var(--ink)" }}
+            style={{ background: "var(--surface)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "0.8px", color: "var(--ink)" }}
           >
             ESSENTIAL ONLY
           </button>
@@ -62,7 +62,7 @@ export function CookieBanner() {
             type="button"
             onClick={() => choose("accepted")}
             className="on-accent neo-shadow-sm neo-border px-5 py-3 whitespace-nowrap"
-            style={{ background: "var(--yellow)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "0.8px", color: "var(--ink)" }}
+            style={{ background: "var(--yellow)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "0.8px", color: "var(--ink)" }}
           >
             GOT IT
           </button>

@@ -72,13 +72,13 @@ export function QuizForm({ token }: { token: string }) {
 
   const cardStyle = {
     background: "#f9f9f7",
-    fontFamily: "'Work Sans', sans-serif",
+    fontFamily: "'DM Sans', system-ui, sans-serif",
   } as const;
 
   const optionButton = (selected: boolean) =>
     ({
       background: selected ? "#e8e883" : "#f9f9f7",
-      fontFamily: "'Work Sans', sans-serif",
+      fontFamily: "'DM Sans', system-ui, sans-serif",
       fontWeight: selected ? 700 : 400,
       fontSize: 16,
       color: "#1a1c1b",
@@ -91,10 +91,10 @@ export function QuizForm({ token }: { token: string }) {
       {/* Progress */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-2">
-          <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 12, letterSpacing: "1.2px", color: "#484739", textTransform: "uppercase" }}>
+          <span style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 12, letterSpacing: "1.2px", color: "#484739", textTransform: "uppercase" }}>
             Step {step + 1} of {totalSteps}
           </span>
-          <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 12, color: "#484739" }}>
+          <span style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 12, color: "#484739" }}>
             {progress}%
           </span>
         </div>
@@ -114,11 +114,11 @@ export function QuizForm({ token }: { token: string }) {
       {/* Step 0 — about you */}
       {step === 0 && (
         <div>
-          <h2 style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 800, fontSize: "clamp(24px,4vw,32px)", color: "#1a1c1b", margin: "0 0 24px", lineHeight: 1.2 }}>
+          <h2 style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 800, fontSize: "clamp(24px,4vw,32px)", color: "#1a1c1b", margin: "0 0 24px", lineHeight: 1.2 }}>
             First, the basics.
           </h2>
 
-          <label htmlFor="q-name" className="block mb-2" style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1px", color: "#1a1c1b", textTransform: "uppercase" }}>
+          <label htmlFor="q-name" className="block mb-2" style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1px", color: "#1a1c1b", textTransform: "uppercase" }}>
             Your name
           </label>
           <input
@@ -129,11 +129,11 @@ export function QuizForm({ token }: { token: string }) {
             autoComplete="name"
             onChange={(e) => setName(e.target.value)}
             className="neo-border px-4 py-4 w-full outline-none mb-6"
-            style={{ background: "#f9f9f7", fontFamily: "'Work Sans', sans-serif", fontSize: 16, color: "#1a1c1b" }}
+            style={{ background: "#f9f9f7", fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: 16, color: "#1a1c1b" }}
             placeholder="First name is fine"
           />
 
-          <p className="mb-2" style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1px", color: "#1a1c1b", textTransform: "uppercase" }}>
+          <p className="mb-2" style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1px", color: "#1a1c1b", textTransform: "uppercase" }}>
             Age range
           </p>
           <div className="flex flex-wrap gap-2 mb-6">
@@ -151,7 +151,7 @@ export function QuizForm({ token }: { token: string }) {
             ))}
           </div>
 
-          <p className="mb-2" style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1px", color: "#1a1c1b", textTransform: "uppercase" }}>
+          <p className="mb-2" style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1px", color: "#1a1c1b", textTransform: "uppercase" }}>
             Gender
           </p>
           <div className="flex flex-wrap gap-2">
@@ -174,7 +174,7 @@ export function QuizForm({ token }: { token: string }) {
       {/* Steps 1..N — the questions */}
       {step > 0 && step <= QUIZ_QUESTIONS.length && (
         <div>
-          <h2 style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 800, fontSize: "clamp(22px,3.5vw,30px)", color: "#1a1c1b", margin: "0 0 24px", lineHeight: 1.25 }}>
+          <h2 style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 800, fontSize: "clamp(22px,3.5vw,30px)", color: "#1a1c1b", margin: "0 0 24px", lineHeight: 1.25 }}>
             {QUIZ_QUESTIONS[step - 1].question}
           </h2>
           <div className="flex flex-col gap-3">
@@ -205,10 +205,10 @@ export function QuizForm({ token }: { token: string }) {
       {/* Final step — allergies + submit */}
       {step === totalSteps - 1 && (
         <div>
-          <h2 style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 800, fontSize: "clamp(22px,3.5vw,30px)", color: "#1a1c1b", margin: "0 0 12px", lineHeight: 1.25 }}>
+          <h2 style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 800, fontSize: "clamp(22px,3.5vw,30px)", color: "#1a1c1b", margin: "0 0 12px", lineHeight: 1.25 }}>
             Any allergies we should know about?
           </h2>
-          <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: 15, color: "#484739", lineHeight: 1.6, margin: "0 0 16px" }}>
+          <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: 15, color: "#484739", lineHeight: 1.6, margin: "0 0 16px" }}>
             Known reactions to skincare ingredients or botanicals. Leave blank
             if none. This is used to filter recommendations, not to give
             medical advice.
@@ -221,10 +221,10 @@ export function QuizForm({ token }: { token: string }) {
             rows={4}
             onChange={(e) => setAllergies(e.target.value)}
             className="neo-border px-4 py-4 w-full outline-none"
-            style={{ background: "#f9f9f7", fontFamily: "'Work Sans', sans-serif", fontSize: 16, color: "#1a1c1b" }}
+            style={{ background: "#f9f9f7", fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: 16, color: "#1a1c1b" }}
             placeholder="e.g. fragrance, essential oils, nut oils..."
           />
-          <p className="mt-1 text-right" style={{ fontFamily: "'Work Sans', sans-serif", fontSize: 12, color: "#484739" }}>
+          <p className="mt-1 text-right" style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: 12, color: "#484739" }}>
             {allergies.length}/500
           </p>
         </div>
@@ -234,7 +234,7 @@ export function QuizForm({ token }: { token: string }) {
         <p
           role="alert"
           className="neo-border px-4 py-3 mt-6"
-          style={{ background: "#ffdad6", fontFamily: "'Work Sans', sans-serif", fontWeight: 700, fontSize: 14, color: "#93000a" }}
+          style={{ background: "#ffdad6", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 14, color: "#93000a" }}
         >
           {error}
         </p>
@@ -247,7 +247,7 @@ export function QuizForm({ token }: { token: string }) {
           onClick={() => setStep((s) => Math.max(0, s - 1))}
           disabled={step === 0 || submitting}
           className="neo-border px-6 py-3 disabled:opacity-30"
-          style={{ background: "#f9f9f7", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "0.8px", color: "#1a1c1b" }}
+          style={{ background: "#f9f9f7", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "0.8px", color: "#1a1c1b" }}
         >
           BACK
         </button>
@@ -258,7 +258,7 @@ export function QuizForm({ token }: { token: string }) {
             onClick={() => setStep((s) => Math.min(s + 1, totalSteps - 1))}
             disabled={!canAdvance}
             className="neo-shadow-sm neo-border px-8 py-3 disabled:opacity-40"
-            style={{ background: "#e8e883", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 15, letterSpacing: "0.8px", color: "#1a1c1b" }}
+            style={{ background: "#e8e883", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 15, letterSpacing: "0.8px", color: "#1a1c1b" }}
           >
             CONTINUE
           </button>
@@ -268,7 +268,7 @@ export function QuizForm({ token }: { token: string }) {
             onClick={submit}
             disabled={submitting}
             className="neo-shadow neo-border px-8 py-4 disabled:opacity-60"
-            style={{ background: "#e8e883", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 16, letterSpacing: "0.9px", color: "#1a1c1b" }}
+            style={{ background: "#e8e883", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 16, letterSpacing: "0.9px", color: "#1a1c1b" }}
           >
             {submitting ? "SAVING..." : "FINISH & LOCK MY SPOT"}
           </button>

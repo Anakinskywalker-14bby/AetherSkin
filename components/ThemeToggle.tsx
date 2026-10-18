@@ -8,14 +8,15 @@ const STORAGE_KEY = "aetherskin-theme";
 /**
  * Theme switch, rendered as a hanging lamp you pull.
  *
- * The lamp's `checked` state means "light is on", which maps to the light
- * theme — pulling the cord turns the lamp off and the site dark. That reads
- * the right way round, so the control explains itself without a label.
+ * Lamp on = light theme, so pulling the cord to turn the light off darkens
+ * the site. That reads the right way round, so the control needs no label —
+ * which is why the component's own "Desk lamp / pull the cord" caption is
+ * hidden below rather than relabelled.
  *
  * The <html> class is set before first paint by the inline script in
- * layout.tsx; this component only mirrors and updates it. It renders nothing
- * until mounted, because the server has no way to know the stored choice and
- * guessing would render the wrong lamp state for a frame.
+ * layout.tsx; this only mirrors and updates it. It renders nothing until
+ * mounted, because the server cannot know the stored choice and guessing
+ * would paint the wrong lamp state for a frame.
  */
 export function ThemeToggle() {
   const [mounted, setMounted] = useState(false);
@@ -38,25 +39,24 @@ export function ThemeToggle() {
     }
   };
 
-  // Reserve the exact collapsed footprint so nothing shifts when it appears.
+  // Reserve the collapsed footprint so nothing shifts when it appears.
   if (!mounted) {
-    return <div aria-hidden className="h-[162px] w-[130px]" />;
+    return <div aria-hidden className="h-[128px] w-[112px]" />;
   }
 
   return (
     <div
-      className="pointer-events-none origin-top-right"
-      style={{ width: 130, height: 162 }}
+      className="theme-lamp pointer-events-none"
+      style={{ width: 112, height: 128 }}
     >
       <div
         className="pointer-events-auto origin-top-left"
-        style={{ transform: "scale(0.45)", width: 288, height: 360 }}
+        style={{ transform: "scale(0.42)", width: 288, height: 360 }}
       >
         <PullCord
           checked={isLight}
           onCheckedChange={handleChange}
           label="Site theme"
-          className="!border-0 !bg-transparent"
         />
       </div>
     </div>

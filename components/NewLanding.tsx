@@ -121,32 +121,32 @@ function HeroSection() {
         {/* Left: text */}
         <div className="flex flex-col items-start gap-6 max-w-[620px]">
           <div className="on-accent sticker-float neo-shadow-sm neo-border px-5 py-2.5 self-start" style={{ background: "var(--blue)" }}>
-            <span style={{ fontFamily: "'Epilogue', sans-serif", fontWeight: 400, fontSize: 22, color: "var(--ink)" }}>Ouch!</span>
+            <span style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 400, fontSize: 22, color: "var(--ink)" }}>Ouch!</span>
           </div>
 
-          <div className="leading-none" style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}>
+          <div className="leading-none" style={{ fontFamily: "'Fraunces', Georgia, serif" }}>
             <p style={{ fontWeight: 900, fontSize: "clamp(48px, 6vw, 78px)", color: "var(--ink)", letterSpacing: "-2.5px", lineHeight: 1.05, margin: 0 }}>
               Their replies are dry
             </p>
             <p style={{ fontWeight: 900, fontSize: "clamp(48px, 6vw, 78px)", letterSpacing: "-2.5px", lineHeight: 1.05, margin: 0 }}>
               <span style={{ color: "var(--olive)" }}>but </span>
-              <span style={{ fontFamily: "'Epilogue', sans-serif", fontWeight: 400, fontStyle: "italic", color: "var(--ink)", textTransform: "lowercase" }}>your skin</span>
+              <span style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 400, fontStyle: "italic", color: "var(--ink)", textTransform: "lowercase" }}>your skin</span>
             </p>
             <p style={{ fontWeight: 900, fontSize: "clamp(48px, 6vw, 78px)", color: "var(--ink)", letterSpacing: "-2.5px", lineHeight: 1.05, margin: 0 }}>
               doesn&apos;t have to be.
             </p>
           </div>
 
-          <p style={{ fontFamily: "'Work Sans', sans-serif", fontWeight: 400, fontSize: 18, color: "var(--muted)", lineHeight: 1.6 }}>
+          <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 400, fontSize: 18, color: "var(--muted)", lineHeight: 1.6 }}>
             Stop guessing. Start knowing. AI skin analysis for the modern age.
             Join the free beta and get a routine built around your skin.
           </p>
 
           <div className="flex gap-4 flex-wrap">
-            <a href="#beta" className="on-accent neo-shadow neo-border px-9 py-5" style={{ background: "var(--yellow)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 18, letterSpacing: "0.9px", color: "var(--ink)", cursor: "pointer" }}>
+            <a href="#beta" className="on-accent neo-shadow neo-border px-9 py-5" style={{ background: "var(--yellow)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 18, letterSpacing: "0.9px", color: "var(--ink)", cursor: "pointer" }}>
               JOIN BETA
             </a>
-            <a href="#solution" className="neo-shadow neo-border px-9 py-5" style={{ background: "var(--surface)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 18, letterSpacing: "0.9px", color: "var(--ink)", cursor: "pointer" }}>
+            <a href="#solution" className="neo-shadow neo-border px-9 py-5" style={{ background: "var(--surface)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 18, letterSpacing: "0.9px", color: "var(--ink)", cursor: "pointer" }}>
               SEE HOW IT WORKS
             </a>
           </div>
@@ -158,10 +158,10 @@ function HeroSection() {
             {/* eslint-disable-next-line @next/next/no-img-element -- remote decorative asset; see note above */}
               <img fetchPriority="high" decoding="async" src={imgHand} alt="Four skincare textures — cream, serum, and gel boosters — swatched on the back of a hand" className="w-full h-full object-cover" />
           </div>
-          <div className="on-accent sticker-float-alt absolute -bottom-4 -right-6 neo-shadow-sm neo-border px-5 py-3" style={{ background: "var(--yellow)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "1.6px", color: "var(--ink)" }}>
+          <div className="on-accent sticker-float-alt absolute -bottom-4 -right-6 neo-shadow-sm neo-border px-5 py-3" style={{ background: "var(--yellow)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "1.6px", color: "var(--ink)" }}>
             HYDRATE NOW
           </div>
-          <div className="on-accent absolute -top-4 -left-6 neo-shadow-sm neo-border px-4 py-2" style={{ background: "var(--blue)", fontFamily: "'Work Sans', sans-serif", fontWeight: 700, fontSize: 13, color: "var(--ink)" }}>
+          <div className="on-accent absolute -top-4 -left-6 neo-shadow-sm neo-border px-4 py-2" style={{ background: "var(--blue)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 13, color: "var(--ink)" }}>
             ✦ BETA OPEN
           </div>
         </div>
@@ -209,15 +209,15 @@ function DropperSection() {
               <img loading="lazy" decoding="async" src={imgGlassSkin} alt="Close-up of a glowing glass-skin complexion with shimmering highlighter" className="w-full h-full object-cover absolute inset-0" />
           <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(26,28,27,0.15) 0%, rgba(26,28,27,0.6) 100%)" }} />
           <div className="absolute bottom-12 left-10 right-10">
-            <div className="on-accent neo-shadow-sm neo-border px-4 py-2 inline-block mb-4" style={{ background: "var(--yellow)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1.6px", color: "var(--ink)" }}>
+            <div className="on-accent neo-shadow-sm neo-border px-4 py-2 inline-block mb-4" style={{ background: "var(--yellow)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1.6px", color: "var(--ink)" }}>
               THE GLOW-UP
             </div>
-            <h2 style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 900, fontSize: "clamp(42px, 5vw, 64px)", color: "var(--surface)", letterSpacing: "-1.5px", lineHeight: 1.0, margin: 0 }}>
+            <h2 style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 900, fontSize: "clamp(42px, 5vw, 64px)", color: "var(--surface)", letterSpacing: "-1.5px", lineHeight: 1.0, margin: 0 }}>
               Glass Skin<br />Is Real<br />
-              <span style={{ fontFamily: "'Epilogue', sans-serif", fontWeight: 300, fontStyle: "italic" }}>Science.</span>
+              <span style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 300, fontStyle: "italic" }}>Science.</span>
             </h2>
           </div>
-          <div className="absolute top-8 right-8 sticker-float neo-shadow-sm neo-border px-4 py-2" style={{ background: "var(--err-bg)", transform: "rotate(-3deg)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 13, color: "var(--err-text)" }}>
+          <div className="absolute top-8 right-8 sticker-float neo-shadow-sm neo-border px-4 py-2" style={{ background: "var(--err-bg)", transform: "rotate(-3deg)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 13, color: "var(--err-text)" }}>
             ✦ hydrating
           </div>
         </div>
@@ -228,17 +228,17 @@ function DropperSection() {
             <DropperAnimation />
           </div>
           <div className="px-8 md:px-12 py-10" style={{ borderTop: "3px solid var(--ink)" }}>
-            <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1.6px", color: "var(--muted)", marginBottom: 12 }}>THE TRUTH</p>
-            <h3 style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 900, fontSize: "clamp(28px, 3vw, 44px)", color: "var(--ink)", letterSpacing: "-1px", lineHeight: 1.1, margin: "0 0 16px 0" }}>
+            <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1.6px", color: "var(--muted)", marginBottom: 12 }}>THE TRUTH</p>
+            <h3 style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 900, fontSize: "clamp(28px, 3vw, 44px)", color: "var(--ink)", letterSpacing: "-1px", lineHeight: 1.1, margin: "0 0 16px 0" }}>
               &quot;Clean&quot; Skincare<br />
-              <span style={{ fontFamily: "'Epilogue', sans-serif", fontWeight: 400, fontStyle: "italic", color: "var(--olive)" }}>is a buzzword.</span>
+              <span style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 400, fontStyle: "italic", color: "var(--olive)" }}>is a buzzword.</span>
             </h3>
-            <p style={{ fontFamily: "'Work Sans', sans-serif", fontWeight: 400, fontSize: 16, color: "var(--muted)", lineHeight: 1.7, margin: "0 0 24px 0" }}>
+            <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 400, fontSize: 16, color: "var(--muted)", lineHeight: 1.7, margin: "0 0 24px 0" }}>
               Your skin doesn&apos;t care about marketing. It responds to what
               actually fits it — the right products, from brands you already
               love, matched to what your skin is really doing.
             </p>
-            <a href="#beta" className="on-accent neo-shadow-sm neo-border px-7 py-4 w-full inline-block text-center" style={{ background: "var(--yellow)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 16, letterSpacing: "0.9px", color: "var(--ink)", cursor: "pointer" }}>
+            <a href="#beta" className="on-accent neo-shadow-sm neo-border px-7 py-4 w-full inline-block text-center" style={{ background: "var(--yellow)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 16, letterSpacing: "0.9px", color: "var(--ink)", cursor: "pointer" }}>
               GET YOUR FREE ROUTINE →
             </a>
           </div>
@@ -261,14 +261,14 @@ function ProblemSection() {
       <div className="max-w-[1280px] mx-auto px-6 md:px-16 py-24 flex flex-col lg:flex-row gap-16 items-center">
         <div className="flex-1 relative">
           <div style={{ position: "absolute", top: -28, left: -8 }}>
-            <span style={{ background: "var(--err-bg)", display: "inline-block", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "1px", color: "var(--err-text)", padding: "10px 19px", border: "3px solid var(--ink)", boxShadow: "4px 4px 0 var(--ink)", transform: "rotate(-2deg)" }}>
+            <span style={{ background: "var(--err-bg)", display: "inline-block", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "1px", color: "var(--err-text)", padding: "10px 19px", border: "3px solid var(--ink)", boxShadow: "4px 4px 0 var(--ink)", transform: "rotate(-2deg)" }}>
               THE PROBLEM
             </span>
           </div>
-          <h2 style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 800, fontSize: "clamp(36px, 4vw, 52px)", color: "var(--ink)", letterSpacing: "-1px", lineHeight: 1.15, marginTop: 48, marginBottom: 20 }}>
+          <h2 style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 800, fontSize: "clamp(36px, 4vw, 52px)", color: "var(--ink)", letterSpacing: "-1px", lineHeight: 1.15, marginTop: 48, marginBottom: 20 }}>
             The Skincare<br />Guessing Game<br />is Over.
           </h2>
-          <p style={{ fontFamily: "'Work Sans', sans-serif", fontWeight: 400, fontSize: 18, color: "var(--muted)", lineHeight: 1.7, marginBottom: 32 }}>
+          <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 400, fontSize: 18, color: "var(--muted)", lineHeight: 1.7, marginBottom: 32 }}>
             Buying serums based on vibes? Stop it. Your skin is a complex
             ecosystem, not a mood board. Most routines fail because they chase
             trends instead of what your skin actually needs.
@@ -283,7 +283,7 @@ function ProblemSection() {
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                   <path d={svgPaths.p28843fc0} fill="var(--err-border)" />
                 </svg>
-                <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "0.7px", color: "var(--ink)" }}>{item}</span>
+                <span style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "0.7px", color: "var(--ink)" }}>{item}</span>
               </div>
             ))}
           </div>
@@ -294,11 +294,11 @@ function ProblemSection() {
           <div className="relative w-full max-w-[380px]">
             <div style={{ background: "var(--surface)", border: "3px solid var(--ink)", boxShadow: "8px 8px 0 var(--ink)", padding: 36, transform: "rotate(1deg)" }}>
               <div className="on-accent neo-border" style={{ background: "var(--blue)", padding: "120px 20px", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", gap: 16 }}>
-                <p style={{ fontFamily: "'Epilogue', sans-serif", fontWeight: 400, fontSize: 34, color: "var(--ink)", textAlign: "center", margin: 0 }}>&quot;Is it working?&quot;</p>
-                <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1px", color: "var(--ink)", textAlign: "center", margin: 0 }}>(SPOILER: NO)</p>
+                <p style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 400, fontSize: 34, color: "var(--ink)", textAlign: "center", margin: 0 }}>&quot;Is it working?&quot;</p>
+                <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1px", color: "var(--ink)", textAlign: "center", margin: 0 }}>(SPOILER: NO)</p>
               </div>
             </div>
-            <div className="on-accent absolute neo-border neo-shadow-sm px-5 py-2.5" style={{ background: "var(--yellow)", top: -20, right: -20, transform: "rotate(10deg)", fontFamily: "'Work Sans', sans-serif", fontWeight: 700, fontSize: 16, color: "var(--ink)" }}>
+            <div className="on-accent absolute neo-border neo-shadow-sm px-5 py-2.5" style={{ background: "var(--yellow)", top: -20, right: -20, transform: "rotate(10deg)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 16, color: "var(--ink)" }}>
               ?!?
             </div>
           </div>
@@ -321,10 +321,10 @@ function SolutionSection() {
     >
       <div className="max-w-[1280px] mx-auto px-6 md:px-16 py-24">
         <div className="flex flex-col items-center gap-5 mb-16">
-          <div className="on-accent neo-shadow-sm neo-border px-5 py-2.5" style={{ background: "var(--yellow)", transform: "rotate(2deg)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "1.4px", color: "var(--ink)" }}>
+          <div className="on-accent neo-shadow-sm neo-border px-5 py-2.5" style={{ background: "var(--yellow)", transform: "rotate(2deg)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "1.4px", color: "var(--ink)" }}>
             THE SOLUTION
           </div>
-          <h2 style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 800, fontSize: "clamp(36px, 4vw, 52px)", color: "var(--ink)", letterSpacing: "-1px", textAlign: "center", margin: 0 }}>
+          <h2 style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 800, fontSize: "clamp(36px, 4vw, 52px)", color: "var(--ink)", letterSpacing: "-1px", textAlign: "center", margin: 0 }}>
             AetherSkin&apos;s AI Skin Analysis
           </h2>
         </div>
@@ -336,9 +336,9 @@ function SolutionSection() {
               <svg width="27" height="27" viewBox="0 0 27.09 27" fill="none">
                 <path d={svgPaths.p18334868} fill="var(--ink)" />
               </svg>
-              <h3 style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 800, fontSize: 32, color: "var(--ink)", margin: 0 }}>Deep Scan Tech</h3>
+              <h3 style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 800, fontSize: 32, color: "var(--ink)", margin: 0 }}>Deep Scan Tech</h3>
             </div>
-            <p style={{ fontFamily: "'Work Sans', sans-serif", fontWeight: 400, fontSize: 16, color: "var(--ink)", lineHeight: 1.6, margin: 0 }}>
+            <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 400, fontSize: 16, color: "var(--ink)", lineHeight: 1.6, margin: 0 }}>
               One selfie. AetherSkin&apos;s AI reads your face and maps hydration,
               texture, and everyday concerns — instantly.
             </p>
@@ -349,22 +349,22 @@ function SolutionSection() {
                 { label: "GLOW", value: 86, color: "var(--surface)" },
               ].map((m) => (
                 <div key={m.label} className="flex items-center gap-4">
-                  <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 12, letterSpacing: "1.2px", color: "var(--surface)", width: 96 }}>{m.label}</span>
+                  <span style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 12, letterSpacing: "1.2px", color: "var(--surface)", width: 96 }}>{m.label}</span>
                   <div className="flex-1 h-4" style={{ background: "rgba(249,249,247,0.15)", border: "2px solid var(--surface)" }}>
                     <div className="h-full scan-fill" style={{ width: `${m.value}%`, background: m.color }} />
                   </div>
-                  <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 14, color: m.color, width: 44, textAlign: "right" }}>{m.value}%</span>
+                  <span style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 14, color: m.color, width: 44, textAlign: "right" }}>{m.value}%</span>
                 </div>
               ))}
-              <p style={{ fontFamily: "'Work Sans', sans-serif", fontWeight: 700, fontSize: 11, letterSpacing: "1px", color: "rgba(249,249,247,0.5)", margin: 0, textTransform: "uppercase" }}>Sample readout — your scan will differ</p>
+              <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 11, letterSpacing: "1px", color: "rgba(249,249,247,0.5)", margin: 0, textTransform: "uppercase" }}>Sample readout — your scan will differ</p>
             </div>
           </div>
 
           {/* Card 2 — Zero BS */}
           <div className="on-accent neo-shadow neo-border p-7 flex flex-col justify-between" style={{ background: "var(--yellow)" }}>
             <div className="flex flex-col gap-4">
-              <h3 style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 800, fontSize: 30, color: "var(--ink)", margin: 0 }}>Zero BS Policy</h3>
-              <p style={{ fontFamily: "'Work Sans', sans-serif", fontWeight: 700, fontSize: 16, color: "var(--ink)", lineHeight: 1.6, margin: 0 }}>
+              <h3 style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 800, fontSize: 30, color: "var(--ink)", margin: 0 }}>Zero BS Policy</h3>
+              <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 16, color: "var(--ink)", lineHeight: 1.6, margin: 0 }}>
                 We tell you exactly what you need. Nothing more. Nothing less.
               </p>
             </div>
@@ -377,11 +377,11 @@ function SolutionSection() {
 
           {/* Card 3 — Matches */}
           <div className="neo-shadow neo-border p-7 flex flex-col gap-4" style={{ background: "var(--surface)" }}>
-            <h3 style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 800, fontSize: 30, color: "var(--ink)", margin: 0 }}>Precision Matches</h3>
-            <p style={{ fontFamily: "'Work Sans', sans-serif", fontWeight: 400, fontSize: 16, color: "var(--ink)", lineHeight: 1.6, margin: 0 }}>
+            <h3 style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 800, fontSize: 30, color: "var(--ink)", margin: 0 }}>Precision Matches</h3>
+            <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 400, fontSize: 16, color: "var(--ink)", lineHeight: 1.6, margin: 0 }}>
               Products picked from brands you already love, based on your exact scan.
             </p>
-            <a href="#beta" className="on-accent neo-border mt-auto py-3 w-full inline-block text-center" style={{ background: "var(--blue)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 15, letterSpacing: "1px", color: "var(--ink)", cursor: "pointer" }}>
+            <a href="#beta" className="on-accent neo-border mt-auto py-3 w-full inline-block text-center" style={{ background: "var(--blue)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 15, letterSpacing: "1px", color: "var(--ink)", cursor: "pointer" }}>
               LEARN MORE
             </a>
           </div>
@@ -389,15 +389,15 @@ function SolutionSection() {
           {/* Card 4 — Continuous */}
           <div className="lg:col-span-2 neo-shadow neo-border p-7 flex flex-col md:flex-row items-center gap-8" style={{ background: "var(--surface)" }}>
             <div className="flex flex-col gap-4 flex-1">
-              <h3 style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 800, fontSize: 30, color: "var(--ink)", margin: 0 }}>Continuous Tracking</h3>
-              <p style={{ fontFamily: "'Work Sans', sans-serif", fontWeight: 400, fontSize: 16, color: "var(--ink)", lineHeight: 1.6, margin: 0 }}>
+              <h3 style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 800, fontSize: 30, color: "var(--ink)", margin: 0 }}>Continuous Tracking</h3>
+              <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 400, fontSize: 16, color: "var(--ink)", lineHeight: 1.6, margin: 0 }}>
                 Your skin changes with the seasons, stress, and sleep. AetherSkin
                 tracks your progress and adjusts your routine dynamically.
               </p>
             </div>
             <div className="flex-shrink-0">
               <div className="on-accent" style={{ transform: "rotate(-5deg)", background: "var(--yellow)", border: "3px solid var(--ink)", borderRadius: "9999px", width: 128, height: 128, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 15, color: "var(--ink)", textAlign: "center", letterSpacing: "1px" }}>ALWAYS<br />ADAPTING</div>
+                <div style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 15, color: "var(--ink)", textAlign: "center", letterSpacing: "1px" }}>ALWAYS<br />ADAPTING</div>
               </div>
             </div>
           </div>
@@ -435,10 +435,10 @@ function GallerySection() {
               className="absolute inset-0 flex flex-col justify-end p-8 opacity-0 group-hover:opacity-100 transition-all duration-500"
               style={{ background: "rgba(26,28,27,0.35)" }}
             >
-              <div className="neo-shadow-sm neo-border px-4 py-2 inline-block self-start mb-3" style={{ background: p.color, fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 12, letterSpacing: "1.5px", color: "var(--ink)" }}>
+              <div className="neo-shadow-sm neo-border px-4 py-2 inline-block self-start mb-3" style={{ background: p.color, fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 12, letterSpacing: "1.5px", color: "var(--ink)" }}>
                 {p.label}
               </div>
-              <p style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 900, fontSize: 28, color: "var(--surface)", margin: 0, textShadow: "2px 2px 0 rgba(0,0,0,0.3)" }}>{p.text}</p>
+              <p style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 900, fontSize: 28, color: "var(--surface)", margin: 0, textShadow: "2px 2px 0 rgba(0,0,0,0.3)" }}>{p.text}</p>
             </div>
           </div>
         ))}
@@ -577,10 +577,10 @@ function GlowOClockSection() {
       }}
     >
       <div className="absolute top-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-3">
-        <div className="neo-shadow-sm neo-border px-6 py-2.5" style={{ background: "var(--surface)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1.6px", color: "var(--muted)" }}>
+        <div className="neo-shadow-sm neo-border px-6 py-2.5" style={{ background: "var(--surface)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1.6px", color: "var(--muted)" }}>
           ✦ INTERACTIVE
         </div>
-        <p style={{ fontFamily: "'Work Sans', sans-serif", fontWeight: 400, fontSize: 14, color: "var(--muted)", margin: 0 }}>
+        <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 400, fontSize: 14, color: "var(--muted)", margin: 0 }}>
           move your cursor over the liquid
         </p>
       </div>
@@ -604,13 +604,13 @@ function GlowOClockSection() {
       />
 
       <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-10">
-        <p style={{ fontFamily: "'Epilogue', sans-serif", fontWeight: 300, fontStyle: "italic", fontSize: "clamp(28px, 4vw, 56px)", color: "var(--ink)", letterSpacing: "-1px", margin: 0, mixBlendMode: "multiply" }}>
+        <p style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 300, fontStyle: "italic", fontSize: "clamp(28px, 4vw, 56px)", color: "var(--ink)", letterSpacing: "-1px", margin: 0, mixBlendMode: "multiply" }}>
           it&apos;s glow o&apos;clock
         </p>
       </div>
 
       <div className="absolute bottom-10 right-10 z-20">
-        <div className="on-accent neo-shadow-sm neo-border px-5 py-3 sticker-float" style={{ background: "var(--yellow)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 16, color: "var(--ink)", transform: "rotate(3deg)" }}>
+        <div className="on-accent neo-shadow-sm neo-border px-5 py-3 sticker-float" style={{ background: "var(--yellow)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 16, color: "var(--ink)", transform: "rotate(3deg)" }}>
           ✨ glow activated
         </div>
       </div>
@@ -623,17 +623,17 @@ function NewFooter() {
   return (
     <footer className="on-accent flex flex-col md:flex-row gap-6 items-center justify-between px-6 md:px-16 py-12" style={{ background: "var(--blue)", borderTop: "3px solid var(--ink)" }}>
       <div className="flex flex-col gap-3 items-center md:items-start">
-        <span style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 900, fontSize: 30, color: "var(--deep)" }}>AetherSkin</span>
+        <span style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 900, fontSize: 30, color: "var(--deep)" }}>AetherSkin</span>
         {/* Official Google "Add as preferred source" button */}
         <div google-add-preferred-source-btn="" />
       </div>
       <div className="flex gap-6 flex-wrap justify-center">
-        <Link href="/about" style={{ fontFamily: "'Work Sans', sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "1.6px", color: "var(--deep)" }}>ABOUT US</Link>
-        <Link href="/privacy" style={{ fontFamily: "'Work Sans', sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "1.6px", color: "var(--deep)" }}>PRIVACY</Link>
-        <Link href="/terms" style={{ fontFamily: "'Work Sans', sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "1.6px", color: "var(--deep)" }}>TERMS</Link>
-        <Link href="/#beta" style={{ fontFamily: "'Work Sans', sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "1.6px", color: "var(--deep)" }}>JOIN FREE</Link>
+        <Link href="/about" style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "1.6px", color: "var(--deep)" }}>ABOUT US</Link>
+        <Link href="/privacy" style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "1.6px", color: "var(--deep)" }}>PRIVACY</Link>
+        <Link href="/terms" style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "1.6px", color: "var(--deep)" }}>TERMS</Link>
+        <Link href="/#beta" style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "1.6px", color: "var(--deep)" }}>JOIN FREE</Link>
       </div>
-      <span style={{ fontFamily: "'Work Sans', sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1.6px", color: "var(--deep)" }}>{`© ${new Date().getFullYear()} AETHERSKIN. BUILT FOR THE BOLD.`}</span>
+      <span style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1.6px", color: "var(--deep)" }}>{`© ${new Date().getFullYear()} AETHERSKIN. BUILT FOR THE BOLD.`}</span>
     </footer>
   );
 }

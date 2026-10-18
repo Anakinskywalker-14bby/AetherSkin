@@ -73,7 +73,7 @@ export function StickyCta() {
         className="on-accent neo-shadow neo-border block w-full py-4 text-center"
         style={{
           background: "var(--yellow)",
-          fontFamily: "'Space Grotesk', sans-serif",
+          fontFamily: "'DM Sans', system-ui, sans-serif",
           fontWeight: 700,
           fontSize: 16,
           letterSpacing: "0.9px",

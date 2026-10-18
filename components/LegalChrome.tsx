@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 export const h2Style = {
-  fontFamily: "'Hanken Grotesk', sans-serif",
+  fontFamily: "'Fraunces', Georgia, serif",
   fontWeight: 800,
   fontSize: 28,
   color: "var(--ink)",
@@ -10,7 +10,7 @@ export const h2Style = {
 } as const;
 
 export const h3Style = {
-  fontFamily: "'Space Grotesk', sans-serif",
+  fontFamily: "'DM Sans', system-ui, sans-serif",
   fontWeight: 700,
   fontSize: 15,
   letterSpacing: "0.8px",
@@ -20,7 +20,7 @@ export const h3Style = {
 } as const;
 
 export const pStyle = {
-  fontFamily: "'Work Sans', sans-serif",
+  fontFamily: "'DM Sans', system-ui, sans-serif",
   fontSize: 16,
   color: "var(--muted)",
   lineHeight: 1.75,
@@ -35,13 +35,13 @@ export function LegalChrome({ children }: { children: React.ReactNode }) {
         className="flex items-center justify-between px-6 md:px-16 h-[72px]"
         style={{ background: "var(--surface)", borderBottom: "3px solid var(--ink)" }}
       >
-        <Link href="/" aria-label="AetherSkin home" style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 900, fontStyle: "italic", fontSize: 24, letterSpacing: -1.2, color: "var(--ink)" }}>
+        <Link href="/" aria-label="AetherSkin home" style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 900, fontStyle: "italic", fontSize: 24, letterSpacing: -1.2, color: "var(--ink)" }}>
           AetherSkin
         </Link>
         <Link
           href="/#beta"
           className="on-accent neo-shadow-sm neo-border px-6 py-2.5"
-          style={{ background: "var(--yellow)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "0.7px", color: "var(--ink)" }}
+          style={{ background: "var(--yellow)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "0.7px", color: "var(--ink)" }}
         >
           JOIN FREE
         </Link>

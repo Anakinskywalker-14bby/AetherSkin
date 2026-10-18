@@ -1,10 +1,18 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "AetherSkin — AI skin analysis. Stop guessing. Start knowing.";
+export const alt = "AetherSkin — your skin, in a better light.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+/**
+ * Social share card, in the "Mirror Moment" palette.
+ *
+ * Satori (which renders this) supports a subset of CSS: no color-mix(), no
+ * CSS variables, and every element needs an explicit display. Colours are
+ * therefore literal hex rather than the theme tokens, and this card is always
+ * the light theme — social previews have no concept of a user's preference.
+ */
 export default function OgImage() {
   return new ImageResponse(
     (
@@ -15,65 +23,92 @@ export default function OgImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          background: "#f9f9f7",
-          padding: 72,
-          border: "16px solid #1a1c1b",
+          background: "#FFF6EC",
+          padding: 84,
+          position: "relative",
         }}
       >
+        {/* The sunrise, bled off the bottom-right corner. */}
+        <div
+          style={{
+            position: "absolute",
+            right: -120,
+            bottom: -220,
+            width: 520,
+            height: 520,
+            borderRadius: 520,
+            background: "#FFD166",
+            display: "flex",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            right: -40,
+            bottom: -170,
+            width: 360,
+            height: 360,
+            borderRadius: 360,
+            background: "#FF6B5B",
+            display: "flex",
+          }}
+        />
+
         <div
           style={{
             display: "flex",
             alignSelf: "flex-start",
-            background: "#beeaf8",
-            border: "5px solid #1a1c1b",
-            boxShadow: "8px 8px 0 #1a1c1b",
-            padding: "10px 26px",
-            fontSize: 28,
+            background: "#FFD3DC",
+            padding: "12px 28px",
+            borderRadius: 999,
+            fontSize: 26,
             fontWeight: 700,
-            color: "#1a1c1b",
-            marginBottom: 40,
+            letterSpacing: 2,
+            color: "#5A1832",
+            marginBottom: 38,
           }}
         >
-          AI SKIN ANALYSIS · BETA OPEN
+          FREE AI SKIN ANALYSIS · BETA OPEN
         </div>
+
         <div
           style={{
             display: "flex",
-            fontSize: 120,
-            fontWeight: 900,
-            fontStyle: "italic",
-            color: "#1a1c1b",
-            letterSpacing: -5,
-            marginBottom: 24,
+            fontSize: 118,
+            fontWeight: 600,
+            color: "#5A1832",
+            letterSpacing: -4,
+            marginBottom: 20,
           }}
         >
-          AetherSkin
+          aetherskin
         </div>
+
         <div
           style={{
             display: "flex",
-            fontSize: 44,
-            fontWeight: 700,
-            color: "#1a1c1b",
-            marginBottom: 44,
+            fontSize: 46,
+            fontWeight: 400,
+            color: "#5A1832",
+            marginBottom: 46,
           }}
         >
-          Stop guessing. Start knowing.
+          Your skin, in a better light.
         </div>
+
         <div
           style={{
             display: "flex",
             alignSelf: "flex-start",
-            background: "#e8e883",
-            border: "5px solid #1a1c1b",
-            boxShadow: "8px 8px 0 #1a1c1b",
-            padding: "18px 40px",
-            fontSize: 32,
+            background: "#FF6B5B",
+            padding: "20px 44px",
+            borderRadius: 999,
+            fontSize: 30,
             fontWeight: 700,
-            color: "#1a1c1b",
+            color: "#FFF6EC",
           }}
         >
-          JOIN THE BETA →
+          Join the beta — free
         </div>
       </div>
     ),

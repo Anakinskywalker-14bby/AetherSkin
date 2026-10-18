@@ -34,13 +34,13 @@ export default function AboutPage() {
         className="flex items-center justify-between px-6 md:px-16 h-[72px]"
         style={{ background: "var(--surface)", borderBottom: "3px solid var(--ink)" }}
       >
-        <Link href="/" style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 900, fontStyle: "italic", fontSize: 24, letterSpacing: -1.2, color: "var(--ink)" }}>
+        <Link href="/" style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 900, fontStyle: "italic", fontSize: 24, letterSpacing: -1.2, color: "var(--ink)" }}>
           AetherSkin
         </Link>
         <Link
           href="/#beta"
           className="on-accent neo-shadow-sm neo-border px-7 py-2.5"
-          style={{ background: "var(--yellow)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "0.7px", color: "var(--ink)" }}
+          style={{ background: "var(--yellow)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "0.7px", color: "var(--ink)" }}
         >
           JOIN BETA
         </Link>
@@ -52,19 +52,19 @@ export default function AboutPage() {
         <div className="relative">
           <span
             className="on-accent inline-block neo-border neo-shadow-sm px-4 py-2 mb-6"
-            style={{ background: "var(--blue)", transform: "rotate(-2deg)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1.4px", color: "var(--ink)" }}
+            style={{ background: "var(--blue)", transform: "rotate(-2deg)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1.4px", color: "var(--ink)" }}
           >
             THE MISSION
           </span>
         </div>
 
-        <h1 style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 900, fontSize: "clamp(40px, 6vw, 64px)", color: "var(--ink)", letterSpacing: "-2px", lineHeight: 1.05, margin: "0 0 24px" }}>
+        <h1 style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 900, fontSize: "clamp(40px, 6vw, 64px)", color: "var(--ink)", letterSpacing: "-2px", lineHeight: 1.05, margin: "0 0 24px" }}>
           Skincare shouldn&apos;t be
           <br />
-          <span style={{ fontFamily: "'Epilogue', sans-serif", fontWeight: 400, fontStyle: "italic", color: "var(--olive)" }}>a guessing game.</span>
+          <span style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 400, fontStyle: "italic", color: "var(--olive)" }}>a guessing game.</span>
         </h1>
 
-        <div style={{ fontFamily: "'Work Sans', sans-serif", fontSize: 18, color: "var(--muted)", lineHeight: 1.75 }}>
+        <div style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: 18, color: "var(--muted)", lineHeight: 1.75 }}>
           <p style={{ margin: "0 0 20px" }}>
             Most people build their routine from ads, trends, and whatever a
             friend swears by. The result: cabinets full of half-used products
@@ -99,31 +99,31 @@ export default function AboutPage() {
             { title: "For every face", body: "Built to work across all skin tones and types. Skincare has no gender.", color: "var(--surface)" },
           ].map((c) => (
             <div key={c.title} className="neo-shadow-sm neo-border p-6" style={{ background: c.color }}>
-              <h2 style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 800, fontSize: 20, color: "var(--ink)", margin: "0 0 8px" }}>{c.title}</h2>
-              <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: 15, color: "var(--muted)", lineHeight: 1.6, margin: 0 }}>{c.body}</p>
+              <h2 style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 800, fontSize: 20, color: "var(--ink)", margin: "0 0 8px" }}>{c.title}</h2>
+              <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: 15, color: "var(--muted)", lineHeight: 1.6, margin: 0 }}>{c.body}</p>
             </div>
           ))}
         </div>
 
         {/* Internal links */}
         <div className="flex flex-wrap gap-4 mb-16">
-          <Link href="/#beta" className="on-accent neo-shadow neo-border px-8 py-4" style={{ background: "var(--yellow)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 16, letterSpacing: "0.9px", color: "var(--ink)" }}>
+          <Link href="/#beta" className="on-accent neo-shadow neo-border px-8 py-4" style={{ background: "var(--yellow)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 16, letterSpacing: "0.9px", color: "var(--ink)" }}>
             JOIN THE BETA →
           </Link>
-          <Link href="/#solution" className="neo-shadow neo-border px-8 py-4" style={{ background: "var(--surface)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 16, letterSpacing: "0.9px", color: "var(--ink)" }}>
+          <Link href="/#solution" className="neo-shadow neo-border px-8 py-4" style={{ background: "var(--surface)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 16, letterSpacing: "0.9px", color: "var(--ink)" }}>
             HOW IT WORKS
           </Link>
-          <Link href="/legal" className="on-accent neo-shadow neo-border px-8 py-4" style={{ background: "var(--blue)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 16, letterSpacing: "0.9px", color: "var(--ink)" }}>
+          <Link href="/legal" className="on-accent neo-shadow neo-border px-8 py-4" style={{ background: "var(--blue)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 16, letterSpacing: "0.9px", color: "var(--ink)" }}>
             PRIVACY &amp; TERMS
           </Link>
         </div>
 
         {/* Preferred source deeplink */}
         <div className="neo-border p-6" style={{ background: "var(--surface-2)" }}>
-          <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1.2px", color: "var(--ink)", textTransform: "uppercase", margin: "0 0 8px" }}>
+          <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1.2px", color: "var(--ink)", textTransform: "uppercase", margin: "0 0 8px" }}>
             Follow AetherSkin on Google
           </p>
-          <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: 15, color: "var(--muted)", lineHeight: 1.6, margin: "0 0 12px" }}>
+          <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: 15, color: "var(--muted)", lineHeight: 1.6, margin: "0 0 12px" }}>
             Add AetherSkin as a preferred source so our updates surface for you in
             Google Search.
           </p>

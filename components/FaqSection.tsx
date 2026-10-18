@@ -51,7 +51,7 @@ export function FaqSection() {
           style={{
             background: "var(--blue)",
             transform: "rotate(-1.5deg)",
-            fontFamily: "'Space Grotesk', sans-serif",
+            fontFamily: "'DM Sans', system-ui, sans-serif",
             fontWeight: 700,
             fontSize: 13,
             letterSpacing: "1.4px",
@@ -64,7 +64,7 @@ export function FaqSection() {
         <h2
           id="faq-heading"
           style={{
-            fontFamily: "'Hanken Grotesk', sans-serif",
+            fontFamily: "'Fraunces', Georgia, serif",
             fontWeight: 800,
             fontSize: "clamp(32px, 4vw, 48px)",
             color: "var(--ink)",
@@ -85,7 +85,7 @@ export function FaqSection() {
             >
               <dt
                 style={{
-                  fontFamily: "'Hanken Grotesk', sans-serif",
+                  fontFamily: "'Fraunces', Georgia, serif",
                   fontWeight: 800,
                   fontSize: 19,
                   color: "var(--ink)",
@@ -97,7 +97,7 @@ export function FaqSection() {
               </dt>
               <dd
                 style={{
-                  fontFamily: "'Work Sans', sans-serif",
+                  fontFamily: "'DM Sans', system-ui, sans-serif",
                   fontSize: 16,
                   color: "var(--muted)",
                   lineHeight: 1.7,
