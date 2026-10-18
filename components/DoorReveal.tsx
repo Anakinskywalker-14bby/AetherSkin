@@ -45,44 +45,64 @@ export function DoorReveal({ children }: { children: ReactNode }) {
   const shade = useTransform(scrollYProgress, [0, 0.72], [0.55, 0]);
   const hint = useTransform(scrollYProgress, [0, 0.12], [1, 0]);
 
-  if (!armed) return <>{children}</>;
-
+  /*
+   * The tree shape is identical whether or not the reveal is armed — only
+   * styles and the doors themselves change.
+   *
+   * Returning <>{children}</> before arming and a wrapped tree afterwards
+   * looked tidier but remounted the hero <section> on arm. Anything holding
+   * a reference to that node kept the detached copy: StickyCta's
+   * IntersectionObserver did exactly that, saw its target leave the document,
+   * reported "hero gone" and never heard from it again — so the CTA pinned
+   * itself over the closed doors.
+   */
   return (
-    <div ref={ref} className="relative" style={{ height: "230vh" }}>
-      <div className="sticky top-0 h-screen overflow-hidden">
+    <div
+      ref={ref}
+      className="relative"
+      style={armed ? { height: "230vh" } : undefined}
+    >
+      <div className={armed ? "sticky top-0 h-screen overflow-hidden" : undefined}>
         {children}
 
-        {/* Darkened room, fading as the doors part. */}
-        <motion.div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 z-[70] bg-black"
-          style={{ opacity: shade }}
-        />
+        {/* Doors exist only once armed: server render, no-JS and reduced
+            motion all get the hero with nothing in front of it. Placed AFTER
+            children so the hero keeps the same position in the tree. */}
+        {armed && (
+          <>
+            {/* Darkened room, fading as the doors part. */}
+            <motion.div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 z-[70] bg-black"
+              style={{ opacity: shade }}
+            />
 
-        <motion.div
-          aria-hidden
-          className="door-panel door-left pointer-events-none absolute inset-y-0 left-0 z-[75] w-1/2"
-          style={{ x: leftX }}
-        >
-          <span className="door-handle door-handle-left" />
-        </motion.div>
+            <motion.div
+              aria-hidden
+              className="door-panel door-left pointer-events-none absolute inset-y-0 left-0 z-[75] w-1/2"
+              style={{ x: leftX }}
+            >
+              <span className="door-handle door-handle-left" />
+            </motion.div>
 
-        <motion.div
-          aria-hidden
-          className="door-panel door-right pointer-events-none absolute inset-y-0 right-0 z-[75] w-1/2"
-          style={{ x: rightX }}
-        >
-          <span className="door-handle door-handle-right" />
-        </motion.div>
+            <motion.div
+              aria-hidden
+              className="door-panel door-right pointer-events-none absolute inset-y-0 right-0 z-[75] w-1/2"
+              style={{ x: rightX }}
+            >
+              <span className="door-handle door-handle-right" />
+            </motion.div>
 
-        <motion.div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 bottom-10 z-[76] flex flex-col items-center gap-2"
-          style={{ opacity: hint }}
-        >
-          <span className="door-hint">scroll to open</span>
-          <span className="door-hint-rule" />
-        </motion.div>
+            <motion.div
+              aria-hidden
+              className="pointer-events-none absolute inset-x-0 bottom-10 z-[76] flex flex-col items-center gap-2"
+              style={{ opacity: hint }}
+            >
+              <span className="door-hint">scroll to open</span>
+              <span className="door-hint-rule" />
+            </motion.div>
+          </>
+        )}
       </div>
     </div>
   );
