@@ -70,13 +70,22 @@
   --surface-2: #26101b;
   --ink: #ffeede;        /* warm cream text */
   --muted: #c9a3b2;
-  --yellow: #ffd166;     /* Butter and Coral hold up on dark, unchanged */
-  --blue: #3d1b2a;       /* Blush is too light for a dark ground */
+  /*
+   * Accent surfaces stay LIGHT in dark mode — Butter, Coral and Blush alike.
+   * This is load-bearing, not a style preference: .on-accent forces Berry
+   * text onto anything with an accent background, which is only correct if
+   * every accent surface is light in both themes. Darkening Blush here broke
+   * that invariant and produced Berry-on-Berry at 1.16:1 on the hero chips
+   * and the solution section. Keep accents light, or .on-accent has to grow
+   * per-token variants.
+   */
+  --yellow: #ffd166;
+  --blue: #ffd3dc;
   --olive: #ff6b5b;
-  --sand: #3d1b2a;
+  --sand: #ffd3dc;
   --deep: #ffeede;
-  --rose: #ff8fae;       /* Rose lifted for contrast on dark */
-  --blush: #3d1b2a;
+  --rose: #ff8fae;       /* Rose lifted for contrast on the dark ground */
+  --blush: #ffd3dc;
   --cream: #1b0a13;
   --err-bg: #3d1410;
   --err-text: #ffb4ab;
@@ -96,12 +105,12 @@
     --surface-2: #26101b;
     --ink: #ffeede;
     --muted: #c9a3b2;
-    --blue: #3d1b2a;
+    --blue: #ffd3dc;
     --olive: #ff6b5b;
-    --sand: #3d1b2a;
+    --sand: #ffd3dc;
     --deep: #ffeede;
     --rose: #ff8fae;
-    --blush: #3d1b2a;
+    --blush: #ffd3dc;
     --err-bg: #3d1410;
     --err-text: #ffb4ab;
     --err-border: #ff6b5b;
