@@ -221,6 +221,71 @@ body {
 }
 
 /*
+ * ── Wardrobe doors ──────────────────────────────────────────────────
+ *
+ * The walnut is layered gradients rather than an image: no extra request,
+ * no CLS, and it recolours with the theme. Grain is two repeating gradients
+ * at slightly different periods so the stripes never visibly tile, plus a
+ * broad sheen so the panel reads as a curved surface catching the light.
+ */
+.door-panel {
+  background-color: #4a2f22;
+  background-image:
+    /* recessed panel */
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.26) 0%, transparent 10%, transparent 90%, rgba(0, 0, 0, 0.3) 100%),
+    /* sheen across the face */
+    linear-gradient(105deg, rgba(255, 246, 236, 0.1) 0%, transparent 38%, transparent 62%, rgba(0, 0, 0, 0.16) 100%),
+    /* grain, two periods */
+    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.16) 0px, rgba(0, 0, 0, 0.16) 1px, transparent 1px, transparent 7px),
+    repeating-linear-gradient(90deg, rgba(255, 220, 180, 0.05) 0px, rgba(255, 220, 180, 0.05) 2px, transparent 2px, transparent 23px),
+    linear-gradient(to bottom, #553626 0%, #42281d 50%, #4e3124 100%);
+  box-shadow: inset 0 0 90px rgba(0, 0, 0, 0.42);
+  will-change: transform;
+}
+/* The inner moulding — a classic two-panel wardrobe door. */
+.door-panel::before {
+  content: "";
+  position: absolute;
+  inset: 7% 12%;
+  border-radius: 6px;
+  border: 2px solid rgba(0, 0, 0, 0.28);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 230, 200, 0.07),
+    0 1px 0 rgba(255, 230, 200, 0.06);
+}
+/* The meeting edge, lit from the gap between the doors. */
+.door-left { border-right: 3px solid #2e1c14; box-shadow: inset -22px 0 42px rgba(0, 0, 0, 0.5); }
+.door-right { border-left: 3px solid #2e1c14; box-shadow: inset 22px 0 42px rgba(0, 0, 0, 0.5); }
+
+.door-handle {
+  position: absolute;
+  top: 50%;
+  width: 11px;
+  height: 46px;
+  border-radius: 999px;
+  background: linear-gradient(to right, #d8a24a, #f6d58c 40%, #b9822f);
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.5);
+  transform: translateY(-50%);
+}
+.door-handle-left { right: 16px; }
+.door-handle-right { left: 16px; }
+
+.door-hint {
+  font-family: "DM Sans", system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2.2px;
+  text-transform: uppercase;
+  color: rgba(255, 246, 236, 0.78);
+}
+.door-hint-rule {
+  display: block;
+  width: 1px;
+  height: 34px;
+  background: linear-gradient(to bottom, rgba(255, 246, 236, 0.6), transparent);
+}
+
+/*
  * ── The dressing table ──────────────────────────────────────────────
  *
  * The site should feel like the place people actually get ready: a vanity,

@@ -18,8 +18,11 @@
 import { type PointerEvent, useCallback, useEffect, useRef, useState } from "react";
 
 const WIDTH = 120;
-const HEIGHT = 250;
-const ANCHOR = { x: WIDTH / 2, y: 84 };
+const HEIGHT = 190;
+/* The bulb now mounts straight to the underside of the nav bar, so the chain
+   starts just below it. There is no ceiling drop above the fitting. */
+const ANCHOR = { x: WIDTH / 2, y: 48 };
+const BULB_Y = 30;
 const LINKS = 11;
 const LINK = 7.5;
 
@@ -344,27 +347,18 @@ export default function VanityLight({
           </radialGradient>
         </defs>
 
-        {/* Ceiling drop + brass canopy */}
-        <line
-          x1={WIDTH / 2}
-          x2={WIDTH / 2}
-          y1={-40}
-          y2={46}
-          stroke="var(--ink)"
-          strokeOpacity={0.45}
-          strokeWidth={2}
-        />
+        {/* Fitting only — the bulb screws into the underside of the bar. */}
         <rect
           x={WIDTH / 2 - 13}
-          y={44}
+          y={0}
           width={26}
-          height={9}
+          height={8}
           rx={3}
           fill="var(--ink)"
           opacity={0.82}
         />
         <path
-          d={`M${WIDTH / 2 - 9} 53 h18 l-3 9 h-12 Z`}
+          d={`M${WIDTH / 2 - 9} 8 h18 l-3 8 h-12 Z`}
           fill="var(--ink)"
           opacity={0.7}
         />
@@ -372,8 +366,8 @@ export default function VanityLight({
         {/* Halo, behind the glass */}
         <circle
           cx={WIDTH / 2}
-          cy={72}
-          r={46}
+          cy={BULB_Y}
+          r={44}
           fill="url(#vl-glow)"
           style={{
             opacity: checked ? 1 : 0,
@@ -384,7 +378,7 @@ export default function VanityLight({
         {/* The bulb */}
         <circle
           cx={WIDTH / 2}
-          cy={72}
+          cy={BULB_Y}
           r={17}
           fill={checked ? "var(--butter)" : "color-mix(in srgb, var(--ink) 22%, transparent)"}
           stroke="var(--ink)"
@@ -394,7 +388,7 @@ export default function VanityLight({
         />
         {/* Filament, visible only when lit */}
         <path
-          d={`M${WIDTH / 2 - 5} 74 q2.5 -7 5 0 q2.5 7 5 0`}
+          d={`M${WIDTH / 2 - 5} ${BULB_Y + 2} q2.5 -7 5 0 q2.5 7 5 0`}
           fill="none"
           stroke="var(--ink)"
           strokeOpacity={checked ? 0.5 : 0.18}
@@ -404,7 +398,7 @@ export default function VanityLight({
         />
         {/* Glass highlight — the "glint" from the brand mark */}
         <path
-          d={`M${WIDTH / 2 - 9} 66 q3 -5 7 -5.5`}
+          d={`M${WIDTH / 2 - 9} ${BULB_Y - 6} q3 -5 7 -5.5`}
           fill="none"
           stroke="#fff6ec"
           strokeOpacity={checked ? 0.85 : 0.25}

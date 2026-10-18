@@ -9,6 +9,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import { DoorReveal } from "@/components/DoorReveal";
 import { SiteNav } from "@/components/SiteNav";
 import { SignupSection } from "@/components/SignupSection";
 import { StickyCta } from "@/components/StickyCta";
@@ -669,7 +670,11 @@ export default function NewLanding({ faq }: { faq?: React.ReactNode }) {
   return (
     <div style={{ background: "var(--surface)" }}>
       <SiteNav />
-      <HeroSection />
+      {/* The hero is pinned inside the reveal while the doors part, so it is
+          framed exactly as they finish rather than half-scrolled away. */}
+      <DoorReveal>
+        <HeroSection />
+      </DoorReveal>
       <DropperSection />
       <ProblemSection />
       <SolutionSection />

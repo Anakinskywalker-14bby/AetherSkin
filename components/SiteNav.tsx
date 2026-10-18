@@ -92,12 +92,15 @@ export function SiteNav() {
         </div>
 
         {/*
-          The lamp hangs out of the nav rather than sitting inside it — the
-          cord needs vertical room below its anchor to swing, so a 72px-tall
-          bar can't contain it. Pointer events are scoped to the lamp itself
-          in ThemeToggle so this overlay never blocks the hero beneath.
+          The bulb hangs from the underside of the bar, centred under the
+          logo. The wrapper matches the nav's own left padding and the logo's
+          137px width, so the bulb lines up with the mark at any width rather
+          than being nudged with a magic offset. It must sit outside the bar
+          because the chain needs room to swing that a 72px row can't give.
+          Pointer events are scoped to the lamp itself in ThemeToggle, so this
+          never blocks the hero beneath.
         */}
-        <div className="pointer-events-none absolute left-6 top-[58px] z-[51] hidden md:block">
+        <div className="pointer-events-none absolute left-5 md:left-16 top-[70px] z-[51] hidden w-[137px] justify-center md:flex">
           <ThemeToggle />
         </div>
 
