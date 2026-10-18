@@ -40,7 +40,11 @@
   --muted: #8a5a6b;      /* Berry lightened to reading weight */
   --yellow: #ffd166;     /* Butter — the glow */
   --blue: #ffd3dc;       /* Blush — soft grounds */
-  --olive: #ff6b5b;      /* Coral — the sun, primary CTA */
+  /* --olive is only ever used as emphasis TEXT on the cream ground, so it maps
+     to Rose rather than Coral. Coral on Cream is 2.62:1 — below the 3:1 large
+     text floor. The brand board says the same thing: Coral is the sun and the
+     app icon, Rose is labels and links. */
+  --olive: #c2416b;      /* Rose */
   --sand: #ffd3dc;
   --deep: #5a1832;       /* footer text */
   --rose: #c2416b;       /* labels, links */
@@ -81,10 +85,10 @@
    */
   --yellow: #ffd166;
   --blue: #ffd3dc;
-  --olive: #ff6b5b;
+  --olive: #ff8fae;      /* Rose, lifted — emphasis text on the dark ground */
   --sand: #ffd3dc;
   --deep: #ffeede;
-  --rose: #ff8fae;       /* Rose lifted for contrast on the dark ground */
+  --rose: #ff8fae;
   --blush: #ffd3dc;
   --cream: #1b0a13;
   --err-bg: #3d1410;
@@ -106,7 +110,7 @@
     --ink: #ffeede;
     --muted: #c9a3b2;
     --blue: #ffd3dc;
-    --olive: #ff6b5b;
+    --olive: #ff8fae;
     --sand: #ffd3dc;
     --deep: #ffeede;
     --rose: #ff8fae;
