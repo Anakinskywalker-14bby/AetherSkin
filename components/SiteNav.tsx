@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { ThemeToggle } from "@/components/ThemeToggle";
+import { ThemeToggle, ThemeToggleCompact } from "@/components/ThemeToggle";
 
 const LINKS = [
   { href: "/about", label: "ABOUT" },
@@ -97,18 +97,21 @@ export function SiteNav() {
           bar can't contain it. Pointer events are scoped to the lamp itself
           in ThemeToggle so this overlay never blocks the hero beneath.
         */}
-        <div className="pointer-events-none absolute left-2 md:left-6 top-[58px] z-[51]">
+        <div className="pointer-events-none absolute left-6 top-[58px] z-[51] hidden md:block">
           <ThemeToggle />
         </div>
 
-        {/* Mobile toggle */}
+        {/* Mobile: the bulb without the chain, plus the menu. */}
+        <div className="flex items-center gap-2 md:hidden">
+          <ThemeToggleCompact />
+
         <button
           type="button"
           onClick={() => setOpen((o) => !o)}
           aria-expanded={open}
           aria-controls="mobile-menu"
           aria-label={open ? "Close menu" : "Open menu"}
-          className="md:hidden neo-border p-3"
+          className="neo-border p-3"
           style={{ background: open ? "var(--yellow)" : "var(--surface)" }}
         >
           <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
@@ -124,6 +127,7 @@ export function SiteNav() {
             )}
           </svg>
         </button>
+        </div>
       </nav>
 
       {/* Mobile drawer */}
