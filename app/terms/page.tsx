@@ -109,7 +109,7 @@ export default function TermsPage() {
         <Link href="/" className="neo-shadow neo-border px-8 py-4" style={{ background: "var(--surface)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 16, letterSpacing: "0.9px", color: "var(--ink)" }}>
           BACK HOME
         </Link>
-        <Link href="/privacy" className="on-accent neo-shadow neo-border px-8 py-4" style={{ background: "var(--blue)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 16, letterSpacing: "0.9px", color: "var(--ink)" }}>
+        <Link href="/privacy" className="on-soft neo-shadow neo-border px-8 py-4" style={{ background: "var(--blue)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 16, letterSpacing: "0.9px", color: "var(--ink)" }}>
           PRIVACY POLICY
         </Link>
       </div>

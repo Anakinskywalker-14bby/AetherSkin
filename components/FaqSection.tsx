@@ -47,7 +47,7 @@ export function FaqSection() {
     >
       <div className="max-w-[880px] mx-auto px-5 md:px-16 py-20 md:py-24">
         <div
-          className="on-accent inline-block neo-border neo-shadow-sm px-4 py-2 mb-6"
+          className="on-soft inline-block neo-border neo-shadow-sm px-4 py-2 mb-6"
           style={{
             background: "var(--blue)",
             transform: "rotate(-1.5deg)",

@@ -33,22 +33,32 @@
  * second sweep for no behavioural gain. They are mapped by ROLE, so --yellow
  * is "the warm primary accent" and now holds Butter.
  */
+/*
+ * LIGHT — Coral, Butter, Cream, as specified, plus Berry for ink.
+ *
+ * Berry is not decoration here, it is a requirement. A palette of only Coral,
+ * Butter and Cream has no dark tone, and all three fail as text on Cream:
+ * Coral is 2.62:1 and Butter about 1.3:1, against a 4.5:1 floor. Berry is the
+ * brand's own text colour, so it carries every glyph and border while Coral
+ * and Butter do the expressive work.
+ */
 :root {
-  --surface: #fff6ec;    /* Cream — page background */
-  --surface-2: #fffcf7;  /* lifted card on cream */
-  --ink: #5a1832;        /* Berry — text, borders */
-  --muted: #8a5a6b;      /* Berry lightened to reading weight */
-  --yellow: #ffd166;     /* Butter — the glow */
-  --blue: #ffd3dc;       /* Blush — soft grounds */
-  /* --olive is only ever used as emphasis TEXT on the cream ground, so it maps
-     to Rose rather than Coral. Coral on Cream is 2.62:1 — below the 3:1 large
-     text floor. The brand board says the same thing: Coral is the sun and the
-     app icon, Rose is labels and links. */
-  --olive: #c2416b;      /* Rose */
-  --sand: #ffd3dc;
-  --deep: #5a1832;       /* footer text */
-  --rose: #c2416b;       /* labels, links */
-  --coral: #ff6b5b;
+  --surface: #fff6ec;    /* Cream — the room */
+  --surface-2: #fffbf4;  /* lifted surface: the tabletop */
+  --ink: #5a1832;        /* Berry — every glyph and border */
+  --muted: #8a5a6b;
+  --yellow: #ffd166;     /* Butter — the glow: chips, highlights */
+  /* Soft panel. Blush is gone from the brief, so this is a warm Butter tint
+     rather than pink — it keeps the ground in the Cream/Butter family. */
+  --blue: #ffeed2;
+  /* Emphasis TEXT, so it cannot be raw Coral: #FF6B5B on Cream is 2.62:1,
+     under even the 3:1 large-text floor. This is Coral deepened until it
+     passes while still reading as the same hue. */
+  --olive: #c2412f;
+  --sand: #ffeed2;
+  --deep: #5a1832;
+  --rose: #c2412f;
+  --coral: #ff6b5b;      /* the sun — primary action, fills only */
   --butter: #ffd166;
   --blush: #ffd3dc;
   --berry: #5a1832;
@@ -67,31 +77,38 @@
   color-scheme: light;
 }
 
-/* Dark is Berry taken most of the way down rather than neutral grey, so the
-   brand still reads warm with the lights off. */
+/*
+ * DARK — Butter and Cream, as specified. The room with the lights off.
+ *
+ * The brief was that dark must not be busy or hard on the eye, so the rules
+ * here are about RESTRAINT, not just inverted values:
+ *
+ *   1. The ground is a warm brown-black, not pure black and not berry-pink.
+ *      Pure black against Butter vibrates; a warm near-black sits still.
+ *   2. Cream carries all text. Butter is an accent only, never a large field.
+ *   3. Coral is held back to a single primary action. On a dark ground a
+ *      saturated red-orange is the most fatiguing thing in the palette.
+ *   4. Soft panels go DARK rather than staying pink. Large pale fields on a
+ *      dark page are the "awkward mixing" problem — they glare.
+ *
+ * Rule 4 is why --blue flips here, and why anything using it must be tagged
+ * .on-soft rather than .on-accent (see below) — .on-accent pins Berry text,
+ * which would be unreadable once this panel is dark.
+ */
 .dark {
-  --surface: #1b0a13;    /* deep berry-black */
-  --surface-2: #26101b;
-  --ink: #ffeede;        /* warm cream text */
-  --muted: #c9a3b2;
-  /*
-   * Accent surfaces stay LIGHT in dark mode — Butter, Coral and Blush alike.
-   * This is load-bearing, not a style preference: .on-accent forces Berry
-   * text onto anything with an accent background, which is only correct if
-   * every accent surface is light in both themes. Darkening Blush here broke
-   * that invariant and produced Berry-on-Berry at 1.16:1 on the hero chips
-   * and the solution section. Keep accents light, or .on-accent has to grow
-   * per-token variants.
-   */
-  --yellow: #ffd166;
-  --blue: #ffd3dc;
-  --olive: #ff8fae;      /* Rose, lifted — emphasis text on the dark ground */
-  --sand: #ffd3dc;
-  --deep: #ffeede;
-  --rose: #ff8fae;
-  --blush: #ffd3dc;
-  --cream: #1b0a13;
-  --err-bg: #3d1410;
+  --surface: #1a1210;    /* warm brown-black: the unlit room */
+  --surface-2: #241a17;  /* the tabletop, lifted */
+  --ink: #fff6ec;        /* Cream carries every glyph */
+  --muted: #c9b5a8;
+  --yellow: #ffd166;     /* Butter: accent only, small areas */
+  --blue: #241a17;       /* soft panel goes dark, not pink */
+  --olive: #ffb9ad;      /* emphasis text: Coral lifted to read on dark */
+  --sand: #241a17;
+  --deep: #fff6ec;
+  --rose: #ffb9ad;
+  --blush: #241a17;
+  --cream: #1a1210;
+  --err-bg: #3a1a14;
   --err-text: #ffb4ab;
   --err-border: #ff6b5b;
 
@@ -105,17 +122,18 @@
  */
 @media (prefers-color-scheme: dark) {
   html:not(.light):not(.dark) {
-    --surface: #1b0a13;
-    --surface-2: #26101b;
-    --ink: #ffeede;
-    --muted: #c9a3b2;
-    --blue: #ffd3dc;
-    --olive: #ff8fae;
-    --sand: #ffd3dc;
-    --deep: #ffeede;
-    --rose: #ff8fae;
-    --blush: #ffd3dc;
-    --err-bg: #3d1410;
+    --surface: #1a1210;
+    --surface-2: #241a17;
+    --ink: #fff6ec;
+    --muted: #c9b5a8;
+    --blue: #241a17;
+    --olive: #ffb9ad;
+    --sand: #241a17;
+    --deep: #fff6ec;
+    --rose: #ffb9ad;
+    --blush: #241a17;
+    --cream: #1a1210;
+    --err-bg: #3a1a14;
     --err-text: #ffb4ab;
     --err-border: #ff6b5b;
     color-scheme: dark;
@@ -156,42 +174,105 @@ body {
  * added later. Put `on-accent` on anything with an accent background.
  */
 .on-accent {
-  --ink: #5a1832;        /* Berry stays legible on Butter, Coral and Blush */
+  --ink: #5a1832;        /* Berry: Butter and Coral are light in both themes */
   --deep: #5a1832;
   --muted: #7d3a52;
   --rose: #5a1832;
+  --olive: #c2412f;
   --surface: #fff6ec;
-  --surface-2: #fffcf7;
+  --surface-2: #fffbf4;
   color: var(--ink);
+}
+
+/*
+ * .on-soft is the counterpart for panels built on --blue/--sand, which FLIP
+ * with the theme: warm Butter tint in light, near-black in dark.
+ *
+ * It deliberately pins nothing. Those panels want whatever the active theme's
+ * --ink already is — Berry on the tint, Cream on the dark. Tagging them
+ * .on-accent instead was the bug that produced Berry-on-Berry at 1.16:1, so
+ * the two cases now have two classes rather than one class and an invariant
+ * that is easy to break by changing a single token.
+ */
+.on-soft {
+  color: var(--ink);
+}
+
+/*
+ * ── The dressing table ──────────────────────────────────────────────
+ *
+ * The site should feel like the place people actually get ready: a vanity,
+ * lit from above. Three layers, all token-driven so they follow the theme.
+ *
+ * Intensities drop in dark on purpose. The same glow that reads as warm on
+ * Cream reads as glare on a near-black ground, and glare is what makes a
+ * dark theme tiring — which was the explicit brief.
+ */
+.vanity-wash {
+  background:
+    radial-gradient(120% 70% at 50% -10%, color-mix(in srgb, var(--butter) 42%, transparent) 0%, transparent 62%),
+    radial-gradient(90% 55% at 50% 0%, color-mix(in srgb, var(--coral) 12%, transparent) 0%, transparent 55%);
+}
+.dark .vanity-wash {
+  background:
+    radial-gradient(120% 70% at 50% -10%, color-mix(in srgb, var(--butter) 14%, transparent) 0%, transparent 60%),
+    radial-gradient(90% 50% at 50% 0%, color-mix(in srgb, var(--coral) 6%, transparent) 0%, transparent 52%);
+}
+
+/* The bulb row across the top of the mirror. */
+.vanity-bulb {
+  width: clamp(7px, 0.9vw, 11px);
+  height: clamp(7px, 0.9vw, 11px);
+  border-radius: 999px;
+  background: var(--butter);
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--butter) 26%, transparent),
+    0 0 14px 3px color-mix(in srgb, var(--butter) 55%, transparent);
+  opacity: 0.95;
+}
+.dark .vanity-bulb {
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--butter) 14%, transparent),
+    0 0 16px 4px color-mix(in srgb, var(--butter) 34%, transparent);
+  opacity: 0.8;
+}
+/* Bulbs idle with a slow, barely-there flicker. Static is lifeless, fast is
+   a distraction; 7s with a 4% swing reads as "warm" without pulling focus. */
+@keyframes bulbBreathe {
+  0%, 100% { opacity: 0.95; }
+  50% { opacity: 0.82; }
+}
+.vanity-bulb { animation: bulbBreathe 7s ease-in-out infinite; }
+.vanity-bulb:nth-child(2n) { animation-delay: -2.3s; }
+.vanity-bulb:nth-child(3n) { animation-delay: -4.1s; }
+
+/* The cursor carries a soft pool of light across the table. */
+.vanity-bloom {
+  background: radial-gradient(60% 60% at 50% 40%, color-mix(in srgb, var(--butter) 30%, transparent) 0%, transparent 70%);
+}
+.dark .vanity-bloom {
+  background: radial-gradient(60% 60% at 50% 40%, color-mix(in srgb, var(--butter) 11%, transparent) 0%, transparent 70%);
+}
+
+/*
+ * The arch. Lifted straight from the logo — an arched vanity mirror — and
+ * applied to the hero image so the page and the mark share one shape.
+ */
+.mirror-arch {
+  border-radius: 999px 999px 26px 26px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vanity-bulb { animation: none; }
 }
 
 /*
  * Theme lamp.
  *
- * The kokonutui component ships its own card chrome and a "Desk lamp / pull
- * the cord" caption. Both are styled from inside the component, so they're
- * neutralised here rather than by forking the file — that keeps the component
- * byte-identical to the registry and re-installable.
+ * VanityLight draws itself entirely from theme tokens, so there is nothing to
+ * override here any more — the CSS that used to neutralise the kokonutui desk
+ * lamp's card chrome, caption and zinc palette is gone with it.
  */
-.theme-lamp > div > div {
-  background: transparent !important;
-  border: 0 !important;
-  border-radius: 0 !important;
-}
-/* The caption block, absolutely positioned at the bottom of the component. */
-.theme-lamp .absolute.inset-x-0.bottom-0 {
-  display: none !important;
-}
-/* Tint the lamp hardware to Berry so it belongs to the brand. */
-.theme-lamp .fill-zinc-900,
-.theme-lamp .fill-zinc-800 { fill: var(--berry, #5a1832) !important; }
-.theme-lamp .fill-zinc-300 { fill: #c9a3b2 !important; }
-.theme-lamp .fill-amber-300 { fill: var(--butter, #ffd166) !important; }
-.theme-lamp .fill-zinc-700 { fill: #7d3a52 !important; }
-.theme-lamp .stroke-zinc-300,
-.theme-lamp .stroke-zinc-400 { stroke: color-mix(in srgb, var(--ink) 45%, transparent) !important; }
-.theme-lamp .stroke-zinc-600,
-.theme-lamp .stroke-zinc-700 { stroke: color-mix(in srgb, var(--ink) 35%, transparent) !important; }
 
 /*
  * Card and button geometry.

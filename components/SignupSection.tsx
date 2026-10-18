@@ -88,7 +88,7 @@ export function SignupSection() {
           {state === "sent" ? (
             <div className="text-center py-4" role="status" aria-live="polite">
               <div
-                className="on-accent inline-block neo-border neo-shadow-sm px-5 py-2.5 mb-6"
+                className="on-soft inline-block neo-border neo-shadow-sm px-5 py-2.5 mb-6"
                 style={{ background: "var(--blue)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1.4px", color: "var(--ink)" }}
               >
                 CHECK YOUR INBOX

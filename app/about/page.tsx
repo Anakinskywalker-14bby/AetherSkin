@@ -51,7 +51,7 @@ export default function AboutPage() {
 
         <div className="relative">
           <span
-            className="on-accent inline-block neo-border neo-shadow-sm px-4 py-2 mb-6"
+            className="on-soft inline-block neo-border neo-shadow-sm px-4 py-2 mb-6"
             style={{ background: "var(--blue)", transform: "rotate(-2deg)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1.4px", color: "var(--ink)" }}
           >
             THE MISSION
@@ -113,7 +113,7 @@ export default function AboutPage() {
           <Link href="/#solution" className="neo-shadow neo-border px-8 py-4" style={{ background: "var(--surface)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 16, letterSpacing: "0.9px", color: "var(--ink)" }}>
             HOW IT WORKS
           </Link>
-          <Link href="/legal" className="on-accent neo-shadow neo-border px-8 py-4" style={{ background: "var(--blue)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 16, letterSpacing: "0.9px", color: "var(--ink)" }}>
+          <Link href="/legal" className="on-soft neo-shadow neo-border px-8 py-4" style={{ background: "var(--blue)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 16, letterSpacing: "0.9px", color: "var(--ink)" }}>
             PRIVACY &amp; TERMS
           </Link>
         </div>

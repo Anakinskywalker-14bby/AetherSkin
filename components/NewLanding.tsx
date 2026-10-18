@@ -89,7 +89,10 @@ function HeroSection() {
   return (
     <section
       className="relative overflow-hidden pt-[72px] min-h-screen flex flex-col"
-      style={{ background: "var(--surface)", borderBottom: "3px solid var(--ink)" }}
+      style={{
+        background: "var(--surface)",
+        borderBottom: "1px solid color-mix(in srgb, var(--ink) 12%, transparent)",
+      }}
       onPointerEnter={() => setHovering(true)}
       onPointerMove={(e) => {
         const r = e.currentTarget.getBoundingClientRect();
@@ -97,20 +100,29 @@ function HeroSection() {
       }}
       onPointerLeave={() => setHovering(false)}
     >
-      {/* Dot grid base */}
+      {/*
+        The dressing table.
+
+        This replaced a hard dot grid, which read as developer tooling rather
+        than a bedroom. Three stacked layers do the work:
+          1. a warm wash falling from the vanity lights above
+          2. a row of bulbs across the top, like a makeup mirror
+          3. the cursor carried as a soft light bloom instead of dot dilation
+
+        Every value is a theme token, and the glow opacities are deliberately
+        lower in dark — a bright bloom on a dark ground is what makes a dark
+        theme tiring to sit in.
+      */}
+      <div className="vanity-wash pointer-events-none absolute inset-0" />
+      <div className="vanity-bulbs pointer-events-none absolute inset-x-0 top-[72px] flex justify-center gap-[clamp(18px,4vw,46px)] px-6">
+        {Array.from({ length: 9 }).map((_, i) => (
+          <span key={i} className="vanity-bulb" />
+        ))}
+      </div>
+      {/* Light follows the cursor across the table. */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        className="vanity-bloom pointer-events-none absolute inset-0 transition-opacity duration-300"
         style={{
-          backgroundImage: "radial-gradient(circle at center, rgba(26,28,27,0.12) 1.2px, transparent 1.4px)",
-          backgroundSize: "20px 20px",
-        }}
-      />
-      {/* Dot grid hover bloom */}
-      <div
-        className="absolute inset-0 pointer-events-none transition-opacity duration-150"
-        style={{
-          backgroundImage: "radial-gradient(circle at center, rgba(26,28,27,0.28) 2.2px, transparent 2.4px)",
-          backgroundSize: "20px 20px",
           opacity: hovering ? 1 : 0,
           maskImage: mask,
           WebkitMaskImage: mask,
@@ -120,7 +132,7 @@ function HeroSection() {
       <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between px-6 md:px-16 py-16 flex-1 gap-12 max-w-[1280px] mx-auto w-full">
         {/* Left: text */}
         <div className="flex flex-col items-start gap-6 max-w-[620px]">
-          <div className="on-accent sticker-float neo-shadow-sm neo-border px-5 py-2.5 self-start" style={{ background: "var(--blue)" }}>
+          <div className="on-soft sticker-float neo-shadow-sm neo-border px-5 py-2.5 self-start" style={{ background: "var(--blue)" }}>
             <span style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 400, fontSize: 22, color: "var(--ink)" }}>Ouch!</span>
           </div>
 
@@ -154,14 +166,14 @@ function HeroSection() {
 
         {/* Right: image hero */}
         <div className="relative flex-shrink-0">
-          <div className="neo-shadow neo-border overflow-hidden" style={{ width: "min(480px, 80vw)", aspectRatio: "3/4" }}>
+          <div className="mirror-arch neo-shadow neo-border overflow-hidden" style={{ width: "min(480px, 80vw)", aspectRatio: "3/4" }}>
             {/* eslint-disable-next-line @next/next/no-img-element -- remote decorative asset; see note above */}
               <img fetchPriority="high" decoding="async" src={imgHand} alt="Four skincare textures — cream, serum, and gel boosters — swatched on the back of a hand" className="w-full h-full object-cover" />
           </div>
           <div className="on-accent sticker-float-alt absolute -bottom-4 -right-6 neo-shadow-sm neo-border px-5 py-3" style={{ background: "var(--yellow)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "1.6px", color: "var(--ink)" }}>
             HYDRATE NOW
           </div>
-          <div className="on-accent absolute -top-4 -left-6 neo-shadow-sm neo-border px-4 py-2" style={{ background: "var(--blue)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 13, color: "var(--ink)" }}>
+          <div className="on-soft absolute -top-4 -left-6 neo-shadow-sm neo-border px-4 py-2" style={{ background: "var(--blue)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 13, color: "var(--ink)" }}>
             ✦ BETA OPEN
           </div>
         </div>
@@ -293,7 +305,7 @@ function ProblemSection() {
         <div className="flex-1 flex justify-center">
           <div className="relative w-full max-w-[380px]">
             <div style={{ background: "var(--surface)", border: "3px solid var(--ink)", boxShadow: "8px 8px 0 var(--ink)", padding: 36, transform: "rotate(1deg)" }}>
-              <div className="on-accent neo-border" style={{ background: "var(--blue)", padding: "120px 20px", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", gap: 16 }}>
+              <div className="on-soft neo-border" style={{ background: "var(--blue)", padding: "120px 20px", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", gap: 16 }}>
                 <p style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 400, fontSize: 34, color: "var(--ink)", textAlign: "center", margin: 0 }}>&quot;Is it working?&quot;</p>
                 <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1px", color: "var(--ink)", textAlign: "center", margin: 0 }}>(SPOILER: NO)</p>
               </div>
@@ -316,7 +328,7 @@ function SolutionSection() {
     <section
       id="solution"
       ref={ref as React.RefObject<HTMLElement>}
-      className="on-accent relative w-full"
+      className="on-soft relative w-full"
       style={{ background: "var(--blue)", borderBottom: "3px solid var(--ink)", opacity: visible ? 1 : 0, transition: "opacity 0.9s ease 0.15s, transform 0.9s ease 0.15s", transform: visible ? "none" : "translateY(40px)" }}
     >
       <div className="max-w-[1280px] mx-auto px-6 md:px-16 py-24">
@@ -381,7 +393,7 @@ function SolutionSection() {
             <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 400, fontSize: 16, color: "var(--ink)", lineHeight: 1.6, margin: 0 }}>
               Products picked from brands you already love, based on your exact scan.
             </p>
-            <a href="#beta" className="on-accent neo-border mt-auto py-3 w-full inline-block text-center" style={{ background: "var(--blue)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 15, letterSpacing: "1px", color: "var(--ink)", cursor: "pointer" }}>
+            <a href="#beta" className="on-soft neo-border mt-auto py-3 w-full inline-block text-center" style={{ background: "var(--blue)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 15, letterSpacing: "1px", color: "var(--ink)", cursor: "pointer" }}>
               LEARN MORE
             </a>
           </div>
@@ -567,7 +579,7 @@ function GlowOClockSection() {
   return (
     <section
       ref={sectionRef as React.RefObject<HTMLElement>}
-      className="on-accent relative w-full overflow-hidden"
+      className="on-soft relative w-full overflow-hidden"
       style={{
         background: "var(--sand)",
         borderBottom: "3px solid var(--ink)",
@@ -621,7 +633,7 @@ function GlowOClockSection() {
 // ─── Footer ─────────────────────────────────────────────────────────
 function NewFooter() {
   return (
-    <footer className="on-accent flex flex-col md:flex-row gap-6 items-center justify-between px-6 md:px-16 py-12" style={{ background: "var(--blue)", borderTop: "3px solid var(--ink)" }}>
+    <footer className="on-soft flex flex-col md:flex-row gap-6 items-center justify-between px-6 md:px-16 py-12" style={{ background: "var(--blue)", borderTop: "3px solid var(--ink)" }}>
       <div className="flex flex-col gap-3 items-center md:items-start">
         <span style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 900, fontSize: 30, color: "var(--deep)" }}>AetherSkin</span>
         {/* Official Google "Add as preferred source" button */}
