@@ -199,6 +199,28 @@ body {
 }
 
 /*
+ * .scan-panel — the sample readout, which is a device screen.
+ *
+ * A screen is dark whether or not the room is, so this pins its own ground
+ * and rebinds the light tokens inside it. The alternative, letting it track
+ * --ink, inverted the panel to Cream in dark mode and broke every value on
+ * it (Butter on Cream at 1.35:1).
+ */
+.scan-panel {
+  --surface: #fff6ec;    /* labels and bar outlines, on the screen */
+  --ink: #fff6ec;
+  --blue: #ffeed2;       /* bar fills stay light whatever the theme does */
+  background: #2a1a16;
+  color: var(--surface);
+}
+
+/* Pinned Cream, for text that always sits on a dark photo or overlay. */
+:root,
+.dark {
+  --cream-fixed: #fff6ec;
+}
+
+/*
  * ── The dressing table ──────────────────────────────────────────────
  *
  * The site should feel like the place people actually get ready: a vanity,

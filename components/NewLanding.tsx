@@ -224,7 +224,10 @@ function DropperSection() {
             <div className="on-accent neo-shadow-sm neo-border px-4 py-2 inline-block mb-4" style={{ background: "var(--yellow)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1.6px", color: "var(--ink)" }}>
               THE GLOW-UP
             </div>
-            <h2 style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 900, fontSize: "clamp(42px, 5vw, 64px)", color: "var(--surface)", letterSpacing: "-1.5px", lineHeight: 1.0, margin: 0 }}>
+            {/* Sits on a photo under a dark gradient in BOTH themes, so it is
+                pinned to Cream rather than --surface. Using --surface made it
+                near-black on a near-black photo once dark mode existed. */}
+            <h2 style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 900, fontSize: "clamp(42px, 5vw, 64px)", color: "var(--cream-fixed)", letterSpacing: "-1.5px", lineHeight: 1.0, margin: 0 }}>
               Glass Skin<br />Is Real<br />
               <span style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 300, fontStyle: "italic" }}>Science.</span>
             </h2>
@@ -354,7 +357,12 @@ function SolutionSection() {
               One selfie. AetherSkin&apos;s AI reads your face and maps hydration,
               texture, and everyday concerns — instantly.
             </p>
-            <div className="neo-border p-6 flex flex-col justify-center gap-4" style={{ background: "var(--ink)", height: 200 }}>
+            {/* The scan readout is a device screen, so it stays dark in both
+                themes. Previously it used var(--ink) as its background, which
+                inverted to Cream in dark mode and left Butter-on-Cream at
+                1.35:1 and the caption at 1.01:1. .scan-panel pins a fixed dark
+                ground and light foreground tokens for the whole subtree. */}
+            <div className="scan-panel neo-border p-6 flex flex-col justify-center gap-4" style={{ height: 200 }}>
               {[
                 { label: "HYDRATION", value: 72, color: "var(--blue)" },
                 { label: "TEXTURE", value: 58, color: "var(--yellow)" },
