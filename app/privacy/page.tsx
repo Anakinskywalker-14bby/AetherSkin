@@ -35,7 +35,7 @@ export default function PrivacyPage() {
       </h1>
       <p style={{ ...pStyle, fontSize: 14 }}>Last updated: December 31, 2026</p>
 
-      <div className="neo-border p-5 my-8" style={{ background: "var(--blue)" }}>
+      <div className="on-accent neo-border p-5 my-8" style={{ background: "var(--blue)" }}>
         <p style={{ ...pStyle, margin: 0, color: "var(--ink)" }}>
           <strong>The short version:</strong> we collect your email and your
           skin quiz answers. That&apos;s it. No payment, no card details. We
@@ -138,7 +138,7 @@ export default function PrivacyPage() {
         <Link href="/" className="neo-shadow neo-border px-8 py-4" style={{ background: "var(--surface)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 16, letterSpacing: "0.9px", color: "var(--ink)" }}>
           BACK HOME
         </Link>
-        <Link href="/terms" className="neo-shadow neo-border px-8 py-4" style={{ background: "var(--blue)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 16, letterSpacing: "0.9px", color: "var(--ink)" }}>
+        <Link href="/terms" className="on-accent neo-shadow neo-border px-8 py-4" style={{ background: "var(--blue)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 16, letterSpacing: "0.9px", color: "var(--ink)" }}>
           TERMS OF SERVICE
         </Link>
       </div>

@@ -120,7 +120,7 @@ function HeroSection() {
       <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between px-6 md:px-16 py-16 flex-1 gap-12 max-w-[1280px] mx-auto w-full">
         {/* Left: text */}
         <div className="flex flex-col items-start gap-6 max-w-[620px]">
-          <div className="sticker-float neo-shadow-sm neo-border px-5 py-2.5 self-start" style={{ background: "var(--blue)" }}>
+          <div className="on-accent sticker-float neo-shadow-sm neo-border px-5 py-2.5 self-start" style={{ background: "var(--blue)" }}>
             <span style={{ fontFamily: "'Epilogue', sans-serif", fontWeight: 400, fontSize: 22, color: "var(--ink)" }}>Ouch!</span>
           </div>
 
@@ -143,7 +143,7 @@ function HeroSection() {
           </p>
 
           <div className="flex gap-4 flex-wrap">
-            <a href="#beta" className="neo-shadow neo-border px-9 py-5" style={{ background: "var(--yellow)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 18, letterSpacing: "0.9px", color: "var(--ink)", cursor: "pointer" }}>
+            <a href="#beta" className="on-accent neo-shadow neo-border px-9 py-5" style={{ background: "var(--yellow)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 18, letterSpacing: "0.9px", color: "var(--ink)", cursor: "pointer" }}>
               JOIN BETA
             </a>
             <a href="#solution" className="neo-shadow neo-border px-9 py-5" style={{ background: "var(--surface)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 18, letterSpacing: "0.9px", color: "var(--ink)", cursor: "pointer" }}>
@@ -158,10 +158,10 @@ function HeroSection() {
             {/* eslint-disable-next-line @next/next/no-img-element -- remote decorative asset; see note above */}
               <img fetchPriority="high" decoding="async" src={imgHand} alt="Four skincare textures — cream, serum, and gel boosters — swatched on the back of a hand" className="w-full h-full object-cover" />
           </div>
-          <div className="sticker-float-alt absolute -bottom-4 -right-6 neo-shadow-sm neo-border px-5 py-3" style={{ background: "var(--yellow)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "1.6px", color: "var(--ink)" }}>
+          <div className="on-accent sticker-float-alt absolute -bottom-4 -right-6 neo-shadow-sm neo-border px-5 py-3" style={{ background: "var(--yellow)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "1.6px", color: "var(--ink)" }}>
             HYDRATE NOW
           </div>
-          <div className="absolute -top-4 -left-6 neo-shadow-sm neo-border px-4 py-2" style={{ background: "var(--blue)", fontFamily: "'Work Sans', sans-serif", fontWeight: 700, fontSize: 13, color: "var(--ink)" }}>
+          <div className="on-accent absolute -top-4 -left-6 neo-shadow-sm neo-border px-4 py-2" style={{ background: "var(--blue)", fontFamily: "'Work Sans', sans-serif", fontWeight: 700, fontSize: 13, color: "var(--ink)" }}>
             ✦ BETA OPEN
           </div>
         </div>
@@ -209,7 +209,7 @@ function DropperSection() {
               <img loading="lazy" decoding="async" src={imgGlassSkin} alt="Close-up of a glowing glass-skin complexion with shimmering highlighter" className="w-full h-full object-cover absolute inset-0" />
           <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(26,28,27,0.15) 0%, rgba(26,28,27,0.6) 100%)" }} />
           <div className="absolute bottom-12 left-10 right-10">
-            <div className="neo-shadow-sm neo-border px-4 py-2 inline-block mb-4" style={{ background: "var(--yellow)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1.6px", color: "var(--ink)" }}>
+            <div className="on-accent neo-shadow-sm neo-border px-4 py-2 inline-block mb-4" style={{ background: "var(--yellow)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1.6px", color: "var(--ink)" }}>
               THE GLOW-UP
             </div>
             <h2 style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 900, fontSize: "clamp(42px, 5vw, 64px)", color: "var(--surface)", letterSpacing: "-1.5px", lineHeight: 1.0, margin: 0 }}>
@@ -238,7 +238,7 @@ function DropperSection() {
               actually fits it — the right products, from brands you already
               love, matched to what your skin is really doing.
             </p>
-            <a href="#beta" className="neo-shadow-sm neo-border px-7 py-4 w-full inline-block text-center" style={{ background: "var(--yellow)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 16, letterSpacing: "0.9px", color: "var(--ink)", cursor: "pointer" }}>
+            <a href="#beta" className="on-accent neo-shadow-sm neo-border px-7 py-4 w-full inline-block text-center" style={{ background: "var(--yellow)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 16, letterSpacing: "0.9px", color: "var(--ink)", cursor: "pointer" }}>
               GET YOUR FREE ROUTINE →
             </a>
           </div>
@@ -293,12 +293,12 @@ function ProblemSection() {
         <div className="flex-1 flex justify-center">
           <div className="relative w-full max-w-[380px]">
             <div style={{ background: "var(--surface)", border: "3px solid var(--ink)", boxShadow: "8px 8px 0 var(--ink)", padding: 36, transform: "rotate(1deg)" }}>
-              <div className="neo-border" style={{ background: "var(--blue)", padding: "120px 20px", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", gap: 16 }}>
+              <div className="on-accent neo-border" style={{ background: "var(--blue)", padding: "120px 20px", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", gap: 16 }}>
                 <p style={{ fontFamily: "'Epilogue', sans-serif", fontWeight: 400, fontSize: 34, color: "var(--ink)", textAlign: "center", margin: 0 }}>&quot;Is it working?&quot;</p>
                 <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1px", color: "var(--ink)", textAlign: "center", margin: 0 }}>(SPOILER: NO)</p>
               </div>
             </div>
-            <div className="absolute neo-border neo-shadow-sm px-5 py-2.5" style={{ background: "var(--yellow)", top: -20, right: -20, transform: "rotate(10deg)", fontFamily: "'Work Sans', sans-serif", fontWeight: 700, fontSize: 16, color: "var(--ink)" }}>
+            <div className="on-accent absolute neo-border neo-shadow-sm px-5 py-2.5" style={{ background: "var(--yellow)", top: -20, right: -20, transform: "rotate(10deg)", fontFamily: "'Work Sans', sans-serif", fontWeight: 700, fontSize: 16, color: "var(--ink)" }}>
               ?!?
             </div>
           </div>
@@ -316,12 +316,12 @@ function SolutionSection() {
     <section
       id="solution"
       ref={ref as React.RefObject<HTMLElement>}
-      className="relative w-full"
+      className="on-accent relative w-full"
       style={{ background: "var(--blue)", borderBottom: "3px solid var(--ink)", opacity: visible ? 1 : 0, transition: "opacity 0.9s ease 0.15s, transform 0.9s ease 0.15s", transform: visible ? "none" : "translateY(40px)" }}
     >
       <div className="max-w-[1280px] mx-auto px-6 md:px-16 py-24">
         <div className="flex flex-col items-center gap-5 mb-16">
-          <div className="neo-shadow-sm neo-border px-5 py-2.5" style={{ background: "var(--yellow)", transform: "rotate(2deg)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "1.4px", color: "var(--ink)" }}>
+          <div className="on-accent neo-shadow-sm neo-border px-5 py-2.5" style={{ background: "var(--yellow)", transform: "rotate(2deg)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "1.4px", color: "var(--ink)" }}>
             THE SOLUTION
           </div>
           <h2 style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 800, fontSize: "clamp(36px, 4vw, 52px)", color: "var(--ink)", letterSpacing: "-1px", textAlign: "center", margin: 0 }}>
@@ -361,7 +361,7 @@ function SolutionSection() {
           </div>
 
           {/* Card 2 — Zero BS */}
-          <div className="neo-shadow neo-border p-7 flex flex-col justify-between" style={{ background: "var(--yellow)" }}>
+          <div className="on-accent neo-shadow neo-border p-7 flex flex-col justify-between" style={{ background: "var(--yellow)" }}>
             <div className="flex flex-col gap-4">
               <h3 style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 800, fontSize: 30, color: "var(--ink)", margin: 0 }}>Zero BS Policy</h3>
               <p style={{ fontFamily: "'Work Sans', sans-serif", fontWeight: 700, fontSize: 16, color: "var(--ink)", lineHeight: 1.6, margin: 0 }}>
@@ -381,7 +381,7 @@ function SolutionSection() {
             <p style={{ fontFamily: "'Work Sans', sans-serif", fontWeight: 400, fontSize: 16, color: "var(--ink)", lineHeight: 1.6, margin: 0 }}>
               Products picked from brands you already love, based on your exact scan.
             </p>
-            <a href="#beta" className="neo-border mt-auto py-3 w-full inline-block text-center" style={{ background: "var(--blue)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 15, letterSpacing: "1px", color: "var(--ink)", cursor: "pointer" }}>
+            <a href="#beta" className="on-accent neo-border mt-auto py-3 w-full inline-block text-center" style={{ background: "var(--blue)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 15, letterSpacing: "1px", color: "var(--ink)", cursor: "pointer" }}>
               LEARN MORE
             </a>
           </div>
@@ -396,7 +396,7 @@ function SolutionSection() {
               </p>
             </div>
             <div className="flex-shrink-0">
-              <div style={{ transform: "rotate(-5deg)", background: "var(--yellow)", border: "3px solid var(--ink)", borderRadius: "9999px", width: 128, height: 128, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <div className="on-accent" style={{ transform: "rotate(-5deg)", background: "var(--yellow)", border: "3px solid var(--ink)", borderRadius: "9999px", width: 128, height: 128, display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 15, color: "var(--ink)", textAlign: "center", letterSpacing: "1px" }}>ALWAYS<br />ADAPTING</div>
               </div>
             </div>
@@ -567,7 +567,7 @@ function GlowOClockSection() {
   return (
     <section
       ref={sectionRef as React.RefObject<HTMLElement>}
-      className="relative w-full overflow-hidden"
+      className="on-accent relative w-full overflow-hidden"
       style={{
         background: "var(--sand)",
         borderBottom: "3px solid var(--ink)",
@@ -610,7 +610,7 @@ function GlowOClockSection() {
       </div>
 
       <div className="absolute bottom-10 right-10 z-20">
-        <div className="neo-shadow-sm neo-border px-5 py-3 sticker-float" style={{ background: "var(--yellow)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 16, color: "var(--ink)", transform: "rotate(3deg)" }}>
+        <div className="on-accent neo-shadow-sm neo-border px-5 py-3 sticker-float" style={{ background: "var(--yellow)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 16, color: "var(--ink)", transform: "rotate(3deg)" }}>
           ✨ glow activated
         </div>
       </div>
@@ -621,7 +621,7 @@ function GlowOClockSection() {
 // ─── Footer ─────────────────────────────────────────────────────────
 function NewFooter() {
   return (
-    <footer className="flex flex-col md:flex-row gap-6 items-center justify-between px-6 md:px-16 py-12" style={{ background: "var(--blue)", borderTop: "3px solid var(--ink)" }}>
+    <footer className="on-accent flex flex-col md:flex-row gap-6 items-center justify-between px-6 md:px-16 py-12" style={{ background: "var(--blue)", borderTop: "3px solid var(--ink)" }}>
       <div className="flex flex-col gap-3 items-center md:items-start">
         <span style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 900, fontSize: 30, color: "var(--deep)" }}>AetherSkin</span>
         {/* Official Google "Add as preferred source" button */}

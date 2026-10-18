@@ -39,7 +39,7 @@ export default function AboutPage() {
         </Link>
         <Link
           href="/#beta"
-          className="neo-shadow-sm neo-border px-7 py-2.5"
+          className="on-accent neo-shadow-sm neo-border px-7 py-2.5"
           style={{ background: "var(--yellow)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "0.7px", color: "var(--ink)" }}
         >
           JOIN BETA
@@ -51,7 +51,7 @@ export default function AboutPage() {
 
         <div className="relative">
           <span
-            className="inline-block neo-border neo-shadow-sm px-4 py-2 mb-6"
+            className="on-accent inline-block neo-border neo-shadow-sm px-4 py-2 mb-6"
             style={{ background: "var(--blue)", transform: "rotate(-2deg)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1.4px", color: "var(--ink)" }}
           >
             THE MISSION
@@ -107,13 +107,13 @@ export default function AboutPage() {
 
         {/* Internal links */}
         <div className="flex flex-wrap gap-4 mb-16">
-          <Link href="/#beta" className="neo-shadow neo-border px-8 py-4" style={{ background: "var(--yellow)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 16, letterSpacing: "0.9px", color: "var(--ink)" }}>
+          <Link href="/#beta" className="on-accent neo-shadow neo-border px-8 py-4" style={{ background: "var(--yellow)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 16, letterSpacing: "0.9px", color: "var(--ink)" }}>
             JOIN THE BETA →
           </Link>
           <Link href="/#solution" className="neo-shadow neo-border px-8 py-4" style={{ background: "var(--surface)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 16, letterSpacing: "0.9px", color: "var(--ink)" }}>
             HOW IT WORKS
           </Link>
-          <Link href="/legal" className="neo-shadow neo-border px-8 py-4" style={{ background: "var(--blue)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 16, letterSpacing: "0.9px", color: "var(--ink)" }}>
+          <Link href="/legal" className="on-accent neo-shadow neo-border px-8 py-4" style={{ background: "var(--blue)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 16, letterSpacing: "0.9px", color: "var(--ink)" }}>
             PRIVACY &amp; TERMS
           </Link>
         </div>

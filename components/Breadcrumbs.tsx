@@ -12,7 +12,7 @@ export function Breadcrumbs({ items }: { items: { name: string; path: string }[]
               {last ? (
                 <span
                   aria-current="page"
-                  className="neo-border px-3 py-1.5"
+                  className="on-accent neo-border px-3 py-1.5"
                   style={{ background: "var(--yellow)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 12, letterSpacing: "1px", color: "var(--ink)", textTransform: "uppercase" }}
                 >
                   {item.name}

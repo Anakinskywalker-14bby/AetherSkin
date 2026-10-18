@@ -79,7 +79,7 @@ export function SignupSection() {
       <div className="max-w-[800px] mx-auto px-5 md:px-16 py-20 md:py-24">
         <div className="relative neo-shadow neo-border p-6 sm:p-8 md:p-14" style={{ background: "var(--surface)" }}>
           <div
-            className="absolute neo-shadow-sm neo-border px-4 py-2"
+            className="on-accent absolute neo-shadow-sm neo-border px-4 py-2"
             style={{ background: "var(--yellow)", top: -22, left: -10, transform: "rotate(-4deg)", fontFamily: "'Work Sans', sans-serif", fontWeight: 700, fontSize: 15, color: "var(--ink)" }}
           >
             100% FREE
@@ -88,7 +88,7 @@ export function SignupSection() {
           {state === "sent" ? (
             <div className="text-center py-4" role="status" aria-live="polite">
               <div
-                className="inline-block neo-border neo-shadow-sm px-5 py-2.5 mb-6"
+                className="on-accent inline-block neo-border neo-shadow-sm px-5 py-2.5 mb-6"
                 style={{ background: "var(--blue)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1.4px", color: "var(--ink)" }}
               >
                 CHECK YOUR INBOX
@@ -179,7 +179,7 @@ export function SignupSection() {
                 <button
                   type="submit"
                   disabled={state === "loading"}
-                  className="neo-shadow neo-border py-5 md:py-6 w-full mt-6 disabled:opacity-60"
+                  className="on-accent neo-shadow neo-border py-5 md:py-6 w-full mt-6 disabled:opacity-60"
                   style={{ background: "var(--yellow)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 18, letterSpacing: "1px", color: "var(--ink)", textTransform: "uppercase" }}
                 >
                   {state === "loading" ? (

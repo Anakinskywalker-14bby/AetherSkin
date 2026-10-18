@@ -67,7 +67,7 @@ export function SiteNav() {
         <div className="hidden md:flex items-center gap-5">
           <Link
             href="/#beta"
-            className="neo-shadow-sm neo-border px-7 py-2.5"
+            className="on-accent neo-shadow-sm neo-border px-7 py-2.5"
             style={{ background: "var(--yellow)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "0.7px", color: "var(--ink)" }}
           >
             SIGN UP FREE
@@ -130,7 +130,7 @@ export function SiteNav() {
           <Link
             href="/#beta"
             onClick={() => setOpen(false)}
-            className="neo-shadow neo-border px-6 py-5 text-center mt-2"
+            className="on-accent neo-shadow neo-border px-6 py-5 text-center mt-2"
             style={{ background: "var(--yellow)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 18, letterSpacing: "0.9px", color: "var(--ink)" }}
           >
             SIGN UP FREE

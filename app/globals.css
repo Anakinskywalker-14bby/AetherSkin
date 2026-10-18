@@ -99,6 +99,28 @@ body {
   color: #1a1c1b;
 }
 
+/*
+ * Accent surfaces.
+ *
+ * --yellow, --blue, --olive and --sand stay light in BOTH themes: they're the
+ * brand signal, and inverting them would lose it. But --ink inverts to light
+ * in dark mode, so light text ended up on a light accent — 39 elements at
+ * ~1.2:1 contrast, i.e. invisible.
+ *
+ * Rather than patch each call site, this re-binds the foreground tokens for
+ * the subtree. Any descendant already using var(--ink) / var(--deep) resolves
+ * to a dark value inside an accent panel, in either theme, including elements
+ * added later. Put `on-accent` on anything with an accent background.
+ */
+.on-accent {
+  --ink: #1a1c1b;
+  --deep: #1a1c1b;
+  --muted: #45443a;
+  --surface: #f9f9f7;
+  --surface-2: #f4f4f2;
+  color: var(--ink);
+}
+
 /* ── Neo-brutalist primitives ───────────────────────────────────────── */
 /* The hard offset shadow is the signature of the style, so it follows --ink
    and becomes a light shadow on dark ground rather than disappearing. */

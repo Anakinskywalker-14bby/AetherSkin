@@ -70,7 +70,7 @@ export function StickyCta() {
     >
       <Link
         href="/#beta"
-        className="neo-shadow neo-border block w-full py-4 text-center"
+        className="on-accent neo-shadow neo-border block w-full py-4 text-center"
         style={{
           background: "var(--yellow)",
           fontFamily: "'Space Grotesk', sans-serif",

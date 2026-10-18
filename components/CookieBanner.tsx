@@ -61,7 +61,7 @@ export function CookieBanner() {
           <button
             type="button"
             onClick={() => choose("accepted")}
-            className="neo-shadow-sm neo-border px-5 py-3 whitespace-nowrap"
+            className="on-accent neo-shadow-sm neo-border px-5 py-3 whitespace-nowrap"
             style={{ background: "var(--yellow)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "0.8px", color: "var(--ink)" }}
           >
             GOT IT

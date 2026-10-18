@@ -35,7 +35,7 @@ export default function TermsPage() {
       </h1>
       <p style={{ ...pStyle, fontSize: 14 }}>Last updated: December 31, 2026</p>
 
-      <div className="neo-border p-5 my-8" style={{ background: "var(--yellow)" }}>
+      <div className="on-accent neo-border p-5 my-8" style={{ background: "var(--yellow)" }}>
         <p style={{ ...pStyle, margin: 0, color: "var(--ink)" }}>
           <strong>The short version:</strong> the waitlist is free. AetherSkin gives
           cosmetic suggestions, not medical advice. Some product links earn us
@@ -109,7 +109,7 @@ export default function TermsPage() {
         <Link href="/" className="neo-shadow neo-border px-8 py-4" style={{ background: "var(--surface)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 16, letterSpacing: "0.9px", color: "var(--ink)" }}>
           BACK HOME
         </Link>
-        <Link href="/privacy" className="neo-shadow neo-border px-8 py-4" style={{ background: "var(--blue)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 16, letterSpacing: "0.9px", color: "var(--ink)" }}>
+        <Link href="/privacy" className="on-accent neo-shadow neo-border px-8 py-4" style={{ background: "var(--blue)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 16, letterSpacing: "0.9px", color: "var(--ink)" }}>
           PRIVACY POLICY
         </Link>
       </div>
