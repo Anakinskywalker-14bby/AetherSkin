@@ -60,6 +60,16 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Invalid request." }, { status: 400 });
     }
 
+    /*
+     * JSON.parse accepts any JSON value, not just objects. A body of `null`
+     * used to parse cleanly and then throw on the next property access,
+     * turning bad input into a 500. Sentry caught it as AETHERSKIN-3 on the
+     * first server-side test. Anything that isn't a plain object is a 400.
+     */
+    if (typeof body !== "object" || body === null || Array.isArray(body)) {
+      return NextResponse.json({ error: "Invalid request." }, { status: 400 });
+    }
+
     const email = sanitizeText(body.email, 254).toLowerCase();
     if (!isValidEmail(email)) {
       return NextResponse.json(
