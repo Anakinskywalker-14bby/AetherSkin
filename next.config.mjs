@@ -1,3 +1,7 @@
+// In @sentry/nextjs 11.x, withSentryConfig lives at the /config subpath,
+// not the main entry.
+import { withSentryConfig } from "@sentry/nextjs/config";
+
 /** @type {import('next').NextConfig} */
 
 /**
@@ -75,4 +79,21 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+export default withSentryConfig(nextConfig, {
+  org: "aetherskin",
+  project: "aetherskin",
+
+  // Source map upload auth token (build-time only, never exposed to the client).
+  authToken: process.env.SENTRY_AUTH_TOKEN,
+
+  // Upload a wider set of client source files for better stack trace resolution.
+  widenClientFileUpload: true,
+
+  // Proxy Sentry client requests through a same-origin route so they clear
+  // the strict Content-Security-Policy above (connect-src 'self') and skip
+  // ad blockers.
+  tunnelRoute: "/monitoring",
+
+  // Suppress non-CI build output.
+  silent: !process.env.CI,
+});

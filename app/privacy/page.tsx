@@ -77,9 +77,18 @@ export default function PrivacyPage() {
       </p>
       <p style={pStyle}>
         We share data only with the vendors that run AetherSkin: Supabase (database
-        hosting), Vercel (site hosting), and Resend (email delivery). They
-        process data on our behalf under their own terms. We do not sell or
-        rent personal information to anyone.
+        hosting), Vercel (site hosting), Resend (email delivery), and Sentry
+        (error monitoring). They process data on our behalf under their own
+        terms. We do not sell or rent personal information to anyone.
+      </p>
+      <p style={pStyle}>
+        Sentry receives technical details when something on the site breaks,
+        such as the page, browser and error message, so we can fix it. On the
+        main pages it may also record a sample of anonymised sessions, with all
+        text, form inputs and images masked. It never records the quiz, the
+        email confirmation page or your answers, and we strip verification
+        links, email addresses, cookies and request contents before anything
+        is sent.
       </p>
 
       <h2 style={h2Style}>How long we keep it</h2>

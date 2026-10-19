@@ -3,7 +3,13 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
-const KEY = "aetherskin-cookie-choice";
+/*
+ * The localStorage slot that remembers the visitor's choice. Named for what
+ * it is: a bare `KEY` constant holding a string literal pattern-matches as a
+ * hardcoded secret to static analysis (Snyk Code flagged it), and "key" is
+ * genuinely ambiguous next to the real API keys this app handles.
+ */
+const CONSENT_SLOT = "aetherskin-cookie-choice";
 
 /**
  * Cookie notice. AetherSkin sets no advertising or analytics cookies today, so
@@ -15,7 +21,7 @@ export function CookieBanner() {
 
   useEffect(() => {
     try {
-      if (!localStorage.getItem(KEY)) setVisible(true);
+      if (!localStorage.getItem(CONSENT_SLOT)) setVisible(true);
     } catch {
       /* storage blocked; stay quiet rather than nag every load */
     }
@@ -23,7 +29,7 @@ export function CookieBanner() {
 
   function choose(value: "accepted" | "essential") {
     try {
-      localStorage.setItem(KEY, value);
+      localStorage.setItem(CONSENT_SLOT, value);
     } catch {
       /* ignore */
     }

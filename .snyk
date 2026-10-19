@@ -1,0 +1,18 @@
+# Snyk (https://snyk.io) policy file
+version: v1.25.1
+
+# Paths excluded from `snyk code test`.
+#
+# .claude/ holds Claude Code's own skill scripts (design/brand/token
+# tooling). They are developer utilities run locally with arguments the
+# developer supplies, and they are never bundled into the deployed site.
+# Snyk Code reported 20 "Path Traversal" notes there - a CLI argument
+# choosing which file the developer's own script reads is not an attack
+# path. Scanning them buries real application findings in noise.
+#
+# Excluding them from analysis is not the same as approving them. If any of
+# these scripts is ever imported by app/, components/ or lib/, remove this
+# exclusion and scan them properly.
+exclude:
+  code:
+    - .claude/**
