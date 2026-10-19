@@ -1,4 +1,8 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+
+const { captureMessage } = vi.hoisted(() => ({ captureMessage: vi.fn() }));
+vi.mock("@sentry/nextjs", () => ({ captureMessage }));
+
 import {
   escapeHtml,
   verificationEmail,
@@ -93,6 +97,48 @@ describe("send()", () => {
     );
     const r = await sendVerificationEmail("a@b.co", "tok");
     expect(r).toEqual({ sent: false, reason: "provider_error" });
+  });
+
+  it("reports a sandbox-sender rejection to Sentry without the recipient", async () => {
+    process.env.RESEND_API_KEY = "test-key";
+    captureMessage.mockClear();
+    const recipient = "jane.doe+skin@example.com.au";
+    // The real shape Resend returns when the sandbox sender targets anyone but the account owner.
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue({
+        ok: false,
+        status: 403,
+        json: async () => ({
+          statusCode: 403,
+          name: "validation_error",
+          message: `You can only send testing emails to your own email address. Tried ${recipient}`,
+        }),
+      })
+    );
+    const r = await sendVerificationEmail(recipient, "tok");
+    expect(r).toEqual({ sent: false, reason: "provider_error" });
+    expect(captureMessage).toHaveBeenCalledTimes(1);
+    const [msg, ctx] = captureMessage.mock.calls[0];
+    expect(msg).toBe("email_delivery_failed");
+    expect(ctx.tags).toEqual({
+      email_status: "403",
+      resend_error: "validation_error",
+      sender: "sandbox",
+    });
+    const everything = JSON.stringify([
+      captureMessage.mock.calls,
+      vi.mocked(console.error).mock.calls,
+      vi.mocked(console.warn).mock.calls,
+    ]);
+    expect(everything).not.toContain(recipient);
+    expect(everything).not.toContain("only send testing emails");
+  });
+
+  it("never logs the recipient when the key is missing", async () => {
+    delete process.env.RESEND_API_KEY;
+    await sendVerificationEmail("jane@example.com", "tok");
+    expect(JSON.stringify(vi.mocked(console.warn).mock.calls)).not.toContain("jane@example.com");
   });
 
   it("degrades to provider_error when the network throws, never propagating", async () => {

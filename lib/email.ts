@@ -1,6 +1,7 @@
 import "server-only";
 
 import crypto from "node:crypto";
+import * as Sentry from "@sentry/nextjs";
 import { SITE_URL } from "@/lib/site";
 
 /**
@@ -48,16 +49,47 @@ export function safeEqual(a: string, b: string): boolean {
   return crypto.timingSafeEqual(ab, bb);
 }
 
-const FROM = process.env.EMAIL_FROM ?? "AetherSkin <onboarding@resend.dev>";
+/*
+ * Resend's sandbox sender (onboarding@resend.dev) only delivers to the email
+ * address that owns the Resend account. Every other recipient gets a 403, so
+ * running production on the fallback means real signups never receive their
+ * verification link. Set EMAIL_FROM to an address on the verified domain.
+ */
+const SANDBOX_FROM = "AetherSkin <onboarding@resend.dev>";
+const FROM = process.env.EMAIL_FROM || SANDBOX_FROM;
+const SENDER_KIND = FROM.includes("@resend.dev") ? "sandbox" : "custom_domain";
 
 export type SendResult =
   | { sent: true }
   | { sent: false; reason: "not_configured" | "provider_error" };
 
+/**
+ * Report a delivery failure to Sentry. Vercel Hobby keeps runtime logs for
+ * one hour, so console output alone loses the evidence. Only the HTTP status,
+ * Resend's error name and the sender kind are sent: never the recipient, and
+ * never Resend's message text, which can quote the recipient address.
+ */
+function reportDeliveryFailure(status: number | "network", errorName: string) {
+  Sentry.captureMessage("email_delivery_failed", {
+    level: "error",
+    tags: { email_status: String(status), resend_error: errorName, sender: SENDER_KIND },
+  });
+}
+
+/** Resend error bodies look like { statusCode, name, message }. Keep only `name`. */
+async function readErrorName(res: Response): Promise<string> {
+  try {
+    const body: { name?: unknown } = await res.json();
+    return typeof body?.name === "string" ? body.name : "unknown";
+  } catch {
+    return "unparseable";
+  }
+}
+
 async function send(to: string, subject: string, html: string): Promise<SendResult> {
   const key = process.env.RESEND_API_KEY;
   if (!key) {
-    console.warn("[email] RESEND_API_KEY not set. Skipping delivery to", to);
+    console.warn("[email] RESEND_API_KEY not set. Skipping delivery.");
     return { sent: false, reason: "not_configured" };
   }
   try {
@@ -71,12 +103,16 @@ async function send(to: string, subject: string, html: string): Promise<SendResu
       signal: AbortSignal.timeout(8000),
     });
     if (!res.ok) {
-      console.error("[email] provider responded", res.status, await res.text());
+      const errorName = await readErrorName(res);
+      console.error("[email] provider responded", res.status, errorName, "sender:", SENDER_KIND);
+      reportDeliveryFailure(res.status, errorName);
       return { sent: false, reason: "provider_error" };
     }
     return { sent: true };
   } catch (err) {
-    console.error("[email] send failed:", err);
+    const errorName = err instanceof Error ? err.name : "unknown";
+    console.error("[email] send failed:", errorName);
+    reportDeliveryFailure("network", errorName);
     return { sent: false, reason: "provider_error" };
   }
 }
