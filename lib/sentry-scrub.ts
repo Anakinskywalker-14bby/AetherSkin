@@ -64,8 +64,25 @@ interface ScrubbableEvent {
     headers?: unknown;
   };
   transaction?: string;
+  message?: string;
+  exception?: { values?: Array<{ value?: string }> };
   breadcrumbs?: Breadcrumb[];
   contexts?: { trace?: { data?: Record<string, unknown> } };
+}
+
+/*
+ * Free-text redaction for exception messages.
+ *
+ * Postgres (and so Supabase) puts row values into error messages. A duplicate
+ * signup raises: duplicate key value violates unique constraint
+ * "waitlist_email_key" — Key (email)=(jane@example.com) already exists.
+ * Capturing that exception unscrubbed would leak the address, and URL
+ * scrubbing never touches message text.
+ */
+const EMAIL_RE = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi;
+
+export function scrubText(input: string): string {
+  return (scrubUrl(input) ?? input).replace(EMAIL_RE, "[email]");
 }
 
 /** Query parameters whose values must never leave the app. */
@@ -121,7 +138,16 @@ export function scrubBreadcrumb(crumb: Breadcrumb): Breadcrumb {
       if (typeof v === "string") crumb.data[key] = scrubUrl(v);
     }
   }
-  if (typeof crumb.message === "string") crumb.message = scrubUrl(crumb.message) ?? crumb.message;
+  if (typeof crumb.message === "string") crumb.message = scrubText(crumb.message);
+  /*
+   * Console breadcrumbs keep the raw logged values in data.arguments. The API
+   * routes log caught errors with console.error, and a Postgres error message
+   * can carry the user's email, so the arguments are dropped — the scrubbed
+   * message above already says what happened.
+   */
+  if (crumb.category === "console" && crumb.data && "arguments" in crumb.data) {
+    delete crumb.data.arguments;
+  }
   return crumb;
 }
 
@@ -141,6 +167,14 @@ export function scrubEvent<T extends ScrubbableEvent>(event: T): T {
   }
   if (typeof event.transaction === "string") {
     event.transaction = scrubUrl(event.transaction) ?? event.transaction;
+  }
+  if (typeof event.message === "string") {
+    event.message = scrubText(event.message);
+  }
+  if (event.exception?.values) {
+    for (const ex of event.exception.values) {
+      if (typeof ex.value === "string") ex.value = scrubText(ex.value);
+    }
   }
   if (event.breadcrumbs) {
     event.breadcrumbs = event.breadcrumbs.map(scrubBreadcrumb);

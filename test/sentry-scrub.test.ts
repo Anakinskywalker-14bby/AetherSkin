@@ -5,6 +5,7 @@ import {
   scrubBreadcrumb,
   isSensitivePath,
   DATA_COLLECTION,
+  scrubText,
 } from "@/lib/sentry-scrub";
 
 // Loose fixture type: real Sentry events carry far more fields than the
@@ -150,5 +151,60 @@ describe("DATA_COLLECTION", () => {
     expect(DATA_COLLECTION.urlQueryParams).toBe(false);
     expect(DATA_COLLECTION.databaseQueryData).toBe(false);
     expect(DATA_COLLECTION.stackFrameVariables).toBe(false);
+  });
+});
+
+describe("exception text", () => {
+  // The real shape of a Postgres unique-violation as Supabase surfaces it.
+  const PG_DUPLICATE =
+    'duplicate key value violates unique constraint "waitlist_email_key" ' +
+    "Key (email)=(jane.doe+skin@example.com.au) already exists.";
+
+  it("strips the email out of a Postgres duplicate-key error", () => {
+    const out = scrubText(PG_DUPLICATE);
+    expect(out).not.toContain("jane.doe");
+    expect(out).not.toContain("example.com");
+    expect(out).toContain("[email]");
+    // and keeps what's needed to debug it
+    expect(out).toContain("waitlist_email_key");
+  });
+
+  it("scrubs exception values on captured events", () => {
+    const event = scrubEvent({
+      exception: { values: [{ value: PG_DUPLICATE }] },
+    } as AnyEvent);
+    expect(JSON.stringify(event)).not.toContain("jane.doe");
+  });
+
+  it("scrubs tokens that appear in exception text", () => {
+    const event = scrubEvent({
+      exception: { values: [{ value: `fetch failed: /quiz?token=${TOKEN}` }] },
+    } as AnyEvent);
+    expect(JSON.stringify(event)).not.toContain(TOKEN);
+  });
+
+  it("scrubs event.message", () => {
+    const event = scrubEvent({ message: "signup failed for a@b.co" } as AnyEvent);
+    expect(event.message).toBe("signup failed for [email]");
+  });
+});
+
+describe("console breadcrumbs", () => {
+  it("drops raw logged arguments and scrubs the message", () => {
+    const crumb = scrubBreadcrumb({
+      category: "console",
+      message: "[join] unhandled: Key (email)=(jane@example.com) already exists",
+      data: { arguments: ["[join] unhandled:", { email: "jane@example.com" }], logger: "console" },
+    });
+    expect(crumb.data?.arguments).toBeUndefined();
+    expect(JSON.stringify(crumb)).not.toContain("jane@example.com");
+  });
+
+  it("leaves non-console breadcrumb data alone", () => {
+    const crumb = scrubBreadcrumb({
+      category: "ui.click",
+      data: { arguments: ["kept"] },
+    });
+    expect(crumb.data?.arguments).toEqual(["kept"]);
   });
 });

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import * as Sentry from "@sentry/nextjs";
 import crypto from "node:crypto";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { rateLimit, getClientIp } from "@/lib/rate-limit";
@@ -171,6 +172,14 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ ok: true, ttlDays: TOKEN_TTL_DAYS });
   } catch (err) {
+    /*
+     * This catch keeps the user's response clean, but it also used to hide
+     * every unexpected failure from Sentry: onRequestError only sees errors
+     * that escape the route. Report it explicitly. The event passes through
+     * lib/sentry-scrub.ts, which strips emails out of Postgres error text
+     * (a duplicate-key error embeds the address) before it is sent.
+     */
+    Sentry.captureException(err, { tags: { route: "waitlist/join" } });
     console.error("[join] unhandled:", err);
     return NextResponse.json(
       { error: "Something went wrong. Please try again." },
