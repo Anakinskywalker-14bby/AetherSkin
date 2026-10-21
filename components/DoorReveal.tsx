@@ -1,144 +1,199 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { motion, useScroll, useTransform, useReducedMotion } from "motion/react";
+import {
+  animate,
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useTransform,
+} from "motion/react";
+
+// window.__lenis (the smooth-scroll instance) is declared in SmoothScroll.tsx.
+// It may not exist yet when the doors first lock (child effects run before
+// the layout's), so gestures are also blocked at the event level below.
+
+type Phase = "off" | "closed" | "opening" | "open";
+
+const OPEN_DURATION_S = 1.4;
+const OPEN_KEYS = new Set(["ArrowDown", "PageDown", " ", "Spacebar", "End"]);
 
 /**
- * Wardrobe doors that part as you scroll, revealing the hero behind them.
+ * Wardrobe doors over the hero that swing open on the first scroll.
  *
- * Structure: a tall runway whose first screen is sticky. The hero is pinned
- * inside that sticky viewport while the doors slide apart, so the hero is
- * perfectly framed at the moment they finish — rather than having scrolled
- * halfway up the page, which is what happens if the doors are a plain fixed
- * overlay over a normally-scrolling page.
+ * The page cannot scroll while the doors are closed or opening. The first
+ * scroll gesture (wheel, swipe, ArrowDown / PageDown / Space / End) starts the
+ * doors opening; they finish on their own in OPEN_DURATION_S, revealing the
+ * whole first slide, and only then is scrolling unlocked. Scrolling is
+ * therefore never ahead of the doors.
  *
- * Three deliberate safeguards, because this sits between every first-time
- * visitor and the content:
+ * (This replaced a scroll-driven version where the door position followed
+ * the scrollbar inside a tall pinned runway. With smooth scrolling, a quick
+ * flick carried the page past the hero while the doors were still visibly
+ * opening, and the pinned viewport clipped any hero taller than the screen,
+ * which hid the CTA buttons on most laptops.)
  *
- *   1. Server-rendered OPEN. The doors only close after mount, so crawlers,
+ * Safeguards, because this sits between every first-time visitor and the
+ * content:
+ *   1. Server-rendered OPEN. Doors only close after mount, so crawlers,
  *      no-JS visitors and a failed hydration all get the hero immediately.
- *      A reveal that can trap the page behind it is not worth the risk.
- *   2. prefers-reduced-motion skips the whole thing — doors never mount.
- *   3. Once open they are inert (pointer-events none, aria-hidden), so they
- *      can never swallow a click on the CTA behind them.
+ *   2. prefers-reduced-motion: no doors at all.
+ *   3. Arriving anywhere but the top of the page (a #link, a reload that
+ *      restored the scroll position): no doors.
+ *   4. Nothing can get stuck behind them: tabbing into the page opens them,
+ *      and clicking any in-page #link (the nav) opens them instantly and lets
+ *      the link work.
+ *   5. Doors sit under the nav bar, so the nav and the lamp stay usable.
  */
 export function DoorReveal({ children }: { children: ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
-  const [armed, setArmed] = useState(false);
+  const [phase, setPhase] = useState<Phase>("off");
 
-  /*
-   * Arm only on the client, only when motion is welcome, and only when the
-   * whole hero fits on one screen.
-   *
-   * While armed, the hero is pinned to exactly one viewport until the doors
-   * have fully opened. Anything taller than the screen would be invisible for
-   * that whole time (it was: the CTA buttons on most laptops). The hero is
-   * sized from the viewport height (globals.css, .hero-*) so it fits almost
-   * everywhere; on a screen where it still doesn't, the page simply scrolls
-   * normally with no doors rather than hide part of the first slide.
-   *
-   * Re-checked whenever the content can change height: web fonts load after
-   * hydration and reflow the headline, and the window can resize. The
-   * observer watches the hero's content (.hero-copy, .hero-art), not the
-   * section: the section has min-height:100vh, so when the content shrinks
-   * to fit, the section's own box doesn't change and would never re-trigger.
-   */
+  // 0 = closed, 1 = fully open.
+  const progress = useMotionValue(0);
+  const leftX = useTransform(progress, [0, 1], ["0%", "-102%"]);
+  const rightX = useTransform(progress, [0, 1], ["0%", "102%"]);
+  // The room behind brightens as the gap widens.
+  const shade = useTransform(progress, [0, 1], [0.55, 0]);
+  const hint = useTransform(progress, [0, 0.15], [1, 0]);
+
+  // Arm after mount (see safeguards 1 to 3). Set from a frame callback.
   useEffect(() => {
-    if (reduced) {
-      setArmed(false);
-      return;
-    }
-    const hero = ref.current?.querySelector("section");
-    if (!hero) return;
-    let alive = true;
-    const check = () => {
-      if (alive) setArmed(hero.scrollHeight <= window.innerHeight + 1);
-    };
-    const observer = new ResizeObserver(check);
-    observer.observe(hero);
-    hero.querySelectorAll(".hero-copy, .hero-art").forEach((el) => observer.observe(el));
-    window.addEventListener("resize", check);
-    void document.fonts?.ready.then(check);
-    return () => {
-      alive = false;
-      observer.disconnect();
-      window.removeEventListener("resize", check);
-    };
+    if (reduced) return;
+    const id = requestAnimationFrame(() => {
+      const atTop = window.scrollY < 2 && !window.location.hash;
+      setPhase(atTop ? "closed" : "off");
+    });
+    return () => cancelAnimationFrame(id);
   }, [reduced]);
 
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-  });
+  // While closed or opening: block scrolling, and turn the first scroll
+  // gesture into "open the doors".
+  useEffect(() => {
+    if (phase !== "closed" && phase !== "opening") return;
 
-  // Doors finish opening at 72% of the runway, leaving a beat of held hero
-  // before the pin releases. Opening right at the end feels abrupt.
-  const leftX = useTransform(scrollYProgress, [0, 0.72], ["0%", "-102%"]);
-  const rightX = useTransform(scrollYProgress, [0, 0.72], ["0%", "102%"]);
-  // The room behind brightens as the gap widens.
-  const shade = useTransform(scrollYProgress, [0, 0.72], [0.55, 0]);
-  const hint = useTransform(scrollYProgress, [0, 0.12], [1, 0]);
+    const root = document.documentElement;
+    const prevOverflow = root.style.overflow;
+    root.style.overflow = "hidden"; // also stops scrollbar dragging
+    window.__lenis?.stop();
+
+    const unlock = () => {
+      root.style.overflow = prevOverflow;
+      window.__lenis?.start();
+    };
+
+    const open = () => {
+      if (phase !== "closed") return;
+      setPhase("opening");
+      animate(progress, 1, {
+        duration: OPEN_DURATION_S,
+        ease: [0.65, 0, 0.35, 1],
+        onComplete: () => setPhase("open"),
+      });
+    };
+
+    // Swallow the gesture so neither the browser nor Lenis scrolls the page.
+    const block = (e: Event) => {
+      e.preventDefault();
+      e.stopPropagation();
+    };
+    const onWheel = (e: WheelEvent) => {
+      block(e);
+      if (e.deltaY > 0) open();
+    };
+    const onTouchMove = (e: TouchEvent) => {
+      block(e);
+      open();
+    };
+    const onKey = (e: KeyboardEvent) => {
+      const t = e.target as HTMLElement | null;
+      if (t?.closest("input, textarea, select, [contenteditable]")) return;
+      if (OPEN_KEYS.has(e.key)) {
+        block(e);
+        open();
+      }
+    };
+    // Keyboard users tabbing into the hero shouldn't be stuck behind doors.
+    const onFocusIn = (e: FocusEvent) => {
+      if (ref.current?.contains(e.target as Node)) open();
+    };
+    // In-page links (nav, CTA) open instantly and then work as normal.
+    const onClick = (e: MouseEvent) => {
+      const a = (e.target as HTMLElement | null)?.closest('a[href*="#"]');
+      if (!a) return;
+      progress.stop();
+      progress.set(1);
+      unlock();
+      setPhase("open");
+    };
+
+    const opts = { capture: true, passive: false } as const;
+    window.addEventListener("wheel", onWheel, opts);
+    window.addEventListener("touchmove", onTouchMove, opts);
+    window.addEventListener("keydown", onKey, true);
+    window.addEventListener("focusin", onFocusIn, true);
+    window.addEventListener("click", onClick, true);
+
+    return () => {
+      window.removeEventListener("wheel", onWheel, opts);
+      window.removeEventListener("touchmove", onTouchMove, opts);
+      window.removeEventListener("keydown", onKey, true);
+      window.removeEventListener("focusin", onFocusIn, true);
+      window.removeEventListener("click", onClick, true);
+      unlock();
+    };
+  }, [phase, progress]);
+
+  const showDoors = phase === "closed" || phase === "opening";
 
   /*
-   * The tree shape is identical whether or not the reveal is armed — only
-   * styles and the doors themselves change.
-   *
-   * Returning <>{children}</> before arming and a wrapped tree afterwards
-   * looked tidier but remounted the hero <section> on arm. Anything holding
-   * a reference to that node kept the detached copy: StickyCta's
-   * IntersectionObserver did exactly that, saw its target leave the document,
-   * reported "hero gone" and never heard from it again — so the CTA pinned
-   * itself over the closed doors.
+   * The tree shape is identical whether or not the doors are showing; only
+   * the doors themselves come and go. Returning <>{children}</> in one state
+   * and a wrapped tree in another remounted the hero <section>, and
+   * StickyCta's IntersectionObserver kept watching the detached copy.
    */
   return (
-    <div
-      ref={ref}
-      className="relative"
-      style={armed ? { height: "230vh" } : undefined}
-    >
-      <div className={armed ? "sticky top-0 h-screen overflow-hidden" : undefined}>
-        {children}
+    <div ref={ref} className="relative">
+      {children}
 
-        {/* Doors exist only once armed: server render, no-JS and reduced
-            motion all get the hero with nothing in front of it. Placed AFTER
-            children so the hero keeps the same position in the tree. */}
-        {armed && (
-          <>
-            {/* Darkened room, fading as the doors part. */}
-            <motion.div
-              aria-hidden
-              className="pointer-events-none absolute inset-0 z-[70] bg-black"
-              style={{ opacity: shade }}
-            />
+      {/* After children so the hero keeps the same position in the tree.
+          Fixed to the viewport (the page is locked at the top while they
+          show), and under the nav bar (z-50) so it stays usable. */}
+      {showDoors && (
+        <>
+          <motion.div
+            aria-hidden
+            className="pointer-events-none fixed inset-0 z-[44] bg-black"
+            style={{ opacity: shade }}
+          />
 
-            <motion.div
-              aria-hidden
-              className="door-panel door-left pointer-events-none absolute inset-y-0 left-0 z-[75] w-1/2"
-              style={{ x: leftX }}
-            >
-              <span className="door-handle door-handle-left" />
-            </motion.div>
+          <motion.div
+            aria-hidden
+            className="door-panel door-left pointer-events-none fixed inset-y-0 left-0 z-[45] w-1/2"
+            style={{ x: leftX }}
+          >
+            <span className="door-handle door-handle-left" />
+          </motion.div>
 
-            <motion.div
-              aria-hidden
-              className="door-panel door-right pointer-events-none absolute inset-y-0 right-0 z-[75] w-1/2"
-              style={{ x: rightX }}
-            >
-              <span className="door-handle door-handle-right" />
-            </motion.div>
+          <motion.div
+            aria-hidden
+            className="door-panel door-right pointer-events-none fixed inset-y-0 right-0 z-[45] w-1/2"
+            style={{ x: rightX }}
+          >
+            <span className="door-handle door-handle-right" />
+          </motion.div>
 
-            <motion.div
-              aria-hidden
-              className="pointer-events-none absolute inset-x-0 bottom-10 z-[76] flex flex-col items-center gap-2"
-              style={{ opacity: hint }}
-            >
-              <span className="door-hint">scroll to open</span>
-              <span className="door-hint-rule" />
-            </motion.div>
-          </>
-        )}
-      </div>
+          <motion.div
+            aria-hidden
+            className="pointer-events-none fixed inset-x-0 bottom-10 z-[46] flex flex-col items-center gap-2"
+            style={{ opacity: hint }}
+          >
+            <span className="door-hint">scroll to open</span>
+            <span className="door-hint-rule" />
+          </motion.div>
+        </>
+      )}
     </div>
   );
 }

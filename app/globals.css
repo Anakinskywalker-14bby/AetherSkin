@@ -584,12 +584,12 @@ html, body {
 /*
  * Hero sizing: from the viewport's height as well as its width.
  *
- * While the wardrobe doors open, the hero is pinned to exactly one screen
- * (DoorReveal), so it has to fit in one screen: whatever is below the fold
- * stays hidden until the pin releases. Width-only sizing let the headline and
+ * When the wardrobe doors (DoorReveal) part, the whole first slide should
+ * already be on screen, so the hero has to fit in one screen height.
+ * Width-only sizing let the headline and
  * a 640px image push both CTA buttons off the bottom of most laptops.
- * DoorReveal also measures the result and skips the doors on any screen
- * where the hero still doesn't fit, rather than hide part of it.
+ * The doors open with the page held at the top; scrolling unlocks once
+ * they finish, so on phones a slide taller than the screen stays reachable.
  */
 .hero-stage {
   padding-block: clamp(16px, 4.5vh, 64px);
