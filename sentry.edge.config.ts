@@ -1,5 +1,5 @@
 import * as Sentry from "@sentry/nextjs";
-import { DATA_COLLECTION, scrubBreadcrumb, scrubEvent, scrubLog } from "@/lib/sentry-scrub";
+import { DATA_COLLECTION, scrubBreadcrumb, scrubEvent, scrubLog, scrubSpan } from "@/lib/sentry-scrub";
 
 /*
  * No profiling here: @sentry/profiling-node is a native Node add-on and the
@@ -15,7 +15,9 @@ Sentry.init({
   dataCollection: DATA_COLLECTION,
 
   beforeSend: (event) => scrubEvent(event),
-  beforeSendTransaction: (event) => scrubEvent(event),
+  // Spans stream by default in Sentry 11, which skips beforeSendTransaction;
+  // beforeSendSpan is the hook that actually sees performance data.
+  beforeSendSpan: (span) => scrubSpan(span),
   beforeBreadcrumb: (crumb) => scrubBreadcrumb(crumb),
   beforeSendLog: (log) => scrubLog(log),
 });

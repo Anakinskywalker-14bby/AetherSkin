@@ -7,6 +7,7 @@ import {
   DATA_COLLECTION,
   scrubText,
   scrubLog,
+  scrubSpan,
 } from "@/lib/sentry-scrub";
 
 // Loose fixture type: real Sentry events carry far more fields than the
@@ -268,5 +269,47 @@ describe("scrubLog", () => {
     });
     const log = scrubLog({ message: msg });
     expect(log.message).toBe("signup for [email]");
+  });
+});
+
+describe("scrubSpan (span streaming, the Sentry 11 default)", () => {
+  it("redacts the token from a /quiz pageload span name and URL attributes", () => {
+    const span = scrubSpan({
+      name: `/quiz?token=${TOKEN}`,
+      attributes: {
+        "url.full": `https://aetherskin.app/quiz?token=${TOKEN}`,
+        "http.query": `?token=${TOKEN}`,
+        "sentry.op": "pageload",
+        "http.response.status_code": 200,
+      },
+    });
+    expect(JSON.stringify(span)).not.toContain(TOKEN);
+    expect(span.attributes["url.full"]).toBe("https://aetherskin.app/quiz?token=[redacted]");
+    // Non-string attributes are left alone.
+    expect(span.attributes["http.response.status_code"]).toBe(200);
+    expect(span.attributes["sentry.op"]).toBe("pageload");
+  });
+
+  it("handles attributes in { value, unit } form and arrays", () => {
+    const span = scrubSpan({
+      name: "GET /verify",
+      attributes: {
+        "http.request.header.referer": {
+          value: `https://aetherskin.app/verify?token=${TOKEN}`,
+          type: "string",
+        },
+        "db.statement.params": ["jane@example.com", "x"],
+      },
+    });
+    expect(JSON.stringify(span)).not.toContain(TOKEN);
+    expect(JSON.stringify(span)).not.toContain("jane@example.com");
+  });
+
+  it("redacts Postgres row values that end up in a db span", () => {
+    const span = scrubSpan({
+      name: "db error",
+      attributes: { "error.message": "Key (email)=(jane@example.com) already exists." },
+    });
+    expect(span.attributes["error.message"]).toBe("Key (email)=([redacted]) already exists.");
   });
 });
