@@ -38,8 +38,11 @@ export function DoorReveal({ children }: { children: ReactNode }) {
    * everywhere; on a screen where it still doesn't, the page simply scrolls
    * normally with no doors rather than hide part of the first slide.
    *
-   * A ResizeObserver rather than a one-off measurement: web fonts load after
-   * hydration and change the headline's height, and the window can resize.
+   * Re-checked whenever the content can change height: web fonts load after
+   * hydration and reflow the headline, and the window can resize. The
+   * observer watches the hero's content (.hero-copy, .hero-art), not the
+   * section: the section has min-height:100vh, so when the content shrinks
+   * to fit, the section's own box doesn't change and would never re-trigger.
    */
   useEffect(() => {
     if (reduced) {
@@ -48,11 +51,17 @@ export function DoorReveal({ children }: { children: ReactNode }) {
     }
     const hero = ref.current?.querySelector("section");
     if (!hero) return;
-    const check = () => setArmed(hero.scrollHeight <= window.innerHeight + 1);
+    let alive = true;
+    const check = () => {
+      if (alive) setArmed(hero.scrollHeight <= window.innerHeight + 1);
+    };
     const observer = new ResizeObserver(check);
     observer.observe(hero);
+    hero.querySelectorAll(".hero-copy, .hero-art").forEach((el) => observer.observe(el));
     window.addEventListener("resize", check);
+    void document.fonts?.ready.then(check);
     return () => {
+      alive = false;
       observer.disconnect();
       window.removeEventListener("resize", check);
     };
