@@ -16,22 +16,22 @@ import { StickyCta } from "@/components/StickyCta";
 import svgPaths from "@/lib/svg-design";
 
 /**
- * Original artwork only, generated from code in this repo.
+ * Served from public/design.
  *
- * Every image here is rendered by scripts/art/render-site.cjs (the "Raking
- * Light" algorithm: a skin-like surface under a low lamp, droplets as
- * lenses, contours where the surface is being read). The page previously
- * used screenshots of other people's Pinterest pins, including another
- * skincare brand's ad and a creator's post. Never reintroduce third-party
- * creative here without a licence on file.
+ * KNOWN LICENSING RISK, kept by the owner's decision on 21 Oct 2026: these six
+ * images are screenshots of third-party Pinterest pins (another skincare
+ * brand's ad with its phone number, a creator's post, a watermark, Pinterest
+ * UI). Using them without permission is a copyright and trademark exposure.
+ * Original replacements already exist in public/art (rendered by
+ * scripts/art/render-site.cjs); swapping back is a change to these six lines.
  */
-const ASSET = "/art";
-const imgHero = `${ASSET}/hero.webp`;
-const imgDropper = `${ASSET}/dropper.webp`;
-const imgGlassSkin = `${ASSET}/glass-skin.webp`;
-const imgGalleryDeep = `${ASSET}/gallery-deep.webp`;
-const imgGalleryGolden = `${ASSET}/gallery-golden.webp`;
-const imgGalleryFair = `${ASSET}/gallery-fair.webp`;
+const ASSET = "/design";
+const imgHand = `${ASSET}/hand.png`;
+const imgDropper = `${ASSET}/dropper.png`;
+const imgGlassSkin = `${ASSET}/glass-skin.png`;
+const imgNoGender = `${ASSET}/no-gender.png`;
+const imgClarity = `${ASSET}/clarity.png`;
+const imgCleanBS = `${ASSET}/clean-bs.png`;
 
 // ─── Scroll fade-in hook ────────────────────────────────────────────
 function useFadeIn(threshold = 0.15) {
@@ -176,7 +176,7 @@ function HeroSection() {
         <div className="relative flex-shrink-0">
           <div className="mirror-arch neo-shadow neo-border overflow-hidden" style={{ width: "min(480px, 80vw)", aspectRatio: "3/4" }}>
             {/* eslint-disable-next-line @next/next/no-img-element -- remote decorative asset; see note above */}
-              <img fetchPriority="high" decoding="async" src={imgHero} alt="Abstract artwork: a skin-like surface lit from a low angle, with two droplets and contour lines tracing its shape" className="w-full h-full object-cover" />
+              <img fetchPriority="high" decoding="async" src={imgHand} alt="Four skincare textures — cream, serum, and gel boosters — swatched on the back of a hand" className="w-full h-full object-cover" />
           </div>
           <div className="on-accent sticker-float-alt absolute -bottom-4 -right-6 neo-shadow-sm neo-border px-5 py-3" style={{ background: "var(--yellow)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "1.6px", color: "var(--ink)" }}>
             HYDRATE NOW
@@ -195,7 +195,7 @@ function DropperAnimation() {
   return (
     <div className="relative w-full h-full flex items-center justify-center" style={{ minHeight: 380 }}>
       {/* eslint-disable-next-line @next/next/no-img-element -- remote decorative asset */}
-              <img loading="lazy" decoding="async" src={imgDropper} alt="" aria-hidden="true" className="w-full h-full object-cover absolute inset-0" />
+              <img loading="lazy" decoding="async" src={imgDropper} alt="Glass dropper releasing a drop of clear serum into an open bottle" className="w-full h-full object-cover absolute inset-0" />
       <div className="absolute inset-0" style={{ background: "rgba(249,249,247,0.15)" }} />
 
       <svg
@@ -226,7 +226,7 @@ function DropperSection() {
         {/* Left: Glass Skin image */}
         <div className="relative flex-1 overflow-hidden min-h-[420px]" style={{ borderRight: "3px solid var(--ink)" }}>
           {/* eslint-disable-next-line @next/next/no-img-element -- remote decorative asset */}
-              <img loading="lazy" decoding="async" src={imgGlassSkin} alt="" aria-hidden="true" className="w-full h-full object-cover absolute inset-0" />
+              <img loading="lazy" decoding="async" src={imgGlassSkin} alt="Close-up of a glowing glass-skin complexion with shimmering highlighter" className="w-full h-full object-cover absolute inset-0" />
           <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(26,28,27,0.15) 0%, rgba(26,28,27,0.6) 100%)" }} />
           <div className="absolute bottom-12 left-10 right-10">
             <div className="on-accent neo-shadow-sm neo-border px-4 py-2 inline-block mb-4" style={{ background: "var(--yellow)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1.6px", color: "var(--ink)" }}>
@@ -446,11 +446,11 @@ function GallerySection() {
   const { ref, visible } = useFadeIn();
 
   const panels = [
-    // Same lamp, same reading, three complexions: the art makes the point
-    // the captions make.
-    { img: imgGalleryDeep, alt: "Abstract artwork: a deep-toned skin-like surface under raking light, with pale contour lines", label: "UNIVERSAL", text: "Every skin, read the same way.", color: "var(--surface)" },
-    { img: imgGalleryGolden, alt: "Abstract artwork: a golden-toned skin-like surface under raking light, with droplets", label: "CLARITY", text: "Know what your skin is doing.", color: "var(--yellow)" },
-    { img: imgGalleryFair, alt: "Abstract artwork: a fair, rosy skin-like surface under raking light, with contour lines", label: "TRUTH", text: "Buzzwords are marketing. Your skin is real.", color: "var(--blue)" },
+    // Captions are AetherSkin's own words. "Clarity Is The New Glow" was the
+    // headline from Nuvea Skin's ad, so it is not used as our caption.
+    { img: imgNoGender, alt: "Water droplets on bare shoulders beside the words: skincare has no gender", label: "UNIVERSAL", text: "Skincare has no gender.", color: "var(--surface)" },
+    { img: imgClarity, alt: "Freckled face with clear, hydrated skin in warm golden light", label: "CLARITY", text: "Know what your skin is doing.", color: "var(--yellow)" },
+    { img: imgCleanBS, alt: "Serum dropper and glass bottle beside bold editorial typography", label: "TRUTH", text: "Buzzwords are marketing. Your skin is real.", color: "var(--blue)" },
   ];
 
   return (
