@@ -19,11 +19,11 @@ export function ThemeToggle() {
 
   // Reserve the footprint so nothing shifts when it appears.
   if (!mounted) {
-    return <div aria-hidden style={{ width: 120, height: 190 }} />;
+    return <div aria-hidden style={{ width: 120, height: 150 }} />;
   }
 
   return (
-    <div className="theme-lamp pointer-events-none" style={{ width: 120, height: 190 }}>
+    <div className="theme-lamp pointer-events-none" style={{ width: 120, height: 150 }}>
       <div className="pointer-events-auto">
         <VanityLight checked={isLight} onCheckedChange={setLight} label="Site theme" />
       </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   QUIZ_QUESTIONS,
@@ -11,6 +11,9 @@ import {
 type Answer = string | number;
 
 const QUESTIONS = QUIZ_QUESTIONS as readonly QuizQuestion[];
+
+/** Pause between answering and moving on, so a mis-tap can be changed. */
+const ADVANCE_DELAY_MS = 2000;
 
 /** The client-side twin of the server's continuous-field check. */
 function continuousError(q: Extract<QuizQuestion, { kind: "continuous" }>, raw: string) {
@@ -27,6 +30,12 @@ function continuousError(q: Extract<QuizQuestion, { kind: "continuous" }>, raw: 
  *
  * Ten questions, one per step, and no free text: every answer is a fixed
  * code, a ranked integer or a number (see lib/validation/quiz.ts).
+ *
+ * There is no Continue button. Answering starts a 2-second buffer, shown as
+ * a filling bar, after which the quiz moves on by itself; changing the
+ * answer restarts it, Back cancels it. For number questions the buffer starts
+ * once a valid number has been left alone for 2 seconds, and Enter skips the
+ * wait. The last answer submits the same way.
  */
 export function QuizForm({ token }: { token: string }) {
   const router = useRouter();
@@ -34,9 +43,11 @@ export function QuizForm({ token }: { token: string }) {
   const [answers, setAnswers] = useState<Record<string, Answer>>({});
   // Raw text of number fields, so a half-typed "7." isn't lost on re-render.
   const [drafts, setDrafts] = useState<Record<string, string>>({});
+  const [pending, setPending] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const total = QUESTIONS.length;
   const q = QUESTIONS[step];
@@ -45,35 +56,27 @@ export function QuizForm({ token }: { token: string }) {
 
   const draft = q.kind === "continuous" ? drafts[q.id] ?? "" : "";
   const fieldError = q.kind === "continuous" ? continuousError(q, draft) : null;
-  const answered =
-    q.kind === "continuous"
-      ? draft.trim() !== "" && fieldError === null
-      : answers[q.id] !== undefined;
+
+  function cancelPending() {
+    if (timer.current) clearTimeout(timer.current);
+    timer.current = null;
+    setPending(false);
+  }
+
+  // Never fire a stale advance after the component has gone.
+  useEffect(() => () => {
+    if (timer.current) clearTimeout(timer.current);
+  }, []);
 
   function go(next: number) {
+    cancelPending();
     setError(null);
     setStep(Math.max(0, Math.min(total - 1, next)));
     // Move focus to the new question for keyboard and screen-reader users.
     requestAnimationFrame(() => headingRef.current?.focus());
   }
 
-  function choose(value: Answer) {
-    setAnswers((a) => ({ ...a, [q.id]: value }));
-    // Gentle auto-advance keeps momentum on tap-to-answer questions.
-    if (!isLast) setTimeout(() => go(step + 1), 180);
-  }
-
-  function commitNumber(): boolean {
-    if (q.kind !== "continuous" || !answered) return false;
-    setAnswers((a) => ({ ...a, [q.id]: parseNumber(draft) as number }));
-    return true;
-  }
-
-  async function submit() {
-    if (!commitNumber() && q.kind === "continuous") return;
-    const finalAnswers =
-      q.kind === "continuous" ? { ...answers, [q.id]: parseNumber(draft) as number } : answers;
-
+  async function submit(finalAnswers: Record<string, Answer>) {
     const missing = QUESTIONS.findIndex((x) => finalAnswers[x.id] === undefined);
     if (missing !== -1) {
       go(missing);
@@ -106,10 +109,29 @@ export function QuizForm({ token }: { token: string }) {
     }
   }
 
-  function next() {
-    if (q.kind === "continuous" && !commitNumber()) return;
-    if (isLast) void submit();
-    else go(step + 1);
+  /** Record the answer, then move on (or submit) after the buffer. */
+  function answer(value: Answer, delay = ADVANCE_DELAY_MS) {
+    const nextAnswers = { ...answers, [q.id]: value };
+    setAnswers(nextAnswers);
+    setError(null);
+    cancelPending();
+    setPending(true);
+    const from = step;
+    timer.current = setTimeout(() => {
+      timer.current = null;
+      setPending(false);
+      if (from === total - 1) void submit(nextAnswers);
+      else go(from + 1);
+    }, delay);
+  }
+
+  function onNumberChange(raw: string) {
+    if (q.kind !== "continuous") return;
+    setDrafts((d) => ({ ...d, [q.id]: raw }));
+    cancelPending();
+    if (raw.trim() !== "" && continuousError(q, raw) === null) {
+      answer(parseNumber(raw) as number);
+    }
   }
 
   const label = { fontFamily: "'DM Sans', system-ui, sans-serif" } as const;
@@ -164,8 +186,9 @@ export function QuizForm({ token }: { token: string }) {
                 <button
                   key={opt.code}
                   type="button"
+                  disabled={submitting}
                   aria-pressed={answers[q.id] === opt.code}
-                  onClick={() => choose(opt.code)}
+                  onClick={() => answer(opt.code)}
                   className="neo-border px-5 py-4 transition-transform hover:-translate-y-0.5"
                   style={optionButton(answers[q.id] === opt.code)}
                 >
@@ -176,8 +199,9 @@ export function QuizForm({ token }: { token: string }) {
                 <button
                   key={opt.value}
                   type="button"
+                  disabled={submitting}
                   aria-pressed={answers[q.id] === opt.value}
-                  onClick={() => choose(opt.value)}
+                  onClick={() => answer(opt.value)}
                   className="neo-border px-5 py-4 transition-transform hover:-translate-y-0.5"
                   style={optionButton(answers[q.id] === opt.value)}
                 >
@@ -191,7 +215,8 @@ export function QuizForm({ token }: { token: string }) {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            next();
+            // Enter skips the wait, but only for a valid number.
+            if (draft.trim() !== "" && fieldError === null) answer(parseNumber(draft) as number, 0);
           }}
         >
           <label htmlFor={`q-${q.id}`} className="sr-only">
@@ -208,10 +233,11 @@ export function QuizForm({ token }: { token: string }) {
               step={q.step}
               value={draft}
               autoFocus
+              disabled={submitting}
               placeholder={q.placeholder}
               aria-invalid={fieldError !== null}
               aria-describedby={fieldError ? `q-${q.id}-error` : undefined}
-              onChange={(e) => setDrafts((d) => ({ ...d, [q.id]: e.target.value }))}
+              onChange={(e) => onNumberChange(e.target.value)}
               className="neo-border px-4 py-4 outline-none"
               style={{ background: "#f9f9f7", ...label, fontSize: 20, color: "#1a1c1b", width: 160 }}
             />
@@ -225,18 +251,46 @@ export function QuizForm({ token }: { token: string }) {
         </form>
       )}
 
+      {/* The 2-second buffer, made visible: a bar that fills, then moves on. */}
+      <div className="mt-6 min-h-[28px]" aria-live="polite">
+        {pending && !submitting && (
+          <div className="flex items-center gap-3">
+            <div className="neo-border h-2 flex-1 overflow-hidden" style={{ background: "#f4f4f2" }} aria-hidden="true">
+              <div key={`${step}-${String(answers[q.id])}`} className="quiz-advance-fill h-full" style={{ background: "#e8e883" }} />
+            </div>
+            <span style={{ ...label, fontSize: 13, fontWeight: 700, color: "#484739" }}>
+              {isLast ? "Saving your answers…" : "Next question…"}
+            </span>
+          </div>
+        )}
+        {submitting && (
+          <span style={{ ...label, fontSize: 13, fontWeight: 700, color: "#484739" }}>Saving your answers…</span>
+        )}
+      </div>
+
       {error && (
-        <p
+        <div
           role="alert"
-          className="neo-border px-4 py-3 mt-6"
+          className="neo-border px-4 py-3 mt-4 flex items-center justify-between gap-4"
           style={{ background: "#ffdad6", ...label, fontWeight: 700, fontSize: 14, color: "#93000a" }}
         >
-          {error}
-        </p>
+          <span>{error}</span>
+          {/* Only shown after a failed save: a retry, not a "next" button. */}
+          {isLast && answers[q.id] !== undefined && !submitting && (
+            <button
+              type="button"
+              onClick={() => void submit(answers)}
+              className="neo-border px-4 py-2 shrink-0"
+              style={{ background: "#f9f9f7", ...label, fontWeight: 700, fontSize: 13, color: "#1a1c1b" }}
+            >
+              TRY AGAIN
+            </button>
+          )}
+        </div>
       )}
 
-      {/* Controls */}
-      <div className="flex items-center justify-between gap-4 mt-8">
+      {/* Controls: Back only. Moving forward happens by answering. */}
+      <div className="flex items-center mt-6">
         <button
           type="button"
           onClick={() => go(step - 1)}
@@ -245,16 +299,6 @@ export function QuizForm({ token }: { token: string }) {
           style={{ background: "#f9f9f7", ...label, fontWeight: 700, fontSize: 14, letterSpacing: "0.8px", color: "#1a1c1b" }}
         >
           BACK
-        </button>
-
-        <button
-          type="button"
-          onClick={next}
-          disabled={!answered || submitting}
-          className={`${isLast ? "neo-shadow" : "neo-shadow-sm"} neo-border px-8 py-3 disabled:opacity-40`}
-          style={{ background: "#e8e883", ...label, fontWeight: 700, fontSize: isLast ? 16 : 15, letterSpacing: "0.8px", color: "#1a1c1b" }}
-        >
-          {isLast ? (submitting ? "SAVING..." : "FINISH & LOCK MY SPOT") : "CONTINUE"}
         </button>
       </div>
     </div>

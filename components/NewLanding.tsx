@@ -18,15 +18,18 @@ import svgPaths from "@/lib/svg-design";
 /**
  * Served from public/design.
  *
- * KNOWN LICENSING RISK, kept by the owner's decision on 21 Oct 2026: these six
- * images are screenshots of third-party Pinterest pins (another skincare
- * brand's ad with its phone number, a creator's post, a watermark, Pinterest
- * UI). Using them without permission is a copyright and trademark exposure.
- * Original replacements already exist in public/art (rendered by
- * scripts/art/render-site.cjs); swapping back is a change to these six lines.
+ * KNOWN LICENSING RISK, kept by the owner's decision on 21 Oct 2026: the five
+ * images below the hero are screenshots of third-party Pinterest pins
+ * (another skincare brand's ad with its phone number, a creator's post, a
+ * watermark, Pinterest UI). Using them without permission is a copyright and
+ * trademark exposure. Original replacements already exist in public/art
+ * (rendered by scripts/art/render-site.cjs); swapping is a change to these
+ * five lines.
  */
 const ASSET = "/design";
-const imgHand = `${ASSET}/hand.png`;
+// Hero (supplied by the owner, 21 Oct 2026): replaced the Pinterest
+// screenshot hand.png. 960x1280 WebP = 2x the largest size it renders at.
+const imgHero = `${ASSET}/hero-swatches.webp`;
 const imgDropper = `${ASSET}/dropper.png`;
 const imgGlassSkin = `${ASSET}/glass-skin.png`;
 const imgNoGender = `${ASSET}/no-gender.png`;
@@ -131,37 +134,42 @@ function HeroSection() {
         }}
       />
 
-      <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between px-6 md:px-16 py-16 flex-1 gap-12 max-w-[1280px] mx-auto w-full">
+      {/* hero-stage / hero-copy / hero-headline / hero-art size from the
+          viewport HEIGHT as well as width (globals.css). The doors pin this
+          section to exactly one screen, so anything taller than the screen
+          would be cut off for as long as it is pinned: that is how the two
+          buttons went missing on laptops. */}
+      <div className="hero-stage relative z-10 flex flex-col lg:flex-row items-center justify-between px-6 md:px-16 flex-1 max-w-[1280px] mx-auto w-full">
         {/* Left: text */}
-        <div className="flex flex-col items-start gap-6 max-w-[620px]">
+        <div className="hero-copy flex flex-col items-start max-w-[620px]">
           <div className="on-soft sticker-float neo-shadow-sm neo-border px-5 py-2.5 self-start" style={{ background: "var(--blue)" }}>
             <span style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 400, fontSize: 22, color: "var(--ink)" }}>Ouch!</span>
           </div>
 
           <div className="leading-none" style={{ fontFamily: "'Fraunces', Georgia, serif" }}>
-            <p style={{ fontWeight: 900, fontSize: "clamp(48px, 6vw, 78px)", color: "var(--ink)", letterSpacing: "-2.5px", lineHeight: 1.05, margin: 0 }}>
+            <p className="hero-headline" style={{ fontWeight: 900, color: "var(--ink)", letterSpacing: "-2.5px", lineHeight: 1.05, margin: 0 }}>
               Their replies are dry
             </p>
-            <p style={{ fontWeight: 900, fontSize: "clamp(48px, 6vw, 78px)", letterSpacing: "-2.5px", lineHeight: 1.05, margin: 0 }}>
+            <p className="hero-headline" style={{ fontWeight: 900, letterSpacing: "-2.5px", lineHeight: 1.05, margin: 0 }}>
               <span style={{ color: "var(--olive)" }}>but </span>
               <span style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 400, fontStyle: "italic", color: "var(--ink)", textTransform: "lowercase" }}>your skin</span>
             </p>
-            <p style={{ fontWeight: 900, fontSize: "clamp(48px, 6vw, 78px)", color: "var(--ink)", letterSpacing: "-2.5px", lineHeight: 1.05, margin: 0 }}>
+            <p className="hero-headline" style={{ fontWeight: 900, color: "var(--ink)", letterSpacing: "-2.5px", lineHeight: 1.05, margin: 0 }}>
               doesn&apos;t have to be.
             </p>
           </div>
 
-          <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 400, fontSize: 18, color: "var(--muted)", lineHeight: 1.6 }}>
+          <p className="hero-lede" style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 400, color: "var(--muted)", lineHeight: 1.6, margin: 0 }}>
             Stop guessing. Start knowing. AetherSkin is AI skin analysis that
             matches you with products from brands you already use. Join the
             free waitlist now; photo scanning and your routine arrive at beta launch.
           </p>
 
-          <div className="flex gap-4 flex-wrap">
-            <a href="#beta" className="on-accent neo-shadow neo-border px-9 py-5" style={{ background: "var(--yellow)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 18, letterSpacing: "0.9px", color: "var(--ink)", cursor: "pointer" }}>
+          <div className="flex gap-3 md:gap-4 flex-wrap">
+            <a href="#beta" className="hero-cta on-accent neo-shadow neo-border" style={{ background: "var(--yellow)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, letterSpacing: "0.9px", color: "var(--ink)", cursor: "pointer" }}>
               JOIN THE FREE WAITLIST
             </a>
-            <a href="#solution" className="neo-shadow neo-border px-9 py-5" style={{ background: "var(--surface)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 18, letterSpacing: "0.9px", color: "var(--ink)", cursor: "pointer" }}>
+            <a href="#solution" className="hero-cta neo-shadow neo-border" style={{ background: "var(--surface)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, letterSpacing: "0.9px", color: "var(--ink)", cursor: "pointer" }}>
               SEE HOW IT WORKS
             </a>
           </div>
@@ -174,9 +182,9 @@ function HeroSection() {
 
         {/* Right: image hero */}
         <div className="relative flex-shrink-0">
-          <div className="mirror-arch neo-shadow neo-border overflow-hidden" style={{ width: "min(480px, 80vw)", aspectRatio: "3/4" }}>
+          <div className="hero-art mirror-arch neo-shadow neo-border overflow-hidden">
             {/* eslint-disable-next-line @next/next/no-img-element -- remote decorative asset; see note above */}
-              <img fetchPriority="high" decoding="async" src={imgHand} alt="Four skincare textures — cream, serum, and gel boosters — swatched on the back of a hand" className="w-full h-full object-cover" />
+              <img fetchPriority="high" decoding="async" src={imgHero} alt="Anti-age day cream, hydrating serum, exfoliating serum and glow serum swatched on the back of a hand" className="w-full h-full object-cover" />
           </div>
           <div className="on-accent sticker-float-alt absolute -bottom-4 -right-6 neo-shadow-sm neo-border px-5 py-3" style={{ background: "var(--yellow)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "1.6px", color: "var(--ink)" }}>
             HYDRATE NOW

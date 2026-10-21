@@ -580,3 +580,41 @@ html, body {
   max-width: 100%;
   overflow-x: clip;
 }
+
+/*
+ * Hero sizing: from the viewport's height as well as its width.
+ *
+ * While the wardrobe doors open, the hero is pinned to exactly one screen
+ * (DoorReveal), so it has to fit in one screen: whatever is below the fold
+ * stays hidden until the pin releases. Width-only sizing let the headline and
+ * a 640px image push both CTA buttons off the bottom of most laptops.
+ * DoorReveal also measures the result and skips the doors on any screen
+ * where the hero still doesn't fit, rather than hide part of it.
+ */
+.hero-stage {
+  padding-block: clamp(16px, 4.5vh, 64px);
+  gap: clamp(20px, 4vh, 48px);
+}
+.hero-copy { gap: clamp(10px, 2.2vh, 24px); }
+.hero-headline { font-size: clamp(34px, min(6vw, 8.2vh), 78px); }
+.hero-lede { font-size: clamp(15px, 2.1vh, 18px); }
+.hero-cta {
+  font-size: clamp(14px, 2vh, 18px);
+  padding: clamp(12px, 2.1vh, 20px) clamp(20px, 2.6vw, 36px);
+}
+.hero-art {
+  height: min(640px, calc(100vh - 72px - 9vh - 32px));
+  aspect-ratio: 3 / 4;
+}
+@media (max-width: 1023px) {
+  /* Stacked layout: the image sits under the copy, so it gets less room. */
+  .hero-art { height: min(30vh, 320px); }
+}
+
+/* Quiz: the 2-second buffer before the next question (QuizForm, ADVANCE_DELAY_MS). */
+@keyframes quiz-advance { from { width: 0%; } to { width: 100%; } }
+.quiz-advance-fill { width: 0%; animation: quiz-advance 2s linear forwards; }
+@media (prefers-reduced-motion: reduce) {
+  /* No moving bar; the "Next question…" label still says what's happening. */
+  .quiz-advance-fill { animation: none; width: 100%; opacity: 0.5; }
+}

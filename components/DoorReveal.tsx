@@ -27,9 +27,35 @@ export function DoorReveal({ children }: { children: ReactNode }) {
   const reduced = useReducedMotion();
   const [armed, setArmed] = useState(false);
 
-  // Arm only on the client, and only when motion is welcome.
+  /*
+   * Arm only on the client, only when motion is welcome, and only when the
+   * whole hero fits on one screen.
+   *
+   * While armed, the hero is pinned to exactly one viewport until the doors
+   * have fully opened. Anything taller than the screen would be invisible for
+   * that whole time (it was: the CTA buttons on most laptops). The hero is
+   * sized from the viewport height (globals.css, .hero-*) so it fits almost
+   * everywhere; on a screen where it still doesn't, the page simply scrolls
+   * normally with no doors rather than hide part of the first slide.
+   *
+   * A ResizeObserver rather than a one-off measurement: web fonts load after
+   * hydration and change the headline's height, and the window can resize.
+   */
   useEffect(() => {
-    if (!reduced) setArmed(true);
+    if (reduced) {
+      setArmed(false);
+      return;
+    }
+    const hero = ref.current?.querySelector("section");
+    if (!hero) return;
+    const check = () => setArmed(hero.scrollHeight <= window.innerHeight + 1);
+    const observer = new ResizeObserver(check);
+    observer.observe(hero);
+    window.addEventListener("resize", check);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", check);
+    };
   }, [reduced]);
 
   const { scrollYProgress } = useScroll({

@@ -18,12 +18,15 @@
 import { type PointerEvent, useCallback, useEffect, useRef, useState } from "react";
 
 const WIDTH = 120;
-const HEIGHT = 190;
+/* Canvas height = chain end at rest (48 + 7 x 7.5 = 100.5) + the maximum pull
+   stretch (30) + the bead and some swing room. */
+const HEIGHT = 150;
 /* The bulb now mounts straight to the underside of the nav bar, so the chain
    starts just below it. There is no ceiling drop above the fitting. */
 const ANCHOR = { x: WIDTH / 2, y: 48 };
 const BULB_Y = 30;
-const LINKS = 11;
+/* 7 links (52px of chain), down from 11 (82px): a shorter pull cord. */
+const LINKS = 7;
 const LINK = 7.5;
 
 const STEP = 1 / 120;
