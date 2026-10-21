@@ -11,7 +11,6 @@ import {
 
 // Loose fixture type: real Sentry events carry far more fields than the
 // scrubber touches. (`as never` made scrubEvent's return type `never`.)
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnyEvent = any;
 
 const TOKEN = "Xk9_aZ3-realLookingTokenValue1234567890abcd";

@@ -21,15 +21,13 @@ export function StickyCta() {
     const hero = document.querySelector("section");
     const beta = document.getElementById("beta");
 
-    if (typeof IntersectionObserver === "undefined") {
-      setHeroGone(true);
-      return;
-    }
-
+    // No IntersectionObserver feature check: Next 16's supported browsers
+    // (Chrome/Edge/Firefox 111+, Safari 16.4+) all have it.
     const observers: IntersectionObserver[] = [];
 
     /*
-     * Failsafe, for the case where the observer never reports at all.
+     * Failsafe, for the case where the observer never reports at all,
+     * including a page with no hero <section> to observe.
      *
      * It used to fire unconditionally after 2s, which meant the CTA forced
      * itself on screen even while the observer was correctly reporting the
@@ -51,10 +49,8 @@ export function StickyCta() {
       );
       o.observe(hero);
       observers.push(o);
-    } else {
-      // No hero found: don't hide the CTA forever.
-      setHeroGone(true);
     }
+    // No hero: nothing reports, so the failsafe shows the CTA after 2s.
 
     if (beta) {
       const o = new IntersectionObserver(

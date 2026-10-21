@@ -1,6 +1,7 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useSyncExternalStore } from "react";
+import { useHydrated } from "@/lib/use-hydrated";
 
 const STORAGE_KEY = "aetherskin-theme";
 
@@ -18,21 +19,22 @@ const STORAGE_KEY = "aetherskin-theme";
  * in layout.tsx sets it before React exists. A MutationObserver keeps every
  * consumer in step no matter which one did the toggling.
  */
+function subscribeToThemeClass(onChange: () => void) {
+  const observer = new MutationObserver(onChange);
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+  return () => observer.disconnect();
+}
+
+const readIsLight = () => !document.documentElement.classList.contains("dark");
+
+// The server can't see the visitor's choice; it renders light, as before.
+const serverIsLight = () => true;
+
 export function useTheme() {
-  const [isLight, setIsLight] = useState(true);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    const root = document.documentElement;
-    const read = () => setIsLight(!root.classList.contains("dark"));
-
-    read();
-    setMounted(true);
-
-    const observer = new MutationObserver(read);
-    observer.observe(root, { attributes: true, attributeFilter: ["class"] });
-    return () => observer.disconnect();
-  }, []);
+  // The <html> class is an external store: useSyncExternalStore subscribes to
+  // it directly instead of mirroring it into state from an effect.
+  const isLight = useSyncExternalStore(subscribeToThemeClass, readIsLight, serverIsLight);
+  const mounted = useHydrated();
 
   const setLight = useCallback((lit: boolean) => {
     const root = document.documentElement;

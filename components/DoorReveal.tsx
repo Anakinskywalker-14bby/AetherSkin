@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useRef, type ReactNode } from "react";
+import { useHydrated } from "@/lib/use-hydrated";
 import { motion, useScroll, useTransform, useReducedMotion } from "motion/react";
 
 /**
@@ -25,12 +26,11 @@ import { motion, useScroll, useTransform, useReducedMotion } from "motion/react"
 export function DoorReveal({ children }: { children: ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
-  const [armed, setArmed] = useState(false);
+  const hydrated = useHydrated();
 
-  // Arm only on the client, and only when motion is welcome.
-  useEffect(() => {
-    if (!reduced) setArmed(true);
-  }, [reduced]);
+  // Arm only on the client (never in the server render or during hydration),
+  // and only when motion is welcome.
+  const armed = hydrated && !reduced;
 
   const { scrollYProgress } = useScroll({
     target: ref,

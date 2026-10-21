@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 
 /*
@@ -11,21 +11,26 @@ import Link from "next/link";
  */
 const CONSENT_SLOT = "aetherskin-cookie-choice";
 
+const noopSubscribe = () => () => undefined;
+
+function needsChoice(): boolean {
+  try {
+    return !localStorage.getItem(CONSENT_SLOT);
+  } catch {
+    return false; // storage blocked; stay quiet rather than nag every load
+  }
+}
+
 /**
  * Cookie notice. AetherSkin sets no advertising or analytics cookies today, so
  * this is a transparency notice with a real choice recorded locally —
  * not a dark-pattern consent wall.
  */
 export function CookieBanner() {
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    try {
-      if (!localStorage.getItem(CONSENT_SLOT)) setVisible(true);
-    } catch {
-      /* storage blocked; stay quiet rather than nag every load */
-    }
-  }, []);
+  // Read localStorage as an external store: nothing on the server, the real
+  // answer once hydrated. No setState-in-effect round trip.
+  const unanswered = useSyncExternalStore(noopSubscribe, needsChoice, () => false);
+  const [dismissed, setDismissed] = useState(false);
 
   function choose(value: "accepted" | "essential") {
     try {
@@ -33,10 +38,10 @@ export function CookieBanner() {
     } catch {
       /* ignore */
     }
-    setVisible(false);
+    setDismissed(true);
   }
 
-  if (!visible) return null;
+  if (!unanswered || dismissed) return null;
 
   return (
     <div

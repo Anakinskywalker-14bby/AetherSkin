@@ -15,7 +15,14 @@
  * dark, which is why the control needs no label.
  */
 
-import { type PointerEvent, useCallback, useEffect, useRef, useState } from "react";
+import {
+  type PointerEvent,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 
 const WIDTH = 120;
 const HEIGHT = 190;
@@ -142,7 +149,11 @@ export default function VanityLight({
     },
     [checkedProp, onCheckedChange]
   );
-  latest.current = { checked, toggle };
+  // Keep the pointer handlers pointed at the latest props. Written after
+  // commit rather than during render, which React 19 treats as impure.
+  useLayoutEffect(() => {
+    latest.current = { checked, toggle };
+  });
 
   const draw = useCallback(() => {
     const { xs, ys } = sim.current;
@@ -196,7 +207,9 @@ export default function VanityLight({
   }, []);
 
   const tick = useCallback(
-    (now: number) => {
+    // Named so it can schedule itself: referring to `tick` inside its own
+    // initializer reads the variable before it exists.
+    function step(now: number) {
       const s = sim.current;
       s.raf = 0;
       const elapsed = s.last ? Math.min((now - s.last) / 1000, 0.05) : STEP;
@@ -214,7 +227,7 @@ export default function VanityLight({
       draw();
       s.still = moved < REST_EPSILON ? s.still + 1 : 0;
       if (s.held > 0 || s.still < REST_STEPS) {
-        s.raf = requestAnimationFrame(tick);
+        s.raf = requestAnimationFrame(step);
       } else {
         s.last = 0;
       }

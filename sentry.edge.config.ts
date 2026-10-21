@@ -2,8 +2,12 @@ import * as Sentry from "@sentry/nextjs";
 import { DATA_COLLECTION, scrubBreadcrumb, scrubEvent, scrubLog } from "@/lib/sentry-scrub";
 
 /*
+ * Edge runtime. Since Next 16 moved middleware to proxy.ts (Node.js), the
+ * only edge code is app/opengraph-image.tsx, plus any future route that sets
+ * `runtime = "edge"`. Same privacy settings as the server config.
+ *
  * No profiling here: @sentry/profiling-node is a native Node add-on and the
- * edge runtime (middleware.ts) can't load it.
+ * edge runtime can't load it.
  */
 Sentry.init({
   dsn: process.env.SENTRY_DSN,

@@ -19,47 +19,14 @@ exclude:
 
 # Accepted risks.
 #
-# Accepted by Khaleed on 2026-10-21 so production can get Sentry while the
-# Next 16 upgrade is done separately. Each entry expires on 2026-11-20. When
-# it does, `snyk test` fails again and the deploy gate in CLAUDE.md is closed
-# until the finding is fixed or explicitly re-accepted. Never extend these
-# just to make a scan pass.
+# Accepted by Khaleed on 2026-10-21. The entry expires on 2026-11-20. When it
+# does, `snyk test` fails again and the deploy gate in CLAUDE.md is closed
+# until the finding is fixed or explicitly re-accepted. Never extend it just
+# to make a scan pass.
 #
-# The same next@15.5.28 is already live in production, so accepting these
-# does not add exposure; it stops the gate from also holding back Sentry.
+# The four next@15.5.28 findings accepted alongside this one were removed by
+# the Next 16 upgrade (next@16.4.2), which fixes them.
 ignore:
-  SNYK-JS-NEXT-15105315:
-    - '*':
-        reason: >-
-          CVE-2025-59472. Requires PPR or cacheComponents together with
-          NEXT_PRIVATE_MINIMAL_MODE; this app uses neither. Fix is the Next 16
-          upgrade, tracked separately.
-        expires: 2026-11-20T00:00:00.000Z
-        created: 2026-10-21T04:30:00.000Z
-  SNYK-JS-NEXT-15674556:
-    - '*':
-        reason: >-
-          CVE-2026-27980. Image optimizer disk cache; the app has zero
-          next/image imports and Vercel runs its own managed image
-          optimization. Fix is the Next 16 upgrade, tracked separately.
-        expires: 2026-11-20T00:00:00.000Z
-        created: 2026-10-21T04:30:00.000Z
-  SNYK-JS-NEXT-20569640:
-    - '*':
-        reason: >-
-          CVE-2026-94544. Requires the 'use cache' directive together with
-          draft mode; the app uses neither. Fix is the Next 16 upgrade,
-          tracked separately.
-        expires: 2026-11-20T00:00:00.000Z
-        created: 2026-10-21T04:30:00.000Z
-  SNYK-JS-NEXT-20569641:
-    - '*':
-        reason: >-
-          CVE-2026-94543. The upstream advisory lists 15.5.27 as fixed, so
-          this looks like an overlapping version range; accepted rather than
-          relied on. Fix is the Next 16 upgrade, tracked separately.
-        expires: 2026-11-20T00:00:00.000Z
-        created: 2026-10-21T04:30:00.000Z
   SNYK-JS-PICOMATCH-21248802:
     - '*':
         reason: >-
