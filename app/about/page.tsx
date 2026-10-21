@@ -42,7 +42,7 @@ export default function AboutPage() {
           className="on-accent neo-shadow-sm neo-border px-7 py-2.5"
           style={{ background: "var(--yellow)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "0.7px", color: "var(--ink)" }}
         >
-          JOIN BETA
+          JOIN THE FREE WAITLIST
         </Link>
       </nav>
 
@@ -85,9 +85,9 @@ export default function AboutPage() {
             label it clearly.
           </p>
           <p style={{ margin: "0 0 20px" }}>
-            We&apos;re starting small on purpose: 500 beta spots, a refundable
-            $1 deposit to keep the list real, and a promise to build the
-            product with early users rather than at them.
+            We&apos;re starting small on purpose: 500 beta spots, free, with no
+            card or deposit, and a promise to build the product with early
+            users rather than at them.
           </p>
         </div>
 
@@ -95,7 +95,7 @@ export default function AboutPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-12">
           {[
             { title: "Honest by design", body: "Recommendations are matched to your scan — sponsored placements will always be labeled.", color: "var(--yellow)" },
-            { title: "Privacy first", body: "Your face is analyzed, not collected. We never sell personal data.", color: "var(--blue)" },
+            { title: "Privacy first", body: "No face photos are collected before launch. Scanning will need your separate consent, and you'll be able to delete your photo. We never sell personal data.", color: "var(--blue)" },
             { title: "For every face", body: "Built to work across all skin tones and types. Skincare has no gender.", color: "var(--surface)" },
           ].map((c) => (
             <div key={c.title} className="neo-shadow-sm neo-border p-6" style={{ background: c.color }}>

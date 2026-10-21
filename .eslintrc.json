@@ -1,6 +1,6 @@
 {
   "extends": ["next/core-web-vitals"],
-  "ignorePatterns": [".next/", "node_modules/", "static-site/", "coverage/"],
+  "ignorePatterns": [".next/", "node_modules/", "static-site/", "coverage/", "scripts/art/"],
   "rules": {
     "no-console": ["warn", { "allow": ["warn", "error"] }],
     "eqeqeq": ["error", "always", { "null": "ignore" }],

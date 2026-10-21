@@ -68,7 +68,7 @@ export default function OgImage() {
             marginBottom: 38,
           }}
         >
-          FREE AI SKIN ANALYSIS · BETA OPEN
+          FREE AI SKIN ANALYSIS · WAITLIST OPEN
         </div>
 
         <div
