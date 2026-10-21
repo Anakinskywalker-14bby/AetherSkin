@@ -2,9 +2,10 @@ import * as Sentry from "@sentry/nextjs";
 import { DATA_COLLECTION, scrubBreadcrumb, scrubEvent, scrubLog } from "@/lib/sentry-scrub";
 
 /*
- * Edge runtime. Since Next 16 moved middleware to proxy.ts (Node.js), the
- * only edge code is app/opengraph-image.tsx, plus any future route that sets
- * `runtime = "edge"`. Same privacy settings as the server config.
+ * Edge runtime. Nothing runs on Edge any more: Next 16 moved middleware to
+ * proxy.ts (Node.js) and deprecated Edge, and app/opengraph-image.tsx moved
+ * to Node.js with it. Kept so a future route that sets `runtime = "edge"`
+ * still gets the same privacy settings rather than none.
  *
  * No profiling here: @sentry/profiling-node is a native Node add-on and the
  * edge runtime can't load it.
