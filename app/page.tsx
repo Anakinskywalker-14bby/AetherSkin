@@ -6,12 +6,12 @@ import { organizationJsonLd, webSiteJsonLd, faqJsonLd } from "@/lib/site";
 export const metadata: Metadata = {
   title: "AetherSkin — Free AI Skin Analysis. Stop Guessing. Start Knowing.",
   description:
-    "One free scan. AetherSkin's AI reads your skin and matches you with products from brands you already love. No payment, no card — join the beta, only 500 spots.",
+    "AI skin analysis that matches you with products from brands you already love. Join the free waitlist (500 beta spots, no card) and take a 2-minute skin quiz; scanning opens at beta launch.",
   alternates: { canonical: "/" },
   openGraph: {
     title: "AetherSkin — Free AI Skin Analysis. Stop Guessing. Start Knowing.",
     description:
-      "One free scan. AetherSkin's AI reads your skin and matches you with skincare from brands you already love. Join the beta.",
+      "AI skin analysis that matches you with skincare from brands you already love. Join the free waitlist; scanning opens at beta launch.",
     url: "/",
   },
 };

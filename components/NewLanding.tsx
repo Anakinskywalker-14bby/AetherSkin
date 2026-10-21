@@ -16,21 +16,22 @@ import { StickyCta } from "@/components/StickyCta";
 import svgPaths from "@/lib/svg-design";
 
 /**
- * Served from public/design, not from GitHub raw.
+ * Original artwork only, generated from code in this repo.
  *
- * These were previously fetched from raw.githubusercontent.com, which meant
- * the landing page's images depended on the repo keeping its name and staying
- * public — renaming the repo would have silently broken every image. They're
- * in the repo already, so Vercel serves them from the same origin: faster,
- * cacheable, and one less external host in the CSP.
+ * Every image here is rendered by scripts/art/render-site.cjs (the "Raking
+ * Light" algorithm: a skin-like surface under a low lamp, droplets as
+ * lenses, contours where the surface is being read). The page previously
+ * used screenshots of other people's Pinterest pins, including another
+ * skincare brand's ad and a creator's post. Never reintroduce third-party
+ * creative here without a licence on file.
  */
-const ASSET = "/design";
-const imgHand = `${ASSET}/hand.png`;
-const imgDropper = `${ASSET}/dropper.png`;
-const imgGlassSkin = `${ASSET}/glass-skin.png`;
-const imgNoGender = `${ASSET}/no-gender.png`;
-const imgClarity = `${ASSET}/clarity.png`;
-const imgCleanBS = `${ASSET}/clean-bs.png`;
+const ASSET = "/art";
+const imgHero = `${ASSET}/hero.webp`;
+const imgDropper = `${ASSET}/dropper.webp`;
+const imgGlassSkin = `${ASSET}/glass-skin.webp`;
+const imgGalleryDeep = `${ASSET}/gallery-deep.webp`;
+const imgGalleryGolden = `${ASSET}/gallery-golden.webp`;
+const imgGalleryFair = `${ASSET}/gallery-fair.webp`;
 
 // ─── Scroll fade-in hook ────────────────────────────────────────────
 function useFadeIn(threshold = 0.15) {
@@ -151,31 +152,37 @@ function HeroSection() {
           </div>
 
           <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 400, fontSize: 18, color: "var(--muted)", lineHeight: 1.6 }}>
-            Stop guessing. Start knowing. AI skin analysis for the modern age.
-            Join the free beta and get a routine built around your skin.
+            Stop guessing. Start knowing. AetherSkin is AI skin analysis that
+            matches you with products from brands you already use. Join the
+            free waitlist now; photo scanning and your routine arrive at beta launch.
           </p>
 
           <div className="flex gap-4 flex-wrap">
             <a href="#beta" className="on-accent neo-shadow neo-border px-9 py-5" style={{ background: "var(--yellow)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 18, letterSpacing: "0.9px", color: "var(--ink)", cursor: "pointer" }}>
-              JOIN BETA
+              JOIN THE FREE WAITLIST
             </a>
             <a href="#solution" className="neo-shadow neo-border px-9 py-5" style={{ background: "var(--surface)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 18, letterSpacing: "0.9px", color: "var(--ink)", cursor: "pointer" }}>
               SEE HOW IT WORKS
             </a>
           </div>
+
+          {/* What the button actually leads to, next to the button. */}
+          <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 500, fontSize: 14, color: "var(--muted)", lineHeight: 1.5, margin: 0 }}>
+            Free, no card. Confirm your email, then take a 2-minute skin quiz.
+          </p>
         </div>
 
         {/* Right: image hero */}
         <div className="relative flex-shrink-0">
           <div className="mirror-arch neo-shadow neo-border overflow-hidden" style={{ width: "min(480px, 80vw)", aspectRatio: "3/4" }}>
             {/* eslint-disable-next-line @next/next/no-img-element -- remote decorative asset; see note above */}
-              <img fetchPriority="high" decoding="async" src={imgHand} alt="Four skincare textures — cream, serum, and gel boosters — swatched on the back of a hand" className="w-full h-full object-cover" />
+              <img fetchPriority="high" decoding="async" src={imgHero} alt="Abstract artwork: a skin-like surface lit from a low angle, with two droplets and contour lines tracing its shape" className="w-full h-full object-cover" />
           </div>
           <div className="on-accent sticker-float-alt absolute -bottom-4 -right-6 neo-shadow-sm neo-border px-5 py-3" style={{ background: "var(--yellow)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "1.6px", color: "var(--ink)" }}>
             HYDRATE NOW
           </div>
           <div className="on-soft absolute -top-4 -left-6 neo-shadow-sm neo-border px-4 py-2" style={{ background: "var(--blue)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 13, color: "var(--ink)" }}>
-            ✦ BETA OPEN
+            ✦ WAITLIST OPEN
           </div>
         </div>
       </div>
@@ -188,7 +195,7 @@ function DropperAnimation() {
   return (
     <div className="relative w-full h-full flex items-center justify-center" style={{ minHeight: 380 }}>
       {/* eslint-disable-next-line @next/next/no-img-element -- remote decorative asset */}
-              <img loading="lazy" decoding="async" src={imgDropper} alt="Glass dropper releasing a drop of clear serum into an open bottle" className="w-full h-full object-cover absolute inset-0" />
+              <img loading="lazy" decoding="async" src={imgDropper} alt="" aria-hidden="true" className="w-full h-full object-cover absolute inset-0" />
       <div className="absolute inset-0" style={{ background: "rgba(249,249,247,0.15)" }} />
 
       <svg
@@ -219,7 +226,7 @@ function DropperSection() {
         {/* Left: Glass Skin image */}
         <div className="relative flex-1 overflow-hidden min-h-[420px]" style={{ borderRight: "3px solid var(--ink)" }}>
           {/* eslint-disable-next-line @next/next/no-img-element -- remote decorative asset */}
-              <img loading="lazy" decoding="async" src={imgGlassSkin} alt="Close-up of a glowing glass-skin complexion with shimmering highlighter" className="w-full h-full object-cover absolute inset-0" />
+              <img loading="lazy" decoding="async" src={imgGlassSkin} alt="" aria-hidden="true" className="w-full h-full object-cover absolute inset-0" />
           <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(26,28,27,0.15) 0%, rgba(26,28,27,0.6) 100%)" }} />
           <div className="absolute bottom-12 left-10 right-10">
             <div className="on-accent neo-shadow-sm neo-border px-4 py-2 inline-block mb-4" style={{ background: "var(--yellow)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1.6px", color: "var(--ink)" }}>
@@ -343,6 +350,12 @@ function SolutionSection() {
           <h2 style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 800, fontSize: "clamp(36px, 4vw, 52px)", color: "var(--ink)", letterSpacing: "-1px", textAlign: "center", margin: 0 }}>
             AetherSkin&apos;s AI Skin Analysis
           </h2>
+          {/* Status, stated where the features are described, so nobody has
+              to reach the FAQ to learn that scanning isn't live yet. */}
+          <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 400, fontSize: 17, color: "var(--ink)", lineHeight: 1.6, textAlign: "center", maxWidth: 620, margin: 0 }}>
+            <strong>Arriving with the beta launch.</strong> Photo analysis, product matching and
+            tracking go live then. Today you can join the free waitlist and take the 2-minute skin quiz.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -433,9 +446,11 @@ function GallerySection() {
   const { ref, visible } = useFadeIn();
 
   const panels = [
-    { img: imgNoGender, alt: "Water droplets on bare shoulders beside the words: skincare has no gender", label: "UNIVERSAL", text: "Skincare has no gender.", color: "var(--surface)" },
-    { img: imgClarity, alt: "Freckled face with clear, hydrated skin in warm golden light", label: "CLARITY", text: "Clarity Is The New Glow", color: "var(--yellow)" },
-    { img: imgCleanBS, alt: "Serum dropper and glass bottle beside bold editorial typography", label: "TRUTH", text: "Buzzwords are marketing. Your skin is real.", color: "var(--blue)" },
+    // Same lamp, same reading, three complexions: the art makes the point
+    // the captions make.
+    { img: imgGalleryDeep, alt: "Abstract artwork: a deep-toned skin-like surface under raking light, with pale contour lines", label: "UNIVERSAL", text: "Every skin, read the same way.", color: "var(--surface)" },
+    { img: imgGalleryGolden, alt: "Abstract artwork: a golden-toned skin-like surface under raking light, with droplets", label: "CLARITY", text: "Know what your skin is doing.", color: "var(--yellow)" },
+    { img: imgGalleryFair, alt: "Abstract artwork: a fair, rosy skin-like surface under raking light, with contour lines", label: "TRUTH", text: "Buzzwords are marketing. Your skin is real.", color: "var(--blue)" },
   ];
 
   return (
@@ -602,7 +617,7 @@ function GlowOClockSection() {
           ✦ INTERACTIVE
         </div>
         <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 400, fontSize: 14, color: "var(--muted)", margin: 0 }}>
-          move your cursor over the liquid
+          move your cursor or drag a finger across the liquid
         </p>
       </div>
 

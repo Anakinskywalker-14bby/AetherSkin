@@ -1,7 +1,7 @@
 # AetherSkin
 
-> AetherSkin is a free AI skin analysis tool. One selfie scan reads your skin and
-> matches you with skincare products from established brands. AetherSkin does not
+> AetherSkin is a free AI skin analysis tool, launching in beta. A selfie scan will
+> read your skin and match you with skincare products from established brands. AetherSkin does not
 > manufacture products; it earns affiliate commission on recommendations,
 > disclosed on every placement.
 

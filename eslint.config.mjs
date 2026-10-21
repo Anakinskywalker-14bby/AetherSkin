@@ -13,5 +13,6 @@ export default defineConfig([
       "prefer-const": "error",
     },
   },
-  globalIgnores([".next/", "node_modules/", "static-site/", "coverage/", ".claude/"]),
+  // scripts/art: Node CommonJS art renderer, not part of the app bundle.
+  globalIgnores([".next/", "node_modules/", "static-site/", "coverage/", ".claude/", "scripts/art/"]),
 ]);

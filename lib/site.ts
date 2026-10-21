@@ -11,7 +11,7 @@ export const SITE_URL =
 export const SITE_NAME = "AetherSkin";
 
 export const SITE_DESCRIPTION =
-  "Free AI skin analysis. One scan matches you with skincare from brands you already love. No payment — join the beta.";
+  "AI skin analysis that matches you with skincare from brands you already love. Free waitlist and skin quiz now; scanning opens at beta launch.";
 
 /** Organization schema — used on the homepage. */
 export const organizationJsonLd = {
