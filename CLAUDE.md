@@ -21,9 +21,15 @@ Before any code is approved for deployment:
    snyk test        # dependency vulnerabilities
    snyk code test   # static analysis of our own code
    ```
-3. **Do not mark anything "ready to deploy"** until both scans are clean, or every
-   remaining finding is either fixed or explicitly accepted by the human with a
-   written reason in `.snyk`.
+3. **Nothing is ready to deploy until `snyk test` and `snyk code test` both
+   pass.** If either reports anything, address it and fix it first, then
+   re-run both, before proceeding to deploy. "Pass" means exit code 0.
+   - An `ignore` in `.snyk` is not a fix. Add one only when the human has
+     explicitly accepted that specific finding, with a written reason and an
+     `expires` date. When an ignore expires the scan fails again, and the gate
+     is closed until the finding is fixed or the human re-accepts it.
+   - Never add, extend or widen an ignore on your own initiative to get a
+     scan to pass.
 
 To test without touching production, push to a branch — Vercel builds an
 isolated preview URL, and the Sentry DSNs are configured for previews.
