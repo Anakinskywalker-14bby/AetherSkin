@@ -129,6 +129,43 @@ export function scrubLog<T extends ScrubbableLog>(log: T): T {
   return log;
 }
 
+/** Structural streamed-span shape: the fields of StreamedSpanJSON we touch. */
+interface ScrubbableSpan {
+  name: string;
+  attributes?: Record<string, unknown>;
+}
+
+function scrubAttributeValue(value: unknown): unknown {
+  if (typeof value === "string") return scrubText(value);
+  if (Array.isArray(value)) return value.map(scrubAttributeValue);
+  // Attributes can also arrive as { value, unit } objects.
+  if (value && typeof value === "object" && "value" in value) {
+    const v = value as { value: unknown };
+    return { ...v, value: scrubAttributeValue(v.value) };
+  }
+  return value;
+}
+
+/**
+ * beforeSendSpan. Sentry 11 streams spans by default (traceLifecycle
+ * "stream"), and in that mode beforeSendTransaction is never called, so the
+ * transaction scrubbing in scrubEvent does not run for performance data.
+ * This is the hook that does.
+ *
+ * A pageload of /quiz?token=… or /verify?token=… produces spans whose name
+ * and attributes (url.full, http.query, referrer and so on) can carry the
+ * token. The name and every string attribute go through scrubText.
+ */
+export function scrubSpan<T extends ScrubbableSpan>(span: T): T {
+  span.name = scrubText(span.name);
+  if (span.attributes) {
+    for (const [key, value] of Object.entries(span.attributes)) {
+      span.attributes[key] = scrubAttributeValue(value);
+    }
+  }
+  return span;
+}
+
 /** Query parameters whose values must never leave the app. */
 export const SENSITIVE_PARAMS = ["token", "code", "access_token", "refresh_token", "email"] as const;
 

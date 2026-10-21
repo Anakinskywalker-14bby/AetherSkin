@@ -13,6 +13,10 @@ Before any code is approved for deployment:
    - Client: `instrumentation-client.ts`. Server: `sentry.server.config.ts`.
      Edge: `sentry.edge.config.ts`. All three use `DATA_COLLECTION` and the
      scrubbers from `lib/sentry-scrub.ts` — never initialise Sentry without them.
+   - Sentry 11 streams spans by default: `beforeSendTransaction` never runs,
+     so performance data is scrubbed in `beforeSendSpan` (`scrubSpan`). Logs
+     have their own hook too (`beforeSendLog`). `test/sentry-config.test.ts`
+     fails if any config is missing a hook.
    - New API routes must let unexpected errors reach Sentry (don't swallow them
      in a catch that only returns a 500 without capturing).
 2. **Run Snyk locally** whenever dependencies are added or critical logic

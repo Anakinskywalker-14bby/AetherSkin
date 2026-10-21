@@ -27,6 +27,10 @@ const csp = [
   "img-src 'self' data: blob: https://news.google.com https://www.gstatic.com https://ssl.gstatic.com https://lh3.googleusercontent.com",
   "connect-src 'self' https://hazjyonpqungkgchqgro.supabase.co https://news.google.com https://va.vercel-scripts.com https://vitals.vercel-insights.com",
   "frame-src https://news.google.com",
+  // Sentry Replay compresses recordings in a Web Worker built from a blob:
+  // URL. Without this, worker-src falls back to script-src, the worker is
+  // blocked, and Replay compresses on the main thread instead.
+  "worker-src 'self' blob:",
   "manifest-src 'self'",
   "upgrade-insecure-requests",
 ].join("; ");
