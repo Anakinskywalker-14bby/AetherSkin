@@ -135,6 +135,7 @@ export async function POST(req: Request) {
       entry.position
     ).catch(() => undefined);
 
+    Sentry.metrics.count("quiz.completed", 1);
     return NextResponse.json({ ok: true, position: entry.position });
   } catch (err) {
     /*

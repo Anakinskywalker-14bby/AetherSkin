@@ -9,7 +9,7 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 
 // vi.mock is hoisted above imports, so the spy must be hoisted with it.
 const { captureException } = vi.hoisted(() => ({ captureException: vi.fn() }));
-vi.mock("@sentry/nextjs", () => ({ captureException }));
+vi.mock("@sentry/nextjs", () => ({ captureException, metrics: { count: vi.fn() } }));
 vi.mock("@/lib/supabase/admin", () => ({
   createAdminClient: () => {
     throw new Error("database must not be reached for malformed bodies");

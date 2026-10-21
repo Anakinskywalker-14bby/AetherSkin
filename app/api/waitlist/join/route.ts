@@ -168,6 +168,11 @@ export async function POST(req: Request) {
       }
     ).catch(() => ({ sent: false, reason: "provider_error" }) as const);
 
+    // Counts only. No email, no IP: attributes are the two categories below.
+    Sentry.metrics.count("waitlist.signup", 1, {
+      attributes: { kind: existing ? "resent" : "new", delivered: delivery.sent },
+    });
+
     if (!delivery.sent) {
       // Be honest rather than showing a fake success screen.
       return NextResponse.json(

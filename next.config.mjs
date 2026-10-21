@@ -46,6 +46,8 @@ const securityHeaders = [
   },
   { key: "X-DNS-Prefetch-Control", value: "on" },
   { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
+  // Lets Sentry's browser profiler use the JS Self-Profiling API (Chromium only).
+  { key: "Document-Policy", value: "js-profiling" },
 ];
 
 const nextConfig = {

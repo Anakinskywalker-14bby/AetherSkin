@@ -81,8 +81,52 @@ interface ScrubbableEvent {
  */
 const EMAIL_RE = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi;
 
+/*
+ * Postgres also quotes values that aren't emails. A check-constraint failure
+ * on quiz_responses reports "Failing row contains (…)" with every column of
+ * the row, health answers included; unique and foreign-key errors report
+ * "Key (col)=(value)". Column names are kept so the error stays debuggable;
+ * the values are not.
+ */
+// To end of line, not to the closing paren: a value can itself contain ")".
+const PG_FAILING_ROW_RE = /Failing row contains .*$/gm;
+const PG_KEY_VALUE_RE = /(Key \([^)]*\))=\([^)]*\)/g;
+
 export function scrubText(input: string): string {
-  return (scrubUrl(input) ?? input).replace(EMAIL_RE, "[email]");
+  return (scrubUrl(input) ?? input)
+    .replace(PG_FAILING_ROW_RE, "Failing row contains ([redacted])")
+    .replace(PG_KEY_VALUE_RE, "$1=([redacted])")
+    .replace(EMAIL_RE, "[email]");
+}
+
+/** Structural log shape: the fields of the SDK's Log type that we touch. */
+interface ScrubbableLog {
+  message: unknown;
+  attributes?: Record<string, unknown>;
+}
+
+/**
+ * beforeSendLog. Logs are a separate pipeline from events, so beforeSend never
+ * sees them, and consoleLoggingIntegration forwards whatever the app passed
+ * to console.error, including caught Supabase errors.
+ *
+ * The message is scrubbed like exception text. The raw console arguments,
+ * which the SDK also attaches as sentry.message.parameter.N attributes, are
+ * dropped: the scrubbed message already contains them, and a parameter is
+ * the one place an unscrubbed copy would survive.
+ */
+export function scrubLog<T extends ScrubbableLog>(log: T): T {
+  (log as ScrubbableLog).message = scrubText(String(log.message));
+  if (log.attributes) {
+    for (const [key, value] of Object.entries(log.attributes)) {
+      if (key.startsWith("sentry.message.parameter")) {
+        delete log.attributes[key];
+      } else if (typeof value === "string") {
+        log.attributes[key] = scrubText(value);
+      }
+    }
+  }
+  return log;
 }
 
 /** Query parameters whose values must never leave the app. */

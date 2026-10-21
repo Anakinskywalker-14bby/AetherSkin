@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 
-const { captureMessage } = vi.hoisted(() => ({ captureMessage: vi.fn() }));
-vi.mock("@sentry/nextjs", () => ({ captureMessage }));
+const { captureMessage, count } = vi.hoisted(() => ({ captureMessage: vi.fn(), count: vi.fn() }));
+vi.mock("@sentry/nextjs", () => ({ captureMessage, metrics: { count } }));
 
 import {
   escapeHtml,
@@ -74,9 +74,14 @@ describe("send()", () => {
 
   it("reports sent:true on a 200 from the provider", async () => {
     process.env.RESEND_API_KEY = "test-key";
+    count.mockClear();
     vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ ok: true }));
     const r = await sendQuizCompleteEmail("a@b.co", "Sam", 1);
     expect(r).toEqual({ sent: true });
+    // The delivery metric carries outcome and sender kind only, never the address.
+    expect(count).toHaveBeenCalledWith("email.delivery", 1, {
+      attributes: { result: "sent", sender: "sandbox" },
+    });
   });
 
   it("never leaks the API key into the request URL", async () => {

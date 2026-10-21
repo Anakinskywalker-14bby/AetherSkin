@@ -1,5 +1,11 @@
 import * as Sentry from "@sentry/nextjs";
-import { DATA_COLLECTION, isSensitivePath, scrubBreadcrumb, scrubEvent } from "@/lib/sentry-scrub";
+import {
+  DATA_COLLECTION,
+  isSensitivePath,
+  scrubBreadcrumb,
+  scrubEvent,
+  scrubLog,
+} from "@/lib/sentry-scrub";
 
 /*
  * Replay is left out entirely on pages that carry the auth token or health
@@ -27,21 +33,35 @@ Sentry.init({
   replaysSessionSampleRate: onSensitivePage ? 0 : 0.1,
   replaysOnErrorSampleRate: onSensitivePage ? 0 : 1.0,
 
-  integrations: onSensitivePage
-    ? []
-    : [
-        Sentry.replayIntegration({
-          // These are Sentry's defaults, stated explicitly so they can't be
-          // switched off by someone who didn't know they were load-bearing.
-          maskAllText: true,
-          maskAllInputs: true,
-          blockAllMedia: true,
-        }),
-      ],
+  /*
+   * Browser profiling: only inside already-sampled traces, and only in
+   * Chromium browsers (the JS Self-Profiling API needs the Document-Policy:
+   * js-profiling header set in next.config.mjs). Profiles hold function
+   * names and timings, not page content, so they run on every page.
+   */
+  profileSessionSampleRate: 1.0,
+  profileLifecycle: "trace",
+
+  integrations: [
+    Sentry.browserProfilingIntegration(),
+    Sentry.consoleLoggingIntegration({ levels: ["log", "warn", "error"] }),
+    ...(onSensitivePage
+      ? []
+      : [
+          Sentry.replayIntegration({
+            // These are Sentry's defaults, stated explicitly so they can't be
+            // switched off by someone who didn't know they were load-bearing.
+            maskAllText: true,
+            maskAllInputs: true,
+            blockAllMedia: true,
+          }),
+        ]),
+  ],
 
   beforeSend: (event) => scrubEvent(event),
   beforeSendTransaction: (event) => scrubEvent(event),
   beforeBreadcrumb: (crumb) => scrubBreadcrumb(crumb),
+  beforeSendLog: (log) => scrubLog(log),
 });
 
 // Hook into App Router navigation transitions.

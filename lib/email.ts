@@ -70,6 +70,9 @@ export type SendResult =
  * never Resend's message text, which can quote the recipient address.
  */
 function reportDeliveryFailure(status: number | "network", errorName: string) {
+  Sentry.metrics.count("email.delivery", 1, {
+    attributes: { result: "failed", sender: SENDER_KIND },
+  });
   Sentry.captureMessage("email_delivery_failed", {
     level: "error",
     tags: { email_status: String(status), resend_error: errorName, sender: SENDER_KIND },
@@ -108,6 +111,9 @@ async function send(to: string, subject: string, html: string): Promise<SendResu
       reportDeliveryFailure(res.status, errorName);
       return { sent: false, reason: "provider_error" };
     }
+    Sentry.metrics.count("email.delivery", 1, {
+      attributes: { result: "sent", sender: SENDER_KIND },
+    });
     return { sent: true };
   } catch (err) {
     const errorName = err instanceof Error ? err.name : "unknown";

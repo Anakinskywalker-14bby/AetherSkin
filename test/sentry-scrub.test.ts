@@ -6,6 +6,7 @@ import {
   isSensitivePath,
   DATA_COLLECTION,
   scrubText,
+  scrubLog,
 } from "@/lib/sentry-scrub";
 
 // Loose fixture type: real Sentry events carry far more fields than the
@@ -164,7 +165,8 @@ describe("exception text", () => {
     const out = scrubText(PG_DUPLICATE);
     expect(out).not.toContain("jane.doe");
     expect(out).not.toContain("example.com");
-    expect(out).toContain("[email]");
+    // The Key (col)=(value) rule now catches it before the email rule does.
+    expect(out).toContain("Key (email)=([redacted])");
     // and keeps what's needed to debug it
     expect(out).toContain("waitlist_email_key");
   });
@@ -206,5 +208,65 @@ describe("console breadcrumbs", () => {
       data: { arguments: ["kept"] },
     });
     expect(crumb.data?.arguments).toEqual(["kept"]);
+  });
+});
+
+describe("Postgres value redaction", () => {
+  it("redacts every value in a check-constraint failing row, health answers included", () => {
+    // Shape of a real Postgres 23514 error on quiz_responses.
+    const pg =
+      'new row for relation "quiz_responses" violates check constraint "age_band_check"\n' +
+      "Failing row contains (7f3c, 42, jane@example.com, Jane, 25-34, female, oily, " +
+      "high, acne, weekly, yes, full, (active), humid, isotretinoin, pregnant, none, 50).";
+    const out = scrubText(pg);
+    expect(out).toContain('violates check constraint "age_band_check"');
+    expect(out).toContain("Failing row contains ([redacted])");
+    for (const leaked of ["isotretinoin", "pregnant", "jane@example.com", "Jane", "active"]) {
+      expect(out).not.toContain(leaked);
+    }
+  });
+
+  it("keeps the column name but drops the value in Key (col)=(value)", () => {
+    const out = scrubText(
+      'insert or update on table "quiz_responses" violates foreign key constraint\n' +
+        "Key (waitlist_id)=(4f1e9a) is not present in table \"waitlist\"."
+    );
+    expect(out).toContain("Key (waitlist_id)=([redacted])");
+    expect(out).not.toContain("4f1e9a");
+  });
+});
+
+describe("scrubLog", () => {
+  it("scrubs the message and drops raw console parameters", () => {
+    const log = scrubLog({
+      message: "[join] unhandled: Key (email)=(jane@example.com) already exists.",
+      attributes: {
+        "sentry.origin": "auto.log.console",
+        "sentry.message.template": "[join] unhandled: %s",
+        "sentry.message.parameter.0": "Key (email)=(jane@example.com) already exists.",
+        "server.address": "localhost",
+      },
+    });
+    expect(log.message).toBe("[join] unhandled: Key (email)=([redacted]) already exists.");
+    expect(log.attributes).not.toHaveProperty("sentry.message.parameter.0");
+    expect(log.attributes?.["sentry.origin"]).toBe("auto.log.console");
+    expect(JSON.stringify(log)).not.toContain("jane@example.com");
+  });
+
+  it("scrubs tokens out of string attributes such as a page URL", () => {
+    const log = scrubLog({
+      message: "hydration warning",
+      attributes: { "url.full": "https://aetherskin.app/quiz?token=SECRET123" },
+    });
+    expect(JSON.stringify(log)).not.toContain("SECRET123");
+  });
+
+  it("accepts a parameterized (String-object) message", () => {
+    // Sentry.logger.fmt produces a String object rather than a primitive.
+    const msg = Object.assign(new String("signup for a@b.co"), {
+      __sentry_template_string__: "signup for %s",
+    });
+    const log = scrubLog({ message: msg });
+    expect(log.message).toBe("signup for [email]");
   });
 });
