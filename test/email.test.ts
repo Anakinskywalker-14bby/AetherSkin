@@ -37,14 +37,15 @@ describe("email templates", () => {
     expect(verificationEmail("t")).toContain("expires in 7 days");
   });
 
-  it("escapes the user's name instead of rendering it as HTML", () => {
-    const html = quizCompleteEmail('<img src=x onerror="alert(1)">', 12);
-    expect(html).not.toContain("<img");
-    expect(html).toContain("&lt;img");
+  it("contains no user-supplied text (the v2 quiz collects no name)", () => {
+    expect(quizCompleteEmail(12)).toContain("You're in.");
   });
 
-  it("shows the waitlist position", () => {
-    expect(quizCompleteEmail("Sam", 42)).toContain("#42");
+  it("shows the waitlist position as digits only", () => {
+    expect(quizCompleteEmail(42)).toContain("#42");
+    // Defensive: a non-integer can't smuggle markup or decimals into the HTML.
+    expect(quizCompleteEmail(7.9)).toContain("#7");
+    expect(quizCompleteEmail(NaN)).toContain("#0");
   });
 
   it("tells the recipient why they got the email (CAN-SPAM / anti-phishing)", () => {
@@ -76,7 +77,7 @@ describe("send()", () => {
     process.env.RESEND_API_KEY = "test-key";
     count.mockClear();
     vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ ok: true }));
-    const r = await sendQuizCompleteEmail("a@b.co", "Sam", 1);
+    const r = await sendQuizCompleteEmail("a@b.co", 1);
     expect(r).toEqual({ sent: true });
     // The delivery metric carries outcome and sender kind only, never the address.
     expect(count).toHaveBeenCalledWith("email.delivery", 1, {

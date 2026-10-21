@@ -12,10 +12,10 @@ short skin quiz. There is no payment at any stage.
 
 - Reads everyday skin characteristics from a photo: hydration, texture,
   visible pores, dark spots, fine lines, breakouts.
-- Builds a skin profile from a 13-question quiz (skin type, sensitivity,
-  primary concern, breakout pattern, post-blemish marks, routine depth,
-  lifestyle, climate, current treatments, pregnancy status, allergies,
-  monthly spend, demographics).
+- Builds a skin profile from a 10-question quiz (skin goal, skin type,
+  daily environment, texture preference, sunscreen habit, stress level,
+  routine complexity, age, sleep, water intake). Multiple choice and
+  numbers only; no free text, no name.
 - Matches that profile to products from brands the user already knows.
 
 AetherSkin provides cosmetic and wellness guidance only. It is not a medical

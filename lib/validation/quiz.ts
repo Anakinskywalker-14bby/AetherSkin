@@ -1,126 +1,203 @@
 /**
- * Quiz schema + strict server-side validation.
- * Every answer is validated against an allow-list, so arbitrary strings can
- * never reach the database. Free-text fields are length-capped and stripped
- * of control characters.
+ * Skin quiz, version 2: every answer is a number or a fixed code.
+ *
+ * Built to be fed straight into a model, so there is no free text anywhere:
+ *
+ *   categorical  stored as a stable code, one-hot encoded downstream
+ *                (one 0/1 column per option)
+ *   ordinal      stored as the integer printed next to each option; the
+ *                order is meaningful, so it is used as-is
+ *   continuous   stored as the raw number; standard-scaled downstream
+ *
+ * Codes and integers are part of the dataset's schema. Changing one silently
+ * changes what earlier rows mean, so never renumber or rename: add a new
+ * option, or bump QUIZ_VERSION. The database enforces the same values with
+ * CHECK constraints (supabase/migrations/20261021000001_quiz_v2.sql), and
+ * docs/quiz-data-dictionary.md documents them for the training pipeline.
+ *
+ * Every answer is validated server-side against these definitions, so
+ * nothing the client sends reaches the database unless it is on the list.
  */
 
+export const QUIZ_VERSION = 2;
+
+export interface CategoricalQuestion {
+  kind: "categorical";
+  id: string;
+  question: string;
+  options: readonly { code: string; label: string }[];
+}
+
+export interface OrdinalQuestion {
+  kind: "ordinal";
+  id: string;
+  question: string;
+  options: readonly { value: number; label: string }[];
+}
+
+export interface ContinuousQuestion {
+  kind: "continuous";
+  id: string;
+  question: string;
+  unit: string;
+  placeholder: string;
+  min: number;
+  max: number;
+  /** Smallest increment accepted: 1 means whole numbers only. */
+  step: number;
+  /** Shown when the answer is outside [min, max]. */
+  rangeMessage: string;
+}
+
+export type QuizQuestion = CategoricalQuestion | OrdinalQuestion | ContinuousQuestion;
+
 export const QUIZ_QUESTIONS = [
+  // ── Part 1: categorical (one-hot) ───────────────────────────────────
   {
+    kind: "categorical",
+    id: "primary_goal",
+    question: "What is your primary skin goal?",
+    options: [
+      { code: "hydration", label: "Hydration / Moisture" },
+      { code: "anti_aging", label: "Anti-aging / Fine lines" },
+      { code: "acne_control", label: "Acne control / Blemish clearing" },
+      { code: "brightening", label: "Brightening / Uneven skin tone" },
+      { code: "calming", label: "Calming / Redness reduction" },
+    ],
+  },
+  {
+    kind: "categorical",
     id: "skin_type",
-    question: "How does your skin feel 30 minutes after washing your face?",
+    question: "How would you describe your current skin type?",
     options: [
-      { label: "Dry / tight", value: "Dry" },
-      { label: "Shiny all over", value: "Oily" },
-      { label: "Shiny only in the T-zone (forehead, nose, chin)", value: "Combination" },
-      { label: "Comfortable and balanced", value: "Normal" },
+      { code: "oily", label: "Oily" },
+      { code: "dry", label: "Dry" },
+      { code: "combination", label: "Combination" },
+      { code: "normal", label: "Normal" },
+      { code: "highly_sensitive", label: "Highly Sensitive" },
     ],
   },
   {
-    id: "sensitivity",
-    question: "How easily does your skin get red, itchy, or irritated?",
+    kind: "categorical",
+    id: "environment",
+    question: "What environment do you spend most of your day in?",
     options: [
-      { label: "Very easily. It reacts to new products or weather changes.", value: "Sensitive" },
-      { label: "Rarely. My skin handles most products.", value: "Resilient" },
+      { code: "climate_controlled_indoor", label: "Air-conditioned / heated indoor office" },
+      { code: "outdoors", label: "Outdoors / exposed to weather" },
+      { code: "urban_pollution", label: "High-pollution urban areas" },
+      { code: "balanced_indoor", label: "Balanced / moderate indoor environment" },
     ],
   },
   {
-    id: "primary_concern",
-    question: "What is your #1 skin goal right now?",
+    kind: "categorical",
+    id: "texture_preference",
+    question: "What is your preferred texture for skincare products?",
     options: [
-      { label: "Clear up breakouts & blackheads", value: "Concern_Acne" },
-      { label: "Fade dark spots & acne marks", value: "Concern_Hyperpigmentation" },
-      { label: "Fix dryness & flaky patches", value: "Concern_Dehydration" },
-      { label: "Control excess oil & large pores", value: "Concern_Oil_Control" },
-      { label: "Smooth texture & glowing skin", value: "Concern_Dullness" },
+      { code: "gel_fluid", label: "Lightweight gels or fluids" },
+      { code: "rich_cream", label: "Rich, thick creams" },
+      { code: "oil_balm", label: "Oils or heavy balms" },
+      { code: "no_preference", label: "I have no preference" },
     ],
   },
-  {
-    id: "breakout_frequency",
-    question: "How often do you experience breakouts?",
-    options: [
-      { label: "Constantly. Active breakouts most days.", value: "Acne_Severe" },
-      { label: "Cyclically. Around my period or high stress.", value: "Acne_Hormonal" },
-      { label: "Occasionally. A random pimple here and there.", value: "Acne_Mild" },
-      { label: "Never. Breakouts aren't an issue for me.", value: "Acne_None" },
-    ],
-  },
-  {
-    id: "post_acne_marks",
-    question: "What happens after a pimple heals?",
-    options: [
-      { label: "It leaves a dark or flat red mark for weeks", value: "PIH_Prone" },
-      { label: "It disappears without leaving a mark", value: "PIH_None" },
-    ],
-  },
-  {
-    id: "routine_depth",
-    question: "How many steps are you actually willing to do each day?",
-    options: [
-      { label: "Keep it minimal. 2 to 3 products.", value: "Routine_Simple" },
-      { label: "Give me the full routine. 4+ products.", value: "Routine_Advanced" },
-    ],
-  },
-  {
-    id: "lifestyle",
-    question: "What does a typical day look like for you?",
-    options: [
-      { label: "Mostly indoors (study, office, screens)", value: "Low_UV_High_BlueLight" },
-      { label: "Frequently outdoors (commuting, workouts, active)", value: "High_UV" },
-      { label: "Late nights & high stress (poor sleep, busy)", value: "High_Cortisol_Dullness" },
-    ],
-  },
-  {
-    id: "climate",
-    question: "What's the weather like where you live right now?",
-    options: [
-      { label: "Hot / humid", value: "Texture_Preference_Gel" },
-      { label: "Cold / dry / windy", value: "Texture_Preference_Cream" },
-      { label: "Mild / changing seasons", value: "Texture_Preference_Lotion" },
-    ],
-  },
-  {
-    id: "current_treatments",
-    question: "Are you currently using any of these?",
-    options: [
-      { label: "Prescription topical treatments (e.g. tretinoin, clindamycin)", value: "Contraindication_Retinoid" },
-      { label: "Oral acne medication (e.g. isotretinoin)", value: "Contraindication_Extreme_Dryness" },
-      { label: "None of the above", value: "Clear_For_Actives" },
-    ],
-  },
-  {
-    id: "pregnancy_status",
-    question: "Are you currently pregnant or breastfeeding?",
-    options: [
-      { label: "Yes", value: "Filter_Out_Retinoids_SalicylicAcid" },
-      { label: "No", value: "No_Pregnancy_Filters" },
-    ],
-  },
-  {
-    id: "monthly_spend",
-    question: "Roughly how much do you spend on skincare per month?",
-    options: [
-      { label: "Under $25", value: "Spend_Under_25" },
-      { label: "$25 to $50", value: "Spend_25_50" },
-      { label: "$50 to $100", value: "Spend_50_100" },
-      { label: "$100 to $200", value: "Spend_100_200" },
-      { label: "Over $200", value: "Spend_Over_200" },
-    ],
-  },
-] as const;
 
-export const AGE_BANDS = ["18-24", "25-34", "35-44", "45-54", "55+"] as const;
+  // ── Part 2: ordinal (ranked) ────────────────────────────────────────
+  {
+    kind: "ordinal",
+    id: "sunscreen_frequency",
+    question: "How often do you apply sunscreen during the day?",
+    options: [
+      { value: 0, label: "Never" },
+      { value: 1, label: "Rarely / Only when sunny" },
+      { value: 2, label: "Once a day in the morning" },
+      { value: 3, label: "Multiple times a day / Reapply frequently" },
+    ],
+  },
+  {
+    kind: "ordinal",
+    id: "stress_level",
+    question: "Rate your average daily stress level over the past month:",
+    options: [
+      { value: 1, label: "Very low stress" },
+      { value: 2, label: "Low stress" },
+      { value: 3, label: "Moderate stress" },
+      { value: 4, label: "High stress" },
+      { value: 5, label: "Extremely high stress" },
+    ],
+  },
+  {
+    kind: "ordinal",
+    id: "routine_complexity",
+    question: "How complex is your current daily skincare routine?",
+    options: [
+      { value: 0, label: "Minimalist (just cleanser, or cleanser + moisturizer)" },
+      { value: 1, label: "Standard (cleanser, moisturizer, plus 1 active serum)" },
+      { value: 2, label: "Advanced (cleanser, toner, multiple serums, moisturizer, eye cream)" },
+    ],
+  },
 
-export const GENDERS = ["Female", "Male", "Non-binary", "Prefer not to say"] as const;
+  // ── Part 3: continuous (raw numbers) ────────────────────────────────
+  {
+    kind: "continuous",
+    id: "age",
+    question: "What is your age?",
+    unit: "years",
+    placeholder: "e.g. 28",
+    min: 18,
+    max: 100,
+    step: 1,
+    // The Terms require members to be 18+.
+    rangeMessage: "AetherSkin is for adults: please enter an age from 18 to 100.",
+  },
+  {
+    kind: "continuous",
+    id: "sleep_hours",
+    question: "On average, how many hours of sleep do you get per night?",
+    unit: "hours",
+    placeholder: "e.g. 7",
+    min: 0,
+    max: 24,
+    step: 0.5,
+    rangeMessage: "Please enter between 0 and 24 hours (half hours are fine).",
+  },
+  {
+    kind: "continuous",
+    id: "water_glasses",
+    question: "Roughly how many glasses of water (250ml) do you drink a day?",
+    unit: "glasses",
+    placeholder: "e.g. 6",
+    min: 0,
+    max: 30,
+    step: 1,
+    rangeMessage: "Please enter a whole number of glasses from 0 to 30.",
+  },
+] as const satisfies readonly QuizQuestion[];
 
-/** Allow-lists derived from the question definitions (single source of truth). */
-const ALLOWED: Record<string, readonly string[]> = Object.fromEntries(
-  QUIZ_QUESTIONS.map((q) => [q.id, q.options.map((o) => o.value)])
-);
+export type QuizQuestionId = (typeof QUIZ_QUESTIONS)[number]["id"];
+
+export interface QuizPayload {
+  primary_goal: string;
+  skin_type: string;
+  environment: string;
+  texture_preference: string;
+  sunscreen_frequency: number;
+  stress_level: number;
+  routine_complexity: number;
+  age: number;
+  sleep_hours: number;
+  water_glasses: number;
+}
+
+export type ValidationResult =
+  | { ok: true; data: QuizPayload }
+  | { ok: false; error: string };
 
 const CONTROL_CHARS = new RegExp("[\\u0000-\\u001F\\u007F]", "g");
 
-/** Strip control chars, collapse whitespace, hard-cap length. */
+/**
+ * Strip control chars, collapse whitespace, hard-cap length. No longer used
+ * by the quiz itself (it has no text fields); kept for the token and email
+ * inputs in the API routes.
+ */
 export function sanitizeText(input: unknown, maxLength: number): string {
   if (typeof input !== "string") return "";
   return input
@@ -130,78 +207,65 @@ export function sanitizeText(input: unknown, maxLength: number): string {
     .slice(0, maxLength);
 }
 
-export interface QuizPayload {
-  full_name: string;
-  age_band: string;
-  gender: string;
-  skin_type: string;
-  sensitivity: string;
-  primary_concern: string;
-  breakout_frequency: string;
-  post_acne_marks: string;
-  routine_depth: string;
-  lifestyle: string;
-  climate: string;
-  current_treatments: string;
-  pregnancy_status: string;
-  allergies: string;
-  monthly_spend: string;
+/**
+ * Parse a number the client sent. Accepts a JSON number or a numeric string
+ * (form inputs produce strings). Rejects anything else, including "", NaN,
+ * Infinity, hex, exponents and stray characters.
+ */
+export function parseNumber(input: unknown): number | null {
+  if (typeof input === "number") return Number.isFinite(input) ? input : null;
+  if (typeof input !== "string") return null;
+  const s = input.trim();
+  if (!/^-?\d+(\.\d+)?$/.test(s)) return null;
+  const n = Number(s);
+  return Number.isFinite(n) ? n : null;
 }
 
-export type ValidationResult =
-  | { ok: true; data: QuizPayload }
-  | { ok: false; error: string };
+/** True if n is a whole multiple of step (tolerant of float error). */
+function onStep(n: number, step: number): boolean {
+  const k = n / step;
+  return Math.abs(k - Math.round(k)) < 1e-9;
+}
 
-/** Validate an untrusted quiz submission against the allow-lists. */
+/** Validate an untrusted quiz submission against the definitions above. */
 export function validateQuiz(raw: unknown): ValidationResult {
-  if (typeof raw !== "object" || raw === null) {
+  if (typeof raw !== "object" || raw === null || Array.isArray(raw)) {
     return { ok: false, error: "Invalid submission." };
   }
   const body = raw as Record<string, unknown>;
+  const data: Record<string, string | number> = {};
 
-  const full_name = sanitizeText(body.full_name, 80);
-  if (full_name.length < 1) return { ok: false, error: "Please enter your name." };
+  for (const q of QUIZ_QUESTIONS as readonly QuizQuestion[]) {
+    const value = body[q.id];
 
-  const age_band = sanitizeText(body.age_band, 16);
-  if (!(AGE_BANDS as readonly string[]).includes(age_band)) {
-    return { ok: false, error: "Please select your age range." };
-  }
-
-  const gender = sanitizeText(body.gender, 32);
-  if (!(GENDERS as readonly string[]).includes(gender)) {
-    return { ok: false, error: "Please select an option for gender." };
-  }
-
-  const answers: Record<string, string> = {};
-  for (const q of QUIZ_QUESTIONS) {
-    const value = sanitizeText(body[q.id], 64);
-    if (!ALLOWED[q.id].includes(value)) {
-      return { ok: false, error: `Please answer: ${q.question}` };
+    if (q.kind === "categorical") {
+      const code = typeof value === "string" ? value : "";
+      if (!q.options.some((o) => o.code === code)) {
+        return { ok: false, error: `Please answer: ${q.question}` };
+      }
+      data[q.id] = code;
+      continue;
     }
-    answers[q.id] = value;
+
+    const n = parseNumber(value);
+
+    if (q.kind === "ordinal") {
+      if (n === null || !q.options.some((o) => o.value === n)) {
+        return { ok: false, error: `Please answer: ${q.question}` };
+      }
+      data[q.id] = n;
+      continue;
+    }
+
+    // continuous
+    if (n === null) {
+      return { ok: false, error: `Please enter a number for: ${q.question}` };
+    }
+    if (n < q.min || n > q.max || !onStep(n, q.step)) {
+      return { ok: false, error: q.rangeMessage };
+    }
+    data[q.id] = n;
   }
 
-  // Free text: optional, sanitized, capped.
-  const allergies = sanitizeText(body.allergies, 500);
-
-  return {
-    ok: true,
-    data: {
-      full_name,
-      age_band,
-      gender,
-      allergies,
-      skin_type: answers.skin_type,
-      sensitivity: answers.sensitivity,
-      primary_concern: answers.primary_concern,
-      breakout_frequency: answers.breakout_frequency,
-      post_acne_marks: answers.post_acne_marks,
-      routine_depth: answers.routine_depth,
-      lifestyle: answers.lifestyle,
-      climate: answers.climate,
-      current_treatments: answers.current_treatments,
-      pregnancy_status: answers.pregnancy_status,
-      monthly_spend: answers.monthly_spend,
-    },
-  };
+  return { ok: true, data: data as unknown as QuizPayload };
 }

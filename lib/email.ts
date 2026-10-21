@@ -163,10 +163,16 @@ export function verificationEmail(token: string) {
     </p>`);
 }
 
-export function quizCompleteEmail(name: string, position: number) {
+/**
+ * The quiz no longer asks for a name (v2 has no free text), so the greeting
+ * is generic. The position is an integer from our own database; it is still
+ * coerced so nothing but digits can reach the HTML.
+ */
+export function quizCompleteEmail(position: number) {
+  const place = Number.isFinite(position) ? Math.trunc(position) : 0;
   return SHELL(`
     <h1 style="font-size:28px;font-weight:800;color:#1a1c1b;margin:0 0 16px;line-height:1.2">
-      You're in, ${escapeHtml(name)}.
+      You're in.
     </h1>
     <p style="font-size:16px;color:#484739;line-height:1.7;margin:0 0 20px">
       Your skin profile is saved and your spot is locked. We'll email you the
@@ -174,7 +180,7 @@ export function quizCompleteEmail(name: string, position: number) {
     </p>
     <div style="background:#beeaf8;border:3px solid #1a1c1b;padding:20px;text-align:center">
       <p style="font-size:12px;font-weight:700;letter-spacing:1.5px;color:#1a1c1b;margin:0 0 4px;text-transform:uppercase">Your place in line</p>
-      <p style="font-size:44px;font-weight:900;color:#1a1c1b;margin:0;line-height:1">#${position}</p>
+      <p style="font-size:44px;font-weight:900;color:#1a1c1b;margin:0;line-height:1">#${place}</p>
     </div>`);
 }
 
@@ -182,6 +188,6 @@ export async function sendVerificationEmail(to: string, token: string) {
   return send(to, "Confirm your AetherSkin spot (+ 2-minute skin quiz)", verificationEmail(token));
 }
 
-export async function sendQuizCompleteEmail(to: string, name: string, position: number) {
-  return send(to, "You're in. Here's your place in line.", quizCompleteEmail(name, position));
+export async function sendQuizCompleteEmail(to: string, position: number) {
+  return send(to, "You're in. Here's your place in line.", quizCompleteEmail(position));
 }

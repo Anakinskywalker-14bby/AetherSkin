@@ -33,7 +33,7 @@ export default function TermsPage() {
       <h1 style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 900, fontSize: "clamp(34px, 5vw, 52px)", color: "var(--ink)", letterSpacing: "-1.5px", lineHeight: 1.1, margin: "0 0 8px" }}>
         Terms of Service
       </h1>
-      <p style={{ ...pStyle, fontSize: 14 }}>Last updated: October 17, 2026</p>
+      <p style={{ ...pStyle, fontSize: 14 }}>Last updated: October 21, 2026</p>
 
       <div className="on-accent neo-border p-5 my-8" style={{ background: "var(--yellow)" }}>
         <p style={{ ...pStyle, margin: 0, color: "var(--ink)" }}>
@@ -63,11 +63,11 @@ export default function TermsPage() {
         something AetherSkin suggested.
       </p>
       <p style={pStyle}>
-        We ask about pregnancy, prescription treatments, and allergies purely
-        so we can filter out ingredients that are commonly avoided in those
-        situations. That filtering is a convenience, not a safety guarantee.
-        Always read product labels and check with your doctor or pharmacist if
-        you&apos;re unsure.
+        The skin quiz doesn&apos;t ask about pregnancy, breastfeeding,
+        prescription treatments or allergies, so our suggestions don&apos;t
+        account for them. If any of these apply to you, check every product
+        label and ask your doctor or pharmacist before using something we
+        suggest.
       </p>
 
       <h2 style={h2Style}>Affiliate disclosure</h2>

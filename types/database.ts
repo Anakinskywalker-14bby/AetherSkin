@@ -168,6 +168,68 @@ export type Database = {
           },
         ]
       }
+      quiz_responses_v2: {
+        Row: {
+          age: number
+          created_at: string
+          environment: string
+          id: string
+          primary_goal: string
+          quiz_version: number
+          routine_complexity: number
+          skin_type: string
+          sleep_hours: number
+          stress_level: number
+          sunscreen_frequency: number
+          texture_preference: string
+          updated_at: string
+          waitlist_id: string
+          water_glasses: number
+        }
+        Insert: {
+          age: number
+          created_at?: string
+          environment: string
+          id?: string
+          primary_goal: string
+          quiz_version?: number
+          routine_complexity: number
+          skin_type: string
+          sleep_hours: number
+          stress_level: number
+          sunscreen_frequency: number
+          texture_preference: string
+          updated_at?: string
+          waitlist_id: string
+          water_glasses: number
+        }
+        Update: {
+          age?: number
+          created_at?: string
+          environment?: string
+          id?: string
+          primary_goal?: string
+          quiz_version?: number
+          routine_complexity?: number
+          skin_type?: string
+          sleep_hours?: number
+          stress_level?: number
+          sunscreen_frequency?: number
+          texture_preference?: string
+          updated_at?: string
+          waitlist_id?: string
+          water_glasses?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quiz_responses_v2_waitlist_id_fkey"
+            columns: ["waitlist_id"]
+            isOneToOne: true
+            referencedRelation: "waitlist"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       waitlist: {
         Row: {
           created_at: string

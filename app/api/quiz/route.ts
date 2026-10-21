@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import * as Sentry from "@sentry/nextjs";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { rateLimit, getClientIp } from "@/lib/rate-limit";
-import { validateQuiz, sanitizeText } from "@/lib/validation/quiz";
+import { validateQuiz, sanitizeText, QUIZ_VERSION } from "@/lib/validation/quiz";
 import { hashToken, sendQuizCompleteEmail } from "@/lib/email";
 import { assertSameOrigin } from "@/lib/security";
 import { audit } from "@/lib/audit";
@@ -95,10 +95,16 @@ export async function POST(req: Request) {
       );
     }
 
-    const { error: upsertError } = await admin.from("quiz_responses").upsert(
+    /*
+     * quiz_responses_v2 holds only the waitlist id and the ten coded answers:
+     * no email and no name, so the training dataset carries no direct
+     * identifiers. The v1 table (with free text and health questions) is
+     * left untouched for the people who answered it.
+     */
+    const { error: upsertError } = await admin.from("quiz_responses_v2").upsert(
       {
         waitlist_id: entry.id,
-        email: entry.email,
+        quiz_version: QUIZ_VERSION,
         ...validation.data,
       },
       { onConflict: "waitlist_id" }
@@ -129,11 +135,7 @@ export async function POST(req: Request) {
     });
 
     // Best-effort confirmation; never blocks the response.
-    void sendQuizCompleteEmail(
-      entry.email,
-      validation.data.full_name,
-      entry.position
-    ).catch(() => undefined);
+    void sendQuizCompleteEmail(entry.email, entry.position).catch(() => undefined);
 
     Sentry.metrics.count("quiz.completed", 1);
     return NextResponse.json({ ok: true, position: entry.position });

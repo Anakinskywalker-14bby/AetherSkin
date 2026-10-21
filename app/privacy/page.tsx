@@ -33,7 +33,7 @@ export default function PrivacyPage() {
       <h1 style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 900, fontSize: "clamp(34px, 5vw, 52px)", color: "var(--ink)", letterSpacing: "-1.5px", lineHeight: 1.1, margin: "0 0 8px" }}>
         Privacy Policy
       </h1>
-      <p style={{ ...pStyle, fontSize: 14 }}>Last updated: October 20, 2026</p>
+      <p style={{ ...pStyle, fontSize: 14 }}>Last updated: October 21, 2026</p>
 
       <div className="on-soft neo-border p-5 my-8" style={{ background: "var(--blue)" }}>
         <p style={{ ...pStyle, margin: 0, color: "var(--ink)" }}>
@@ -53,18 +53,18 @@ export default function PrivacyPage() {
       </p>
       <h3 style={h3Style}>When you complete the skin quiz</h3>
       <p style={pStyle}>
-        Your first name, age range, gender, and your answers about your skin:
-        skin type, sensitivity, main concern, breakout patterns, routine
-        preference, lifestyle, climate, any treatments you&apos;re using,
-        pregnancy or breastfeeding status, known allergies, and roughly what
-        you spend monthly.
+        Ten multiple-choice and number answers: your main skin goal, skin type,
+        daily environment, preferred product texture, how often you wear
+        sunscreen, your stress level over the past month, how complex your
+        routine is, your age, your average hours of sleep, and roughly how
+        much water you drink. There are no free-text fields, and we don&apos;t
+        ask for your name.
       </p>
       <p style={pStyle}>
-        Some of these answers say something about your health. We treat them as
-        sensitive information: they exist to personalize your recommendations
-        and nothing else. We do not sell them, we do not share them with
-        advertisers, and we do not use them to make decisions about you beyond
-        which products to suggest.
+        Your quiz answers are stored separately from your email address, linked
+        only by an internal ID. Some of them (stress, sleep, skin sensitivity)
+        say something about your wellbeing, so we treat them as sensitive: we
+        do not sell them and we do not share them with advertisers.
       </p>
 
       <h2 style={h2Style}>What we do with it</h2>
@@ -74,6 +74,16 @@ export default function PrivacyPage() {
         build your skin profile and match you with products. We use aggregate,
         de-identified patterns (for example, &ldquo;38% of our waitlist has
         combination skin&rdquo;) to decide what to build first.
+      </p>
+      <p style={pStyle}>
+        We also use quiz answers to train and test AetherSkin&apos;s own
+        machine-learning models, which predict things like which products and
+        routines are likely to suit you and people with similar profiles. These
+        predictions shape the recommendations we show you; they are not used
+        for anything else, such as pricing or eligibility. Training data never
+        includes your email address, and we don&apos;t give it to anyone else
+        to train their models. You can ask us to delete your answers at any
+        time, and we will remove them from future training.
       </p>
       <p style={pStyle}>
         We share data only with the vendors that run AetherSkin: Supabase (database

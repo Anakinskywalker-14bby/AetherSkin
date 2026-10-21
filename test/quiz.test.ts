@@ -1,174 +1,198 @@
 import { describe, it, expect } from "vitest";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import {
   QUIZ_QUESTIONS,
-  AGE_BANDS,
-  GENDERS,
+  QUIZ_VERSION,
+  parseNumber,
   sanitizeText,
   validateQuiz,
+  type QuizQuestion,
 } from "@/lib/validation/quiz";
 
-/** A submission that should always pass, built from the real allow-lists. */
+const QUESTIONS = QUIZ_QUESTIONS as readonly QuizQuestion[];
+
+/** A submission that should always pass, built from the real definitions. */
 function validPayload(overrides: Record<string, unknown> = {}) {
-  const answers: Record<string, string> = {};
-  for (const q of QUIZ_QUESTIONS) answers[q.id] = q.options[0].value;
-  return {
-    full_name: "Test User",
-    age_band: AGE_BANDS[0],
-    gender: GENDERS[0],
-    allergies: "",
-    ...answers,
-    ...overrides,
-  };
+  const answers: Record<string, string | number> = {};
+  for (const q of QUESTIONS) {
+    if (q.kind === "categorical") answers[q.id] = q.options[0].code;
+    else if (q.kind === "ordinal") answers[q.id] = q.options[0].value;
+    else answers[q.id] = q.min;
+  }
+  return { ...answers, ...overrides };
 }
 
-describe("sanitizeText", () => {
-  it("returns an empty string for non-strings", () => {
-    for (const bad of [null, undefined, 42, {}, [], true]) {
-      expect(sanitizeText(bad, 50)).toBe("");
-    }
+describe("quiz definition (the dataset schema)", () => {
+  it("is exactly the ten agreed questions, in order", () => {
+    expect(QUESTIONS.map((q) => q.id)).toEqual([
+      "primary_goal",
+      "skin_type",
+      "environment",
+      "texture_preference",
+      "sunscreen_frequency",
+      "stress_level",
+      "routine_complexity",
+      "age",
+      "sleep_hours",
+      "water_glasses",
+    ]);
+    expect(QUESTIONS.map((q) => q.kind)).toEqual([
+      "categorical", "categorical", "categorical", "categorical",
+      "ordinal", "ordinal", "ordinal",
+      "continuous", "continuous", "continuous",
+    ]);
   });
 
-  it("strips control characters, including NUL and DEL", () => {
-    const dirty = "a\u0000b\u001Fc\u007Fd";
-    expect(sanitizeText(dirty, 50)).toBe("a b c d");
+  it("has no free-text question", () => {
+    for (const q of QUESTIONS) expect(["categorical", "ordinal", "continuous"]).toContain(q.kind);
   });
 
-  it("strips newlines and tabs used to fake multi-line input", () => {
-    expect(sanitizeText("line1\nline2\tline3", 50)).toBe("line1 line2 line3");
+  // Freezing the encodings: if one of these changes, rows already collected
+  // would silently mean something else. Add an option or bump QUIZ_VERSION.
+  it("keeps the categorical codes stable", () => {
+    const codes = Object.fromEntries(
+      QUESTIONS.filter((q) => q.kind === "categorical").map((q) => [
+        q.id,
+        (q as Extract<QuizQuestion, { kind: "categorical" }>).options.map((o) => o.code),
+      ])
+    );
+    expect(codes).toEqual({
+      primary_goal: ["hydration", "anti_aging", "acne_control", "brightening", "calming"],
+      skin_type: ["oily", "dry", "combination", "normal", "highly_sensitive"],
+      environment: ["climate_controlled_indoor", "outdoors", "urban_pollution", "balanced_indoor"],
+      texture_preference: ["gel_fluid", "rich_cream", "oil_balm", "no_preference"],
+    });
   });
 
-  it("collapses runs of whitespace and trims the edges", () => {
-    expect(sanitizeText("  hello \n\t  world  ", 50)).toBe("hello world");
+  it("keeps the ordinal scales stable and ordered", () => {
+    const scales = Object.fromEntries(
+      QUESTIONS.filter((q) => q.kind === "ordinal").map((q) => [
+        q.id,
+        (q as Extract<QuizQuestion, { kind: "ordinal" }>).options.map((o) => o.value),
+      ])
+    );
+    expect(scales).toEqual({
+      sunscreen_frequency: [0, 1, 2, 3],
+      stress_level: [1, 2, 3, 4, 5],
+      routine_complexity: [0, 1, 2],
+    });
   });
 
-  it("hard-caps length", () => {
-    expect(sanitizeText("x".repeat(500), 10)).toHaveLength(10);
-  });
-
-  it("does not execute or unescape HTML — it is stored verbatim", () => {
-    // Sanitizing is not escaping. We keep the raw text and rely on React's
-    // contextual escaping at render time; this test documents that contract.
-    const xss = '<script>alert("x")</script>';
-    expect(sanitizeText(xss, 100)).toBe(xss);
-  });
-});
-
-describe("validateQuiz — rejection", () => {
-  it("rejects non-objects", () => {
-    for (const bad of [null, undefined, "string", 7, []]) {
-      const r = validateQuiz(bad);
-      expect(r.ok).toBe(false);
-    }
-  });
-
-  it("rejects a missing name", () => {
-    const r = validateQuiz(validPayload({ full_name: "   " }));
-    expect(r).toEqual({ ok: false, error: "Please enter your name." });
-  });
-
-  it("rejects an age band outside the allow-list", () => {
-    const r = validateQuiz(validPayload({ age_band: "12-17" }));
-    expect(r.ok).toBe(false);
-  });
-
-  it("rejects a gender outside the allow-list", () => {
-    const r = validateQuiz(validPayload({ gender: "Robot" }));
-    expect(r.ok).toBe(false);
-  });
-
-  it("rejects an arbitrary string for every single question", () => {
-    for (const q of QUIZ_QUESTIONS) {
-      const r = validateQuiz(validPayload({ [q.id]: "DROP TABLE waitlist" }));
-      expect(r.ok, `${q.id} accepted an arbitrary value`).toBe(false);
-    }
-  });
-
-  it("rejects a missing answer for every single question", () => {
-    for (const q of QUIZ_QUESTIONS) {
-      const r = validateQuiz(validPayload({ [q.id]: undefined }));
-      expect(r.ok, `${q.id} accepted undefined`).toBe(false);
-    }
-  });
-
-  it("rejects a label rather than its DB code", () => {
-    // The UI shows labels; only the coded value may reach the database.
-    const q = QUIZ_QUESTIONS[0];
-    const r = validateQuiz(validPayload({ [q.id]: q.options[0].label }));
-    expect(r.ok).toBe(false);
-  });
-});
-
-describe("validateQuiz — acceptance", () => {
-  it("accepts a well-formed submission", () => {
-    const r = validateQuiz(validPayload());
-    expect(r.ok).toBe(true);
-  });
-
-  it("accepts every declared option for every question", () => {
-    for (const q of QUIZ_QUESTIONS) {
-      for (const opt of q.options) {
-        const r = validateQuiz(validPayload({ [q.id]: opt.value }));
-        expect(r.ok, `${q.id}=${opt.value} was rejected`).toBe(true);
+  it("matches the database CHECK constraints in the migration", () => {
+    const sql = readFileSync(
+      join(process.cwd(), "supabase/migrations/20261021000001_quiz_v2.sql"),
+      "utf8"
+    );
+    for (const q of QUESTIONS) {
+      expect(sql).toContain(q.id);
+      if (q.kind === "categorical") for (const o of q.options) expect(sql).toContain(`'${o.code}'`);
+      if (q.kind === "ordinal") {
+        const vals = q.options.map((o) => o.value);
+        expect(sql).toContain(`${q.id} between ${Math.min(...vals)} and ${Math.max(...vals)}`);
       }
+      if (q.kind === "continuous") expect(sql).toContain(`between ${q.min} and ${q.max}`);
     }
+    expect(sql).toContain(`quiz_version = ${QUIZ_VERSION}`);
   });
+});
 
-  it("caps free-text allergies at 500 characters", () => {
-    const r = validateQuiz(validPayload({ allergies: "n".repeat(2000) }));
-    expect(r.ok).toBe(true);
-    if (r.ok) expect(r.data.allergies).toHaveLength(500);
-  });
-
-  it("treats allergies as optional", () => {
-    const r = validateQuiz(validPayload({ allergies: undefined }));
-    expect(r.ok).toBe(true);
-    if (r.ok) expect(r.data.allergies).toBe("");
-  });
-
-  it("drops unknown keys instead of passing them through to the DB", () => {
-    const r = validateQuiz(validPayload({ is_admin: true, position: 1 }));
+describe("validateQuiz", () => {
+  it("accepts a complete, valid submission and returns typed values", () => {
+    const r = validateQuiz(
+      validPayload({ age: 28, sleep_hours: 7.5, water_glasses: 6, stress_level: 3 })
+    );
     expect(r.ok).toBe(true);
     if (r.ok) {
-      expect(r.data).not.toHaveProperty("is_admin");
-      expect(r.data).not.toHaveProperty("position");
+      expect(r.data).toMatchObject({ age: 28, sleep_hours: 7.5, water_glasses: 6, stress_level: 3 });
+      expect(typeof r.data.age).toBe("number");
+      expect(typeof r.data.primary_goal).toBe("string");
     }
   });
 
-  it("returns exactly the 15 expected fields", () => {
-    const r = validateQuiz(validPayload());
+  it("accepts numbers sent as strings (form inputs) and stores numbers", () => {
+    const r = validateQuiz(validPayload({ age: "34", sleep_hours: "6.5", stress_level: "4" }));
     expect(r.ok).toBe(true);
-    if (r.ok) expect(Object.keys(r.data).sort()).toEqual(
-      [
-        "age_band", "allergies", "breakout_frequency", "climate",
-        "current_treatments", "full_name", "gender", "lifestyle",
-        "monthly_spend", "post_acne_marks", "pregnancy_status",
-        "primary_concern", "routine_depth", "sensitivity", "skin_type",
-      ]
+    if (r.ok) expect(r.data).toMatchObject({ age: 34, sleep_hours: 6.5, stress_level: 4 });
+  });
+
+  it("drops every field that isn't a question (no free text gets through)", () => {
+    const r = validateQuiz(
+      validPayload({ full_name: "Jane", allergies: "nuts", email: "a@b.co", pregnancy_status: "Yes" })
     );
+    expect(r.ok).toBe(true);
+    if (r.ok) {
+      expect(Object.keys(r.data).sort()).toEqual(QUESTIONS.map((q) => q.id).sort());
+    }
+  });
+
+  it.each([null, undefined, "x", 42, [], [1, 2]])("rejects a non-object body: %s", (bad) => {
+    expect(validateQuiz(bad).ok).toBe(false);
+  });
+
+  it.each(QUESTIONS.map((q) => q.id))("rejects a submission missing %s", (id) => {
+    const body = validPayload();
+    delete (body as Record<string, unknown>)[id];
+    expect(validateQuiz(body).ok).toBe(false);
+  });
+
+  it("rejects an unknown categorical code", () => {
+    expect(validateQuiz(validPayload({ primary_goal: "glow" })).ok).toBe(false);
+    expect(validateQuiz(validPayload({ skin_type: "Oily" })).ok).toBe(false); // codes are exact
+  });
+
+  it("rejects ordinal values outside the scale or between steps", () => {
+    for (const bad of [-1, 4, 1.5, "2a", "", true]) {
+      expect(validateQuiz(validPayload({ sunscreen_frequency: bad })).ok).toBe(false);
+    }
+    expect(validateQuiz(validPayload({ stress_level: 0 })).ok).toBe(false);
+    expect(validateQuiz(validPayload({ stress_level: 6 })).ok).toBe(false);
+  });
+
+  it("enforces the 18+ age requirement and whole years", () => {
+    const r = validateQuiz(validPayload({ age: 17 }));
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.error).toMatch(/18/);
+    expect(validateQuiz(validPayload({ age: 28.5 })).ok).toBe(false);
+    expect(validateQuiz(validPayload({ age: 101 })).ok).toBe(false);
+    expect(validateQuiz(validPayload({ age: 18 })).ok).toBe(true);
+  });
+
+  it("accepts sleep in half hours only, from 0 to 24", () => {
+    for (const ok of [0, 6, 7.5, 24]) expect(validateQuiz(validPayload({ sleep_hours: ok })).ok).toBe(true);
+    for (const bad of [-1, 7.25, 24.5]) expect(validateQuiz(validPayload({ sleep_hours: bad })).ok).toBe(false);
+  });
+
+  it("accepts whole glasses of water from 0 to 30", () => {
+    expect(validateQuiz(validPayload({ water_glasses: 0 })).ok).toBe(true);
+    for (const bad of [-1, 2.5, 31]) expect(validateQuiz(validPayload({ water_glasses: bad })).ok).toBe(false);
   });
 });
 
-describe("quiz schema integrity", () => {
-  it("has 11 multiple-choice questions (13 steps with name and demographics)", () => {
-    expect(QUIZ_QUESTIONS).toHaveLength(11);
+describe("parseNumber", () => {
+  it("parses plain decimals", () => {
+    expect(parseNumber(7)).toBe(7);
+    expect(parseNumber("7")).toBe(7);
+    expect(parseNumber(" 7.5 ")).toBe(7.5);
   });
 
-  it("has unique question ids", () => {
-    const ids = QUIZ_QUESTIONS.map((q) => q.id);
-    expect(new Set(ids).size).toBe(ids.length);
+  it.each(["", " ", "7.", ".5", "1e2", "0x10", "Infinity", "NaN", "7 hours", "5,5"])(
+    "rejects %j",
+    (bad) => expect(parseNumber(bad)).toBeNull()
+  );
+
+  it("rejects non-finite numbers and other types", () => {
+    for (const bad of [NaN, Infinity, null, undefined, {}, [], true]) expect(parseNumber(bad)).toBeNull();
+  });
+});
+
+describe("sanitizeText (still used for token and email inputs)", () => {
+  it("returns an empty string for non-strings", () => {
+    for (const bad of [null, undefined, 42, {}, [], true]) expect(sanitizeText(bad, 50)).toBe("");
   });
 
-  it("has unique option values within each question", () => {
-    for (const q of QUIZ_QUESTIONS) {
-      const values = q.options.map((o) => o.value);
-      expect(new Set(values).size, `${q.id} has duplicate values`).toBe(values.length);
-    }
-  });
-
-  it("keeps every option value inside the 64-char sanitize cap", () => {
-    // A value longer than the cap could never validate.
-    for (const q of QUIZ_QUESTIONS) {
-      for (const o of q.options) expect(o.value.length).toBeLessThanOrEqual(64);
-    }
+  it("strips control characters, collapses whitespace and caps length", () => {
+    expect(sanitizeText("a\u0000b\n\tc   d", 50)).toBe("a b c d");
+    expect(sanitizeText("x".repeat(100), 10)).toHaveLength(10);
   });
 });

@@ -69,8 +69,15 @@ export default async function QuizPage({
               Let&apos;s read your skin.
             </h1>
             <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: 17, color: "#484739", lineHeight: 1.7, margin: "0 0 32px" }}>
-              About two minutes. Answer honestly, not aspirationally. Your
-              answers shape every recommendation you get.
+              Ten quick questions, about two minutes. Answer honestly, not
+              aspirationally. Your answers shape every recommendation you get.
+            </p>
+            {/* Purpose stated before anyone answers, not only in the policy. */}
+            <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: 14, color: "#484739", lineHeight: 1.6, margin: "-16px 0 28px" }}>
+              Multiple choice and numbers only, no name. Answers are stored
+              apart from your email and used to personalise your
+              recommendations and to train our recommendation models. You can
+              ask us to delete them at any time.
             </p>
             <QuizForm token={token} />
             <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: 13, color: "#484739", lineHeight: 1.6, margin: "20px 0 0" }}>

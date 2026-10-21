@@ -17,7 +17,7 @@ export const FAQS = [
   },
   {
     q: "What happens after I enter my email?",
-    a: "We send a confirmation email with a secure link. Opening that link confirms your address and takes you straight to a 13-question skin quiz that takes about two minutes. Your spot is locked once the quiz is done.",
+    a: "We send a confirmation email with a secure link. Opening that link confirms your address and takes you straight to a 10-question skin quiz that takes about two minutes. Every question is multiple choice or a number; there is nothing to write. Your spot is locked once the quiz is done.",
   },
   {
     q: "Does AetherSkin store my photos?",
