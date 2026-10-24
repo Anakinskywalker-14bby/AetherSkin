@@ -12,7 +12,7 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
-from .schema import CATEGORICAL
+from aetherskin_ml.schema import CATEGORICAL
 
 # Planted effects on each skin score's latent severity (per unit of the
 # standardised habit). Habits absent from a target have NO planted effect;

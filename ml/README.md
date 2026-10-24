@@ -44,9 +44,9 @@ Training does **not** happen automatically when someone finishes the quiz;
 answers are saved instantly, and the models learn from them each time you run
 `refresh`. Run it whenever you want an update (weekly is plenty).
 
-`python -m aetherskin_ml demo` builds the same dashboard from synthetic data
-(`ml/demo_output/dashboard.html`, clearly labelled SYNTHETIC) so you can see
-what a full one looks like.
+The models and dashboard only ever use real quiz responses. (The automated
+tests in `ml/tests/` use generated test data to check the maths; that data
+never reaches `ml/models/` or the dashboard.)
 
 ## Using real data, step by step
 
@@ -67,12 +67,9 @@ python -m aetherskin_ml habits --with-model
 
 # 4. One person's report from ml/data/answers.json
 python -m aetherskin_ml predict --answers answers.json
-
-# Synthetic end-to-end demo                -> ml/demo_output/
-python -m aetherskin_ml demo
 ```
 
-`data/`, `models/` and `demo_output/` are git-ignored. Delete the CSV once you're done.
+`data/` and `models/` are git-ignored. Delete the CSV once you're done.
 
 `train` also writes `models/predictor_weights.json`: plain JSON weights so the
 website can run Model 1 in TypeScript (three matrix multiplies) without any

@@ -1,4 +1,4 @@
-"""Model tests on SYNTHETIC data with planted effects (aetherskin_ml.synthetic).
+"""Model tests on SYNTHETIC data with planted effects (tests/synthetic.py).
 
 These prove the method: the models must find the habits that were planted,
 in the right direction, and must NOT invent effects where none were planted.
@@ -17,7 +17,7 @@ from aetherskin_ml import habit_impact
 from aetherskin_ml.data import Encoder, feature_names, validate
 from aetherskin_ml.predictor import Predictor, regimen
 from aetherskin_ml.schema import CATEGORICAL, CONTINUOUS, ORDINAL, TARGETS
-from aetherskin_ml.synthetic import PLANTED, make_synthetic
+from synthetic import PLANTED, make_synthetic
 
 REPO = Path(__file__).resolve().parents[2]
 

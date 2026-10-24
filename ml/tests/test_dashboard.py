@@ -1,6 +1,6 @@
 from aetherskin_ml import dashboard, habit_impact
 from aetherskin_ml.predictor import Predictor
-from aetherskin_ml.synthetic import make_synthetic
+from synthetic import make_synthetic
 
 
 def test_dashboard_with_no_real_data_says_waiting(tmp_path):

@@ -9,7 +9,6 @@ plain file names, never paths, so nothing can be read or written elsewhere.
   python -m aetherskin_ml train   --csv quiz_v3.csv
   python -m aetherskin_ml habits  --csv quiz_v3.csv [--with-model]
   python -m aetherskin_ml predict --answers answers.json
-  python -m aetherskin_ml demo    (synthetic data, end to end; nothing real)
 """
 
 from __future__ import annotations
@@ -23,12 +22,10 @@ import pandas as pd
 
 from . import dashboard, habit_impact
 from .predictor import Predictor
-from .synthetic import make_synthetic
 
 ML_ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ML_ROOT / "data"
 MODELS_DIR = ML_ROOT / "models"
-DEMO_DIR = ML_ROOT / "demo_output"
 _NAME = re.compile(r"[A-Za-z0-9][A-Za-z0-9_.-]{0,99}")
 
 
@@ -49,7 +46,6 @@ def main() -> None:
     h.add_argument("--csv", default="quiz_v3.csv")
     h.add_argument("--with-model", action="store_true", help="add Model 1 permutation importance")
     sub.add_parser("predict").add_argument("--answers", default="answers.json")
-    sub.add_parser("demo")
     sub.add_parser("refresh", help="export real data, train what the data allows, build the dashboard")
     a = ap.parse_args()
 
@@ -74,19 +70,6 @@ def main() -> None:
     elif a.cmd == "predict":
         answers = json.loads(data_file(a.answers).read_text())
         print(json.dumps(Predictor.load(MODELS_DIR).report(answers), indent=2))
-    elif a.cmd == "demo":
-        df = make_synthetic()
-        pred = Predictor.train(df)
-        pred.save(DEMO_DIR)
-        pred.export_weights(DEMO_DIR / "predictor_weights.json")
-        report = habit_impact.analyse(df, predictor=pred)
-        habit_impact.save(report, DEMO_DIR / "habit_report.json")
-        sample = df.drop(columns=["breakouts_level", "redness_level", "dryness_level"]).iloc[0].to_dict()
-        sample_report = pred.report(sample)
-        (DEMO_DIR / "sample_user_report.json").write_text(json.dumps(sample_report, indent=2, default=float))
-        page = dashboard.build(df, predictor_meta={"metrics": pred.metrics}, habit_report=report,
-                               sample_report=sample_report, out=DEMO_DIR / "dashboard.html", synthetic=True)
-        print(f"SYNTHETIC DEMO: fake data with planted effects. Dashboard: {page}")
 
 
 # Below this, training is pointless (too few rows to split into train/test).
