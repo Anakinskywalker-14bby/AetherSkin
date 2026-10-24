@@ -1,5 +1,5 @@
 /**
- * Skin quiz, version 2: every answer is a number or a fixed code.
+ * Skin quiz, version 3: every answer is a number or a fixed code.
  *
  * Built to be fed straight into a model, so there is no free text anywhere:
  *
@@ -12,14 +12,19 @@
  * Codes and integers are part of the dataset's schema. Changing one silently
  * changes what earlier rows mean, so never renumber or rename: add a new
  * option, or bump QUIZ_VERSION. The database enforces the same values with
- * CHECK constraints (supabase/migrations/20261021000001_quiz_v2.sql), and
+ * CHECK constraints (supabase/migrations/20261021000002_quiz_v3.sql), and
  * docs/quiz-data-dictionary.md documents them for the training pipeline.
  *
  * Every answer is validated server-side against these definitions, so
  * nothing the client sends reaches the database unless it is on the list.
  */
 
-export const QUIZ_VERSION = 2;
+/*
+ * v3 (21 Oct 2026) adds Part 4, lifestyle habits, and Part 5, how the skin
+ * looks now. Part 5 answers are the training labels for the models in ml/.
+ * v3 rows live in quiz_responses_v3; the single v2 row stays in its table.
+ */
+export const QUIZ_VERSION = 3;
 
 export interface CategoricalQuestion {
   kind: "categorical";
@@ -170,6 +175,96 @@ export const QUIZ_QUESTIONS = [
     step: 1,
     rangeMessage: "Please enter a whole number of glasses from 0 to 30.",
   },
+
+  // ── Part 4: lifestyle habits (ordinal 0-4), new in v3 ───────────────
+  // Model inputs. Higher always means "more of it".
+  {
+    kind: "ordinal",
+    id: "sugar_intake",
+    question: "How often do you have sugary foods or drinks (sweets, soft drinks, desserts)?",
+    options: [
+      { value: 0, label: "Rarely or never" },
+      { value: 1, label: "About once a week" },
+      { value: 2, label: "A few times a week" },
+      { value: 3, label: "About once a day" },
+      { value: 4, label: "Several times a day" },
+    ],
+  },
+  {
+    kind: "ordinal",
+    id: "dairy_intake",
+    question: "How often do you have dairy (milk, cheese, yoghurt, ice cream)?",
+    options: [
+      { value: 0, label: "Rarely or never" },
+      { value: 1, label: "About once a week" },
+      { value: 2, label: "A few times a week" },
+      { value: 3, label: "About once a day" },
+      { value: 4, label: "Several times a day" },
+    ],
+  },
+  {
+    kind: "ordinal",
+    id: "fruit_veg_intake",
+    question: "How many serves of fruit and vegetables do you eat on a typical day?",
+    options: [
+      { value: 0, label: "None" },
+      { value: 1, label: "1 to 2 serves" },
+      { value: 2, label: "3 to 4 serves" },
+      { value: 3, label: "5 to 6 serves" },
+      { value: 4, label: "7 or more serves" },
+    ],
+  },
+  {
+    kind: "ordinal",
+    id: "alcohol_intake",
+    question: "How many alcoholic drinks do you have in a typical week?",
+    options: [
+      { value: 0, label: "None" },
+      { value: 1, label: "1 to 3" },
+      { value: 2, label: "4 to 7" },
+      { value: 3, label: "8 to 14" },
+      { value: 4, label: "15 or more" },
+    ],
+  },
+
+  // ── Part 5: how the skin looks now (ordinal 0-4), new in v3 ─────────
+  // Model TARGETS (training labels), self-reported. 0 = none, 4 = severe.
+  {
+    kind: "ordinal",
+    id: "breakouts_level",
+    question: "How would you rate your breakouts (pimples, blackheads) right now?",
+    options: [
+      { value: 0, label: "None" },
+      { value: 1, label: "Very mild: the odd spot" },
+      { value: 2, label: "Mild: a few spots most weeks" },
+      { value: 3, label: "Moderate: several spots most days" },
+      { value: 4, label: "Severe: widespread or painful breakouts" },
+    ],
+  },
+  {
+    kind: "ordinal",
+    id: "redness_level",
+    question: "How much redness or flushing does your skin have right now?",
+    options: [
+      { value: 0, label: "None" },
+      { value: 1, label: "Very mild: only now and then" },
+      { value: 2, label: "Mild: some redness most weeks" },
+      { value: 3, label: "Moderate: visible redness most days" },
+      { value: 4, label: "Severe: constant redness or flushing" },
+    ],
+  },
+  {
+    kind: "ordinal",
+    id: "dryness_level",
+    question: "How dry or tight does your skin feel right now?",
+    options: [
+      { value: 0, label: "Not at all" },
+      { value: 1, label: "Very mild: slightly tight after washing" },
+      { value: 2, label: "Mild: tight for a while each day" },
+      { value: 3, label: "Moderate: tight most of the day" },
+      { value: 4, label: "Severe: flaky, rough or cracking" },
+    ],
+  },
 ] as const satisfies readonly QuizQuestion[];
 
 export type QuizQuestionId = (typeof QUIZ_QUESTIONS)[number]["id"];
@@ -185,6 +280,13 @@ export interface QuizPayload {
   age: number;
   sleep_hours: number;
   water_glasses: number;
+  sugar_intake: number;
+  dairy_intake: number;
+  fruit_veg_intake: number;
+  alcohol_intake: number;
+  breakouts_level: number;
+  redness_level: number;
+  dryness_level: number;
 }
 
 export type ValidationResult =

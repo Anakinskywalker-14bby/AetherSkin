@@ -144,7 +144,7 @@ export function verificationEmail(token: string) {
     </h1>
     <p style="font-size:16px;color:#484739;line-height:1.7;margin:0 0 12px">
       You're one tap from your spot. Confirm your email and we'll take you
-      straight to a 2-minute skin quiz. Your answers are what let AetherSkin match
+      straight to a 3-minute skin quiz. Your answers are what let AetherSkin match
       you with products that actually fit your skin.
     </p>
     <p style="font-size:16px;color:#484739;line-height:1.7;margin:0 0 28px">
@@ -185,7 +185,7 @@ export function quizCompleteEmail(position: number) {
 }
 
 export async function sendVerificationEmail(to: string, token: string) {
-  return send(to, "Confirm your AetherSkin spot (+ 2-minute skin quiz)", verificationEmail(token));
+  return send(to, "Confirm your AetherSkin spot (+ 3-minute skin quiz)", verificationEmail(token));
 }
 
 export async function sendQuizCompleteEmail(to: string, position: number) {

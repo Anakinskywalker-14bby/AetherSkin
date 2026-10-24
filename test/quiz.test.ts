@@ -36,11 +36,20 @@ describe("quiz definition (the dataset schema)", () => {
       "age",
       "sleep_hours",
       "water_glasses",
+      "sugar_intake",
+      "dairy_intake",
+      "fruit_veg_intake",
+      "alcohol_intake",
+      "breakouts_level",
+      "redness_level",
+      "dryness_level",
     ]);
     expect(QUESTIONS.map((q) => q.kind)).toEqual([
       "categorical", "categorical", "categorical", "categorical",
       "ordinal", "ordinal", "ordinal",
       "continuous", "continuous", "continuous",
+      "ordinal", "ordinal", "ordinal", "ordinal",
+      "ordinal", "ordinal", "ordinal",
     ]);
   });
 
@@ -76,12 +85,19 @@ describe("quiz definition (the dataset schema)", () => {
       sunscreen_frequency: [0, 1, 2, 3],
       stress_level: [1, 2, 3, 4, 5],
       routine_complexity: [0, 1, 2],
+      sugar_intake: [0, 1, 2, 3, 4],
+      dairy_intake: [0, 1, 2, 3, 4],
+      fruit_veg_intake: [0, 1, 2, 3, 4],
+      alcohol_intake: [0, 1, 2, 3, 4],
+      breakouts_level: [0, 1, 2, 3, 4],
+      redness_level: [0, 1, 2, 3, 4],
+      dryness_level: [0, 1, 2, 3, 4],
     });
   });
 
   it("matches the database CHECK constraints in the migration", () => {
     const sql = readFileSync(
-      join(process.cwd(), "supabase/migrations/20261021000001_quiz_v2.sql"),
+      join(process.cwd(), "supabase/migrations/20261021000002_quiz_v3.sql"),
       "utf8"
     );
     for (const q of QUESTIONS) {

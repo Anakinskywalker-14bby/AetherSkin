@@ -1,0 +1,7 @@
+# Exported quiz data and trained models never go in git.
+data/
+models/
+demo_output/
+*.csv
+__pycache__/
+.pytest_cache/

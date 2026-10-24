@@ -98,7 +98,7 @@ export function SignupSection() {
               </h2>
               <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: 16, color: "var(--muted)", lineHeight: 1.7, margin: "0 0 8px" }}>
                 {message ??
-                  `We sent a confirmation link to ${email}. Open it to confirm your spot and take the 2-minute skin quiz.`}
+                  `We sent a confirmation link to ${email}. Open it to confirm your spot and take the 3-minute skin quiz.`}
               </p>
               <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: 14, color: "var(--muted)", lineHeight: 1.6, margin: 0 }}>
                 Nothing in a few minutes? Check spam or promotions.
@@ -111,7 +111,7 @@ export function SignupSection() {
                   Get your skin read. Free.
                 </h2>
                 <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: 16, color: "var(--muted)", textAlign: "center", lineHeight: 1.6, margin: 0 }}>
-                  Drop your email, confirm it, and answer a 2-minute quiz.
+                  Drop your email, confirm it, and answer a 3-minute quiz.
                   That&apos;s your whole signup. No card, no cost, ever.
                 </p>
               </div>

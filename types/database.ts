@@ -230,6 +230,89 @@ export type Database = {
           },
         ]
       }
+      quiz_responses_v3: {
+        Row: {
+          age: number
+          alcohol_intake: number
+          breakouts_level: number
+          created_at: string
+          dairy_intake: number
+          dryness_level: number
+          environment: string
+          fruit_veg_intake: number
+          id: string
+          primary_goal: string
+          quiz_version: number
+          redness_level: number
+          routine_complexity: number
+          skin_type: string
+          sleep_hours: number
+          stress_level: number
+          sugar_intake: number
+          sunscreen_frequency: number
+          texture_preference: string
+          updated_at: string
+          waitlist_id: string
+          water_glasses: number
+        }
+        Insert: {
+          age: number
+          alcohol_intake: number
+          breakouts_level: number
+          created_at?: string
+          dairy_intake: number
+          dryness_level: number
+          environment: string
+          fruit_veg_intake: number
+          id?: string
+          primary_goal: string
+          quiz_version?: number
+          redness_level: number
+          routine_complexity: number
+          skin_type: string
+          sleep_hours: number
+          stress_level: number
+          sugar_intake: number
+          sunscreen_frequency: number
+          texture_preference: string
+          updated_at?: string
+          waitlist_id: string
+          water_glasses: number
+        }
+        Update: {
+          age?: number
+          alcohol_intake?: number
+          breakouts_level?: number
+          created_at?: string
+          dairy_intake?: number
+          dryness_level?: number
+          environment?: string
+          fruit_veg_intake?: number
+          id?: string
+          primary_goal?: string
+          quiz_version?: number
+          redness_level?: number
+          routine_complexity?: number
+          skin_type?: string
+          sleep_hours?: number
+          stress_level?: number
+          sugar_intake?: number
+          sunscreen_frequency?: number
+          texture_preference?: string
+          updated_at?: string
+          waitlist_id?: string
+          water_glasses?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quiz_responses_v3_waitlist_id_fkey"
+            columns: ["waitlist_id"]
+            isOneToOne: true
+            referencedRelation: "waitlist"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       waitlist: {
         Row: {
           created_at: string

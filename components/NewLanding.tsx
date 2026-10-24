@@ -176,7 +176,7 @@ function HeroSection() {
 
           {/* What the button actually leads to, next to the button. */}
           <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 500, fontSize: 14, color: "var(--muted)", lineHeight: 1.5, margin: 0 }}>
-            Free, no card. Confirm your email, then take a 2-minute skin quiz.
+            Free, no card. Confirm your email, then take a 3-minute skin quiz.
           </p>
         </div>
 
@@ -362,7 +362,7 @@ function SolutionSection() {
               to reach the FAQ to learn that scanning isn't live yet. */}
           <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 400, fontSize: 17, color: "var(--ink)", lineHeight: 1.6, textAlign: "center", maxWidth: 620, margin: 0 }}>
             <strong>Arriving with the beta launch.</strong> Photo analysis, product matching and
-            tracking go live then. Today you can join the free waitlist and take the 2-minute skin quiz.
+            tracking go live then. Today you can join the free waitlist and take the 3-minute skin quiz.
           </p>
         </div>
 

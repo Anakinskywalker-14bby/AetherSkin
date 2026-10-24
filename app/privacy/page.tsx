@@ -53,18 +53,21 @@ export default function PrivacyPage() {
       </p>
       <h3 style={h3Style}>When you complete the skin quiz</h3>
       <p style={pStyle}>
-        Ten multiple-choice and number answers: your main skin goal, skin type,
-        daily environment, preferred product texture, how often you wear
-        sunscreen, your stress level over the past month, how complex your
-        routine is, your age, your average hours of sleep, and roughly how
-        much water you drink. There are no free-text fields, and we don&apos;t
+        Seventeen multiple-choice and number answers: your main skin goal,
+        skin type, daily environment, preferred product texture, how often you
+        wear sunscreen, your stress level over the past month, how complex your
+        routine is, your age, your average hours of sleep, roughly how much
+        water you drink, how often you have sugary foods, dairy, fruit and
+        vegetables, and alcohol, and how much breakouts, redness and dryness
+        you have right now. There are no free-text fields, and we don&apos;t
         ask for your name.
       </p>
       <p style={pStyle}>
         Your quiz answers are stored separately from your email address, linked
-        only by an internal ID. Some of them (stress, sleep, skin sensitivity)
-        say something about your wellbeing, so we treat them as sensitive: we
-        do not sell them and we do not share them with advertisers.
+        only by an internal ID. Some of them (stress, sleep, diet, alcohol and
+        your skin&apos;s current condition) say something about your health
+        and wellbeing, so we treat them as sensitive: we do not sell them and
+        we do not share them with advertisers.
       </p>
 
       <h2 style={h2Style}>What we do with it</h2>
@@ -77,9 +80,13 @@ export default function PrivacyPage() {
       </p>
       <p style={pStyle}>
         We also use quiz answers to train and test AetherSkin&apos;s own
-        machine-learning models, which predict things like which products and
-        routines are likely to suit you and people with similar profiles. These
-        predictions shape the recommendations we show you; they are not used
+        machine-learning models. One estimates, from your habits, how likely
+        you are to be prone to skin concerns such as breakouts, redness or
+        dryness, and suggests product categories for a simple routine. The
+        other looks across everyone&apos;s anonymised answers together to
+        measure how habits like sleep and diet relate to skin, without
+        looking at any one person. These estimates are cosmetic guidance, not
+        a diagnosis; they shape the suggestions we show you and are not used
         for anything else, such as pricing or eligibility. Training data never
         includes your email address, and we don&apos;t give it to anyone else
         to train their models. You can ask us to delete your answers at any

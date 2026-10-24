@@ -96,12 +96,11 @@ export async function POST(req: Request) {
     }
 
     /*
-     * quiz_responses_v2 holds only the waitlist id and the ten coded answers:
-     * no email and no name, so the training dataset carries no direct
-     * identifiers. The v1 table (with free text and health questions) is
-     * left untouched for the people who answered it.
+     * quiz_responses_v3 holds only the waitlist id and the seventeen coded
+     * answers: no email and no name, so the training dataset carries no
+     * direct identifiers. Earlier versions' tables are left untouched.
      */
-    const { error: upsertError } = await admin.from("quiz_responses_v2").upsert(
+    const { error: upsertError } = await admin.from("quiz_responses_v3").upsert(
       {
         waitlist_id: entry.id,
         quiz_version: QUIZ_VERSION,

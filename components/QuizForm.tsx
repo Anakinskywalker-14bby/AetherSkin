@@ -28,7 +28,7 @@ function continuousError(q: Extract<QuizQuestion, { kind: "continuous" }>, raw: 
  * The skin quiz. Reachable only from the emailed verification link, so the
  * token travels with the submission and acts as authorization.
  *
- * Ten questions, one per step, and no free text: every answer is a fixed
+ * Seventeen questions, one per step, and no free text: every answer is a fixed
  * code, a ranked integer or a number (see lib/validation/quiz.ts).
  *
  * There is no Continue button. Answering starts a 2-second buffer, shown as

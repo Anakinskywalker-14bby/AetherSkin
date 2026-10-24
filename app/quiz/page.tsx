@@ -5,7 +5,7 @@ import { QuizForm } from "@/components/QuizForm";
 export const metadata: Metadata = {
   title: "Your Skin Quiz",
   description:
-    "Two minutes of questions so AetherSkin can match you with skincare that actually fits your skin.",
+    "Three minutes of questions so AetherSkin can match you with skincare that actually fits your skin.",
   robots: { index: false, follow: false },
 };
 
@@ -69,7 +69,7 @@ export default async function QuizPage({
               Let&apos;s read your skin.
             </h1>
             <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: 17, color: "#484739", lineHeight: 1.7, margin: "0 0 32px" }}>
-              Ten quick questions, about two minutes. Answer honestly, not
+              Seventeen quick questions, about three minutes. Answer honestly, not
               aspirationally. Your answers shape every recommendation you get.
             </p>
             {/* Purpose stated before anyone answers, not only in the policy. */}

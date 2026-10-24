@@ -4,7 +4,7 @@ Last updated: 2026-10-21
 
 ## Waitlist (current)
 - Price: $0
-- Includes: place in line, 10-question skin quiz, launch notification
+- Includes: place in line, 17-question skin quiz, launch notification
 - Payment method required: none
 - Capacity: 500 early users
 

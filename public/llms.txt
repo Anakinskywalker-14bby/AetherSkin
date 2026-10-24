@@ -12,9 +12,10 @@ short skin quiz. There is no payment at any stage.
 
 - Reads everyday skin characteristics from a photo: hydration, texture,
   visible pores, dark spots, fine lines, breakouts.
-- Builds a skin profile from a 10-question quiz (skin goal, skin type,
+- Builds a skin profile from a 17-question quiz (skin goal, skin type,
   daily environment, texture preference, sunscreen habit, stress level,
-  routine complexity, age, sleep, water intake). Multiple choice and
+  routine complexity, age, sleep, water intake, sugar, dairy, fruit and
+  vegetables, alcohol, and current breakouts, redness and dryness). Multiple choice and
   numbers only; no free text, no name.
 - Matches that profile to products from brands the user already knows.
 
