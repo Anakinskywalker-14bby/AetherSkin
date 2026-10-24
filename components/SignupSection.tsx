@@ -4,11 +4,12 @@ import { useRef, useState } from "react";
 import Link from "next/link";
 import { isValidEmail } from "@/lib/utils";
 
-type State = "idle" | "loading" | "sent" | "saved" | "error";
+type State = "idle" | "loading" | "sent" | "already" | "saved" | "error";
 
 /**
  * Free waitlist signup with double opt-in. No payment.
- * States: idle -> loading -> sent (check your inbox) | saved | error.
+ * States: idle -> loading -> sent (check your inbox) | already (signed up
+ * before, nothing to do) | saved | error.
  */
 export function SignupSection() {
   const [email, setEmail] = useState("");
@@ -58,12 +59,9 @@ export function SignupSection() {
         throw new Error(data.error ?? "Something went wrong. Please try again.");
       }
 
-      setState("sent");
-      setMessage(
-        data.alreadyComplete
-          ? "You're already on the list — nothing else to do."
-          : null
-      );
+      // Already confirmed and quizzed: no email is sent (the API returns
+      // early), so don't tell them to check their inbox.
+      setState(data.alreadyComplete ? "already" : "sent");
     } catch (err) {
       setState("error");
       setMessage(err instanceof Error ? err.message : "Something went wrong.");
@@ -85,7 +83,24 @@ export function SignupSection() {
             100% FREE
           </div>
 
-          {state === "sent" ? (
+          {state === "already" ? (
+            <div className="text-center py-4" role="status" aria-live="polite">
+              <div
+                className="on-soft inline-block neo-border neo-shadow-sm px-5 py-2.5 mb-6"
+                style={{ background: "var(--blue)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1.4px", color: "var(--ink)" }}
+              >
+                ALREADY ON THE LIST
+              </div>
+              <h2 style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 800, fontSize: "clamp(26px,4vw,36px)", color: "var(--ink)", margin: "0 0 14px", lineHeight: 1.15 }}>
+                You&apos;ve already signed up.
+              </h2>
+              <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: 16, color: "var(--muted)", lineHeight: 1.7, margin: 0 }}>
+                {email} is confirmed and your skin quiz is done, so your spot is
+                locked. There&apos;s nothing else to do; we&apos;ll email you when
+                the beta opens.
+              </p>
+            </div>
+          ) : state === "sent" ? (
             <div className="text-center py-4" role="status" aria-live="polite">
               <div
                 className="on-soft inline-block neo-border neo-shadow-sm px-5 py-2.5 mb-6"

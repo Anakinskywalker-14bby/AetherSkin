@@ -21,10 +21,34 @@ Python 3.10+:
 ```
 cd ml
 pip install -r requirements.txt
-pytest            # 29 tests, ~20s
+pytest            # 31 tests, ~1 min
 ```
 
-## Using real data
+## The one command you need
+
+```
+cd ml
+python -m aetherskin_ml refresh
+```
+
+It reads your Supabase credentials from the site's `.env.local`, then:
+
+1. exports every real quiz v3 response (answers only, no emails) to `ml/data/quiz_v3.csv`
+2. trains Model 1 if there are at least 20 responses
+3. runs Model 2 if there are at least 100
+4. writes `ml/models/dashboard.html`: open it in your browser to see the
+   response count and newest response, charts of what people answered, Model 1
+   accuracy and calibration, and Model 2's habit effects with 95% intervals
+
+Training does **not** happen automatically when someone finishes the quiz;
+answers are saved instantly, and the models learn from them each time you run
+`refresh`. Run it whenever you want an update (weekly is plenty).
+
+`python -m aetherskin_ml demo` builds the same dashboard from synthetic data
+(`ml/demo_output/dashboard.html`, clearly labelled SYNTHETIC) so you can see
+what a full one looks like.
+
+## Using real data, step by step
 
 All files live in fixed folders: `ml/data/` (CSVs, answer files) and
 `ml/models/` (trained output). Commands take plain file names, not paths.
