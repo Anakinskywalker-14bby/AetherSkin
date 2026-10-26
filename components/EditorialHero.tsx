@@ -62,13 +62,12 @@ export default function EditorialHero() {
           <nav className="eh-links eh-in" aria-label="Main">
             <Link href="/about">About</Link>
             <a href="#solution">How it works</a>
-            <Link href="/faq">FAQ</Link>
           </nav>
           <div className="eh-icons eh-in">
             <a href="#beta" className="eh-glass" aria-label="Join the free waitlist">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z" /></svg>
             </a>
-            <Link href="/faq" className="eh-glass" aria-label="Questions">
+            <Link href="/faq" className="eh-glass" aria-label="FAQ">
               <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" /><path d="M9.6 9.4a2.5 2.5 0 1 1 3.4 2.3c-.6.3-1 .8-1 1.5v.6" /><circle cx="12" cy="16.6" r=".4" /></svg>
             </Link>
           </div>

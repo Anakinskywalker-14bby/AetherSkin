@@ -10,6 +10,7 @@
 import { useState, useEffect, useRef } from "react";
 import { DoorReveal } from "@/components/DoorReveal";
 import EditorialHero from "@/components/EditorialHero";
+import ProblemSplit from "@/components/ProblemSplit";
 import SiteFooter from "@/components/footer/SiteFooter";
 import { StickyCta } from "@/components/StickyCta";
 import svgPaths from "@/lib/svg-design";
@@ -153,66 +154,6 @@ function DropperSection() {
             <a href="#beta" className="on-accent neo-shadow-sm neo-border px-7 py-4 w-full inline-block text-center" style={{ background: "var(--yellow)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 16, letterSpacing: "0.9px", color: "var(--ink)", cursor: "pointer" }}>
               GET YOUR FREE ROUTINE →
             </a>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ─── Problem Section ────────────────────────────────────────────────
-function ProblemSection() {
-  const { ref, visible } = useFadeIn();
-
-  return (
-    <section
-      ref={ref as React.RefObject<HTMLElement>}
-      className="relative w-full"
-      style={{ background: "var(--surface-2)", borderBottom: "3px solid var(--ink)", opacity: visible ? 1 : 0, transition: "opacity 0.8s ease 0.1s, transform 0.8s ease 0.1s", transform: visible ? "none" : "translateY(40px)" }}
-    >
-      <div className="max-w-[1280px] mx-auto px-6 md:px-16 py-24 flex flex-col lg:flex-row gap-16 items-center">
-        <div className="flex-1 relative">
-          <div style={{ position: "absolute", top: -28, left: -8 }}>
-            <span style={{ background: "var(--err-bg)", display: "inline-block", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "1px", color: "var(--err-text)", padding: "10px 19px", border: "3px solid var(--ink)", boxShadow: "4px 4px 0 var(--ink)", transform: "rotate(-2deg)" }}>
-              THE PROBLEM
-            </span>
-          </div>
-          <h2 style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 800, fontSize: "clamp(36px, 4vw, 52px)", color: "var(--ink)", letterSpacing: "-1px", lineHeight: 1.15, marginTop: 48, marginBottom: 20 }}>
-            The Skincare<br />Guessing Game<br />is Over.
-          </h2>
-          <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 400, fontSize: 18, color: "var(--muted)", lineHeight: 1.7, marginBottom: 32 }}>
-            Buying serums based on vibes? Stop it. Your skin is a complex
-            ecosystem, not a mood board. Most routines fail because they chase
-            trends instead of what your skin actually needs.
-          </p>
-          <div className="flex flex-col gap-4">
-            {[
-              "Wasting money on hype ingredients.",
-              "Irritating your skin with contradictory products.",
-              "Waiting months for results that never come.",
-            ].map((item) => (
-              <div key={item} className="flex items-center gap-3">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                  <path d={svgPaths.p28843fc0} fill="var(--err-border)" />
-                </svg>
-                <span style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "0.7px", color: "var(--ink)" }}>{item}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* "Is it working?" card */}
-        <div className="flex-1 flex justify-center">
-          <div className="relative w-full max-w-[380px]">
-            <div style={{ background: "var(--surface)", border: "3px solid var(--ink)", boxShadow: "8px 8px 0 var(--ink)", padding: 36, transform: "rotate(1deg)" }}>
-              <div className="on-soft neo-border" style={{ background: "var(--blue)", padding: "120px 20px", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", gap: 16 }}>
-                <p style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 400, fontSize: 34, color: "var(--ink)", textAlign: "center", margin: 0 }}>&quot;Is it working?&quot;</p>
-                <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1px", color: "var(--ink)", textAlign: "center", margin: 0 }}>(SPOILER: NO)</p>
-              </div>
-            </div>
-            <div className="on-accent absolute neo-border neo-shadow-sm px-5 py-2.5" style={{ background: "var(--yellow)", top: -20, right: -20, transform: "rotate(10deg)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 16, color: "var(--ink)" }}>
-              ?!?
-            </div>
           </div>
         </div>
       </div>
@@ -384,7 +325,7 @@ export default function NewLanding() {
         <EditorialHero />
       </DoorReveal>
       <DropperSection />
-      <ProblemSection />
+      <ProblemSplit />
       <SolutionSection />
       <GallerySection />
       <SiteFooter />

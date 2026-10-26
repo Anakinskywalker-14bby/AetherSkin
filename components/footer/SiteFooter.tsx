@@ -3,8 +3,6 @@
 import { useRef } from "react";
 import Link from "next/link";
 import FooterBackground from "./FooterBackground";
-import VanityLight from "@/components/VanityLight";
-import { useFooterTheme } from "@/lib/use-theme";
 import { useWaitlistSignup } from "@/lib/use-waitlist-signup";
 
 const LINKEDIN = "https://www.linkedin.com/in/khaleed-mohammed-b5b431223";
@@ -96,34 +94,11 @@ function HeldSignup({ holdRef }: { holdRef: React.RefObject<HTMLDivElement> }) {
 }
 
 export default function SiteFooter() {
-  const { isLight, setLight, mounted } = useFooterTheme();
   const holdRef = useRef<HTMLDivElement>(null);
-  const dark = mounted && !isLight;
 
   return (
-    // `.dark` swaps the theme tokens for this subtree only (globals.css):
-    // the bulb themes the footer and nothing else on the site.
-    <footer id="footer" className={`sf${dark ? " dark" : ""}`} aria-label="Footer">
-      <FooterBackground dark={dark} holdRef={holdRef} />
-      {mounted && (
-        <>
-          <div className="sf-lamp">
-            <VanityLight checked={isLight} onCheckedChange={setLight} label="Footer theme" />
-          </div>
-          <button
-            type="button"
-            role="switch"
-            aria-checked={isLight}
-            aria-label="Footer theme"
-            className="sf-bulb"
-            onClick={() => setLight(!isLight)}
-          >
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2V16h5v-.1c0-.8.4-1.5 1-2A6 6 0 0 0 12 3Z" />
-            </svg>
-          </button>
-        </>
-      )}
+    <footer id="footer" className="sf" aria-label="Footer">
+      <FooterBackground holdRef={holdRef} />
       <div className="sf-jobs">
         <span className="sf-tag">get to know us</span>
         <nav className="sf-headline sf-links" aria-label="Company">

@@ -95,50 +95,6 @@
  * .on-soft rather than .on-accent (see below) — .on-accent pins Berry text,
  * which would be unreadable once this panel is dark.
  */
-.dark {
-  --surface: #1a1210;    /* warm brown-black: the unlit room */
-  --surface-2: #241a17;  /* the tabletop, lifted */
-  --ink: #fff6ec;        /* Cream carries every glyph */
-  --muted: #c9b5a8;
-  --yellow: #ffd166;     /* Butter: accent only, small areas */
-  --blue: #241a17;       /* soft panel goes dark, not pink */
-  --olive: #ffb9ad;      /* emphasis text: Coral lifted to read on dark */
-  --sand: #241a17;
-  --deep: #fff6ec;
-  --rose: #ffb9ad;
-  --blush: #241a17;
-  --cream: #1a1210;
-  --err-bg: #3a1a14;
-  --err-text: #ffb4ab;
-  --err-border: #ff6b5b;
-
-  color-scheme: dark;
-}
-
-/*
- * Respect the OS preference on first visit, but only until a choice is stored.
- * The inline script in layout.tsx adds .dark/.light to <html> before paint, so
- * this block applies for the no-JS case and never fights an explicit choice.
- */
-@media (prefers-color-scheme: dark) {
-  html:not(.light):not(.dark) {
-    --surface: #1a1210;
-    --surface-2: #241a17;
-    --ink: #fff6ec;
-    --muted: #c9b5a8;
-    --blue: #241a17;
-    --olive: #ffb9ad;
-    --sand: #241a17;
-    --deep: #fff6ec;
-    --rose: #ffb9ad;
-    --blush: #241a17;
-    --cream: #1a1210;
-    --err-bg: #3a1a14;
-    --err-text: #ffb4ab;
-    --err-border: #ff6b5b;
-    color-scheme: dark;
-  }
-}
 
 html {
   background: var(--surface);
@@ -217,8 +173,7 @@ body {
 }
 
 /* Pinned Cream, for text that always sits on a dark photo or overlay. */
-:root,
-.dark {
+:root {
   --cream-fixed: #fff6ec;
 }
 
@@ -302,11 +257,6 @@ body {
     radial-gradient(120% 70% at 50% -10%, color-mix(in srgb, var(--butter) 42%, transparent) 0%, transparent 62%),
     radial-gradient(90% 55% at 50% 0%, color-mix(in srgb, var(--coral) 12%, transparent) 0%, transparent 55%);
 }
-.dark .vanity-wash {
-  background:
-    radial-gradient(120% 70% at 50% -10%, color-mix(in srgb, var(--butter) 14%, transparent) 0%, transparent 60%),
-    radial-gradient(90% 50% at 50% 0%, color-mix(in srgb, var(--coral) 6%, transparent) 0%, transparent 52%);
-}
 
 /* The bulb row across the top of the mirror. */
 .vanity-bulb {
@@ -318,12 +268,6 @@ body {
     0 0 0 3px color-mix(in srgb, var(--butter) 26%, transparent),
     0 0 14px 3px color-mix(in srgb, var(--butter) 55%, transparent);
   opacity: 0.95;
-}
-.dark .vanity-bulb {
-  box-shadow:
-    0 0 0 3px color-mix(in srgb, var(--butter) 14%, transparent),
-    0 0 16px 4px color-mix(in srgb, var(--butter) 34%, transparent);
-  opacity: 0.8;
 }
 /* Bulbs idle with a slow, barely-there flicker. Static is lifeless, fast is
    a distraction; 7s with a 4% swing reads as "warm" without pulling focus. */
@@ -338,9 +282,6 @@ body {
 /* The cursor carries a soft pool of light across the table. */
 .vanity-bloom {
   background: radial-gradient(60% 60% at 50% 40%, color-mix(in srgb, var(--butter) 30%, transparent) 0%, transparent 70%);
-}
-.dark .vanity-bloom {
-  background: radial-gradient(60% 60% at 50% 40%, color-mix(in srgb, var(--butter) 11%, transparent) 0%, transparent 70%);
 }
 
 /*
@@ -629,13 +570,12 @@ html, body {
 
 /* ─── Site footer: the lavender giant (components/footer) ─────────────
    Scoped with .sf- so nothing leaks. Desktop numbers are the supplied vw
-   layout; dark mode swaps the clip and the colours below. */
+   layout. */
 @font-face{font-family:'Footer DM Sans';src:url('/fonts/DMSans-Regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
 @font-face{font-family:Epilogue;src:url('/fonts/Epilogue-Black.woff2') format('woff2');font-weight:900;font-style:normal;font-display:swap}
 .sf{--sf-bg:#dfe4f2;--sf-mobile-bg:#f0eefa;--sf-fg:#080909;--sf-tag:#f7f8fa;--sf-field:#ffffff;
   position:relative;min-height:100vh;padding-top:6.54vw;isolation:isolate;overflow:hidden;
   background:var(--sf-bg);color:var(--sf-fg);font-family:'Footer DM Sans','DM Sans',Arial,sans-serif;font-weight:400;font-synthesis:none}
-.sf.dark{--sf-bg:#1a1210;--sf-mobile-bg:#1a1210;--sf-fg:#fff6ec;--sf-tag:#241a17;--sf-field:#241a17}
 .sf *{box-sizing:border-box}
 .sf a{color:inherit;text-decoration:none}
 .sf a:focus-visible,.sf button:focus-visible,.sf input:focus-visible{outline:2px solid currentColor;outline-offset:4px}
@@ -653,6 +593,10 @@ html, body {
 .sf-background{position:absolute;inset:0;z-index:-1;pointer-events:none}
 .sf-background video{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;object-position:center}
 /* Signup held between the thumbs; left/top come from FooterBackground. */
+/* beside: left edge (the pill's outer curve) on the heart's edge, pill centred on that point */
+.sf-hold[data-place=beside]{transform:translate(0,-24px)}
+.sf-hold[data-place=beside] .sf-pill{height:48px}
+.sf-hold[data-place=beside] .sf-consent{justify-content:flex-start}
 .sf-hold{position:absolute;left:50%;top:70%;transform:translate(-50%,-50%);z-index:1;width:clamp(260px,21vw,400px);font-size:max(12px,.8vw)}
 .sf-pill{display:flex;align-items:center;gap:6px;padding:5px;border-radius:999px;background:var(--sf-field);box-shadow:0 0 0 1.5px var(--sf-fg)}
 .sf-pill input{flex:1;min-width:0;border:0;background:transparent;color:var(--sf-fg);font:inherit;font-size:max(15px,.95vw);padding:.55em .9em;outline:none}
@@ -766,13 +710,25 @@ html, body {
   .eh-polaroid figcaption{font-size:9px;bottom:4px}
   .eh-watermark{font-size:27vw;bottom:auto;top:46%}
 }
-/* Footer theme switch: the hanging vanity lamp on desktop, a bulb button on
-   phones. It themes the footer only. */
-.sf-lamp{position:absolute;left:30.5vw;top:0;z-index:2;width:120px;height:150px}
-.sf-bulb{display:none}
-@media(max-width:700px){
-  .sf-lamp{display:none}
-  .sf-bulb{position:absolute;top:32px;right:20px;z-index:2;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--sf-fg);background:var(--sf-tag);color:var(--sf-fg);cursor:pointer}
-  .sf-bulb svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
-  .sf-bulb[aria-checked="true"] svg{fill:#ffd166}
+
+/* ─── Problem split (components/ProblemSplit) ───────────────────────── */
+.ps{font-family:var(--ps-sans),'Inter Tight',system-ui,sans-serif;color:#fff}
+.ps-title{display:flex;flex-direction:column;font-weight:300;font-size:clamp(34px,4.2vw,64px);line-height:1.02;letter-spacing:-.02em}
+.ps-title em{font-family:var(--ps-serif),'Playfair Display',Georgia,serif;font-style:italic;font-weight:400;font-size:1.45em;line-height:1;margin-top:.04em}
+.ps-body{max-width:42ch;margin:clamp(16px,2vw,26px) 0 0;font-size:clamp(14px,1.05vw,16px);line-height:1.6;font-weight:400;color:rgba(255,255,255,.92)}
+.ps-pains{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;max-width:min(100%,420px)}
+.ps-pains li{display:flex;align-items:baseline;gap:12px;padding:10px 14px;border-radius:999px;background:rgba(59,47,92,.28);border:1px solid rgba(255,255,255,.28)}
+.ps-pain-label{flex:none;font-size:12px;font-weight:700;letter-spacing:.08em;color:#F4B8A2}
+.ps-pain-text{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;line-height:1.35}
+.ps-btn{position:relative;flex:none;overflow:hidden;display:inline-flex;align-items:center;border:1px solid;padding:12px 24px;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;white-space:nowrap}
+.ps-btn:focus-visible{outline:2px solid #fff;outline-offset:4px}
+.ps-polaroid{position:absolute;right:clamp(18px,4vw,64px);bottom:clamp(150px,22%,230px);width:clamp(96px,9vw,138px);margin:0;z-index:1;pointer-events:none}
+.ps-polaroid-tilt{background:#fff;padding:7px 7px 30px;box-shadow:0 14px 30px rgba(40,24,70,.3);transform:rotate(7deg)}
+.ps-polaroid img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover}
+.ps-polaroid figcaption{position:absolute;left:0;right:0;bottom:5px;text-align:center;color:#1d1a24;font-family:var(--ps-marker),'Permanent Marker','Comic Sans MS',cursive;font-size:clamp(12px,1vw,15px);transform:rotate(-2deg)}
+@media (max-width:767px){
+  .ps-polaroid{top:58px;bottom:auto;right:18px;width:88px}
+  .ps-title{padding-right:96px}
+  .ps-pains li{border-radius:16px}
 }
+@media (prefers-reduced-motion:reduce){.ps-video{display:none}}

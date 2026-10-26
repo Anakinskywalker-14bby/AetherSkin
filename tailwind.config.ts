@@ -5,9 +5,8 @@ import type { Config } from "tailwindcss";
  * one bioluminescent pink pulse for detections.
  */
 const config: Config = {
-  // Theme is driven by a `dark` class on <html>, set before first paint by
-  // the inline script in app/layout.tsx. Class-based rather than media-based
-  // so the pull-cord can override the OS preference.
+  // The site is light-only. "class" (with no .dark anywhere) keeps Tailwind's
+  // dark: variants inert instead of following the OS preference.
   darkMode: "class",
   content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./lib/**/*.{ts,tsx}"],
   theme: {

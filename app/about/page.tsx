@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { breadcrumbJsonLd } from "@/lib/site";
+import { BrandLogo } from "@/components/BrandLogo";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -34,9 +35,7 @@ export default function AboutPage() {
         className="flex items-center justify-between px-6 md:px-16 h-[72px]"
         style={{ background: "var(--surface)", borderBottom: "3px solid var(--ink)" }}
       >
-        <Link href="/" style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 900, fontStyle: "italic", fontSize: 24, letterSpacing: -1.2, color: "var(--ink)" }}>
-          AetherSkin
-        </Link>
+        <BrandLogo />
         <Link
           href="/#beta"
           className="on-accent neo-shadow-sm neo-border px-7 py-2.5"

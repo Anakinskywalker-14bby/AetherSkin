@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { BrandLogo } from "@/components/BrandLogo";
 
 export const metadata: Metadata = {
   title: "You're on the list",
@@ -23,6 +24,9 @@ export default async function ThankYouPage({
       className="relative flex min-h-screen flex-col items-center justify-center px-5 overflow-hidden"
       style={{ background: "#f9f9f7" }}
     >
+      <div className="absolute left-5 top-5 md:left-16 md:top-6 z-10">
+        <BrandLogo />
+      </div>
       <div
         aria-hidden
         className="absolute inset-0 pointer-events-none"

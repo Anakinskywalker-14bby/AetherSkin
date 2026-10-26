@@ -36,8 +36,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    // Always light: dark mode is a footer-only switch (components/footer).
-    // The `light` class also stops the OS dark preference restyling the page.
+    // Light only. The `light` class keeps OS dark-mode extensions/UA styles off.
     <html
       lang="en"
       className={`light ${manrope.variable} ${hanken.variable} ${GeistSans.variable}`}

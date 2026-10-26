@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { QuizForm } from "@/components/QuizForm";
+import { BrandLogo } from "@/components/BrandLogo";
 
 export const metadata: Metadata = {
   title: "Your Skin Quiz",
@@ -25,9 +26,7 @@ export default async function QuizPage({
         className="flex items-center justify-between px-6 md:px-16 h-[72px]"
         style={{ background: "#f9f9f7", borderBottom: "3px solid #1a1c1b" }}
       >
-        <Link href="/" aria-label="AetherSkin home" style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 900, fontStyle: "italic", fontSize: 24, letterSpacing: -1.2, color: "#1a1c1b" }}>
-          AetherSkin
-        </Link>
+        <BrandLogo />
         <span style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1.2px", color: "#484739", textTransform: "uppercase" }}>
           Skin Quiz
         </span>

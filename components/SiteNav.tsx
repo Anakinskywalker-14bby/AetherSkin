@@ -6,9 +6,26 @@ import Link from "next/link";
 const LINKS = [
   { href: "/about", label: "ABOUT" },
   { href: "/#solution", label: "HOW IT WORKS" },
-  { href: "/faq", label: "FAQ" },
   { href: "/#beta", label: "JOIN FREE" },
 ];
+
+/** Round "?" link to the FAQ page; the FAQ isn't a text link in the nav. */
+function FaqIcon() {
+  return (
+    <Link
+      href="/faq"
+      aria-label="FAQ"
+      className="neo-border grid h-11 w-11 place-items-center rounded-full"
+      style={{ background: "var(--surface)", color: "var(--ink)" }}
+    >
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="8.5" />
+        <path d="M9.6 9.4a2.5 2.5 0 1 1 3.4 2.3c-.6.3-1 .8-1 1.5v.6" />
+        <circle cx="12" cy="16.6" r=".5" fill="currentColor" />
+      </svg>
+    </Link>
+  );
+}
 
 /** Site nav with a real mobile menu. Logo is a link to home. */
 export function SiteNav() {
@@ -55,16 +72,7 @@ export function SiteNav() {
             alt="AetherSkin"
             width={144}
             height={34}
-            className="block h-[34px] w-auto dark:hidden"
-          />
-          {/* eslint-disable-next-line @next/next/no-img-element -- static brand asset, fixed size */}
-          <img
-            src="/brand/lockup-horizontal-reversed.svg"
-            alt=""
-            aria-hidden="true"
-            width={137}
-            height={34}
-            className="hidden h-[34px] w-auto dark:block"
+            className="block h-[34px] w-auto"
           />
         </Link>
 
@@ -82,6 +90,7 @@ export function SiteNav() {
         </div>
 
         <div className="hidden md:flex items-center gap-5">
+          <FaqIcon />
           <Link
             href="/#beta"
             className="on-accent neo-shadow-sm neo-border px-7 py-2.5"
@@ -91,8 +100,9 @@ export function SiteNav() {
           </Link>
         </div>
 
-        {/* Mobile: the menu. The theme bulb lives in the footer only. */}
+        {/* Mobile: FAQ shortcut plus the menu. */}
         <div className="flex items-center gap-2 md:hidden">
+          <FaqIcon />
 
         <button
           type="button"

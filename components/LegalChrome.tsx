@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BrandLogo } from "@/components/BrandLogo";
 
 export const h2Style = {
   fontFamily: "'Fraunces', Georgia, serif",
@@ -35,9 +36,7 @@ export function LegalChrome({ children }: { children: React.ReactNode }) {
         className="flex items-center justify-between px-6 md:px-16 h-[72px]"
         style={{ background: "var(--surface)", borderBottom: "3px solid var(--ink)" }}
       >
-        <Link href="/" aria-label="AetherSkin home" style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 900, fontStyle: "italic", fontSize: 24, letterSpacing: -1.2, color: "var(--ink)" }}>
-          AetherSkin
-        </Link>
+        <BrandLogo />
         <Link
           href="/#beta"
           className="on-accent neo-shadow-sm neo-border px-6 py-2.5"
