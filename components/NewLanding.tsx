@@ -11,6 +11,7 @@ import { useState, useEffect, useRef } from "react";
 import { DoorReveal } from "@/components/DoorReveal";
 import EditorialHero from "@/components/EditorialHero";
 import ProblemSplit from "@/components/ProblemSplit";
+import CategoriesSection from "@/components/CategoriesSection";
 import SiteFooter from "@/components/footer/SiteFooter";
 import { StickyCta } from "@/components/StickyCta";
 import svgPaths from "@/lib/svg-design";
@@ -18,20 +19,15 @@ import svgPaths from "@/lib/svg-design";
 /**
  * Served from public/design.
  *
- * KNOWN LICENSING RISK, kept by the owner's decision on 21 Oct 2026: the five
- * images below the hero are screenshots of third-party Pinterest pins
- * (another skincare brand's ad with its phone number, a creator's post, a
- * watermark, Pinterest UI). Using them without permission is a copyright and
- * trademark exposure. Original replacements already exist in public/art
- * (rendered by scripts/art/render-site.cjs); swapping is a change to these
- * five lines.
+ * KNOWN LICENSING RISK, kept by the owner's decision on 21 Oct 2026: these
+ * two images are screenshots of third-party Pinterest pins. Using them
+ * without permission is a copyright and trademark exposure. Original
+ * replacements already exist in public/art (scripts/art/render-site.cjs).
+ * (The three gallery pins were replaced by CategoriesSection's videos.)
  */
 const ASSET = "/design";
 const imgDropper = `${ASSET}/dropper.png`;
 const imgGlassSkin = `${ASSET}/glass-skin.png`;
-const imgNoGender = `${ASSET}/no-gender.png`;
-const imgClarity = `${ASSET}/clarity.png`;
-const imgCleanBS = `${ASSET}/clean-bs.png`;
 
 // ─── Scroll fade-in hook ────────────────────────────────────────────
 function useFadeIn(threshold = 0.15) {
@@ -271,48 +267,6 @@ function SolutionSection() {
   );
 }
 
-// ─── Visual Gallery ─────────────────────────────────────────────────
-function GallerySection() {
-  const { ref, visible } = useFadeIn();
-
-  const panels = [
-    // Captions are AetherSkin's own words. "Clarity Is The New Glow" was the
-    // headline from Nuvea Skin's ad, so it is not used as our caption.
-    { img: imgNoGender, alt: "Water droplets on bare shoulders beside the words: skincare has no gender", label: "UNIVERSAL", text: "Skincare has no gender.", color: "var(--surface)" },
-    { img: imgClarity, alt: "Freckled face with clear, hydrated skin in warm golden light", label: "CLARITY", text: "Know what your skin is doing.", color: "var(--yellow)" },
-    { img: imgCleanBS, alt: "Serum dropper and glass bottle beside bold editorial typography", label: "TRUTH", text: "Buzzwords are marketing. Your skin is real.", color: "var(--blue)" },
-  ];
-
-  return (
-    <section
-      ref={ref as React.RefObject<HTMLElement>}
-      style={{ borderBottom: "3px solid var(--ink)", opacity: visible ? 1 : 0, transition: "opacity 1s ease 0.2s", transform: visible ? "none" : "translateY(30px)" }}
-    >
-      <div className="grid grid-cols-1 md:grid-cols-3" style={{ minHeight: 480 }}>
-        {panels.map((p, i) => (
-          <div
-            key={i}
-            className="relative overflow-hidden group min-h-[320px]"
-            style={{ borderRight: i < 2 ? "3px solid var(--ink)" : undefined, cursor: "pointer" }}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element -- remote decorative asset */}
-              <img loading="lazy" decoding="async" src={p.img} alt={p.alt} className="w-full h-full object-cover absolute inset-0 transition-transform duration-700 group-hover:scale-105" />
-            <div
-              className="absolute inset-0 flex flex-col justify-end p-8 opacity-0 group-hover:opacity-100 transition-all duration-500"
-              style={{ background: "rgba(26,28,27,0.35)" }}
-            >
-              <div className="neo-shadow-sm neo-border px-4 py-2 inline-block self-start mb-3" style={{ background: p.color, fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 12, letterSpacing: "1.5px", color: "var(--ink)" }}>
-                {p.label}
-              </div>
-              <p style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 900, fontSize: 28, color: "var(--surface)", margin: 0, textShadow: "2px 2px 0 rgba(0,0,0,0.3)" }}>{p.text}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
 // ─── Root ───────────────────────────────────────────────────────────
 /** The FAQ lives on /faq; the waitlist signup lives in the footer (#beta). */
 export default function NewLanding() {
@@ -327,7 +281,7 @@ export default function NewLanding() {
       <DropperSection />
       <ProblemSplit />
       <SolutionSection />
-      <GallerySection />
+      <CategoriesSection />
       <SiteFooter />
       <StickyCta />
     </div>

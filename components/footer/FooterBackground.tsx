@@ -6,15 +6,11 @@ import gazeFrames from "./gaze-frames.json";
 const TAU = Math.PI * 2;
 const wrappedAngle = (angle: number) => ((angle % TAU) + TAU) % TAU;
 
-// Where the signup sits, in source-frame pixels (1920x1080).
-// Desktop: the pill's left curve touches the heart's right edge, measured
-// from frame 0 (the heart's widest point is x≈1130 at y=680, after its
-// soft fuzz).
-export const HEART_EDGE_X = 1128;
-export const HEART_EDGE_Y = 680;
-// Phones: too narrow to sit beside the heart, so it centres on it.
-export const HOLD_X = 880;
-export const HOLD_Y = 745;
+// Where the signup sits, in source-frame pixels (1920x1080): centred
+// horizontally under the midpoint between the eyes (x=948, the same point the
+// gaze tracking uses) and vertically on the heart (which spans y=500-800).
+export const HOLD_X = 948;
+export const HOLD_Y = 690;
 
 // These angles were measured from the actual pupil positions in the clip's
 // first complete orbit. Match direction, rather than assuming constant speed.
@@ -65,11 +61,7 @@ export default function FooterBackground({
       if (!hold || !parent) return;
       const rect = video.getBoundingClientRect();
       const base = parent.getBoundingClientRect();
-      const beside = !mobile.matches;
-      const p = beside
-        ? sourceToScreen(rect, HEART_EDGE_X, HEART_EDGE_Y)
-        : sourceToScreen(rect, HOLD_X, HOLD_Y);
-      hold.dataset.place = beside ? "beside" : "centre";
+      const p = sourceToScreen(rect, HOLD_X, HOLD_Y);
       hold.style.left = `${p.x - base.left}px`;
       hold.style.top = `${p.y - base.top}px`;
     };
