@@ -4,14 +4,13 @@
  * AetherSkin - neo-brutalist landing.
  *
  * Signup is free: email -> double opt-in -> skin quiz. No payment,
- * no card fields anywhere on this page (see components/SignupSection).
+ * no card fields anywhere on this page (see components/footer/SiteFooter).
  */
 
 import { useState, useEffect, useRef } from "react";
-import Link from "next/link";
 import { DoorReveal } from "@/components/DoorReveal";
-import { SiteNav } from "@/components/SiteNav";
-import { SignupSection } from "@/components/SignupSection";
+import EditorialHero from "@/components/EditorialHero";
+import SiteFooter from "@/components/footer/SiteFooter";
 import { StickyCta } from "@/components/StickyCta";
 import svgPaths from "@/lib/svg-design";
 
@@ -27,9 +26,6 @@ import svgPaths from "@/lib/svg-design";
  * five lines.
  */
 const ASSET = "/design";
-// Hero (supplied by the owner, 21 Oct 2026): replaced the Pinterest
-// screenshot hand.png. 960x1280 WebP = 2x the largest size it renders at.
-const imgHero = `${ASSET}/hero-swatches.webp`;
 const imgDropper = `${ASSET}/dropper.png`;
 const imgGlassSkin = `${ASSET}/glass-skin.png`;
 const imgNoGender = `${ASSET}/no-gender.png`;
@@ -81,121 +77,6 @@ function useFadeIn(threshold = 0.15) {
   }, [threshold]);
 
   return { ref, visible };
-}
-
-// ─── Nav ────────────────────────────────────────────────────────────
-// ─── Hero ───────────────────────────────────────────────────────────
-function HeroSection() {
-  const [cursor, setCursor] = useState({ x: 0, y: 0 });
-  const [hovering, setHovering] = useState(false);
-
-  const mask = `radial-gradient(circle at ${cursor.x}px ${cursor.y}px, #000 80px, transparent 140px)`;
-
-  return (
-    <section
-      className="relative overflow-hidden pt-[72px] min-h-screen flex flex-col"
-      style={{
-        background: "var(--surface)",
-        borderBottom: "1px solid color-mix(in srgb, var(--ink) 12%, transparent)",
-      }}
-      onPointerEnter={() => setHovering(true)}
-      onPointerMove={(e) => {
-        const r = e.currentTarget.getBoundingClientRect();
-        setCursor({ x: e.clientX - r.left, y: e.clientY - r.top });
-      }}
-      onPointerLeave={() => setHovering(false)}
-    >
-      {/*
-        The dressing table.
-
-        This replaced a hard dot grid, which read as developer tooling rather
-        than a bedroom. Three stacked layers do the work:
-          1. a warm wash falling from the vanity lights above
-          2. a row of bulbs across the top, like a makeup mirror
-          3. the cursor carried as a soft light bloom instead of dot dilation
-
-        Every value is a theme token, and the glow opacities are deliberately
-        lower in dark — a bright bloom on a dark ground is what makes a dark
-        theme tiring to sit in.
-      */}
-      <div className="vanity-wash pointer-events-none absolute inset-0" />
-      <div className="vanity-bulbs pointer-events-none absolute inset-x-0 top-[72px] flex justify-center gap-[clamp(18px,4vw,46px)] px-6">
-        {Array.from({ length: 9 }).map((_, i) => (
-          <span key={i} className="vanity-bulb" />
-        ))}
-      </div>
-      {/* Light follows the cursor across the table. */}
-      <div
-        className="vanity-bloom pointer-events-none absolute inset-0 transition-opacity duration-300"
-        style={{
-          opacity: hovering ? 1 : 0,
-          maskImage: mask,
-          WebkitMaskImage: mask,
-        }}
-      />
-
-      {/* hero-stage / hero-copy / hero-headline / hero-art size from the
-          viewport HEIGHT as well as width (globals.css). The doors pin this
-          section to exactly one screen, so anything taller than the screen
-          would be cut off for as long as it is pinned: that is how the two
-          buttons went missing on laptops. */}
-      <div className="hero-stage relative z-10 flex flex-col lg:flex-row items-center justify-between px-6 md:px-16 flex-1 max-w-[1280px] mx-auto w-full">
-        {/* Left: text */}
-        <div className="hero-copy flex flex-col items-start max-w-[620px]">
-          <div className="on-soft sticker-float neo-shadow-sm neo-border px-5 py-2.5 self-start" style={{ background: "var(--blue)" }}>
-            <span style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 400, fontSize: 22, color: "var(--ink)" }}>Ouch!</span>
-          </div>
-
-          <div className="leading-none" style={{ fontFamily: "'Fraunces', Georgia, serif" }}>
-            <p className="hero-headline" style={{ fontWeight: 900, color: "var(--ink)", letterSpacing: "-2.5px", lineHeight: 1.05, margin: 0 }}>
-              Their replies are dry
-            </p>
-            <p className="hero-headline" style={{ fontWeight: 900, letterSpacing: "-2.5px", lineHeight: 1.05, margin: 0 }}>
-              <span style={{ color: "var(--olive)" }}>but </span>
-              <span style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 400, fontStyle: "italic", color: "var(--ink)", textTransform: "lowercase" }}>your skin</span>
-            </p>
-            <p className="hero-headline" style={{ fontWeight: 900, color: "var(--ink)", letterSpacing: "-2.5px", lineHeight: 1.05, margin: 0 }}>
-              doesn&apos;t have to be.
-            </p>
-          </div>
-
-          <p className="hero-lede" style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 400, color: "var(--muted)", lineHeight: 1.6, margin: 0 }}>
-            Stop guessing. Start knowing. AetherSkin is AI skin analysis that
-            matches you with products from brands you already use. Join the
-            free waitlist now; photo scanning and your routine arrive at beta launch.
-          </p>
-
-          <div className="flex gap-3 md:gap-4 flex-wrap">
-            <a href="#beta" className="hero-cta on-accent neo-shadow neo-border" style={{ background: "var(--yellow)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, letterSpacing: "0.9px", color: "var(--ink)", cursor: "pointer" }}>
-              JOIN THE FREE WAITLIST
-            </a>
-            <a href="#solution" className="hero-cta neo-shadow neo-border" style={{ background: "var(--surface)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, letterSpacing: "0.9px", color: "var(--ink)", cursor: "pointer" }}>
-              SEE HOW IT WORKS
-            </a>
-          </div>
-
-          {/* What the button actually leads to, next to the button. */}
-          <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 500, fontSize: 14, color: "var(--muted)", lineHeight: 1.5, margin: 0 }}>
-            Free, no card. Confirm your email, then take a 3-minute skin quiz.
-          </p>
-        </div>
-
-        {/* Right: image hero */}
-        <div className="relative flex-shrink-0">
-          <div className="hero-art mirror-arch neo-shadow neo-border overflow-hidden">
-            {/* eslint-disable-next-line @next/next/no-img-element -- remote decorative asset; see note above */}
-              <img fetchPriority="high" decoding="async" src={imgHero} alt="Anti-age day cream, hydrating serum, exfoliating serum and glow serum swatched on the back of a hand" className="w-full h-full object-cover" />
-          </div>
-          <div className="on-accent sticker-float-alt absolute -bottom-4 -right-6 neo-shadow-sm neo-border px-5 py-3" style={{ background: "var(--yellow)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "1.6px", color: "var(--ink)" }}>
-            HYDRATE NOW
-          </div>
-          <div className="on-soft absolute -top-4 -left-6 neo-shadow-sm neo-border px-4 py-2" style={{ background: "var(--blue)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 13, color: "var(--ink)" }}>
-            ✦ WAITLIST OPEN
-          </div>
-        </div>
-      </div>
-    </section>
-  );
 }
 
 // ─── Dropper Animation ──────────────────────────────────────────────
@@ -491,221 +372,22 @@ function GallerySection() {
   );
 }
 
-// ─── Glow O'Clock Interactive Liquid ────────────────────────────────
-function GlowOClockSection() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const mouse = useRef({ x: -9999, y: -9999, active: false });
-  const rafRef = useRef<number>(0);
-  const { ref: sectionRef, visible } = useFadeIn(0.1);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    const N = 24;
-    const baseAngles = Array.from({ length: N }, (_, i) => (i / N) * Math.PI * 2);
-
-    let t = 0;
-
-    const resize = () => {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-    };
-    resize();
-    window.addEventListener("resize", resize);
-
-    const drawBlob = (pts: { x: number; y: number }[]) => {
-      const n = pts.length;
-      ctx.beginPath();
-      for (let i = 0; i < n; i++) {
-        const p0 = pts[(i - 1 + n) % n];
-        const p1 = pts[i];
-        const p2 = pts[(i + 1) % n];
-        const p3 = pts[(i + 2) % n];
-        const cp1x = p1.x + (p2.x - p0.x) / 6;
-        const cp1y = p1.y + (p2.y - p0.y) / 6;
-        const cp2x = p2.x - (p3.x - p1.x) / 6;
-        const cp2y = p2.y - (p3.y - p1.y) / 6;
-        if (i === 0) ctx.moveTo(p1.x, p1.y);
-        ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, p2.x, p2.y);
-      }
-      ctx.closePath();
-    };
-
-    const animate = () => {
-      t += 0.006;
-      const W = canvas.width;
-      const H = canvas.height;
-      const cx = W / 2;
-      const cy = H / 2;
-      const baseR = Math.min(W, H) * 0.34;
-
-      ctx.clearRect(0, 0, W, H);
-
-      const pts = baseAngles.map((angle, i) => {
-        const wave = Math.sin(t * 0.9 + i * 0.65) * 22 + Math.cos(t * 1.3 + i * 1.1) * 14;
-        const r = baseR + wave;
-
-        const px = cx + Math.cos(angle) * r;
-        const py = cy + Math.sin(angle) * r;
-
-        if (!mouse.current.active) return { x: px, y: py };
-
-        const dx = mouse.current.x - cx;
-        const dy = mouse.current.y - cy;
-        const md = Math.sqrt(dx * dx + dy * dy);
-        const dot = Math.cos(angle) * (dx / (md || 1)) + Math.sin(angle) * (dy / (md || 1));
-        const inf = Math.max(0, dot) * Math.max(0, 1 - md / (baseR * 1.8)) * 90;
-
-        const nr = r + inf;
-        return { x: cx + Math.cos(angle) * nr, y: cy + Math.sin(angle) * nr };
-      });
-
-      ctx.save();
-      ctx.shadowColor = "rgba(180, 165, 130, 0.5)";
-      ctx.shadowBlur = 40;
-      ctx.shadowOffsetX = 20;
-      ctx.shadowOffsetY = 30;
-
-      const grad = ctx.createRadialGradient(cx - baseR * 0.25, cy - baseR * 0.2, baseR * 0.05, cx, cy, baseR * 1.2);
-      grad.addColorStop(0, "rgba(244, 239, 225, 0.97)");
-      grad.addColorStop(0.5, "rgba(234, 228, 210, 0.95)");
-      grad.addColorStop(1, "rgba(218, 210, 190, 0.93)");
-      ctx.fillStyle = grad;
-      drawBlob(pts);
-      ctx.fill();
-      ctx.restore();
-
-      ctx.save();
-      const hl = ctx.createRadialGradient(cx - baseR * 0.35, cy - baseR * 0.3, 0, cx - baseR * 0.3, cy - baseR * 0.25, baseR * 0.55);
-      hl.addColorStop(0, "rgba(255,255,255,0.55)");
-      hl.addColorStop(0.6, "rgba(255,255,255,0.12)");
-      hl.addColorStop(1, "rgba(255,255,255,0)");
-      ctx.fillStyle = hl;
-      drawBlob(pts);
-      ctx.fill();
-      ctx.restore();
-
-      ctx.save();
-      const edge = ctx.createRadialGradient(cx, cy, baseR * 0.6, cx, cy, baseR * 1.1);
-      edge.addColorStop(0, "rgba(255,255,255,0)");
-      edge.addColorStop(1, "rgba(200,195,175,0.25)");
-      ctx.fillStyle = edge;
-      drawBlob(pts);
-      ctx.fill();
-      ctx.restore();
-
-      rafRef.current = requestAnimationFrame(animate);
-    };
-
-    animate();
-
-    return () => {
-      cancelAnimationFrame(rafRef.current);
-      window.removeEventListener("resize", resize);
-    };
-  }, []);
-
-  return (
-    <section
-      ref={sectionRef as React.RefObject<HTMLElement>}
-      className="on-soft relative w-full overflow-hidden"
-      style={{
-        background: "var(--sand)",
-        borderBottom: "3px solid var(--ink)",
-        minHeight: 700,
-        opacity: visible ? 1 : 0,
-        transition: "opacity 1s ease 0.1s",
-      }}
-    >
-      <div className="absolute top-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-3">
-        <div className="neo-shadow-sm neo-border px-6 py-2.5" style={{ background: "var(--surface)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1.6px", color: "var(--muted)" }}>
-          ✦ INTERACTIVE
-        </div>
-        <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 400, fontSize: 14, color: "var(--muted)", margin: 0 }}>
-          move your cursor or drag a finger across the liquid
-        </p>
-      </div>
-
-      <canvas
-        ref={canvasRef}
-        className="w-full h-full absolute inset-0"
-        style={{ minHeight: 700 }}
-        onMouseMove={(e) => {
-          const r = e.currentTarget.getBoundingClientRect();
-          mouse.current = { x: e.clientX - r.left, y: e.clientY - r.top, active: true };
-        }}
-        onMouseLeave={() => {
-          mouse.current = { x: -9999, y: -9999, active: false };
-        }}
-        onTouchMove={(e) => {
-          const r = e.currentTarget.getBoundingClientRect();
-          const t2 = e.touches[0];
-          mouse.current = { x: t2.clientX - r.left, y: t2.clientY - r.top, active: true };
-        }}
-      />
-
-      <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-10">
-        <p style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 300, fontStyle: "italic", fontSize: "clamp(28px, 4vw, 56px)", color: "var(--ink)", letterSpacing: "-1px", margin: 0, mixBlendMode: "multiply" }}>
-          it&apos;s glow o&apos;clock
-        </p>
-      </div>
-
-      <div className="absolute bottom-10 right-10 z-20">
-        <div className="on-accent neo-shadow-sm neo-border px-5 py-3 sticker-float" style={{ background: "var(--yellow)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 16, color: "var(--ink)", transform: "rotate(3deg)" }}>
-          ✨ glow activated
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ─── Footer ─────────────────────────────────────────────────────────
-function NewFooter() {
-  return (
-    <footer className="on-soft flex flex-col md:flex-row gap-6 items-center justify-between px-6 md:px-16 py-12" style={{ background: "var(--blue)", borderTop: "3px solid var(--ink)" }}>
-      <div className="flex flex-col gap-3 items-center md:items-start">
-        <span style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 900, fontSize: 30, color: "var(--deep)" }}>AetherSkin</span>
-        {/* Official Google "Add as preferred source" button */}
-        <div google-add-preferred-source-btn="" />
-      </div>
-      <div className="flex gap-6 flex-wrap justify-center">
-        <Link href="/about" style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "1.6px", color: "var(--deep)" }}>ABOUT US</Link>
-        <Link href="/privacy" style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "1.6px", color: "var(--deep)" }}>PRIVACY</Link>
-        <Link href="/terms" style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "1.6px", color: "var(--deep)" }}>TERMS</Link>
-        <Link href="/#beta" style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "1.6px", color: "var(--deep)" }}>JOIN FREE</Link>
-      </div>
-      <span style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1.6px", color: "var(--deep)" }}>{`© ${new Date().getFullYear()} AETHERSKIN. BUILT FOR THE BOLD.`}</span>
-    </footer>
-  );
-}
-
 // ─── Root ───────────────────────────────────────────────────────────
-/**
- * `faq` is injected as a slot from the server component (app/page.tsx) so
- * the FAQ copy and its matching FAQPage JSON-LD stay in one server-rendered
- * source. Keeping it server-side means crawlers and AI engines read the
- * answers straight out of the HTML with no hydration step.
- */
-export default function NewLanding({ faq }: { faq?: React.ReactNode }) {
+/** The FAQ lives on /faq; the waitlist signup lives in the footer (#beta). */
+export default function NewLanding() {
   return (
     <div style={{ background: "var(--surface)" }}>
-      <SiteNav />
       {/* The hero is pinned inside the reveal while the doors part, so it is
-          framed exactly as they finish rather than half-scrolled away. */}
+          framed exactly as they finish rather than half-scrolled away. It
+          carries its own nav, so the fixed SiteNav is not used here. */}
       <DoorReveal>
-        <HeroSection />
+        <EditorialHero />
       </DoorReveal>
       <DropperSection />
       <ProblemSection />
       <SolutionSection />
       <GallerySection />
-      <GlowOClockSection />
-      {faq}
-      <SignupSection />
-      <NewFooter />
+      <SiteFooter />
       <StickyCta />
     </div>
   );

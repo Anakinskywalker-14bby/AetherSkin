@@ -618,3 +618,161 @@ html, body {
   /* No moving bar; the "Next question…" label still says what's happening. */
   .quiz-advance-fill { animation: none; width: 100%; opacity: 0.5; }
 }
+
+/* FAQ accordion (components/FaqSection) */
+.faq-item summary{list-style:none}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-chevron{flex:none;font-family:'DM Sans',system-ui,sans-serif;font-weight:700;font-size:26px;line-height:1;transition:transform .2s ease}
+.faq-item[open] .faq-chevron{transform:rotate(45deg)}
+.faq-item summary:focus-visible{outline:2px solid var(--ink);outline-offset:-6px}
+@media (prefers-reduced-motion:reduce){.faq-chevron{transition:none}}
+
+/* ─── Site footer: the lavender giant (components/footer) ─────────────
+   Scoped with .sf- so nothing leaks. Desktop numbers are the supplied vw
+   layout; dark mode swaps the clip and the colours below. */
+@font-face{font-family:'Footer DM Sans';src:url('/fonts/DMSans-Regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:Epilogue;src:url('/fonts/Epilogue-Black.woff2') format('woff2');font-weight:900;font-style:normal;font-display:swap}
+.sf{--sf-bg:#dfe4f2;--sf-mobile-bg:#f0eefa;--sf-fg:#080909;--sf-tag:#f7f8fa;--sf-field:#ffffff;
+  position:relative;min-height:100vh;padding-top:6.54vw;isolation:isolate;overflow:hidden;
+  background:var(--sf-bg);color:var(--sf-fg);font-family:'Footer DM Sans','DM Sans',Arial,sans-serif;font-weight:400;font-synthesis:none}
+.sf.dark{--sf-bg:#1a1210;--sf-mobile-bg:#1a1210;--sf-fg:#fff6ec;--sf-tag:#241a17;--sf-field:#241a17}
+.sf *{box-sizing:border-box}
+.sf a{color:inherit;text-decoration:none}
+.sf a:focus-visible,.sf button:focus-visible,.sf input:focus-visible{outline:2px solid currentColor;outline-offset:4px}
+.sf-jobs{margin-left:8.65vw;width:25vw}
+.sf-tag{display:inline-flex;align-items:center;border-radius:100px;background:var(--sf-tag);padding:.39vw .61vw;font-size:.88vw;line-height:1.2;height:1.9vw;white-space:nowrap}
+.sf-headline{font-family:Epilogue,Arial,sans-serif;font-weight:900;font-size:1.66vw;line-height:1.2;letter-spacing:0}
+.sf-links{display:flex;flex-direction:column;align-items:flex-start;gap:.35vw;margin-top:1.45vw}
+.sf-links a:hover,.sf-socials a:hover{opacity:.7}
+.sf-logo{position:absolute;left:40.33vw;top:7.7vw;width:17vw;text-align:center;font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:3.1vw;line-height:1;letter-spacing:-.04em;white-space:nowrap}
+.sf-contact{position:absolute;left:74.3vw;top:6.54vw}
+.sf-contact-links{display:flex;flex-direction:column;align-items:flex-start;margin-top:1.45vw;white-space:nowrap}
+.sf-note{margin:1.05vw 0 0;font-size:.733vw;line-height:1.4;white-space:nowrap}
+.sf-socials{display:flex;align-items:center;gap:1.43vw;margin-top:1.61vw}
+.sf-socials a,.sf-socials svg{display:block;width:1.71vw;height:1.71vw}
+.sf-background{position:absolute;inset:0;z-index:-1;pointer-events:none}
+.sf-background video{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;object-position:center}
+/* Signup held between the thumbs; left/top come from FooterBackground. */
+.sf-hold{position:absolute;left:50%;top:70%;transform:translate(-50%,-50%);z-index:1;width:clamp(260px,21vw,400px);font-size:max(12px,.8vw)}
+.sf-pill{display:flex;align-items:center;gap:6px;padding:5px;border-radius:999px;background:var(--sf-field);box-shadow:0 0 0 1.5px var(--sf-fg)}
+.sf-pill input{flex:1;min-width:0;border:0;background:transparent;color:var(--sf-fg);font:inherit;font-size:max(15px,.95vw);padding:.55em .9em;outline:none}
+.sf-pill input::placeholder{color:var(--sf-fg);opacity:.55}
+.sf-pill button{flex:none;border:0;border-radius:999px;background:var(--sf-fg);color:var(--sf-field);font-family:Epilogue,Arial,sans-serif;font-weight:900;font-size:max(14px,.9vw);padding:.6em 1.2em;cursor:pointer}
+.sf-pill button:disabled{opacity:.6;cursor:default}
+.sf-consent{display:flex;align-items:flex-start;justify-content:center;gap:6px;margin-top:8px;line-height:1.35;text-align:left}
+.sf-consent input{margin:2px 0 0;accent-color:var(--sf-fg)}
+.sf-consent a{text-decoration:underline}
+.sf-hold-message,.sf-hold-status{margin:8px 0 0;padding:8px 12px;border-radius:14px;background:var(--sf-field);line-height:1.4;text-align:center}
+.sf-hold-status{margin:0}
+.sf-visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media(max-width:700px){
+  .sf{display:flex;flex-direction:column;gap:36px;min-height:100svh;padding:40px 24px 0;background:var(--sf-mobile-bg)}
+  .sf-logo{position:static;order:0;align-self:flex-start;width:auto;max-width:75%;margin-bottom:4px;text-align:left;font-size:44px}
+  .sf-jobs{order:1;margin:0;width:100%}
+  .sf-tag{height:30px;padding:6px 11px;font-size:14px}
+  .sf-headline{font-size:clamp(22px,6.3vw,30px);line-height:1.25}
+  .sf-links,.sf-contact-links{margin-top:19px}
+  .sf-links{gap:4px}
+  .sf-links a{display:flex;align-items:center;min-height:44px}
+  .sf-contact{position:static;order:2;width:100%}
+  .sf-contact-links{gap:4px;white-space:normal}
+  .sf-note{max-width:34ch;margin:16px 0 0;font-size:14px;line-height:1.5;white-space:normal}
+  .sf-socials{gap:18px;margin-top:20px}
+  .sf-socials a{display:flex;align-items:center;justify-content:center;width:44px;height:44px}
+  .sf-socials svg{width:30px;height:30px}
+  .sf-socials a:first-child{margin-left:-7px}
+  .sf-background{position:relative;inset:auto;order:3;z-index:auto;flex:none;align-self:center;width:calc(100% + 48px);aspect-ratio:4/3;margin-top:-16px}
+  .sf-hold{width:min(300px,82%);font-size:12px}
+}
+
+/* ─── Editorial hero (components/EditorialHero) ────────────────────────
+   One screen. The UI sits on a 1155x767 design frame scaled by --u and
+   centred; the photo/video cover the whole section behind it. */
+.eh{--u:min(calc(100vw / 1155),calc(100vh / 767));--eh-line:rgba(255,255,255,.24);--eh-glass:rgba(112,84,150,.34);
+  position:relative;height:100vh;height:100svh;min-height:520px;overflow:hidden;background:#3B2F5C;color:#fff;
+  font-family:var(--eh-sans),'Inter Tight',system-ui,sans-serif;font-weight:300}
+.eh-media,.eh-media img,.eh-media video{position:absolute;inset:0;width:100%;height:100%}
+.eh-media img,.eh-media video{object-fit:cover;object-position:center top;display:block}
+.eh-media video{opacity:0;transition:opacity .8s ease}
+.eh-media video.is-ready{opacity:1}
+.eh-stage{position:absolute;left:50%;top:50%;width:calc(1155 * var(--u));height:calc(767 * var(--u));transform:translate(-50%,-50%)}
+.eh-line{position:absolute;background:var(--eh-line);pointer-events:none}
+.eh-line-top{left:calc(-50vw + 50%);right:calc(-50vw + 50%);top:calc(70 * var(--u));height:1px}
+.eh-line-v1,.eh-line-v2{top:calc(70 * var(--u));bottom:calc(-50vh + 50%);width:1px}
+.eh-line-v1{left:calc(200.6 / 1155 * 100%)}
+.eh-line-v2{left:calc(843.6 / 1155 * 100%)}
+.eh-line-h{left:calc(-50vw + 50%);right:calc(-50vw + 50%);top:calc(405.2 / 767 * 100%);height:1px}
+.eh a{color:inherit;text-decoration:none}
+.eh a:focus-visible{outline:2px solid #fff;outline-offset:4px}
+.eh-nav{position:absolute;left:calc(28 * var(--u));right:calc(28 * var(--u));top:0;height:calc(70 * var(--u));display:flex;align-items:center;gap:calc(24 * var(--u))}
+.eh-logo{margin-right:auto;display:block}
+.eh-logo img{display:block;height:calc(36 * var(--u));width:auto}
+.eh-links{display:flex;align-items:center;font-size:calc(12.5 * var(--u));font-weight:500;letter-spacing:.14em;text-transform:uppercase}
+.eh-links a{padding:0 calc(16 * var(--u));border-left:1px solid var(--eh-line);line-height:1.1}
+.eh-links a:first-child{border-left:0}
+.eh-links a:hover{opacity:.75}
+.eh-icons{display:flex;gap:calc(10 * var(--u))}
+.eh-glass{display:grid;place-items:center;width:calc(40 * var(--u));height:calc(40 * var(--u));min-width:36px;min-height:36px;border-radius:50%;background:var(--eh-glass);border:1px solid rgba(255,255,255,.35);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.eh-glass svg{width:45%;height:45%;fill:none;stroke:#fff;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.eh-headline{position:absolute;left:calc(228 * var(--u));top:calc(104 * var(--u));margin:0;display:flex;flex-direction:column;font-weight:300;font-size:calc(64 * var(--u));line-height:1.02;letter-spacing:-.02em}
+.eh-headline em{font-family:var(--eh-serif),'Playfair Display',Georgia,serif;font-style:italic;font-weight:400;font-size:calc(104 * var(--u));line-height:1;letter-spacing:-.01em;margin-top:calc(4 * var(--u))}
+.eh-badge{position:absolute;left:calc(872 * var(--u));top:calc(100 * var(--u));margin:0;display:flex;align-items:center;gap:calc(10 * var(--u));font-size:calc(12.5 * var(--u));font-weight:500;letter-spacing:.16em}
+.eh-badge svg{width:calc(18 * var(--u));height:calc(18 * var(--u));fill:#F4B8A2}
+.eh-side{position:absolute;left:calc(872 * var(--u));top:calc(436 * var(--u));width:calc(250 * var(--u))}
+.eh-side p{margin:0;font-size:calc(14.5 * var(--u));line-height:1.55;font-weight:400}
+.eh-ctas{display:flex;align-items:center;gap:calc(10 * var(--u));margin-top:calc(26 * var(--u))}
+.eh-pill{display:inline-flex;align-items:center;height:calc(46 * var(--u));min-height:40px;padding:0 calc(26 * var(--u));border-radius:999px;background:#fff;color:#3B2F5C !important;font-size:calc(14 * var(--u));font-weight:500;white-space:nowrap}
+.eh-arrow{display:grid;place-items:center;width:calc(46 * var(--u));height:calc(46 * var(--u));min-width:40px;min-height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.7)}
+.eh-arrow svg{width:40%;height:40%;fill:none;stroke:#fff;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.eh-pill:hover,.eh-arrow:hover{transform:translateY(-1px)}
+.eh-season{position:absolute;left:calc(28 * var(--u));top:calc(428 * var(--u));margin:0;font-size:calc(12.5 * var(--u));font-weight:500;letter-spacing:.16em;line-height:1.6}
+.eh-polaroid{position:absolute;left:calc(118 * var(--u));top:calc(500 * var(--u));width:calc(150 * var(--u));margin:0;padding:calc(9 * var(--u)) calc(9 * var(--u)) calc(30 * var(--u));background:#fff;box-shadow:0 calc(14 * var(--u)) calc(30 * var(--u)) rgba(40,24,70,.28);transform:rotate(-13deg);animation:ehDrop 1s cubic-bezier(.2,.8,.2,1) .9s both}
+.eh-polaroid img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover}
+.eh-polaroid figcaption{position:absolute;left:0;right:0;bottom:calc(6 * var(--u));text-align:center;color:#3B2F5C;font-family:'Segoe Script','Bradley Hand','Comic Sans MS',cursive;font-size:calc(13 * var(--u))}
+.eh-watermark{position:absolute;left:50%;bottom:calc(-52 * var(--u));transform:translateX(-50%);margin:0;white-space:nowrap;pointer-events:none;font-family:var(--eh-serif),'Playfair Display',Georgia,serif;font-style:italic;font-weight:400;font-size:calc(250 * var(--u));line-height:1;color:#fff;opacity:.16;mix-blend-mode:soft-light}
+.eh-in{animation:ehIn .7s cubic-bezier(.2,.8,.2,1) both}
+.eh-in:nth-child(2){animation-delay:.08s}.eh-in:nth-child(3){animation-delay:.16s}
+.eh-rise{display:block;animation:ehRise .9s cubic-bezier(.2,.8,.2,1) both}
+.eh-fade{animation:ehFade 1s ease .85s both}
+@keyframes ehIn{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:none}}
+@keyframes ehRise{from{opacity:0;transform:translateY(40%)}to{opacity:1;transform:none}}
+@keyframes ehFade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes ehDrop{0%{opacity:0;transform:translateY(-60px) rotate(4deg)}70%{opacity:1;transform:translateY(4px) rotate(-15deg)}100%{transform:rotate(-13deg)}}
+@media (prefers-reduced-motion:reduce){.eh-media video{display:none}.eh-in,.eh-rise,.eh-fade,.eh-polaroid{animation:none}}
+/* Phones (portrait): photo covers, copy reflows over it in one screen. */
+@media (max-width:760px),(orientation:portrait) and (max-width:1024px){
+  .eh{--u:calc(100vw / 390)}
+  .eh-media img,.eh-media video{object-position:62% top}
+  .eh-media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(59,47,92,.05) 40%,rgba(59,47,92,.55) 100%)}
+  .eh-stage{left:0;top:0;width:100%;height:100%;transform:none}
+  .eh-line-v1,.eh-line-v2{display:none}
+  .eh-line-top{left:0;right:0;top:64px}
+  .eh-line-h{left:0;right:0;top:auto;bottom:calc(196px + 4vh)}
+  .eh-nav{left:16px;right:16px;height:64px;gap:10px}
+  .eh-logo img{height:28px}
+  .eh-links{display:none}
+  .eh-glass{width:40px;height:40px}
+  .eh-headline{left:20px;right:20px;top:calc(64px + 4vh);font-size:clamp(30px,9vw,40px)}
+  .eh-headline em{font-size:clamp(48px,15vw,64px)}
+  .eh-badge{left:20px;top:auto;bottom:calc(208px + 4vh);font-size:11px}
+  .eh-badge svg{width:15px;height:15px}
+  .eh-side{left:20px;right:20px;top:auto;bottom:calc(24px + 2vh);width:auto}
+  .eh-side p{font-size:14px;max-width:34ch;text-shadow:0 1px 12px rgba(40,24,70,.35)}
+  .eh-ctas{margin-top:16px}
+  .eh-pill{font-size:15px;height:46px;padding:0 24px}
+  .eh-arrow{width:46px;height:46px}
+  .eh-season{display:none}
+  .eh-polaroid{left:auto;right:18px;top:auto;bottom:calc(214px + 4vh);width:92px;padding:6px 6px 20px}
+  .eh-polaroid figcaption{font-size:9px;bottom:4px}
+  .eh-watermark{font-size:27vw;bottom:auto;top:46%}
+}
+/* Footer theme switch: the hanging vanity lamp on desktop, a bulb button on
+   phones. It themes the footer only. */
+.sf-lamp{position:absolute;left:30.5vw;top:0;z-index:2;width:120px;height:150px}
+.sf-bulb{display:none}
+@media(max-width:700px){
+  .sf-lamp{display:none}
+  .sf-bulb{position:absolute;top:32px;right:20px;z-index:2;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--sf-fg);background:var(--sf-tag);color:var(--sf-fg);cursor:pointer}
+  .sf-bulb svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+  .sf-bulb[aria-checked="true"] svg{fill:#ffd166}
+}

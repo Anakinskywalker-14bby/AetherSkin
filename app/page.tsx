@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import NewLanding from "@/components/NewLanding";
-import { FaqSection, FAQS } from "@/components/FaqSection";
-import { organizationJsonLd, webSiteJsonLd, faqJsonLd } from "@/lib/site";
+import { organizationJsonLd, webSiteJsonLd } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "AetherSkin — Free AI Skin Analysis. Stop Guessing. Start Knowing.",
@@ -27,11 +26,7 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteJsonLd) }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(FAQS)) }}
-      />
-      <NewLanding faq={<FaqSection />} />
+      <NewLanding />
     </>
   );
 }

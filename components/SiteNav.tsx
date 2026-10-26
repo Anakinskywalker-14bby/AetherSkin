@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { ThemeToggle, ThemeToggleCompact } from "@/components/ThemeToggle";
 
 const LINKS = [
   { href: "/about", label: "ABOUT" },
   { href: "/#solution", label: "HOW IT WORKS" },
+  { href: "/faq", label: "FAQ" },
   { href: "/#beta", label: "JOIN FREE" },
 ];
 
@@ -51,9 +51,9 @@ export function SiteNav() {
         <Link href="/" aria-label="AetherSkin home" className="shrink-0">
           {/* eslint-disable-next-line @next/next/no-img-element -- static brand asset, fixed size */}
           <img
-            src="/brand/lockup-horizontal.svg"
+            src="/brand/lockup-aetherskin.png"
             alt="AetherSkin"
-            width={137}
+            width={144}
             height={34}
             className="block h-[34px] w-auto dark:hidden"
           />
@@ -91,23 +91,8 @@ export function SiteNav() {
           </Link>
         </div>
 
-        {/*
-          The bulb hangs from the underside of the bar, near the left edge of
-          the screen. The wrapper is exactly the lamp's 120px canvas and sits
-          4px past the edge, which puts the bulb's centre 56px in and its
-          glass (r=17) 39px clear of the edge: room for the cursor to pass
-          between the bulb and the edge of the screen. It must sit outside the
-          bar because the chain needs room to swing that a 72px row can't
-          give. Pointer events are scoped to the lamp itself in ThemeToggle,
-          so this never blocks the hero beneath.
-        */}
-        <div className="pointer-events-none absolute left-[-4px] top-[70px] z-[51] hidden w-[120px] justify-center md:flex">
-          <ThemeToggle />
-        </div>
-
-        {/* Mobile: the bulb without the chain, plus the menu. */}
+        {/* Mobile: the menu. The theme bulb lives in the footer only. */}
         <div className="flex items-center gap-2 md:hidden">
-          <ThemeToggleCompact />
 
         <button
           type="button"

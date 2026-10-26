@@ -1,9 +1,10 @@
 /**
- * FAQ section — plain semantic HTML (server component, no JS).
+ * FAQ section — plain semantic HTML (server component).
  *
  * Written for humans first; the structure happens to be exactly what AI
  * engines extract well: a direct question heading followed by a short,
- * self-contained answer. Paired with FAQPage schema in page.tsx.
+ * self-contained answer. Paired with FAQPage schema in app/faq/page.tsx. Each answer is a native
+ * <details>, so it collapses without JS and stays in the HTML for crawlers.
  */
 
 export const FAQS = [
@@ -61,7 +62,7 @@ export function FaqSection() {
           QUESTIONS
         </div>
 
-        <h2
+        <h1
           id="faq-heading"
           style={{
             fontFamily: "'Fraunces', Georgia, serif",
@@ -74,28 +75,30 @@ export function FaqSection() {
           }}
         >
           Straight answers.
-        </h2>
+        </h1>
 
-        <dl className="flex flex-col gap-5">
+        <div className="flex flex-col gap-5">
           {FAQS.map((item) => (
-            <div
+            <details
               key={item.q}
-              className="neo-border p-5 md:p-6"
+              className="faq-item neo-border"
               style={{ background: "var(--surface)" }}
             >
-              <dt
+              <summary
+                className="flex items-center justify-between gap-4 p-5 md:p-6 cursor-pointer"
                 style={{
                   fontFamily: "'Fraunces', Georgia, serif",
                   fontWeight: 800,
                   fontSize: 19,
                   color: "var(--ink)",
-                  margin: "0 0 8px",
                   lineHeight: 1.3,
                 }}
               >
-                {item.q}
-              </dt>
-              <dd
+                <span>{item.q}</span>
+                <span aria-hidden className="faq-chevron">+</span>
+              </summary>
+              <p
+                className="px-5 md:px-6 pb-5 md:pb-6"
                 style={{
                   fontFamily: "'DM Sans', system-ui, sans-serif",
                   fontSize: 16,
@@ -105,10 +108,10 @@ export function FaqSection() {
                 }}
               >
                 {item.a}
-              </dd>
-            </div>
+              </p>
+            </details>
           ))}
-        </dl>
+        </div>
       </div>
     </section>
   );
