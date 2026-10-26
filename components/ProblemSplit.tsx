@@ -58,6 +58,18 @@ function ProblemVideo({ className, style }: { className: string; style: React.CS
   );
 }
 
+function Polaroid({ className, style }: { className: string; style?: React.CSSProperties }) {
+  return (
+    <figure className={className} aria-hidden="true" style={style}>
+      <div className="ps-polaroid-tilt">
+        {/* eslint-disable-next-line @next/next/no-img-element -- decorative */}
+        <img src={POLAROID_SRC} alt="" width={520} height={650} loading="lazy" />
+        <figcaption>Is it working?</figcaption>
+      </div>
+    </figure>
+  );
+}
+
 function ProblemPanel({ visible }: { visible: boolean }) {
   return (
     <div
@@ -79,6 +91,8 @@ function ProblemPanel({ visible }: { visible: boolean }) {
         className="ps-mid relative flex flex-col py-10 md:py-8"
         style={{ flex: 1, justifyContent: "center", ...anim(visible, 300, { y: 40, duration: 1800 }).style }}
       >
+        {/* Phones: the same polaroid floats beside the headline instead. */}
+        <Polaroid className="ps-polaroid ps-polaroid--mob" />
         <h2 id="problem-heading" className="ps-title m-0">
           <span>The skincare</span>
           <span>guessing game</span>
@@ -91,13 +105,7 @@ function ProblemPanel({ visible }: { visible: boolean }) {
         </p>
       </div>
 
-      <figure className="ps-polaroid" aria-hidden="true" style={anim(visible, 750, { y: -30, duration: 1600 }).style}>
-        <div className="ps-polaroid-tilt">
-          {/* eslint-disable-next-line @next/next/no-img-element -- decorative */}
-          <img src={POLAROID_SRC} alt="" width={520} height={650} loading="lazy" />
-          <figcaption>Is it working?</figcaption>
-        </div>
-      </figure>
+      <Polaroid className="ps-polaroid ps-polaroid--desk" style={anim(visible, 750, { y: -30, duration: 1600 }).style} />
 
       <div className="ps-bottom relative flex items-end justify-between gap-6 flex-wrap">
         <ul className="ps-pains" {...anim(visible, 900, { y: 16, duration: 1400 })}>

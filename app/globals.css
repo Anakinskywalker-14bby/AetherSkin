@@ -721,6 +721,7 @@ html, body {
 .ps-btn:focus-visible{outline:2px solid #fff;outline-offset:4px}
 .ps-polaroid{position:absolute;right:clamp(18px,3.5vw,56px);bottom:clamp(300px,46%,440px);width:clamp(150px,14vw,215px);margin:0;z-index:1;pointer-events:none}
 .ps-polaroid-tilt{background:#fff;padding:9px 9px 40px;box-shadow:0 14px 30px rgba(40,24,70,.3);transform:rotate(7deg)}
+.ps-polaroid--mob{display:none}
 .ps-polaroid img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover}
 .ps-polaroid figcaption{position:absolute;left:0;right:0;bottom:5px;text-align:center;color:#1d1a24;font-family:var(--ps-marker),'Permanent Marker','Comic Sans MS',cursive;font-size:clamp(15px,1.35vw,21px);transform:rotate(-2deg)}
 /* Narrow desktops/tablets: the half-width panel can't fit the polaroid
@@ -730,11 +731,12 @@ html, body {
   .ps-title{padding-right:165px}
 }
 @media (max-width:767px){
-  /* In the flow, between the label and the headline, so it can't cover copy. */
-  .ps-top{order:0;margin-bottom:0}
-  .ps-polaroid{order:1;position:relative;top:auto;right:auto;bottom:auto;align-self:flex-end;width:120px;margin:4px 10px 0 auto}
-  .ps-mid{order:2;padding-top:20px}
-  .ps-bottom{order:3}
+  /* Phones: the polaroid floats right beside the headline, which sits right
+     under the label; the paragraph wraps around it, so nothing is covered. */
+  .ps-top{margin-bottom:0}
+  .ps-mid{display:block;flex:none!important;padding-top:18px;padding-bottom:28px}
+  .ps-polaroid--desk{display:none}
+  .ps-polaroid--mob{display:block;position:relative;float:right;top:auto;right:auto;bottom:auto;width:126px;margin:0 6px 12px 14px}
   .ps-title{padding-right:0}
   .ps-pains li{padding:12px 14px}
   .ps-pain-text{font-size:14px}
