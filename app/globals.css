@@ -692,9 +692,10 @@ html, body {
   .eh-logo img{height:28px}
   .eh-links{display:none}
   .eh-glass{width:40px;height:40px}
-  .eh-headline{left:20px;right:20px;top:calc(64px + 4vh);font-size:clamp(30px,9vw,40px)}
-  .eh-headline em{font-size:clamp(48px,15vw,64px)}
-  .eh-badge{left:20px;top:auto;bottom:calc(208px + 4vh);font-size:11px}
+  /* Sits low, just above the grid line, so it clears her face. */
+  .eh-headline{left:20px;right:20px;top:auto;bottom:calc(210px + 4vh);font-size:clamp(26px,7.4vw,34px)}
+  .eh-headline em{font-size:clamp(40px,12vw,52px)}
+  .eh-badge{left:20px;top:auto;bottom:calc(170px + 4vh);font-size:11px}
   .eh-badge svg{width:15px;height:15px}
   .eh-side{left:20px;right:20px;top:auto;bottom:calc(24px + 2vh);width:auto}
   .eh-side p{font-size:14px;max-width:34ch;text-shadow:0 1px 12px rgba(40,24,70,.35)}
@@ -702,7 +703,8 @@ html, body {
   .eh-pill{font-size:15px;height:46px;padding:0 24px}
   .eh-arrow{width:46px;height:46px}
   .eh-season{display:none}
-  .eh-polaroid{left:auto;right:18px;top:auto;bottom:calc(214px + 4vh);width:92px;padding:6px 6px 20px}
+  /* 5% larger; its lower edge crosses the horizontal grid line. */
+  .eh-polaroid{left:auto;right:18px;top:auto;bottom:calc(178px + 4vh);width:97px;padding:6px 6px 21px}
   .eh-polaroid figcaption{font-size:9px;bottom:4px}
   .eh-watermark{font-size:27vw;bottom:auto;top:46%}
 }
