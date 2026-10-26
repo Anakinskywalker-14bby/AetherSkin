@@ -13,21 +13,8 @@ import EditorialHero from "@/components/EditorialHero";
 import ProblemSplit from "@/components/ProblemSplit";
 import CategoriesSection from "@/components/CategoriesSection";
 import SiteFooter from "@/components/footer/SiteFooter";
-import { StickyCta } from "@/components/StickyCta";
 import svgPaths from "@/lib/svg-design";
 
-/**
- * Served from public/design.
- *
- * KNOWN LICENSING RISK, kept by the owner's decision on 21 Oct 2026: these
- * two images are screenshots of third-party Pinterest pins. Using them
- * without permission is a copyright and trademark exposure. Original
- * replacements already exist in public/art (scripts/art/render-site.cjs).
- * (The three gallery pins were replaced by CategoriesSection's videos.)
- */
-const ASSET = "/design";
-const imgDropper = `${ASSET}/dropper.png`;
-const imgGlassSkin = `${ASSET}/glass-skin.png`;
 
 // ─── Scroll fade-in hook ────────────────────────────────────────────
 function useFadeIn(threshold = 0.15) {
@@ -74,87 +61,6 @@ function useFadeIn(threshold = 0.15) {
   }, [threshold]);
 
   return { ref, visible };
-}
-
-// ─── Dropper Animation ──────────────────────────────────────────────
-function DropperAnimation() {
-  return (
-    <div className="relative w-full h-full flex items-center justify-center" style={{ minHeight: 380 }}>
-      {/* eslint-disable-next-line @next/next/no-img-element -- remote decorative asset */}
-              <img loading="lazy" decoding="async" src={imgDropper} alt="Glass dropper releasing a drop of clear serum into an open bottle" className="w-full h-full object-cover absolute inset-0" />
-      <div className="absolute inset-0" style={{ background: "rgba(249,249,247,0.15)" }} />
-
-      <svg
-        className="absolute pointer-events-none"
-        style={{ top: "22%", left: "50%", transform: "translateX(-50%)", width: 32, height: 240, overflow: "visible" }}
-        viewBox="0 0 32 240"
-      >
-        <ellipse cx="16" cy="8" rx="6" ry="8" fill="rgba(200, 220, 240, 0.85)" style={{ transformOrigin: "16px 8px", animation: "dropForm 3s ease-in-out infinite" }} />
-        <ellipse cx="16" cy="8" rx="7" ry="9" fill="rgba(190, 215, 240, 0.9)" style={{ transformOrigin: "16px 8px", animation: "dropFall 3s ease-in 0.05s infinite" }} />
-        <ellipse cx="16" cy="208" rx="10" ry="4" fill="none" stroke="rgba(190, 215, 240, 0.6)" strokeWidth="2" style={{ transformOrigin: "16px 208px", animation: "ripple 3s ease-out 1.5s infinite" }} />
-        <ellipse cx="16" cy="208" rx="10" ry="4" fill="none" stroke="rgba(190, 215, 240, 0.4)" strokeWidth="1.5" style={{ transformOrigin: "16px 208px", animation: "ripple 3s ease-out 1.7s infinite" }} />
-      </svg>
-    </div>
-  );
-}
-
-// ─── Glass Skin / Dropper Section ───────────────────────────────────
-function DropperSection() {
-  const { ref, visible } = useFadeIn();
-
-  return (
-    <section
-      ref={ref as React.RefObject<HTMLElement>}
-      className="relative w-full overflow-hidden"
-      style={{ borderBottom: "3px solid var(--ink)", opacity: visible ? 1 : 0, transition: "opacity 0.8s ease, transform 0.8s ease", transform: visible ? "none" : "translateY(40px)" }}
-    >
-      <div className="flex flex-col lg:flex-row min-h-[640px]">
-        {/* Left: Glass Skin image */}
-        <div className="relative flex-1 overflow-hidden min-h-[420px]" style={{ borderRight: "3px solid var(--ink)" }}>
-          {/* eslint-disable-next-line @next/next/no-img-element -- remote decorative asset */}
-              <img loading="lazy" decoding="async" src={imgGlassSkin} alt="Close-up of a glowing glass-skin complexion with shimmering highlighter" className="w-full h-full object-cover absolute inset-0" />
-          <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(26,28,27,0.15) 0%, rgba(26,28,27,0.6) 100%)" }} />
-          <div className="absolute bottom-12 left-10 right-10">
-            <div className="on-accent neo-shadow-sm neo-border px-4 py-2 inline-block mb-4" style={{ background: "var(--yellow)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1.6px", color: "var(--ink)" }}>
-              THE GLOW-UP
-            </div>
-            {/* Sits on a photo under a dark gradient in BOTH themes, so it is
-                pinned to Cream rather than --surface. Using --surface made it
-                near-black on a near-black photo once dark mode existed. */}
-            <h2 style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 900, fontSize: "clamp(42px, 5vw, 64px)", color: "var(--cream-fixed)", letterSpacing: "-1.5px", lineHeight: 1.0, margin: 0 }}>
-              Glass Skin<br />Is Real<br />
-              <span style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 300, fontStyle: "italic" }}>Science.</span>
-            </h2>
-          </div>
-          <div className="absolute top-8 right-8 sticker-float neo-shadow-sm neo-border px-4 py-2" style={{ background: "var(--err-bg)", transform: "rotate(-3deg)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 13, color: "var(--err-text)" }}>
-            ✦ hydrating
-          </div>
-        </div>
-
-        {/* Right: dropper animation + claim */}
-        <div className="relative flex-1 flex flex-col" style={{ background: "var(--surface)" }}>
-          <div className="flex-1 relative overflow-hidden" style={{ minHeight: 320 }}>
-            <DropperAnimation />
-          </div>
-          <div className="px-8 md:px-12 py-10" style={{ borderTop: "3px solid var(--ink)" }}>
-            <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1.6px", color: "var(--muted)", marginBottom: 12 }}>THE TRUTH</p>
-            <h3 style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 900, fontSize: "clamp(28px, 3vw, 44px)", color: "var(--ink)", letterSpacing: "-1px", lineHeight: 1.1, margin: "0 0 16px 0" }}>
-              &quot;Clean&quot; Skincare<br />
-              <span style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 400, fontStyle: "italic", color: "var(--olive)" }}>is a buzzword.</span>
-            </h3>
-            <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 400, fontSize: 16, color: "var(--muted)", lineHeight: 1.7, margin: "0 0 24px 0" }}>
-              Your skin doesn&apos;t care about marketing. It responds to what
-              actually fits it — the right products, from brands you already
-              love, matched to what your skin is really doing.
-            </p>
-            <a href="#beta" className="on-accent neo-shadow-sm neo-border px-7 py-4 w-full inline-block text-center" style={{ background: "var(--yellow)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 16, letterSpacing: "0.9px", color: "var(--ink)", cursor: "pointer" }}>
-              GET YOUR FREE ROUTINE →
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
 }
 
 // ─── Solution Bento ─────────────────────────────────────────────────
@@ -278,12 +184,10 @@ export default function NewLanding() {
       <DoorReveal>
         <EditorialHero />
       </DoorReveal>
-      <DropperSection />
       <ProblemSplit />
       <SolutionSection />
       <CategoriesSection />
       <SiteFooter />
-      <StickyCta />
     </div>
   );
 }

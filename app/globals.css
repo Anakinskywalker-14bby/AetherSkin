@@ -709,6 +709,7 @@ html, body {
 
 /* ─── Problem split (components/ProblemSplit) ───────────────────────── */
 .ps{font-family:var(--ps-sans),'Inter Tight',system-ui,sans-serif;color:#fff}
+.ps-kicker{display:inline-flex;align-items:center;padding:7px 14px;border-radius:999px;background:#F4B8A2;color:#3B2F5C;font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;box-shadow:0 6px 18px -10px rgba(40,24,70,.6)}
 .ps-title{display:flex;flex-direction:column;font-weight:300;font-size:clamp(34px,4.2vw,64px);line-height:1.02;letter-spacing:-.02em}
 .ps-title em{font-family:var(--ps-serif),'Playfair Display',Georgia,serif;font-style:italic;font-weight:400;font-size:1.45em;line-height:1;margin-top:.04em}
 .ps-body{max-width:42ch;margin:clamp(16px,2vw,26px) 0 0;font-size:clamp(14px,1.05vw,16px);line-height:1.6;font-weight:400;color:rgba(255,255,255,.92)}
@@ -729,8 +730,12 @@ html, body {
   .ps-title{padding-right:165px}
 }
 @media (max-width:767px){
-  .ps-polaroid{top:54px;bottom:auto;right:16px;width:118px}
-  .ps-title{padding-right:124px}
+  /* In the flow, between the label and the headline, so it can't cover copy. */
+  .ps-top{order:0;margin-bottom:0}
+  .ps-polaroid{order:1;position:relative;top:auto;right:auto;bottom:auto;align-self:flex-end;width:120px;margin:4px 10px 0 auto}
+  .ps-mid{order:2;padding-top:20px}
+  .ps-bottom{order:3}
+  .ps-title{padding-right:0}
   .ps-pains li{padding:12px 14px}
   .ps-pain-text{font-size:14px}
   .ps-pains li{border-radius:16px}

@@ -24,7 +24,7 @@ const POLAROID_SRC = "/problem/polaroid-confused.jpg";
 const PAINS = [
   { label: "01", text: "Wasting money on hype ingredients." },
   { label: "02", text: "Irritating your skin with contradictory products." },
-  { label: "03", text: "Waiting months for results that never come." },
+  { label: "03", text: "Waiting months for results with a routine that doesn't work." },
 ];
 
 function anim(visible: boolean, delay: number, opts: { y?: number; x?: number; duration?: number } = {}) {
@@ -71,13 +71,12 @@ function ProblemPanel({ visible }: { visible: boolean }) {
         style={{ background: "radial-gradient(120% 70% at 85% 110%, rgba(244,184,162,.55), transparent 60%)" }}
       />
 
-      <div className="relative flex items-start justify-between mb-auto" {...anim(visible, 0, { y: 12, duration: 1400 })}>
-        <span className="text-xs font-medium tracking-[.16em] uppercase">The problem</span>
-        <span className="text-xs font-medium tracking-[.16em] uppercase">Spoiler: no</span>
+      <div className="ps-top relative flex items-start justify-between mb-auto" {...anim(visible, 0, { y: 12, duration: 1400 })}>
+        <span className="ps-kicker">The problem</span>
       </div>
 
       <div
-        className="relative flex flex-col py-10 md:py-8"
+        className="ps-mid relative flex flex-col py-10 md:py-8"
         style={{ flex: 1, justifyContent: "center", ...anim(visible, 300, { y: 40, duration: 1800 }).style }}
       >
         <h2 id="problem-heading" className="ps-title m-0">
@@ -100,7 +99,7 @@ function ProblemPanel({ visible }: { visible: boolean }) {
         </div>
       </figure>
 
-      <div className="relative flex items-end justify-between gap-6 flex-wrap">
+      <div className="ps-bottom relative flex items-end justify-between gap-6 flex-wrap">
         <ul className="ps-pains" {...anim(visible, 900, { y: 16, duration: 1400 })}>
           {PAINS.map((p) => (
             <li key={p.label}>
