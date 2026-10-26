@@ -746,7 +746,14 @@ html, body {
 }
 @media (prefers-reduced-motion:reduce){.ps-video{display:none}}
 
+/* ─── Page colour ramp ─────────────────────────────────────────────────
+   Below the hero the page lightens step by step, from the problem panel's
+   lilac down to the footer's pale lavender, so sections blend instead of
+   meeting at white bands and rules. */
+:root{--page-1:#8A7EAD;--page-2:#A99FCB;--page-3:#C9C1E2;--page-4:#D6D0EB;--page-5:#D5DAEC;--page-footer:#dfe4f2}
+
 /* ─── Categories (components/CategoriesSection) ──────────────────────── */
+.cat-section{background:linear-gradient(180deg,var(--page-4) 0%,var(--page-5) 100%)}
 .cat-section h2{font-family:var(--cat-sans),'Inter Tight',system-ui,sans-serif;letter-spacing:-.02em;line-height:1}
 .cat-shade{background:linear-gradient(180deg,transparent 45%,rgba(28,18,40,.6) 100%);opacity:0;transition:opacity .5s ease}
 .cat-statement{display:flex;flex-direction:column;margin:0;max-width:14ch;font-family:var(--cat-sans),'Inter Tight',system-ui,sans-serif;font-weight:800;font-size:clamp(30px,2.9vw,50px);line-height:1;letter-spacing:-.03em;text-shadow:0 2px 24px rgba(20,10,30,.35);

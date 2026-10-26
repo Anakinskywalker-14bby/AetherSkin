@@ -72,7 +72,7 @@ function SolutionSection() {
       id="solution"
       ref={ref as React.RefObject<HTMLElement>}
       className="on-soft relative w-full"
-      style={{ background: "var(--blue)", borderBottom: "3px solid var(--ink)", opacity: visible ? 1 : 0, transition: "opacity 0.9s ease 0.15s, transform 0.9s ease 0.15s", transform: visible ? "none" : "translateY(40px)" }}
+      style={{ background: "linear-gradient(180deg, var(--page-2) 0%, var(--page-3) 100%)", opacity: visible ? 1 : 0, transition: "opacity 0.9s ease 0.15s, transform 0.9s ease 0.15s", transform: visible ? "none" : "translateY(40px)" }}
     >
       <div className="max-w-[1280px] mx-auto px-6 md:px-16 py-24">
         <div className="flex flex-col items-center gap-5 mb-16">
@@ -177,7 +177,7 @@ function SolutionSection() {
 /** The FAQ lives on /faq; the waitlist signup lives in the footer (#beta). */
 export default function NewLanding() {
   return (
-    <div style={{ background: "var(--surface)" }}>
+    <div style={{ background: "var(--page-3)" }}>
       {/* The hero is pinned inside the reveal while the doors part, so it is
           framed exactly as they finish rather than half-scrolled away. It
           carries its own nav, so the fixed SiteNav is not used here. */}

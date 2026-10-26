@@ -50,7 +50,7 @@ export default function CategoriesSection() {
     <section
       id="gallery"
       aria-label="What AetherSkin looks at"
-      className={`cat-section bg-white text-white min-h-screen flex flex-col justify-center ${interTight.variable} ${playfair.variable}`}
+      className={`cat-section text-white min-h-screen flex flex-col justify-center ${interTight.variable} ${playfair.variable}`}
     >
       <div
         ref={ref}
