@@ -13,11 +13,12 @@ const PLUM = "#3B2F5C"; // hero fallback colour, used for text on white
 const EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
 
 // Media. VIDEO: the woman frowns, kisses the screen, then smiles gently.
-// POLAROID: the same woman looking confused, thinking. Both files are
-// stand-ins (hero clip / hero crop) until the real footage is supplied;
-// replacing them needs no code change.
+// POLAROID: the same woman looking confused, thinking. The clip is the
+// owner-supplied one (kiss -> soft smile; it has no frown yet) and the
+// polaroid is a neutral still from it. Replacing either file needs no code
+// change.
 const VIDEO_SRC = "/problem/problem.mp4";
-const VIDEO_POSTER = "/hero/hero.jpg";
+const VIDEO_POSTER = "/problem/problem-poster.jpg";
 const POLAROID_SRC = "/problem/polaroid-confused.jpg";
 
 const PAINS = [
