@@ -22,9 +22,9 @@ const VIDEO_POSTER = "/problem/problem-poster.jpg";
 const POLAROID_SRC = "/problem/polaroid-confused.jpg";
 
 const PAINS = [
-  { label: "01", text: "Wasting money on hype ingredients" },
-  { label: "02", text: "Irritating your skin with clashing products" },
-  { label: "03", text: "Waiting months for results that never come" },
+  { label: "01", text: "Wasting money on hype ingredients." },
+  { label: "02", text: "Irritating your skin with contradictory products." },
+  { label: "03", text: "Waiting months for results that never come." },
 ];
 
 function anim(visible: boolean, delay: number, opts: { y?: number; x?: number; duration?: number } = {}) {
