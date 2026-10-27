@@ -16,28 +16,26 @@ export type BeePoint = { sec: string; fx: number; fy: number; perch?: boolean };
 
 export const BEE_SECTIONS = [".eh", "#problem", "#solution", "#gallery", "#footer"] as const;
 
-// Drawn by the owner on 27 Oct 2026 (desktop at 1264px, phone at 484px).
+// Drawn by the owner on 27 Oct 2026 (desktop at 1264px: 17 points;
+// phone at 484px: 39 points).
 export const DESKTOP_PATH: BeePoint[] | null = [
-  { sec: ".eh", fx: 0.8797, fy: 0.6934, perch: true },
-  { sec: ".eh", fx: 0.1994, fy: 0.455 },
-  { sec: ".eh", fx: 0.1434, fy: 0.9449 },
-  { sec: ".eh", fx: 0.4501, fy: 0.9758 },
-  { sec: "#problem", fx: 0.8291, fy: 0.0789 },
-  { sec: "#problem", fx: 0.8188, fy: 0.2834 },
-  { sec: "#problem", fx: 0.9684, fy: 0.6359 },
-  { sec: "#problem", fx: 0.9494, fy: 0.8896 },
-  { sec: "#solution", fx: 0.8424, fy: 0.0009 },
-  { sec: "#solution", fx: 0.6203, fy: 0.0523 },
-  { sec: "#solution", fx: 0.9267, fy: 0.1758 },
-  { sec: "#solution", fx: 0.6018, fy: 0.3593 },
-  { sec: "#solution", fx: 0.8871, fy: 0.6433 },
-  { sec: "#solution", fx: 0.6603, fy: 0.7576 },
-  { sec: "#solution", fx: 0.8782, fy: 0.9883 },
-  { sec: "#solution", fx: 0.0622, fy: 0.9694 },
-  { sec: "#gallery", fx: 0.0886, fy: 0.7636 },
-  { sec: "#footer", fx: 0.2263, fy: 0.1939 },
-  { sec: "#footer", fx: 0.6915, fy: 0.3314 },
-  { sec: "#footer", fx: 0.6369, fy: 0.6142, perch: true },
+  { sec: ".eh", fx: 0.8592, fy: 0.6988, perch: true },
+  { sec: "#problem", fx: 0.692, fy: 0.0621 },
+  { sec: "#problem", fx: 0.8318, fy: 0.1552 },
+  { sec: "#problem", fx: 0.779, fy: 0.3521 },
+  { sec: "#problem", fx: 0.9597, fy: 0.6359 },
+  { sec: "#problem", fx: 0.9422, fy: 0.8408 },
+  { sec: "#problem", fx: 0.7223, fy: 0.9193 },
+  { sec: "#solution", fx: 0.6068, fy: 0.1025 },
+  { sec: "#solution", fx: 0.8323, fy: 0.1709 },
+  { sec: "#solution", fx: 0.9312, fy: 0.3336 },
+  { sec: "#solution", fx: 0.9272, fy: 0.5951 },
+  { sec: "#solution", fx: 0.7901, fy: 0.8055 },
+  { sec: "#solution", fx: 0.9343, fy: 0.9068 },
+  { sec: "#solution", fx: 0.9422, fy: 0.9813 },
+  { sec: "#footer", fx: 0.2131, fy: 0.2097 },
+  { sec: "#footer", fx: 0.6962, fy: 0.3477 },
+  { sec: "#footer", fx: 0.6242, fy: 0.6157, perch: true },
 ];
 
 export const MOBILE_PATH: BeePoint[] | null = [
