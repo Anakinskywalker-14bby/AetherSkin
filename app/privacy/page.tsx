@@ -23,19 +23,14 @@ const crumbs = [
 
 export default function PrivacyPage() {
   return (
-    <LegalChrome>
+    <LegalChrome lead="Your data," kicker="in plain English." updated="October 21, 2026">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(crumbs)) }}
       />
       <Breadcrumbs items={crumbs} />
 
-      <h1 style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 900, fontSize: "clamp(34px, 5vw, 52px)", color: "var(--ink)", letterSpacing: "-1.5px", lineHeight: 1.1, margin: "0 0 8px" }}>
-        Privacy Policy
-      </h1>
-      <p style={{ ...pStyle, fontSize: 14 }}>Last updated: October 21, 2026</p>
-
-      <div className="on-soft neo-border p-5 my-8" style={{ background: "var(--blue)" }}>
+      <div className="ed-card my-8">
         <p style={{ ...pStyle, margin: 0, color: "var(--ink)" }}>
           <strong>The short version:</strong> we collect your email and your
           skin quiz answers. That&apos;s it. No payment, no card details. We
@@ -160,12 +155,12 @@ export default function PrivacyPage() {
         effect.
       </p>
 
-      <div className="flex flex-wrap gap-4 mt-12">
-        <Link href="/" className="neo-shadow neo-border px-8 py-4" style={{ background: "var(--surface)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 16, letterSpacing: "0.9px", color: "var(--ink)" }}>
-          BACK HOME
+      <div className="ed-btns mt-12">
+        <Link href="/" className="ed-btn ed-btn--white">
+          Back home
         </Link>
-        <Link href="/terms" className="on-soft neo-shadow neo-border px-8 py-4" style={{ background: "var(--blue)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 16, letterSpacing: "0.9px", color: "var(--ink)" }}>
-          TERMS OF SERVICE
+        <Link href="/terms" className="ed-btn ed-btn--peach">
+          Terms of service
         </Link>
       </div>
     </LegalChrome>

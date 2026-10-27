@@ -23,19 +23,14 @@ const crumbs = [
 
 export default function TermsPage() {
   return (
-    <LegalChrome>
+    <LegalChrome lead="The terms," kicker="kept short and fair." updated="October 21, 2026">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(crumbs)) }}
       />
       <Breadcrumbs items={crumbs} />
 
-      <h1 style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 900, fontSize: "clamp(34px, 5vw, 52px)", color: "var(--ink)", letterSpacing: "-1.5px", lineHeight: 1.1, margin: "0 0 8px" }}>
-        Terms of Service
-      </h1>
-      <p style={{ ...pStyle, fontSize: 14 }}>Last updated: October 21, 2026</p>
-
-      <div className="on-accent neo-border p-5 my-8" style={{ background: "var(--yellow)" }}>
+      <div className="ed-card ed-card--peach my-8">
         <p style={{ ...pStyle, margin: 0, color: "var(--ink)" }}>
           <strong>The short version:</strong> the waitlist is free. AetherSkin gives
           cosmetic suggestions, not medical advice. Some product links earn us
@@ -105,12 +100,12 @@ export default function TermsPage() {
         email you receive from AetherSkin to reach us.
       </p>
 
-      <div className="flex flex-wrap gap-4 mt-12">
-        <Link href="/" className="neo-shadow neo-border px-8 py-4" style={{ background: "var(--surface)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 16, letterSpacing: "0.9px", color: "var(--ink)" }}>
-          BACK HOME
+      <div className="ed-btns mt-12">
+        <Link href="/" className="ed-btn ed-btn--white">
+          Back home
         </Link>
-        <Link href="/privacy" className="on-soft neo-shadow neo-border px-8 py-4" style={{ background: "var(--blue)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 16, letterSpacing: "0.9px", color: "var(--ink)" }}>
-          PRIVACY POLICY
+        <Link href="/privacy" className="ed-btn ed-btn--peach">
+          Privacy policy
         </Link>
       </div>
     </LegalChrome>

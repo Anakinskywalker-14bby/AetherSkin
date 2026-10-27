@@ -59,7 +59,7 @@ export function SiteNav() {
           backdropFilter: "saturate(140%) blur(10px)",
           WebkitBackdropFilter: "saturate(140%) blur(10px)",
           borderBottom: "1px solid color-mix(in srgb, var(--ink) 12%, transparent)",
-          boxShadow: scrolled ? "0 10px 30px -18px rgba(90, 24, 50, 0.45)" : "none",
+          boxShadow: scrolled ? "0 10px 30px -18px rgba(59, 47, 92, 0.45)" : "none",
         }}
       >
         {/* Brand lockup. Two files rather than a recolourable inline SVG

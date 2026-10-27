@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { SiteNav } from "@/components/SiteNav";
+import { JoinCta } from "@/components/JoinCta";
+import { PageHero, EdBody } from "@/components/PageHero";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FaqSection, FAQS } from "@/components/FaqSection";
-import SiteFooter from "@/components/footer/SiteFooter";
 import { breadcrumbJsonLd, faqJsonLd } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -24,7 +24,7 @@ const crumbs = [
 
 export default function FaqPage() {
   return (
-    <main style={{ background: "var(--surface)" }}>
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(FAQS)) }}
@@ -33,12 +33,22 @@ export default function FaqPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(crumbs)) }}
       />
-      <SiteNav />
-      <div className="max-w-[880px] mx-auto px-5 md:px-16 pt-28 md:pt-32">
+      <PageHero
+        badge="Questions"
+        lead="Straight"
+        kicker="answers."
+        note="What AetherSkin costs (nothing), how the analysis works, and what happens to your data."
+        caption="is it working?"
+        photo="/problem/polaroid-frown.jpg"
+      />
+      <EdBody>
         <Breadcrumbs items={crumbs} />
-      </div>
-      <FaqSection />
-      <SiteFooter />
-    </main>
+        <FaqSection />
+        <div className="ed-end">
+          <p className="ed-end-title">Still curious? <span className="ed-em">Try it free.</span></p>
+          <JoinCta />
+        </div>
+      </EdBody>
+    </>
   );
 }

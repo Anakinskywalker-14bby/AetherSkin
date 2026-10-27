@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { Manrope, Hanken_Grotesk } from "next/font/google";
+import { Manrope, Hanken_Grotesk, Inter_Tight, Playfair_Display } from "next/font/google";
 import { GeistSans } from "geist/font/sans";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -18,6 +18,22 @@ const manrope = Manrope({
 const hanken = Hanken_Grotesk({
   subsets: ["latin"],
   variable: "--font-hanken",
+  display: "swap",
+});
+
+// The hero's type, shared by the editorial pages (components/PageHero):
+// Inter Tight for text, Playfair Display italic for the accent words.
+const edSans = Inter_Tight({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--ed-sans",
+  display: "swap",
+});
+const edSerif = Playfair_Display({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  style: ["italic"],
+  variable: "--ed-serif",
   display: "swap",
 });
 
@@ -39,7 +55,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     // Light only. The `light` class keeps OS dark-mode extensions/UA styles off.
     <html
       lang="en"
-      className={`light ${manrope.variable} ${hanken.variable} ${GeistSans.variable}`}
+      className={`light ${manrope.variable} ${hanken.variable} ${GeistSans.variable} ${edSans.variable} ${edSerif.variable}`}
       suppressHydrationWarning
     >
       <body>

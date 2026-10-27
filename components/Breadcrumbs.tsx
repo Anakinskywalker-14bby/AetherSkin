@@ -1,32 +1,20 @@
 import Link from "next/link";
 
-/** Neo-brutalist breadcrumb trail. Pair with breadcrumbJsonLd() for schema. */
+/** Quiet editorial breadcrumb trail. Pair with breadcrumbJsonLd() for schema. */
 export function Breadcrumbs({ items }: { items: { name: string; path: string }[] }) {
   return (
-    <nav aria-label="Breadcrumb" className="mb-10">
-      <ol className="flex flex-wrap items-center gap-2">
+    <nav aria-label="Breadcrumb" className="ed-crumbs">
+      <ol>
         {items.map((item, i) => {
           const last = i === items.length - 1;
           return (
-            <li key={item.path} className="flex items-center gap-2">
+            <li key={item.path}>
               {last ? (
-                <span
-                  aria-current="page"
-                  className="on-accent neo-border px-3 py-1.5"
-                  style={{ background: "var(--yellow)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 12, letterSpacing: "1px", color: "var(--ink)", textTransform: "uppercase" }}
-                >
-                  {item.name}
-                </span>
+                <span aria-current="page">{item.name}</span>
               ) : (
                 <>
-                  <Link
-                    href={item.path}
-                    className="neo-border px-3 py-1.5 transition-transform hover:-translate-y-0.5"
-                    style={{ background: "var(--surface)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 12, letterSpacing: "1px", color: "var(--ink)", textTransform: "uppercase" }}
-                  >
-                    {item.name}
-                  </Link>
-                  <span aria-hidden style={{ fontWeight: 700, color: "var(--ink)" }}>→</span>
+                  <Link href={item.path}>{item.name}</Link>
+                  <span aria-hidden className="ed-crumbs-sep">/</span>
                 </>
               )}
             </li>

@@ -21,11 +21,11 @@
  */
 /*
  * Palette: AetherSkin "Mirror Moment".
- *   Berry  #5A1832  frame, wordmark, text
- *   Coral  #FF6B5B  the sun — primary accent
- *   Butter #FFD166  the glow — highlights
- *   Blush  #FFD3DC  glass, soft grounds
- *   Cream  #FFF6EC  backgrounds
+ *   Berry  #3B2F5C  frame, wordmark, text
+ *   Coral  #E8907D  the sun — primary accent
+ *   Butter #F4B8A2  the glow — highlights
+ *   Blush  #F6D9E0  glass, soft grounds
+ *   Cream  #F7F5FC  backgrounds
  *   Rose   #C2416B  labels, links
  *
  * The token names stayed the same through the rebrand on purpose: ~220 call
@@ -43,29 +43,26 @@
  * and Butter do the expressive work.
  */
 :root {
-  --surface: #fff6ec;    /* Cream — the room */
-  --surface-2: #fffbf4;  /* lifted surface: the tabletop */
-  --ink: #5a1832;        /* Berry — every glyph and border */
-  --muted: #8a5a6b;
-  --yellow: #ffd166;     /* Butter — the glow: chips, highlights */
-  /* Soft panel. Blush is gone from the brief, so this is a warm Butter tint
-     rather than pink — it keeps the ground in the Cream/Butter family. */
-  --blue: #ffeed2;
-  /* Emphasis TEXT, so it cannot be raw Coral: #FF6B5B on Cream is 2.62:1,
-     under even the 3:1 large-text floor. This is Coral deepened until it
-     passes while still reading as the same hue. */
-  --olive: #c2412f;
-  --sand: #ffeed2;
-  --deep: #5a1832;
-  --rose: #c2412f;
-  --coral: #ff6b5b;      /* the sun — primary action, fills only */
-  --butter: #ffd166;
-  --blush: #ffd3dc;
-  --berry: #5a1832;
-  --cream: #fff6ec;
+  --surface: #EEEAF7;    /* Hero palette: pale lilac room. Ink is the hero plum. */
+  --surface-2: #FBFAFE;  /* lifted surface: the tabletop */
+  --ink: #3B2F5C;
+  --muted: #66598A;
+  --yellow: #F4B8A2;     /* Peach, the hero star: chips, highlights */
+  /* Soft panel: pale lilac from the hero sky. */
+  --blue: #DCD5F0;
+  /* Emphasis text: violet, deep enough for 4.5:1 on the lilac ground. */
+  --olive: #7A5BB0;
+  --sand: #DCD5F0;
+  --deep: #3B2F5C;
+  --rose: #7A5BB0;
+  --coral: #E8907D;      /* the sun — primary action, fills only */
+  --butter: #F4B8A2;
+  --blush: #F6D9E0;
+  --berry: #3B2F5C;
+  --cream: #F7F5FC;
   --err-bg: #ffe4e0;
   --err-text: #9b2c1f;
-  --err-border: #ff6b5b;
+  --err-border: #E8907D;
 
   /* Legacy dark palette, used by the quiz/verify pages. Not theme-swapped. */
   --night: #050505;
@@ -114,8 +111,8 @@ body {
 }
 
 ::selection {
-  background: var(--butter, #ffd166);
-  color: #5a1832;
+  background: var(--butter, #F4B8A2);
+  color: #3B2F5C;
 }
 
 /*
@@ -132,13 +129,13 @@ body {
  * added later. Put `on-accent` on anything with an accent background.
  */
 .on-accent {
-  --ink: #5a1832;        /* Berry: Butter and Coral are light in both themes */
-  --deep: #5a1832;
+  --ink: #3B2F5C;        /* Berry: Butter and Coral are light in both themes */
+  --deep: #3B2F5C;
   --muted: #7d3a52;
-  --rose: #5a1832;
-  --olive: #c2412f;
-  --surface: #fff6ec;
-  --surface-2: #fffbf4;
+  --rose: #3B2F5C;
+  --olive: #7A5BB0;
+  --surface: #F7F5FC;
+  --surface-2: #FBFAFE;
   color: var(--ink);
 }
 
@@ -165,16 +162,16 @@ body {
  * it (Butter on Cream at 1.35:1).
  */
 .scan-panel {
-  --surface: #fff6ec;    /* labels and bar outlines, on the screen */
-  --ink: #fff6ec;
-  --blue: #ffeed2;       /* bar fills stay light whatever the theme does */
+  --surface: #F7F5FC;    /* labels and bar outlines, on the screen */
+  --ink: #F7F5FC;
+  --blue: #DCD5F0;       /* bar fills stay light whatever the theme does */
   background: #2a1a16;
   color: var(--surface);
 }
 
 /* Pinned Cream, for text that always sits on a dark photo or overlay. */
 :root {
-  --cream-fixed: #fff6ec;
+  --cream-fixed: #F7F5FC;
 }
 
 /*
@@ -315,11 +312,11 @@ body {
  */
 .neo-shadow {
   border-radius: 22px;
-  box-shadow: 0 14px 34px -14px rgba(90, 24, 50, 0.3), 0 2px 6px -2px rgba(90, 24, 50, 0.12);
+  box-shadow: 0 14px 34px -14px rgba(59, 47, 92, 0.3), 0 2px 6px -2px rgba(59, 47, 92, 0.12);
 }
 .neo-shadow-sm {
   border-radius: 999px;
-  box-shadow: 0 8px 20px -10px rgba(90, 24, 50, 0.32), 0 1px 3px -1px rgba(90, 24, 50, 0.1);
+  box-shadow: 0 8px 20px -10px rgba(59, 47, 92, 0.32), 0 1px 3px -1px rgba(59, 47, 92, 0.1);
 }
 .neo-border {
   border: 1.5px solid color-mix(in srgb, var(--ink) 16%, transparent);
@@ -770,3 +767,104 @@ html, body {
    Under the hero doors (z-45) and the nav, above the page; never clickable. */
 .bee-guide{position:fixed;inset:0;z-index:40;width:100%;height:100%;pointer-events:none;opacity:0;transition:opacity 1.2s ease}
 .bee-guide.ready{opacity:1}
+
+/* ─── Editorial inner pages (components/PageHero) ───────────────────────
+   About, FAQ, Privacy, Terms share the hero's language: sky photo, thin
+   white grid, glass buttons, peach star, Inter Tight + Playfair italic. */
+.ph{position:relative;min-height:min(78vh,720px);overflow:hidden;color:#fff;background:#3B2F5C;font-family:var(--ed-sans),'Inter Tight',system-ui,sans-serif;isolation:isolate}
+.ph-sky{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;z-index:-2}
+.ph::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(59,47,92,.42) 0%,rgba(59,47,92,.12) 55%,rgba(59,47,92,0) 100%)}
+.ph-line{position:absolute;background:rgba(255,255,255,.24);pointer-events:none}
+.ph-line-top{left:0;right:0;top:72px;height:1px}
+.ph-line-v{top:72px;bottom:0;left:17.4%;width:1px}
+.ph-line-h{left:0;right:0;bottom:26%;height:1px}
+.ph a{color:inherit;text-decoration:none}
+.ph a:focus-visible{outline:2px solid #fff;outline-offset:4px}
+.ph-nav{position:relative;z-index:2;height:72px;display:flex;align-items:center;gap:24px;padding:0 clamp(18px,2.4vw,36px)}
+.ph-nav > a:first-child{margin-right:auto}
+.ph-links{display:flex;font-size:12.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase}
+.ph-links a{padding:0 16px;border-left:1px solid rgba(255,255,255,.24)}
+.ph-links a:first-child{border-left:0}
+.ph-links a:hover{opacity:.75}
+.ph-icons{display:flex;gap:10px}
+.ph-glass{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:rgba(112,84,150,.34);border:1px solid rgba(255,255,255,.35);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.ph-glass svg{width:45%;height:45%;fill:none;stroke:#fff;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.ph-copy{position:relative;z-index:2;margin-left:calc(17.4% + clamp(20px,2.4vw,36px));padding:clamp(48px,9vh,96px) 0 clamp(90px,14vh,140px);max-width:min(760px,62%)}
+.ph-badge{display:flex;align-items:center;gap:10px;margin:0 0 22px;font-size:12.5px;font-weight:500;letter-spacing:.16em;text-transform:uppercase}
+.ph-badge svg{width:18px;height:18px;fill:#F4B8A2}
+.ph-title{margin:0;font-weight:300;font-size:clamp(40px,5.4vw,80px);line-height:1.02;letter-spacing:-.02em;text-shadow:0 2px 30px rgba(40,24,70,.25)}
+.ph-title span{display:block}
+.ph-title em{display:block;font-family:var(--ed-serif),'Playfair Display',Georgia,serif;font-style:italic;font-weight:400;font-size:1.3em;line-height:1.02;margin-top:.04em}
+.ph-note{margin:22px 0 0;max-width:46ch;font-size:clamp(15px,1.15vw,18px);line-height:1.55;color:rgba(255,255,255,.92)}
+.ph-polaroid{position:absolute;z-index:2;right:clamp(24px,7vw,120px);bottom:calc(26% - 70px);width:clamp(130px,12vw,190px);margin:0;padding:9px 9px 34px;background:#fff;transform:rotate(-8deg);box-shadow:0 18px 40px rgba(40,24,70,.3)}
+.ph-polaroid img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover}
+.ph-polaroid figcaption{position:absolute;left:0;right:0;bottom:7px;text-align:center;color:#3B2F5C;font-family:'Segoe Script','Bradley Hand','Comic Sans MS',cursive;font-size:13px}
+
+.ed-page{background:linear-gradient(180deg,#C9C1E2 0%,#E3DEF2 38%,#EEEAF7 100%);color:#3B2F5C;font-family:var(--ed-sans),'Inter Tight',system-ui,sans-serif}
+.ed-wrap{max-width:860px;margin:0 auto;padding:clamp(40px,6vw,72px) clamp(20px,4vw,40px) clamp(64px,8vw,110px)}
+.ed-wrap--wide{max-width:1100px}
+.ed-page h2,.ed-page h3,.ed-page p,.ed-page li{font-family:var(--ed-sans),'Inter Tight',system-ui,sans-serif !important}
+.ed-page h2{font-weight:500 !important;letter-spacing:-.015em !important;color:#3B2F5C !important}
+.ed-page p,.ed-page li{color:#4E4475 !important}
+.ed-page strong{color:#3B2F5C}
+.ed-page a:not(.ed-btn){color:#6A4FA3;text-decoration:underline;text-underline-offset:3px}
+.ed-lede{font-size:clamp(17px,1.4vw,20px) !important;line-height:1.7 !important}
+.ed-em{font-family:var(--ed-serif),'Playfair Display',Georgia,serif;font-style:italic;font-weight:400;color:#7A5BB0}
+.ed-card{background:rgba(255,255,255,.62);border:1px solid rgba(59,47,92,.12);border-radius:22px;padding:clamp(20px,2.4vw,28px);box-shadow:0 18px 40px -26px rgba(59,47,92,.45);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.ed-card--peach{background:linear-gradient(160deg,#F9D6C9 0%,#F4B8A2 100%);border-color:transparent}
+.ed-card--lilac{background:linear-gradient(160deg,#B9AEDB 0%,#8A7EAD 100%);border-color:transparent}
+.ed-card--lilac h2,.ed-card--lilac p{color:#fff !important}
+.ed-kicker{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;background:#F4B8A2;color:#3B2F5C;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
+.ed-btns{display:flex;flex-wrap:wrap;gap:12px}
+.ed-btn{display:inline-flex;align-items:center;height:48px;padding:0 26px;border-radius:999px;font-family:var(--ed-sans),'Inter Tight',system-ui,sans-serif;font-size:15px;font-weight:500;text-decoration:none;transition:transform .2s ease,box-shadow .2s ease}
+.ed-btn:hover{transform:translateY(-1px);box-shadow:0 10px 24px -12px rgba(59,47,92,.6)}
+.ed-btn--plum{background:#3B2F5C;color:#fff}
+.ed-btn--white{background:#fff;color:#3B2F5C;border:1px solid rgba(59,47,92,.14)}
+.ed-btn--peach{background:#F4B8A2;color:#3B2F5C}
+.ed-crumbs{margin:0 0 28px}
+.ed-crumbs ol{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0;font-family:var(--ed-sans),'Inter Tight',system-ui,sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+.ed-crumbs li{display:flex;align-items:center;gap:8px;color:#66598A}
+.ed-crumbs a{color:#66598A !important;text-decoration:none !important}
+.ed-crumbs a:hover{color:#3B2F5C !important}
+.ed-crumbs [aria-current]{color:#3B2F5C}
+.ed-crumbs-sep{opacity:.5}
+
+@media (max-width:760px){
+  .ph{min-height:auto}
+  .ph-sky{object-position:62% 20%}
+  .ph::after{background:linear-gradient(180deg,rgba(59,47,92,.1) 0%,rgba(59,47,92,.5) 100%)}
+  .ph-line-v{display:none}
+  .ph-line-top{top:64px}
+  .ph-line-h{bottom:auto;top:calc(100% - 1px)}
+  .ph-nav{height:64px;padding:0 16px;gap:10px}
+  .ph-links{display:none}
+  .ph-glass{width:40px;height:40px}
+  .ph-copy{margin:0;padding:40px 20px 48px;max-width:none}
+  .ph-title{font-size:clamp(34px,10vw,46px);padding-right:110px}
+  .ph-polaroid{right:16px;bottom:auto;top:84px;width:96px;padding:6px 6px 22px}
+  .ph-polaroid figcaption{font-size:9px;bottom:4px}
+}
+
+.faq-num{flex:none;font-family:var(--ed-sans),'Inter Tight',system-ui,sans-serif;font-size:13px;font-weight:700;color:#7A5BB0;letter-spacing:.06em}
+.faq-q{font-family:var(--ed-sans),'Inter Tight',system-ui,sans-serif;font-size:clamp(17px,1.4vw,20px);font-weight:500;color:#3B2F5C;line-height:1.35}
+.ed-page .faq-chevron{color:#3B2F5C}
+
+/* Join CTA (components/JoinCta): the hero's pill + round arrow. */
+.join-cta{display:flex;align-items:center;gap:10px;margin-top:28px}
+.join-cta a{text-decoration:none !important;transition:transform .2s ease,box-shadow .2s ease}
+.join-cta a:hover{transform:translateY(-1px)}
+.join-cta a:focus-visible{outline:2px solid currentColor;outline-offset:4px}
+.join-cta-pill{display:inline-flex;align-items:center;height:50px;padding:0 28px;border-radius:999px;font-family:var(--ed-sans),'Inter Tight',system-ui,sans-serif;font-size:15px;font-weight:500;white-space:nowrap}
+.join-cta-arrow{display:grid;place-items:center;width:50px;height:50px;border-radius:50%;border:1px solid}
+.join-cta-arrow svg{width:40%;height:40%;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.join-cta--dark .join-cta-pill{background:#fff;color:#3B2F5C !important}
+.join-cta--dark .join-cta-arrow{color:#fff !important;border-color:rgba(255,255,255,.75)}
+.join-cta--light .join-cta-pill{background:#3B2F5C;color:#fff !important;box-shadow:0 12px 28px -14px rgba(59,47,92,.7)}
+.join-cta--light .join-cta-arrow{color:#3B2F5C !important;border-color:rgba(59,47,92,.55);background:rgba(255,255,255,.5)}
+.ed-end{padding:clamp(24px,3vw,36px);border-radius:24px;background:linear-gradient(135deg,rgba(255,255,255,.7) 0%,rgba(244,184,162,.45) 100%);border:1px solid rgba(59,47,92,.1)}
+.ed-end .join-cta{margin-top:16px}
+.ed-end-title{margin:0;font-family:var(--ed-sans),'Inter Tight',system-ui,sans-serif !important;font-size:clamp(24px,2.6vw,34px) !important;font-weight:300 !important;color:#3B2F5C !important;letter-spacing:-.015em;line-height:1.15}
+.faq-num{flex:none;font-family:var(--ed-sans),'Inter Tight',system-ui,sans-serif;font-size:13px;font-weight:700;color:#7A5BB0;letter-spacing:.06em}
+.faq-q{font-family:var(--ed-sans),'Inter Tight',system-ui,sans-serif;font-size:clamp(17px,1.4vw,20px);font-weight:500;color:#3B2F5C;line-height:1.35}
+.ed-page .faq-chevron{color:#3B2F5C}
+@media (max-width:760px){.ed-page .faq-item p{padding-left:24px !important}}

@@ -40,79 +40,19 @@ export const FAQS = [
 
 export function FaqSection() {
   return (
-    <section
-      id="faq"
-      aria-labelledby="faq-heading"
-      className="relative w-full"
-      style={{ background: "var(--surface-2)", borderBottom: "3px solid var(--ink)" }}
-    >
-      <div className="max-w-[880px] mx-auto px-5 md:px-16 py-20 md:py-24">
-        <div
-          className="on-soft inline-block neo-border neo-shadow-sm px-4 py-2 mb-6"
-          style={{
-            background: "var(--blue)",
-            transform: "rotate(-1.5deg)",
-            fontFamily: "'DM Sans', system-ui, sans-serif",
-            fontWeight: 700,
-            fontSize: 13,
-            letterSpacing: "1.4px",
-            color: "var(--ink)",
-          }}
-        >
-          QUESTIONS
-        </div>
-
-        <h1
-          id="faq-heading"
-          style={{
-            fontFamily: "'Fraunces', Georgia, serif",
-            fontWeight: 800,
-            fontSize: "clamp(32px, 4vw, 48px)",
-            color: "var(--ink)",
-            letterSpacing: "-1px",
-            lineHeight: 1.1,
-            margin: "0 0 32px",
-          }}
-        >
-          Straight answers.
-        </h1>
-
-        <div className="flex flex-col gap-5">
-          {FAQS.map((item) => (
-            <details
-              key={item.q}
-              className="faq-item neo-border"
-              style={{ background: "var(--surface)" }}
-            >
-              <summary
-                className="flex items-center justify-between gap-4 p-5 md:p-6 cursor-pointer"
-                style={{
-                  fontFamily: "'Fraunces', Georgia, serif",
-                  fontWeight: 800,
-                  fontSize: 19,
-                  color: "var(--ink)",
-                  lineHeight: 1.3,
-                }}
-              >
-                <span>{item.q}</span>
-                <span aria-hidden className="faq-chevron">+</span>
-              </summary>
-              <p
-                className="px-5 md:px-6 pb-5 md:pb-6"
-                style={{
-                  fontFamily: "'DM Sans', system-ui, sans-serif",
-                  fontSize: 16,
-                  color: "var(--muted)",
-                  lineHeight: 1.7,
-                  margin: 0,
-                }}
-              >
-                {item.a}
-              </p>
-            </details>
-          ))}
-        </div>
-      </div>
+    <section id="faq" aria-label="Frequently asked questions" className="flex flex-col gap-4">
+      {FAQS.map((item, i) => (
+        <details key={item.q} className="faq-item ed-card" style={{ padding: 0 }}>
+          <summary className="flex items-center justify-between gap-4 cursor-pointer" style={{ padding: "20px 24px" }}>
+            <span className="flex items-baseline gap-4">
+              <span className="faq-num">{String(i + 1).padStart(2, "0")}</span>
+              <span className="faq-q">{item.q}</span>
+            </span>
+            <span aria-hidden className="faq-chevron">+</span>
+          </summary>
+          <p style={{ fontSize: 16, lineHeight: 1.7, margin: 0, padding: "0 24px 22px 66px" }}>{item.a}</p>
+        </details>
+      ))}
     </section>
   );
 }

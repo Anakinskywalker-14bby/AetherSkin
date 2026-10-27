@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { PageHero, EdBody } from "@/components/PageHero";
+import { JoinCta } from "@/components/JoinCta";
 import { breadcrumbJsonLd } from "@/lib/site";
-import { BrandLogo } from "@/components/BrandLogo";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -22,48 +23,31 @@ const crumbs = [
   { name: "About Us", path: "/about" },
 ];
 
+const VALUES = [
+  { title: "Honest by design", body: "Recommendations are matched to your scan — sponsored placements will always be labeled.", tone: "ed-card--peach" },
+  { title: "Privacy first", body: "No face photos are collected before launch. Scanning will need your separate consent, and you'll be able to delete your photo. We never sell personal data.", tone: "ed-card--lilac" },
+  { title: "For every face", body: "Built to work across all skin tones and types. Skincare has no gender.", tone: "" },
+];
+
 export default function AboutPage() {
   return (
-    <main className="relative min-h-screen" style={{ background: "var(--surface)" }}>
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(crumbs)) }}
       />
-
-      {/* Top bar */}
-      <nav
-        className="flex items-center justify-between px-6 md:px-16 h-[72px]"
-        style={{ background: "var(--surface)", borderBottom: "3px solid var(--ink)" }}
-      >
-        <BrandLogo />
-        <Link
-          href="/#beta"
-          className="on-accent neo-shadow-sm neo-border px-7 py-2.5"
-          style={{ background: "var(--yellow)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "0.7px", color: "var(--ink)" }}
-        >
-          JOIN THE FREE WAITLIST
-        </Link>
-      </nav>
-
-      <div className="max-w-[860px] mx-auto px-6 md:px-16 py-16">
+      <PageHero
+        badge="The mission"
+        lead="Skincare shouldn't be"
+        kicker="a guessing game."
+        note="One scan, honest recommendations, from brands you already love."
+        caption="your skin, decoded"
+      />
+      <EdBody>
         <Breadcrumbs items={crumbs} />
 
-        <div className="relative">
-          <span
-            className="on-soft inline-block neo-border neo-shadow-sm px-4 py-2 mb-6"
-            style={{ background: "var(--blue)", transform: "rotate(-2deg)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1.4px", color: "var(--ink)" }}
-          >
-            THE MISSION
-          </span>
-        </div>
-
-        <h1 style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 900, fontSize: "clamp(40px, 6vw, 64px)", color: "var(--ink)", letterSpacing: "-2px", lineHeight: 1.05, margin: "0 0 24px" }}>
-          Skincare shouldn&apos;t be
-          <br />
-          <span style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 400, fontStyle: "italic", color: "var(--olive)" }}>a guessing game.</span>
-        </h1>
-
-        <div style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: 18, color: "var(--muted)", lineHeight: 1.75 }}>
+        <span className="ed-kicker">Why we exist</span>
+        <div className="ed-lede" style={{ marginTop: 22 }}>
           <p style={{ margin: "0 0 20px" }}>
             Most people build their routine from ads, trends, and whatever a
             friend swears by. The result: cabinets full of half-used products
@@ -76,59 +60,49 @@ export default function AboutPage() {
             actually doing — hydration, texture, and the everyday concerns
             everyone has up close. Then, instead of selling you our own
             products, we match you with ones that fit —{" "}
-            <strong style={{ color: "var(--ink)" }}>
-              from brands you already know and love
-            </strong>
-            . When you buy through our links, the brand may pay us a
-            commission. It never changes your price, and we&apos;ll always
-            label it clearly.
+            <strong>from brands you already know and love</strong>. When you buy
+            through our links, the brand may pay us a commission. It never
+            changes your price, and we&apos;ll always label it clearly.
           </p>
-          <p style={{ margin: "0 0 20px" }}>
+          <p style={{ margin: 0 }}>
             We&apos;re starting small on purpose: 500 beta spots, free, with no
             card or deposit, and a promise to build the product with early
             users rather than at them.
           </p>
         </div>
 
-        {/* Value cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-12">
-          {[
-            { title: "Honest by design", body: "Recommendations are matched to your scan — sponsored placements will always be labeled.", color: "var(--yellow)" },
-            { title: "Privacy first", body: "No face photos are collected before launch. Scanning will need your separate consent, and you'll be able to delete your photo. We never sell personal data.", color: "var(--blue)" },
-            { title: "For every face", body: "Built to work across all skin tones and types. Skincare has no gender.", color: "var(--surface)" },
-          ].map((c) => (
-            <div key={c.title} className="neo-shadow-sm neo-border p-6" style={{ background: c.color }}>
-              <h2 style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 800, fontSize: 20, color: "var(--ink)", margin: "0 0 8px" }}>{c.title}</h2>
-              <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: 15, color: "var(--muted)", lineHeight: 1.6, margin: 0 }}>{c.body}</p>
+        <h2 style={{ fontSize: "clamp(28px,3vw,40px)", margin: "56px 0 24px", lineHeight: 1.1 }}>
+          What we <span className="ed-em">stand for</span>
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {VALUES.map((v) => (
+            <div key={v.title} className={`ed-card ${v.tone}`}>
+              <h2 style={{ fontSize: 20, margin: "0 0 10px" }}>{v.title}</h2>
+              <p style={{ fontSize: 15, lineHeight: 1.6, margin: 0 }}>{v.body}</p>
             </div>
           ))}
         </div>
 
-        {/* Internal links */}
-        <div className="flex flex-wrap gap-4 mb-16">
-          <Link href="/#beta" className="on-accent neo-shadow neo-border px-8 py-4" style={{ background: "var(--yellow)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 16, letterSpacing: "0.9px", color: "var(--ink)" }}>
-            JOIN THE BETA →
-          </Link>
-          <Link href="/#solution" className="neo-shadow neo-border px-8 py-4" style={{ background: "var(--surface)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 16, letterSpacing: "0.9px", color: "var(--ink)" }}>
-            HOW IT WORKS
-          </Link>
-          <Link href="/legal" className="on-soft neo-shadow neo-border px-8 py-4" style={{ background: "var(--blue)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 16, letterSpacing: "0.9px", color: "var(--ink)" }}>
-            PRIVACY &amp; TERMS
-          </Link>
+        <div className="ed-end" style={{ margin: "56px 0" }}>
+          <p className="ed-end-title">Be one of the first <span className="ed-em">500.</span></p>
+          <JoinCta />
+          <div className="ed-btns" style={{ marginTop: 18 }}>
+            <Link href="/#solution" className="ed-btn ed-btn--white">How it works</Link>
+            <Link href="/privacy" className="ed-btn ed-btn--white">Privacy &amp; terms</Link>
+          </div>
         </div>
 
-        {/* Preferred source deeplink */}
-        <div className="neo-border p-6" style={{ background: "var(--surface-2)" }}>
-          <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1.2px", color: "var(--ink)", textTransform: "uppercase", margin: "0 0 8px" }}>
+        <div className="ed-card">
+          <p style={{ fontSize: 12, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", margin: "0 0 8px", color: "#3B2F5C" }}>
             Follow AetherSkin on Google
           </p>
-          <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: 15, color: "var(--muted)", lineHeight: 1.6, margin: "0 0 12px" }}>
+          <p style={{ fontSize: 15, lineHeight: 1.6, margin: "0 0 12px" }}>
             Add AetherSkin as a preferred source so our updates surface for you in
             Google Search.
           </p>
           <div google-add-preferred-source-btn="" />
         </div>
-      </div>
-    </main>
+      </EdBody>
+    </>
   );
 }
