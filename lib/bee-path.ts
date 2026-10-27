@@ -16,8 +16,71 @@ export type BeePoint = { sec: string; fx: number; fy: number; perch?: boolean };
 
 export const BEE_SECTIONS = [".eh", "#problem", "#solution", "#gallery", "#footer"] as const;
 
-export const DESKTOP_PATH: BeePoint[] | null = null;
-export const MOBILE_PATH: BeePoint[] | null = null;
+// Drawn by the owner on 27 Oct 2026 (desktop at 1264px, phone at 484px).
+export const DESKTOP_PATH: BeePoint[] | null = [
+  { sec: ".eh", fx: 0.8797, fy: 0.6934, perch: true },
+  { sec: ".eh", fx: 0.1994, fy: 0.455 },
+  { sec: ".eh", fx: 0.1434, fy: 0.9449 },
+  { sec: ".eh", fx: 0.4501, fy: 0.9758 },
+  { sec: "#problem", fx: 0.8291, fy: 0.0789 },
+  { sec: "#problem", fx: 0.8188, fy: 0.2834 },
+  { sec: "#problem", fx: 0.9684, fy: 0.6359 },
+  { sec: "#problem", fx: 0.9494, fy: 0.8896 },
+  { sec: "#solution", fx: 0.8424, fy: 0.0009 },
+  { sec: "#solution", fx: 0.6203, fy: 0.0523 },
+  { sec: "#solution", fx: 0.9267, fy: 0.1758 },
+  { sec: "#solution", fx: 0.6018, fy: 0.3593 },
+  { sec: "#solution", fx: 0.8871, fy: 0.6433 },
+  { sec: "#solution", fx: 0.6603, fy: 0.7576 },
+  { sec: "#solution", fx: 0.8782, fy: 0.9883 },
+  { sec: "#solution", fx: 0.0622, fy: 0.9694 },
+  { sec: "#gallery", fx: 0.0886, fy: 0.7636 },
+  { sec: "#footer", fx: 0.2263, fy: 0.1939 },
+  { sec: "#footer", fx: 0.6915, fy: 0.3314 },
+  { sec: "#footer", fx: 0.6369, fy: 0.6142, perch: true },
+];
+
+export const MOBILE_PATH: BeePoint[] | null = [
+  { sec: ".eh", fx: 0.9318, fy: 0.4978, perch: true },
+  { sec: ".eh", fx: 0.7128, fy: 0.7692 },
+  { sec: ".eh", fx: 0.5826, fy: 0.881 },
+  { sec: "#problem", fx: 0.531, fy: 0.0511 },
+  { sec: "#problem", fx: 0.6054, fy: 0.1825 },
+  { sec: "#problem", fx: 0.9132, fy: 0.3438 },
+  { sec: "#problem", fx: 0.9112, fy: 0.5433 },
+  { sec: "#problem", fx: 0.5496, fy: 0.5804 },
+  { sec: "#solution", fx: 0.936, fy: 0.0087 },
+  { sec: "#solution", fx: 0.4566, fy: 0.0257 },
+  { sec: "#solution", fx: 0.938, fy: 0.0878 },
+  { sec: "#solution", fx: 0.7603, fy: 0.1297 },
+  { sec: "#solution", fx: 0.9091, fy: 0.2258 },
+  { sec: "#solution", fx: 0.874, fy: 0.4592 },
+  { sec: "#solution", fx: 0.095, fy: 0.6296 },
+  { sec: "#solution", fx: 0.1322, fy: 0.715 },
+  { sec: "#solution", fx: 0.7479, fy: 0.767 },
+  { sec: "#solution", fx: 0.8988, fy: 0.8078 },
+  { sec: "#solution", fx: 0.7231, fy: 0.9118 },
+  { sec: "#solution", fx: 0.2397, fy: 0.9845 },
+  { sec: "#gallery", fx: 0.9318, fy: 0.0141 },
+  { sec: "#gallery", fx: 0.8388, fy: 0.3224 },
+  { sec: "#gallery", fx: 0.1157, fy: 0.3207 },
+  { sec: "#gallery", fx: 0.9236, fy: 0.5707 },
+  { sec: "#gallery", fx: 0.9401, fy: 0.6582 },
+  { sec: "#gallery", fx: 0.0785, fy: 0.8916 },
+  { sec: "#footer", fx: 0.9029, fy: 0.003 },
+  { sec: "#footer", fx: 0.6446, fy: 0.0665 },
+  { sec: "#footer", fx: 0.3657, fy: 0.1383 },
+  { sec: "#footer", fx: 0.436, fy: 0.2017 },
+  { sec: "#footer", fx: 0.8533, fy: 0.2808 },
+  { sec: "#footer", fx: 0.8347, fy: 0.3776 },
+  { sec: "#footer", fx: 0.6364, fy: 0.4161 },
+  { sec: "#footer", fx: 0.686, fy: 0.5524 },
+  { sec: "#footer", fx: 0.3781, fy: 0.5972 },
+  { sec: "#footer", fx: 0.186, fy: 0.671 },
+  { sec: "#footer", fx: 0.095, fy: 0.7647 },
+  { sec: "#footer", fx: 0.0744, fy: 0.8157 },
+  { sec: "#footer", fx: 0.1322, fy: 0.8448, perch: true },
+];
 
 export const MOBILE_MAX = 760;
 export type BeeMode = "desktop" | "mobile";

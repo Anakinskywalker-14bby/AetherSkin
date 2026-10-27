@@ -201,6 +201,7 @@ export default function BeeGuide() {
         const maxScroll = document.documentElement.scrollHeight - vh;
         const beePx = vh * (window.innerWidth < 760 ? 0.075 : 0.09);
         const out: { x: number; y: number; trig: number; stop: Stop }[] = [];
+        let isDrawn = false;
         for (const stop of STOPS) {
           const el = document.querySelector(stop.sel);
           if (!el) continue;
@@ -219,22 +220,37 @@ export default function BeeGuide() {
         if (drawn && drawn.length > 0) {
           const pts = drawn.map((p) => ({ p, at: locate(p) })).filter((q) => q.at);
           out.length = 0;
+          isDrawn = true;
           pts.forEach(({ p, at }, k) => {
             const next = pts[k + 1]?.at ?? pts[k - 1]?.at;
             const faceRight = next ? (pts[k + 1] ? next.x >= at!.x : at!.x >= next.x) : true;
             out.push({
               x: at!.x,
               y: at!.y,
-              trig: Math.min(at!.docY, maxScroll + vh * 0.5),
+              trig: at!.docY,
               stop: { sel: p.sec, ax: 0, ay: 0, dx: 0, dy: 0, yaw: p.perch ? 155 : faceRight ? 25 : 155, pitch: 4, roll: 0, sit: p.perch },
             });
           });
         }
-        return { out, beePx, vh };
+        if (isDrawn && out.length > 1) {
+          // Points are reached in drawing order even when the path doubles
+          // back up the page, so each trigger is at least a little after
+          // the previous one.
+          for (let k = 1; k < out.length; k++) out[k].trig = Math.max(out[k].trig, out[k - 1].trig + vh * 0.04);
+          // Points in the last half-screen can't reach the reading line, so
+          // squeeze the tail of the path into the scroll that is left.
+          const end = maxScroll + vh * 0.5;
+          const last = out[out.length - 1].trig;
+          const knee = end - vh * 0.6;
+          if (last > end) {
+            for (const o of out) if (o.trig > knee) o.trig = knee + ((o.trig - knee) * (end - knee)) / (last - knee);
+          }
+        }
+        return { out, beePx, vh, isDrawn };
       };
 
       const target = () => {
-        const { out, beePx } = measure();
+        const { out, beePx, isDrawn } = measure();
         if (out.length === 0) return null;
         const read = window.scrollY + window.innerHeight * 0.5;
         let i = 0;
@@ -243,9 +259,15 @@ export default function BeeGuide() {
         const b = out[Math.min(i + 1, out.length - 1)];
         const span = Math.max(1, b.trig - a.trig);
         const f = i === out.length - 1 ? 0 : clamp((read - a.trig) / span, 0, 1);
-        const t = ease(clamp((f - 0.12) / 0.76, 0, 1));
-        const moving = Math.sin(t * Math.PI);
-        const dive = moving * beePx * 1.4; // drops mid-flight, then glides up
+        // Built-in stops: hold, then dive and glide to the next one.
+        // A drawn path is a continuous line, so follow it steadily instead:
+        // no holds or dives between the owner's points, wings beating until
+        // a perch.
+        // On a drawn path it stays perched for the first part of the scroll
+        // past a perch, so it doesn't take off on the very first nudge.
+        const t = isDrawn ? (a.stop.sit ? clamp((f - 0.15) / 0.85, 0, 1) : f) : ease(clamp((f - 0.12) / 0.76, 0, 1));
+        const moving = isDrawn ? (a.stop.sit && t === 0 ? 0 : 1) : Math.sin(t * Math.PI);
+        const dive = isDrawn ? 0 : moving * beePx * 1.4; // drops mid-flight, then glides up
         const travelYaw = b.x >= a.x ? 20 : 160;
         const baseYaw = lerpAngle(a.stop.yaw, b.stop.yaw, t);
         return {
@@ -256,13 +278,17 @@ export default function BeeGuide() {
           roll: lerp(a.stop.roll, b.stop.roll, t),
           sit: !!a.stop.sit && t === 0,
           moving,
-          s: 1 + moving * 0.12,
+          s: isDrawn ? 1 : 1 + moving * 0.12,
           beePx,
         };
       };
 
       const first = target();
       const cur = { x: first?.x ?? 0, y: first?.y ?? 0, yaw: first?.yaw ?? 150, pitch: 0, roll: 0, s: 1, rest: first?.sit ? 1 : 0 };
+      // ?beedebug exposes the bee's live screen position for path checks.
+      if (new URLSearchParams(window.location.search).has("beedebug")) {
+        (window as unknown as { __bee: typeof cur }).__bee = cur;
+      }
       const mouse = { x: 0, y: 0, sx: 0, sy: 0 };
       const onPointer = (e: PointerEvent) => {
         mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
