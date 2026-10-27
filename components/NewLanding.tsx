@@ -14,6 +14,16 @@ import ProblemSplit from "@/components/ProblemSplit";
 import CategoriesSection from "@/components/CategoriesSection";
 import SiteFooter from "@/components/footer/SiteFooter";
 import BeeGuide from "@/components/BeeGuide";
+import dynamic from "next/dynamic";
+import { isDrawMode } from "@/lib/bee-path";
+
+// Local-only bee path editor (localhost/?beepath=draw); never loads otherwise.
+const BeePathEditor = dynamic(() => import("@/components/BeePathEditor"), { ssr: false });
+function BeePathEditorGate() {
+  const [on, setOn] = useState(false);
+  useEffect(() => setOn(isDrawMode()), []);
+  return on ? <BeePathEditor /> : null;
+}
 import svgPaths from "@/lib/svg-design";
 
 
@@ -190,6 +200,7 @@ export default function NewLanding() {
       <CategoriesSection />
       <SiteFooter />
       <BeeGuide />
+      <BeePathEditorGate />
     </div>
   );
 }

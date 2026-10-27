@@ -2,6 +2,9 @@
 
 import { useEffect, useRef } from "react";
 import * as Sentry from "@sentry/nextjs";
+import { DESKTOP_PATH, MOBILE_PATH, beeMode, isDrawMode, locate, readDraft } from "@/lib/bee-path";
+
+const configured = () => (beeMode() === "mobile" ? MOBILE_PATH : DESKTOP_PATH);
 
 /**
  * A small 3D honeybee that guides the reader down the landing page.
@@ -62,6 +65,8 @@ export default function BeeGuide() {
     const canvas = canvasRef.current;
     if (!canvas) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // Local path editor: preview the live draft as it is drawn.
+    const draw = isDrawMode();
 
     let disposed = false;
     let raf = 0;
@@ -207,6 +212,23 @@ export default function BeeGuide() {
           // last one is reachable at the very bottom of the page.
           const trig = Math.min(r.top + window.scrollY, maxScroll + vh * 0.5);
           out.push({ x, y, trig, stop });
+        }
+        // A drawn path (lib/bee-path.ts, or the live draft in draw mode)
+        // replaces the built-in stops.
+        const drawn = draw ? readDraft(beeMode()) ?? configured() : configured();
+        if (drawn && drawn.length > 0) {
+          const pts = drawn.map((p) => ({ p, at: locate(p) })).filter((q) => q.at);
+          out.length = 0;
+          pts.forEach(({ p, at }, k) => {
+            const next = pts[k + 1]?.at ?? pts[k - 1]?.at;
+            const faceRight = next ? (pts[k + 1] ? next.x >= at!.x : at!.x >= next.x) : true;
+            out.push({
+              x: at!.x,
+              y: at!.y,
+              trig: Math.min(at!.docY, maxScroll + vh * 0.5),
+              stop: { sel: p.sec, ax: 0, ay: 0, dx: 0, dy: 0, yaw: p.perch ? 155 : faceRight ? 25 : 155, pitch: 4, roll: 0, sit: p.perch },
+            });
+          });
         }
         return { out, beePx, vh };
       };
