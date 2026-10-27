@@ -13,6 +13,7 @@ import EditorialHero from "@/components/EditorialHero";
 import ProblemSplit from "@/components/ProblemSplit";
 import CategoriesSection from "@/components/CategoriesSection";
 import SiteFooter from "@/components/footer/SiteFooter";
+import BeeGuide from "@/components/BeeGuide";
 import svgPaths from "@/lib/svg-design";
 
 
@@ -188,6 +189,7 @@ export default function NewLanding() {
       <SolutionSection />
       <CategoriesSection />
       <SiteFooter />
+      <BeeGuide />
     </div>
   );
 }

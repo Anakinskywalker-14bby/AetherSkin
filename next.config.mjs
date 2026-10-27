@@ -25,7 +25,9 @@ const csp = [
   // gstatic/googleusercontent hosts are required by the Google Preferred
   // Sources button.
   "img-src 'self' data: blob: https://news.google.com https://www.gstatic.com https://ssl.gstatic.com https://lh3.googleusercontent.com",
-  "connect-src 'self' https://hazjyonpqungkgchqgro.supabase.co https://news.google.com https://va.vercel-scripts.com https://vitals.vercel-insights.com",
+  // blob: lets three.js's GLTFLoader fetch the bee model's embedded textures,
+  // which it unpacks into same-page blob: URLs (components/BeeGuide).
+  "connect-src 'self' blob: https://hazjyonpqungkgchqgro.supabase.co https://news.google.com https://va.vercel-scripts.com https://vitals.vercel-insights.com",
   "frame-src https://news.google.com",
   // Sentry Replay compresses recordings in a Web Worker built from a blob:
   // URL. Without this, worker-src falls back to script-src, the worker is

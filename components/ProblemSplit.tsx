@@ -15,11 +15,11 @@ const EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
 // Media. VIDEO: the woman frowns, kisses the screen, then smiles gently.
 // POLAROID: the same woman looking confused, thinking. The clip is the
 // owner-supplied one (kiss -> soft smile; it has no frown yet) and the
-// polaroid is a neutral still from it. Replacing either file needs no code
+// polaroid is the owner-supplied frown photo. Replacing either file needs no code
 // change.
 const VIDEO_SRC = "/problem/problem.mp4";
 const VIDEO_POSTER = "/problem/problem-poster.jpg";
-const POLAROID_SRC = "/problem/polaroid-confused.jpg";
+const POLAROID_SRC = "/problem/polaroid-frown.jpg";
 
 const PAINS = [
   { label: "01", text: "Wasting money on hype ingredients." },
