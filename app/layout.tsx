@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import { Manrope, Hanken_Grotesk, Inter_Tight, Playfair_Display } from "next/font/google";
 import { GeistSans } from "geist/font/sans";
@@ -36,6 +36,14 @@ const edSerif = Playfair_Display({
   variable: "--ed-serif",
   display: "swap",
 });
+
+// <meta name="color-scheme" content="only light">: Android Chrome's auto dark
+// mode and Samsung Internet's dark mode otherwise repaint the site in navy
+// and maroon. The palette is designed for light only, on every device.
+export const viewport: Viewport = {
+  colorScheme: "only light",
+  themeColor: "#EEEAF7",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

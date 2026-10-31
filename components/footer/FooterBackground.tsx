@@ -100,6 +100,9 @@ export default function FooterBackground({
     // Phones get a light looping clip; the 13 MB all-keyframe file is only
     // needed for pointer scrubbing on desktop.
     const pickSource = () => {
+      // Phones loop the clip as a muted autoplay video, which Safari resumes
+      // by itself after pausing it off screen. Desktop scrubs, so no autoplay.
+      video.autoplay = mobile.matches && !reducedMotion.matches;
       const want = mobile.matches ? MOBILE_SRC : SCRUB_SRC;
       if (video.getAttribute("src") !== want) {
         video.setAttribute("src", want);
@@ -157,6 +160,21 @@ export default function FooterBackground({
     window.addEventListener("pointermove", move, { passive: true });
     window.addEventListener("resize", relayout);
     window.addEventListener("scroll", updateTarget, { passive: true });
+    // Safari/WebKit pauses muted inline videos while they are off screen and
+    // does not always resume ones started from script, so on phones (where
+    // the clip loops) play again whenever the monster scrolls into view.
+    const visibility =
+      typeof IntersectionObserver === "undefined"
+        ? null
+        : new IntersectionObserver(([entry]) => {
+            // No paused check: WebKit can report a suspended clip as playing.
+            if (entry?.isIntersecting && mobile.matches && !reducedMotion.matches) {
+              void video.play().catch(() => {
+                /* Low Power Mode etc.: the poster stays. */
+              });
+            }
+          });
+    visibility?.observe(video);
     pickSource();
     placeHold();
     prime();
@@ -166,6 +184,7 @@ export default function FooterBackground({
       disposed = true;
       cancelAnimationFrame(frame);
       resizeObserver.disconnect();
+      visibility?.disconnect();
       video.removeEventListener("seeked", schedule);
       video.removeEventListener("loadeddata", ready);
       offMobile();

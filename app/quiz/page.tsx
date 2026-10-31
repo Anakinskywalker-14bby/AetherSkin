@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { QuizForm } from "@/components/QuizForm";
-import { BrandLogo } from "@/components/BrandLogo";
+import { QuizShell } from "@/components/QuizShell";
 
 export const metadata: Metadata = {
   title: "Your Skin Quiz",
@@ -20,76 +20,40 @@ export default async function QuizPage({
   const params = await searchParams;
   const token = typeof params.token === "string" ? params.token : "";
 
-  return (
-    <main className="min-h-screen" style={{ background: "#f9f9f7" }}>
-      <nav
-        className="flex items-center justify-between px-6 md:px-16 h-[72px]"
-        style={{ background: "#f9f9f7", borderBottom: "3px solid #1a1c1b" }}
-      >
-        <BrandLogo />
-        <span style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1.2px", color: "#484739", textTransform: "uppercase" }}>
-          Skin Quiz
-        </span>
-      </nav>
-
-      <div className="max-w-[720px] mx-auto px-5 md:px-8 py-12 md:py-16">
-        {!token ? (
-          <div className="neo-shadow neo-border p-8 md:p-12 text-center" style={{ background: "#f9f9f7" }}>
-            <span
-              className="inline-block neo-border neo-shadow-sm px-4 py-2 mb-6"
-              style={{ background: "#ffdad6", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1px", color: "#93000a" }}
-            >
-              LINK REQUIRED
-            </span>
-            <h1 style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 900, fontSize: "clamp(28px,5vw,40px)", color: "#1a1c1b", margin: "0 0 16px", lineHeight: 1.15 }}>
-              Check your inbox to start.
-            </h1>
-            <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: 16, color: "#484739", lineHeight: 1.7, margin: "0 0 28px" }}>
-              The quiz opens from the confirmation link we email you. It keeps
-              your answers tied to the right person and stops spam entries.
-            </p>
-            <Link
-              href="/#beta"
-              className="neo-shadow neo-border px-8 py-4 inline-block"
-              style={{ background: "#e8e883", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 16, letterSpacing: "0.9px", color: "#1a1c1b" }}
-            >
-              JOIN THE WAITLIST
-            </Link>
+  if (!token) {
+    return (
+      <QuizShell badge="LINK REQUIRED" lead="Check your inbox" kicker="to start.">
+        <div className="qz-card qz-center">
+          <p className="qz-lede">
+            The quiz opens from the confirmation link we email you. It keeps
+            your answers tied to the right person and stops spam entries.
+          </p>
+          <div className="qz-actions">
+            <Link href="/#footer" className="qz-pill">Join the free beta</Link>
           </div>
-        ) : (
-          <>
-            <span
-              className="inline-block neo-border neo-shadow-sm px-4 py-2 mb-6"
-              style={{ background: "#beeaf8", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "1.4px", color: "#1a1c1b" }}
-            >
-              EMAIL CONFIRMED
-            </span>
-            <h1 style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 900, fontSize: "clamp(32px,6vw,52px)", color: "#1a1c1b", letterSpacing: "-1.5px", lineHeight: 1.05, margin: "0 0 12px" }}>
-              Let&apos;s read your skin.
-            </h1>
-            <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: 17, color: "#484739", lineHeight: 1.7, margin: "0 0 32px" }}>
-              Seventeen quick questions, about three minutes. Answer honestly, not
-              aspirationally. Your answers shape every recommendation you get.
-            </p>
-            {/* Purpose stated before anyone answers, not only in the policy. */}
-            <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: 14, color: "#484739", lineHeight: 1.6, margin: "-16px 0 28px" }}>
-              Multiple choice and numbers only, no name. Answers are stored
-              apart from your email and used to personalise your
-              recommendations and to train our recommendation models. You can
-              ask us to delete them at any time.
-            </p>
-            <QuizForm token={token} />
-            <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: 13, color: "#484739", lineHeight: 1.6, margin: "20px 0 0" }}>
-              AetherSkin gives cosmetic and wellness guidance, not medical advice.
-              See our{" "}
-              <Link href="/privacy" style={{ color: "#1a1c1b", fontWeight: 700, textDecoration: "underline" }}>
-                Privacy Policy
-              </Link>
-              .
-            </p>
-          </>
-        )}
-      </div>
-    </main>
+        </div>
+      </QuizShell>
+    );
+  }
+
+  return (
+    <QuizShell badge="EMAIL CONFIRMED" lead="Let's read" kicker="your skin.">
+      <p className="qz-lede">
+        Seventeen quick questions, about three minutes. Answer honestly, not
+        aspirationally. Your answers shape every recommendation you get.
+      </p>
+      {/* Purpose stated before anyone answers, not only in the policy. */}
+      <p className="qz-small">
+        Multiple choice and numbers only, no name. Answers are stored apart
+        from your email and used to personalise your recommendations and to
+        train our recommendation models. You can ask us to delete them at any
+        time.
+      </p>
+      <QuizForm token={token} />
+      <p className="qz-small qz-foot">
+        AetherSkin gives cosmetic and wellness guidance, not medical advice.
+        See our <Link href="/privacy">Privacy Policy</Link>.
+      </p>
+    </QuizShell>
   );
 }

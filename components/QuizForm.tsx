@@ -134,80 +134,57 @@ export function QuizForm({ token }: { token: string }) {
     }
   }
 
-  const label = { fontFamily: "'DM Sans', system-ui, sans-serif" } as const;
-
-  const optionButton = (selected: boolean) => ({
-    background: selected ? "#e8e883" : "#f9f9f7",
-    fontFamily: "'DM Sans', system-ui, sans-serif",
-    fontWeight: selected ? 700 : 400,
-    fontSize: 16,
-    color: "#1a1c1b",
-    textAlign: "left" as const,
-    width: "100%",
-  });
+  // Styling lives in app/globals.css under .qz-* (the site's lilac/peach
+  // palette and hero type), so the quiz matches the rest of AetherSkin.
+  const options =
+    q.kind === "categorical"
+      ? q.options.map((o) => ({ key: o.code, value: o.code as Answer, label: o.label }))
+      : q.kind === "ordinal"
+        ? q.options.map((o) => ({ key: String(o.value), value: o.value as Answer, label: o.label }))
+        : [];
 
   return (
-    <div className="neo-shadow neo-border p-6 md:p-10" style={{ background: "#f9f9f7", ...label }}>
+    <div className="qz-card">
       {/* Progress */}
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-2">
-          <span style={{ ...label, fontWeight: 700, fontSize: 12, letterSpacing: "1.2px", color: "#484739", textTransform: "uppercase" }}>
-            Question {step + 1} of {total}
-          </span>
-          <span style={{ ...label, fontWeight: 700, fontSize: 12, color: "#484739" }}>{progress}%</span>
+      <div className="qz-progress">
+        <div className="qz-progress-row">
+          <span className="qz-eyebrow">Question {step + 1} of {total}</span>
+          <span className="qz-eyebrow">{progress}%</span>
         </div>
         <div
-          className="neo-border h-5"
-          style={{ background: "#f4f4f2" }}
+          className="qz-track"
           role="progressbar"
           aria-valuenow={progress}
           aria-valuemin={0}
           aria-valuemax={100}
           aria-label="Quiz progress"
         >
-          <div className="h-full transition-all duration-300" style={{ width: `${progress}%`, background: "#beeaf8" }} />
+          <div className="qz-fill" style={{ width: `${progress}%` }} />
         </div>
       </div>
 
-      <h2
-        ref={headingRef}
-        tabIndex={-1}
-        id={`q-${q.id}-label`}
-        className="outline-none"
-        style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 800, fontSize: "clamp(22px,3.5vw,30px)", color: "#1a1c1b", margin: "0 0 24px", lineHeight: 1.25 }}
-      >
+      <h2 ref={headingRef} tabIndex={-1} id={`q-${q.id}-label`} className="qz-question">
         {q.question}
       </h2>
 
       {q.kind !== "continuous" && (
-        <div className="flex flex-col gap-3" role="group" aria-labelledby={`q-${q.id}-label`}>
-          {q.kind === "categorical"
-            ? q.options.map((opt) => (
-                <button
-                  key={opt.code}
-                  type="button"
-                  disabled={submitting}
-                  aria-pressed={answers[q.id] === opt.code}
-                  onClick={() => answer(opt.code)}
-                  className="neo-border px-5 py-4 transition-transform hover:-translate-y-0.5"
-                  style={optionButton(answers[q.id] === opt.code)}
-                >
-                  {opt.label}
-                </button>
-              ))
-            : q.options.map((opt) => (
-                <button
-                  key={opt.value}
-                  type="button"
-                  disabled={submitting}
-                  aria-pressed={answers[q.id] === opt.value}
-                  onClick={() => answer(opt.value)}
-                  className="neo-border px-5 py-4 transition-transform hover:-translate-y-0.5"
-                  style={optionButton(answers[q.id] === opt.value)}
-                >
-                  {opt.label}
-                </button>
-              ))}
+        <div className="qz-options" role="group" aria-labelledby={`q-${q.id}-label`}>
+          {options.map((opt) => {
+            const selected = answers[q.id] === opt.value;
+            return (
+              <button
+                key={opt.key}
+                type="button"
+                disabled={submitting}
+                aria-pressed={selected}
+                onClick={() => answer(opt.value)}
+                className={selected ? "qz-option is-selected" : "qz-option"}
+              >
+                <span className="qz-dot" aria-hidden="true" />
+                {opt.label}
+              </button>
+            );
+          })}
         </div>
       )}
 
@@ -222,7 +199,7 @@ export function QuizForm({ token }: { token: string }) {
           <label htmlFor={`q-${q.id}`} className="sr-only">
             {q.question}
           </label>
-          <div className="flex items-center gap-3">
+          <div className="qz-number-row">
             <input
               key={q.id}
               id={`q-${q.id}`}
@@ -238,13 +215,12 @@ export function QuizForm({ token }: { token: string }) {
               aria-invalid={fieldError !== null}
               aria-describedby={fieldError ? `q-${q.id}-error` : undefined}
               onChange={(e) => onNumberChange(e.target.value)}
-              className="neo-border px-4 py-4 outline-none"
-              style={{ background: "#f9f9f7", ...label, fontSize: 20, color: "#1a1c1b", width: 160 }}
+              className="qz-input"
             />
-            <span style={{ ...label, fontSize: 16, color: "#484739" }}>{q.unit}</span>
+            <span className="qz-unit">{q.unit}</span>
           </div>
           {fieldError && (
-            <p id={`q-${q.id}-error`} className="mt-3" style={{ ...label, fontSize: 14, fontWeight: 700, color: "#93000a" }}>
+            <p id={`q-${q.id}-error`} className="qz-field-error">
               {fieldError}
             </p>
           )}
@@ -252,53 +228,35 @@ export function QuizForm({ token }: { token: string }) {
       )}
 
       {/* The 2-second buffer, made visible: a bar that fills, then moves on. */}
-      <div className="mt-6 min-h-[28px]" aria-live="polite">
+      <div className="qz-advance" aria-live="polite">
         {pending && !submitting && (
-          <div className="flex items-center gap-3">
-            <div className="neo-border h-2 flex-1 overflow-hidden" style={{ background: "#f4f4f2" }} aria-hidden="true">
-              <div key={`${step}-${String(answers[q.id])}`} className="quiz-advance-fill h-full" style={{ background: "#e8e883" }} />
+          <div className="qz-advance-row">
+            <div className="qz-advance-track" aria-hidden="true">
+              <div key={`${step}-${String(answers[q.id])}`} className="quiz-advance-fill qz-advance-fill" />
             </div>
-            <span style={{ ...label, fontSize: 13, fontWeight: 700, color: "#484739" }}>
-              {isLast ? "Saving your answers…" : "Next question…"}
-            </span>
+            <span className="qz-status">{isLast ? "Saving your answers…" : "Next question…"}</span>
           </div>
         )}
-        {submitting && (
-          <span style={{ ...label, fontSize: 13, fontWeight: 700, color: "#484739" }}>Saving your answers…</span>
-        )}
+        {submitting && <span className="qz-status">Saving your answers…</span>}
       </div>
 
       {error && (
-        <div
-          role="alert"
-          className="neo-border px-4 py-3 mt-4 flex items-center justify-between gap-4"
-          style={{ background: "#ffdad6", ...label, fontWeight: 700, fontSize: 14, color: "#93000a" }}
-        >
+        <div role="alert" className="qz-error">
           <span>{error}</span>
           {/* Only shown after a failed save: a retry, not a "next" button. */}
           {isLast && answers[q.id] !== undefined && !submitting && (
-            <button
-              type="button"
-              onClick={() => void submit(answers)}
-              className="neo-border px-4 py-2 shrink-0"
-              style={{ background: "#f9f9f7", ...label, fontWeight: 700, fontSize: 13, color: "#1a1c1b" }}
-            >
-              TRY AGAIN
+            <button type="button" onClick={() => void submit(answers)} className="qz-btn qz-btn--small">
+              Try again
             </button>
           )}
         </div>
       )}
 
       {/* Controls: Back only. Moving forward happens by answering. */}
-      <div className="flex items-center mt-6">
-        <button
-          type="button"
-          onClick={() => go(step - 1)}
-          disabled={step === 0 || submitting}
-          className="neo-border px-6 py-3 disabled:opacity-30"
-          style={{ background: "#f9f9f7", ...label, fontWeight: 700, fontSize: 14, letterSpacing: "0.8px", color: "#1a1c1b" }}
-        >
-          BACK
+      <div className="qz-controls">
+        <button type="button" onClick={() => go(step - 1)} disabled={step === 0 || submitting} className="qz-btn">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6" /></svg>
+          Back
         </button>
       </div>
     </div>

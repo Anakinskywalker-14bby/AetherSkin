@@ -71,27 +71,12 @@
   --fog: #8a9490;
   --frost: #f2f5f0;
 
-  color-scheme: light;
+  /* "only" stops Android Chrome / Samsung Internet auto-dark from inverting
+     the lilac-peach palette into navy and maroon. */
+  color-scheme: only light;
 }
 
-/*
- * DARK — Butter and Cream, as specified. The room with the lights off.
- *
- * The brief was that dark must not be busy or hard on the eye, so the rules
- * here are about RESTRAINT, not just inverted values:
- *
- *   1. The ground is a warm brown-black, not pure black and not berry-pink.
- *      Pure black against Butter vibrates; a warm near-black sits still.
- *   2. Cream carries all text. Butter is an accent only, never a large field.
- *   3. Coral is held back to a single primary action. On a dark ground a
- *      saturated red-orange is the most fatiguing thing in the palette.
- *   4. Soft panels go DARK rather than staying pink. Large pale fields on a
- *      dark page are the "awkward mixing" problem — they glare.
- *
- * Rule 4 is why --blue flips here, and why anything using it must be tagged
- * .on-soft rather than .on-accent (see below) — .on-accent pins Berry text,
- * which would be unreadable once this panel is dark.
- */
+
 
 html {
   background: var(--surface);
@@ -927,3 +912,59 @@ html, body {
 @supports not (aspect-ratio:1/1){
   @media (max-width:700px){.sf-background{height:calc((100vw + 48px) * .75)}}
 }
+
+/* ─── Quiz + thank-you (components/QuizShell, components/QuizForm) ─── */
+.qz-page{min-height:100vh;background:linear-gradient(180deg,#C9C1E2 0%,#E3DEF2 34%,#EEEAF7 100%);color:#3B2F5C;font-family:var(--ed-sans),'Inter Tight',system-ui,sans-serif}
+.qz-top{position:relative;isolation:isolate;overflow:hidden;min-height:clamp(250px,34vw,340px);padding:0 clamp(20px,5vw,72px) 34px;display:flex;flex-direction:column}
+.qz-sky{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;z-index:-2}
+.qz-top::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(59,47,92,.08) 0%,rgba(59,47,92,.42) 100%)}
+.qz-line{position:absolute;left:0;right:0;height:1px;background:rgba(255,255,255,.42)}
+.qz-line-nav{top:72px}
+.qz-nav{height:72px;display:flex;align-items:center;justify-content:space-between}
+.qz-glass{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.55);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:#fff}
+.qz-glass svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round}
+.qz-head{margin-top:auto;max-width:720px;width:100%;margin-left:auto;margin-right:auto}
+.qz-badge{display:inline-flex;align-items:center;gap:10px;margin:0 0 10px;color:#fff;font-size:12px;font-weight:600;letter-spacing:.2em}
+.qz-badge svg{width:15px;height:15px;fill:#F4B8A2}
+.qz-title{margin:0;color:#fff;font-weight:300;font-size:clamp(34px,5.2vw,58px);line-height:1.02;letter-spacing:-.025em;text-shadow:0 2px 24px rgba(40,24,70,.25)}
+.qz-title em{font-family:var(--ed-serif),'Playfair Display',Georgia,serif;font-style:italic;font-weight:400}
+.qz-body{max-width:720px;margin:0 auto;padding:clamp(28px,5vw,48px) clamp(18px,4vw,28px) 80px}
+.qz-lede{margin:0 0 10px;font-size:17px;line-height:1.65;color:#4E4475}
+.qz-small{margin:0 0 24px;font-size:14px;line-height:1.6;color:#66598A}
+.qz-small a{color:#6A4FA3;text-decoration:underline;text-underline-offset:3px}
+.qz-foot{margin:22px 0 0}
+.qz-card{background:rgba(255,255,255,.72);border:1px solid rgba(122,91,176,.18);border-radius:26px;box-shadow:0 24px 60px -30px rgba(59,47,92,.4);padding:clamp(22px,4vw,40px)}
+.qz-center{text-align:center}
+.qz-eyebrow{margin:0;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#66598A}
+.qz-progress{margin-bottom:28px}
+.qz-progress-row{display:flex;justify-content:space-between;margin-bottom:10px}
+.qz-track,.qz-advance-track{height:10px;border-radius:999px;background:rgba(122,91,176,.14);overflow:hidden}
+.qz-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#F4B8A2,#9C7BD8);transition:width .35s ease}
+.qz-question{margin:0 0 22px;outline:none;font-weight:400;font-size:clamp(23px,3.4vw,31px);line-height:1.25;letter-spacing:-.015em;color:#3B2F5C}
+.qz-options{display:flex;flex-direction:column;gap:10px}
+.qz-option{display:flex;align-items:center;gap:14px;width:100%;text-align:left;padding:15px 18px;border-radius:18px;border:1px solid rgba(122,91,176,.22);background:#fff;color:#3B2F5C;font:inherit;font-size:16px;cursor:pointer;transition:transform .15s ease,border-color .15s ease,box-shadow .15s ease}
+.qz-option:hover{transform:translateY(-1px);border-color:rgba(122,91,176,.5);box-shadow:0 10px 24px -18px rgba(59,47,92,.6)}
+.qz-option:focus-visible,.qz-btn:focus-visible,.qz-pill:focus-visible,.qz-input:focus-visible{outline:2px solid #7A5BB0;outline-offset:3px}
+.qz-option.is-selected{background:linear-gradient(135deg,#FBE2D8,#F4B8A2);border-color:#E8907D;font-weight:600}
+.qz-dot{flex:none;width:18px;height:18px;border-radius:50%;border:1.5px solid rgba(122,91,176,.5);background:#fff}
+.qz-option.is-selected .qz-dot{border-color:#3B2F5C;background:radial-gradient(circle,#3B2F5C 0 4px,#fff 5px)}
+.qz-number-row{display:flex;align-items:center;gap:12px}
+.qz-input{width:170px;padding:14px 18px;border-radius:16px;border:1px solid rgba(122,91,176,.35);background:#fff;color:#3B2F5C;font:inherit;font-size:20px}
+.qz-unit{font-size:16px;color:#66598A}
+.qz-field-error{margin:12px 0 0;font-size:14px;font-weight:600;color:#9b2c1f}
+.qz-advance{margin-top:22px;min-height:28px}
+.qz-advance-row{display:flex;align-items:center;gap:12px}
+.qz-advance-track{flex:1;height:6px}
+.qz-advance-fill{height:100%;background:linear-gradient(90deg,#F4B8A2,#9C7BD8)}
+.qz-status{font-size:13px;font-weight:600;color:#66598A}
+.qz-error{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:14px;padding:12px 16px;border-radius:16px;background:#ffe4e0;border:1px solid #E8907D;color:#9b2c1f;font-size:14px;font-weight:600}
+.qz-controls{display:flex;margin-top:18px}
+.qz-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:12px 22px;border-radius:999px;border:1px solid rgba(59,47,92,.35);background:transparent;color:#3B2F5C;font:inherit;font-size:15px;font-weight:500;text-decoration:none;cursor:pointer}
+.qz-btn svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.qz-btn:disabled{opacity:.35;cursor:default}
+.qz-btn--small{padding:8px 16px;font-size:13px;flex:none;background:#fff}
+.qz-pill{display:inline-flex;align-items:center;justify-content:center;padding:14px 30px;border-radius:999px;background:#3B2F5C;color:#fff;font-size:16px;font-weight:500;text-decoration:none;box-shadow:0 12px 26px -14px rgba(59,47,92,.8)}
+.qz-actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:26px}
+.qz-place{margin:26px auto 0;max-width:260px;padding:18px 22px;border-radius:22px;background:linear-gradient(160deg,#F9D6C9,#F4B8A2)}
+.qz-place-n{margin:4px 0 0;font-family:var(--ed-serif),'Playfair Display',Georgia,serif;font-style:italic;font-size:56px;line-height:1;color:#3B2F5C}
+@media (max-width:640px){.qz-line-nav{top:64px}.qz-nav{height:64px}.qz-glass{width:40px;height:40px}.qz-top{min-height:230px}.qz-sky{object-position:62% 25%}}
