@@ -7,6 +7,7 @@ import {
   escapeHtml,
   verificationEmail,
   quizCompleteEmail,
+  quizReminderEmail,
   sendVerificationEmail,
   sendQuizCompleteEmail,
 } from "@/lib/email";
@@ -33,8 +34,17 @@ describe("email templates", () => {
     expect(html).not.toContain("<script>");
   });
 
-  it("states the 7-day expiry the privacy page promises", () => {
-    expect(verificationEmail("t")).toContain("expires in 7 days");
+  it("states the 24-hour, single-use link the privacy page promises", () => {
+    expect(verificationEmail("t")).toContain("works once and expires in 24 hours");
+  });
+
+  it("reminder email carries its own encoded link and a sane hours count", () => {
+    const html = quizReminderEmail('x"><script>', 11.6);
+    expect(html).not.toContain("<script>");
+    expect(html).toContain("/verify?token=x%22%3E%3Cscript%3E");
+    expect(html).toContain("about 12 hours");
+    expect(quizReminderEmail("t", 0.2)).toContain("about 1 hour.");
+    expect(quizReminderEmail("t", Number.NaN)).toContain("about 12 hours");
   });
 
   it("contains no user-supplied text (the v2 quiz collects no name)", () => {

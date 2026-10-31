@@ -3,7 +3,8 @@ import * as Sentry from "@sentry/nextjs";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { rateLimit, getClientIp } from "@/lib/rate-limit";
 import { validateQuiz, sanitizeText, QUIZ_VERSION } from "@/lib/validation/quiz";
-import { hashToken, sendQuizCompleteEmail } from "@/lib/email";
+import { sendQuizCompleteEmail } from "@/lib/email";
+import { resolveQuizLink, SUBMIT_GRACE_MS } from "@/lib/quiz-link";
 import { assertSameOrigin } from "@/lib/security";
 import { audit } from "@/lib/audit";
 
@@ -81,24 +82,28 @@ export async function POST(req: Request) {
 
     const admin = createAdminClient();
 
-    // The token hash is the authorization check.
-    const { data: entry } = await admin
-      .from("waitlist")
-      .select("id,email,position,quiz_completed_at")
-      .eq("verification_token_hash", hashToken(token))
-      .maybeSingle();
-
-    if (!entry) {
+    // The token hash is the authorization check. Links last 24 hours from
+    // the email (lib/quiz-link.ts), with a short grace so someone who opened
+    // the quiz just before the cut-off can still submit, and are single use.
+    const link = await resolveQuizLink(admin, token, SUBMIT_GRACE_MS);
+    if (link.state === "expired") {
       return NextResponse.json(
-        { error: "This link is invalid or has expired. Please sign up again." },
+        { error: "This link has expired. Join again from the home page and we'll email you a fresh one." },
+        { status: 410 }
+      );
+    }
+    if (link.state !== "valid") {
+      return NextResponse.json(
+        { error: "This link is invalid or has already been used. Please sign up again." },
         { status: 401 }
       );
     }
+    const entry = link.entry;
 
     /*
      * quiz_responses_v3 holds only the waitlist id and the seventeen coded
      * answers: no email and no name, so the training dataset carries no
-     * direct identifiers. Earlier versions' tables are left untouched.
+     * direct identifiers. The v1 and v2 tables have been retired.
      */
     const { error: upsertError } = await admin.from("quiz_responses_v3").upsert(
       {
@@ -123,6 +128,9 @@ export async function POST(req: Request) {
         status: "verified",
         verified_at: new Date().toISOString(),
         quiz_completed_at: new Date().toISOString(),
+        // Single use: both the original and the reminder link stop working.
+        verification_token_hash: null,
+        reminder_token_hash: null,
       })
       .eq("id", entry.id);
 

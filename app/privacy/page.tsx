@@ -41,7 +41,7 @@ const DATA_ROWS = [
   {
     data: "Your email address",
     how: "You give it to us when you join the waitlist",
-    why: "To confirm your spot, tell you when the beta opens, and send occasional product updates. Every email has an unsubscribe link.",
+    why: "To confirm your spot, remind you once if your quiz link is about to expire, tell you when the beta opens, and send occasional product updates. Every email has an unsubscribe link.",
     basis: "Your consent, given when you tick the box at signup (APP 3 and APP 7; Spam Act 2003 (Cth)). Unsubscribe any time",
   },
   {
@@ -195,7 +195,7 @@ export default function PrivacyPage() {
         <LegalList>
           <li>Waitlist and quiz data: while your entry is active and for up to 24 months after your last interaction with us, then deleted or irreversibly anonymised.</li>
           <li>Unverified signups (you never clicked the confirmation link): deleted after 90 days.</li>
-          <li>Verification links: expire after 7 days.</li>
+          <li>Quiz links: work once and expire 24 hours after we email them. If you haven&apos;t finished the quiz after about 12 hours, we send one reminder email.</li>
         </LegalList>
       </LegalSection>
 

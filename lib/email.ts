@@ -159,8 +159,41 @@ export function verificationEmail(token: string) {
       <span style="color:#1a1c1b;word-break:break-all">${url}</span>
     </p>
     <p style="font-size:13px;color:#484739;margin:16px 0 0">
-      This link expires in 7 days.
+      This link works once and expires in 24 hours.
     </p>`);
+}
+
+/**
+ * Sent once, about 12 hours after the confirmation email, if the quiz isn't
+ * done. It carries its own link (we only store token hashes), which works
+ * until the original 24-hour cut-off.
+ */
+export function quizReminderEmail(token: string, hoursLeft: number) {
+  const url = `${SITE_URL}/verify?token=${encodeURIComponent(token)}`;
+  const hours = Math.max(1, Math.min(24, Math.round(Number.isFinite(hoursLeft) ? hoursLeft : 12)));
+  return SHELL(`
+    <h1 style="font-size:28px;font-weight:800;color:#1a1c1b;margin:0 0 16px;line-height:1.2">
+      Your skin quiz is waiting.
+    </h1>
+    <p style="font-size:16px;color:#484739;line-height:1.7;margin:0 0 12px">
+      You haven't finished your AetherSkin skin quiz yet. It takes about three
+      minutes, and it's what lets us match you with products that fit your skin.
+    </p>
+    <p style="font-size:16px;color:#484739;line-height:1.7;margin:0 0 28px">
+      Your link expires in about ${hours} hour${hours === 1 ? "" : "s"}.
+    </p>
+    <a href="${url}"
+       style="display:inline-block;background:#e8e883;border:3px solid #1a1c1b;box-shadow:4px 4px 0 #1a1c1b;padding:16px 32px;font-size:16px;font-weight:700;letter-spacing:1px;color:#1a1c1b;text-decoration:none;text-transform:uppercase">
+      Finish my skin quiz
+    </a>
+    <p style="font-size:13px;color:#484739;margin:24px 0 0;line-height:1.6">
+      Or paste this link into your browser:<br />
+      <span style="color:#1a1c1b;word-break:break-all">${url}</span>
+    </p>`);
+}
+
+export async function sendQuizReminderEmail(to: string, token: string, hoursLeft: number) {
+  return send(to, "Your AetherSkin skin quiz is waiting (link expires soon)", quizReminderEmail(token, hoursLeft));
 }
 
 /**

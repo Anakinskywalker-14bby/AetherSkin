@@ -91,145 +91,6 @@ export type Database = {
         }
         Relationships: []
       }
-      quiz_responses: {
-        Row: {
-          age_band: string | null
-          allergies: string | null
-          breakout_frequency: string | null
-          climate: string | null
-          created_at: string
-          current_treatments: string | null
-          email: string
-          full_name: string | null
-          gender: string | null
-          id: string
-          lifestyle: string | null
-          monthly_spend: string | null
-          post_acne_marks: string | null
-          pregnancy_status: string | null
-          primary_concern: string | null
-          routine_depth: string | null
-          sensitivity: string | null
-          skin_type: string | null
-          updated_at: string
-          waitlist_id: string
-        }
-        Insert: {
-          age_band?: string | null
-          allergies?: string | null
-          breakout_frequency?: string | null
-          climate?: string | null
-          created_at?: string
-          current_treatments?: string | null
-          email: string
-          full_name?: string | null
-          gender?: string | null
-          id?: string
-          lifestyle?: string | null
-          monthly_spend?: string | null
-          post_acne_marks?: string | null
-          pregnancy_status?: string | null
-          primary_concern?: string | null
-          routine_depth?: string | null
-          sensitivity?: string | null
-          skin_type?: string | null
-          updated_at?: string
-          waitlist_id: string
-        }
-        Update: {
-          age_band?: string | null
-          allergies?: string | null
-          breakout_frequency?: string | null
-          climate?: string | null
-          created_at?: string
-          current_treatments?: string | null
-          email?: string
-          full_name?: string | null
-          gender?: string | null
-          id?: string
-          lifestyle?: string | null
-          monthly_spend?: string | null
-          post_acne_marks?: string | null
-          pregnancy_status?: string | null
-          primary_concern?: string | null
-          routine_depth?: string | null
-          sensitivity?: string | null
-          skin_type?: string | null
-          updated_at?: string
-          waitlist_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "quiz_responses_waitlist_id_fkey"
-            columns: ["waitlist_id"]
-            isOneToOne: false
-            referencedRelation: "waitlist"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      quiz_responses_v2: {
-        Row: {
-          age: number
-          created_at: string
-          environment: string
-          id: string
-          primary_goal: string
-          quiz_version: number
-          routine_complexity: number
-          skin_type: string
-          sleep_hours: number
-          stress_level: number
-          sunscreen_frequency: number
-          texture_preference: string
-          updated_at: string
-          waitlist_id: string
-          water_glasses: number
-        }
-        Insert: {
-          age: number
-          created_at?: string
-          environment: string
-          id?: string
-          primary_goal: string
-          quiz_version?: number
-          routine_complexity: number
-          skin_type: string
-          sleep_hours: number
-          stress_level: number
-          sunscreen_frequency: number
-          texture_preference: string
-          updated_at?: string
-          waitlist_id: string
-          water_glasses: number
-        }
-        Update: {
-          age?: number
-          created_at?: string
-          environment?: string
-          id?: string
-          primary_goal?: string
-          quiz_version?: number
-          routine_complexity?: number
-          skin_type?: string
-          sleep_hours?: number
-          stress_level?: number
-          sunscreen_frequency?: number
-          texture_preference?: string
-          updated_at?: string
-          waitlist_id?: string
-          water_glasses?: number
-        }
-        Relationships: [
-          {
-            foreignKeyName: "quiz_responses_v2_waitlist_id_fkey"
-            columns: ["waitlist_id"]
-            isOneToOne: true
-            referencedRelation: "waitlist"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       quiz_responses_v3: {
         Row: {
           age: number
@@ -320,6 +181,8 @@ export type Database = {
           id: string
           position: number
           quiz_completed_at: string | null
+          reminder_sent_at: string | null
+          reminder_token_hash: string | null
           signup_ip_hash: string | null
           status: Database["public"]["Enums"]["waitlist_status"]
           updated_at: string
@@ -335,6 +198,8 @@ export type Database = {
           id?: string
           position?: never
           quiz_completed_at?: string | null
+          reminder_sent_at?: string | null
+          reminder_token_hash?: string | null
           signup_ip_hash?: string | null
           status?: Database["public"]["Enums"]["waitlist_status"]
           updated_at?: string
@@ -350,6 +215,8 @@ export type Database = {
           id?: string
           position?: never
           quiz_completed_at?: string | null
+          reminder_sent_at?: string | null
+          reminder_token_hash?: string | null
           signup_ip_hash?: string | null
           status?: Database["public"]["Enums"]["waitlist_status"]
           updated_at?: string

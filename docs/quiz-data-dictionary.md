@@ -9,9 +9,9 @@ the migration and the encodings below ever disagree.
 **Never renumber or rename a code.** Rows already collected would silently change
 meaning. To change the quiz, add an option or ship a new `quiz_version`.
 
-Rows carry no email or name. Earlier versions live in `quiz_responses` (v1, free
-text, 3 rows) and `quiz_responses_v2` (1 row); neither has the Part 4/5 answers, so
-neither is used for training.
+Rows carry no email or name. The earlier `quiz_responses` (v1) and
+`quiz_responses_v2` tables have been removed from the database (recorded in
+migration `20261031220546_quiz_link_expiry_reminders.sql`); only v3 exists.
 
 ## Part 1: categorical (one-hot, one 0/1 column per code)
 
