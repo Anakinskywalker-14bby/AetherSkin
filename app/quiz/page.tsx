@@ -38,16 +38,9 @@ export default async function QuizPage({
 
   return (
     <QuizShell badge="EMAIL CONFIRMED" lead="Let's read" kicker="your skin.">
-      <p className="qz-lede">
-        Seventeen quick questions, about three minutes. Answer honestly, not
-        aspirationally. Your answers shape every recommendation you get.
-      </p>
-      {/* Purpose stated before anyone answers, not only in the policy. */}
-      <p className="qz-small">
-        Multiple choice and numbers only, no name. Answers are stored apart
-        from your email and used to personalise your recommendations and to
-        train our recommendation models. You can ask us to delete them at any
-        time.
+      <p className="qz-lede qz-lede--gap">
+        Answer honestly, not aspirationally. Your answers shape every
+        recommendation you get.
       </p>
       <QuizForm token={token} />
       <p className="qz-small qz-foot">

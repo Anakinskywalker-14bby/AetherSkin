@@ -968,3 +968,4 @@ html, body {
 .qz-place{margin:26px auto 0;max-width:260px;padding:18px 22px;border-radius:22px;background:linear-gradient(160deg,#F9D6C9,#F4B8A2)}
 .qz-place-n{margin:4px 0 0;font-family:var(--ed-serif),'Playfair Display',Georgia,serif;font-style:italic;font-size:56px;line-height:1;color:#3B2F5C}
 @media (max-width:640px){.qz-line-nav{top:64px}.qz-nav{height:64px}.qz-glass{width:40px;height:40px}.qz-top{min-height:230px}.qz-sky{object-position:62% 25%}}
+.qz-lede--gap{margin-bottom:24px}
