@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
+import { onMediaChange } from "@/lib/media-query";
 import { Inter_Tight, Playfair_Display } from "next/font/google";
 
 const interTight = Inter_Tight({ subsets: ["latin"], weight: ["300", "400", "500"], variable: "--eh-sans", display: "swap" });
@@ -37,11 +38,11 @@ export default function EditorialHero() {
       }
     };
     v.addEventListener("loadeddata", show);
-    reduce.addEventListener("change", sync);
+    const offReduce = onMediaChange(reduce, sync);
     sync();
     return () => {
       v.removeEventListener("loadeddata", show);
-      reduce.removeEventListener("change", sync);
+      offReduce();
     };
   }, []);
 

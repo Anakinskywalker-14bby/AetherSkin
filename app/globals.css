@@ -920,3 +920,10 @@ html, body {
   .lg-table td{padding:4px 0;border:0}
   .lg-table td::before{content:attr(data-label);display:block;margin-bottom:2px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8A7EAD}
 }
+
+/* Older iPhones (iOS 14 and below) lack aspect-ratio and inset: without these
+   the phone footer collapsed to zero height and the monster never showed. */
+.sf-background video{top:0;left:0}
+@supports not (aspect-ratio:1/1){
+  @media (max-width:700px){.sf-background{height:calc((100vw + 48px) * .75)}}
+}

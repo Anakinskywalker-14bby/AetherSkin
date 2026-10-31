@@ -108,9 +108,11 @@ export async function POST(req: Request) {
       .eq("email", email)
       .maybeSingle();
 
-    // Already fully signed up + quizzed: don't re-send, don't leak status.
+    // Already fully signed up + quizzed: don't re-send, and answer exactly as
+    // for a new signup so the response can't be used to test whether an
+    // address has completed the quiz (security audit 2026-11-01, low).
     if (existing?.quiz_completed_at) {
-      return NextResponse.json({ ok: true, alreadyComplete: true });
+      return NextResponse.json({ ok: true, ttlDays: TOKEN_TTL_DAYS });
     }
 
     if (existing) {

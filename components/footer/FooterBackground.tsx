@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import gazeFrames from "./gaze-frames.json";
+import { onMediaChange } from "@/lib/media-query";
 
 const TAU = Math.PI * 2;
 const wrappedAngle = (angle: number) => ((angle % TAU) + TAU) % TAU;
@@ -145,14 +146,14 @@ export default function FooterBackground({
     const resizeObserver = new ResizeObserver(placeHold);
     resizeObserver.observe(video);
     video.addEventListener("seeked", schedule);
-    const onMediaChange = () => {
+    const handleMediaChange = () => {
       pickSource();
       prime();
       ready();
     };
     video.addEventListener("loadeddata", ready);
-    mobile.addEventListener("change", onMediaChange);
-    reducedMotion.addEventListener("change", ready);
+    const offMobile = onMediaChange(mobile, handleMediaChange);
+    const offReduced = onMediaChange(reducedMotion, ready);
     window.addEventListener("pointermove", move, { passive: true });
     window.addEventListener("resize", relayout);
     window.addEventListener("scroll", updateTarget, { passive: true });
@@ -167,8 +168,8 @@ export default function FooterBackground({
       resizeObserver.disconnect();
       video.removeEventListener("seeked", schedule);
       video.removeEventListener("loadeddata", ready);
-      mobile.removeEventListener("change", onMediaChange);
-      reducedMotion.removeEventListener("change", ready);
+      offMobile();
+      offReduced();
       window.removeEventListener("pointermove", move);
       window.removeEventListener("resize", relayout);
       window.removeEventListener("scroll", updateTarget);
