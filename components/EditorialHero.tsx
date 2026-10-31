@@ -11,8 +11,8 @@ const playfair = Playfair_Display({ subsets: ["latin"], weight: ["400", "500"], 
  * Editorial hero: full-bleed portrait under a lilac-peach sky, thin white
  * grid, mixed sans/italic-serif headline, a tilted polaroid and a giant
  * watermark. Only the UI animates; the scene is a photo plus a looping clip
- * (public/hero/hero-loop.mp4, its last second crossfaded into its first so it
- * never jumps). Reduced motion: no video.
+ * (public/hero/hero-loop.mp4, played forward then backward so the wind in his
+ * hair never jumps; built by scripts/hero-guy.py). Reduced motion: no video.
  */
 export default function EditorialHero() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -21,6 +21,11 @@ export default function EditorialHero() {
     const v = videoRef.current;
     if (!v) return;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+    // iOS checks the muted attribute (React only sets the property).
+    v.muted = true;
+    v.defaultMuted = true;
+    v.setAttribute("muted", "");
+    v.setAttribute("playsinline", "");
     const show = () => v.classList.add("is-ready");
     const sync = () => {
       if (reduce.matches) {

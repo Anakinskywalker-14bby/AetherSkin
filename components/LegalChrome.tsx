@@ -29,6 +29,43 @@ export const pStyle = {
   margin: "0 0 14px",
 } as const;
 
+/** A numbered legal section; the id lets the contents list link to it. */
+export function LegalSection({ n, id, title, children }: { n: number; id: string; title: string; children: React.ReactNode }) {
+  return (
+    <section id={id} className="lg-sec" aria-labelledby={`${id}-h`}>
+      <h2 id={`${id}-h`} style={h2Style}>
+        <span className="lg-n" aria-hidden="true">{String(n).padStart(2, "0")}</span>
+        {title}
+      </h2>
+      {children}
+    </section>
+  );
+}
+
+/** "On this page" list, built from the same section data the page renders. */
+export function LegalContents({ items }: { items: { id: string; title: string }[] }) {
+  return (
+    <nav className="ed-card lg-toc" aria-label="On this page">
+      <p className="lg-toc-title">On this page</p>
+      <ol>
+        {items.map((s, i) => (
+          <li key={s.id}>
+            <a href={`#${s.id}`}>
+              <span className="lg-toc-n">{String(i + 1).padStart(2, "0")}</span>
+              {s.title}
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  );
+}
+
+/** Bulleted list in the legal pages' style. */
+export function LegalList({ children }: { children: React.ReactNode }) {
+  return <ul className="lg-list">{children}</ul>;
+}
+
 /**
  * Shared shell for the legal pages: the editorial header (same language as
  * the home hero), a centred prose column on the lilac ground, and a join

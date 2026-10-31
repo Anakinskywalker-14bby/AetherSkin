@@ -14,7 +14,7 @@ export const FAQS = [
   },
   {
     q: "How does the AI skin analysis work?",
-    a: "You take one photo. AetherSkin reads everyday characteristics from it — hydration, texture, visible pores, dark spots, fine lines and breakouts — then combines that with your quiz answers to build a skin profile and match you with suitable products.",
+    a: "You take one photo. AetherSkin reads everyday characteristics from it (hydration, texture, visible pores, dark spots, fine lines and breakouts), then combines that with your quiz answers to build a skin profile and match you with suitable products.",
   },
   {
     q: "What happens after I enter my email?",

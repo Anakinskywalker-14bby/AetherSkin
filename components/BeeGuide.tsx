@@ -340,7 +340,9 @@ export default function BeeGuide() {
             -((cur.y / window.innerHeight) * 2 - 1) * halfH + hover * beeWorld * 2 + mouse.sy * 0.08 * lean,
             Math.sin(time * 0.9) * 0.15 * fly
           );
-          flight.scale.setScalar(beeWorld * cur.s);
+          // Phones: draw the bee ~25% smaller (visitors found it too big).
+          // Only the drawn size changes; the flight path stays the same.
+          flight.scale.setScalar(beeWorld * cur.s * (window.innerWidth < 760 ? 0.75 : 1));
           flight.rotation.set(0, -(cur.yaw + mouse.sx * 12 * lean) * DEG, 0);
 
           // Nose down when diving (screen y grows downward), banks into turns.

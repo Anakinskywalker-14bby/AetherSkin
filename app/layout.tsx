@@ -40,7 +40,7 @@ const edSerif = Playfair_Display({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${SITE_NAME} — AI Skin Analysis. Stop Guessing. Start Knowing.`,
+    default: `${SITE_NAME} | AI Skin Analysis. Stop Guessing. Start Knowing.`,
     template: `%s · ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,

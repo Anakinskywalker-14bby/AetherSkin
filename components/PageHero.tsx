@@ -15,7 +15,7 @@ export function PageHero({
   kicker,
   note,
   caption,
-  photo = "/hero/polaroid-face.jpg",
+  photo = "/pages/polaroid-face.jpg",
 }: {
   badge: string;
   lead: string;
@@ -26,8 +26,9 @@ export function PageHero({
 }) {
   return (
     <header className="ph">
+      {/* Inner pages keep the original portrait (her); only the home hero uses his clip. */}
       {/* eslint-disable-next-line @next/next/no-img-element -- decorative sky, sized by CSS */}
-      <img className="ph-sky" src="/hero/hero.jpg" alt="" aria-hidden="true" fetchPriority="high" />
+      <img className="ph-sky" src="/pages/sky-portrait.jpg" alt="" aria-hidden="true" fetchPriority="high" />
       <span className="ph-line ph-line-top" aria-hidden="true" />
       <span className="ph-line ph-line-v" aria-hidden="true" />
       <span className="ph-line ph-line-h" aria-hidden="true" />

@@ -8,7 +8,7 @@ import { breadcrumbJsonLd } from "@/lib/site";
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "AetherSkin is building AI skin analysis that ends the skincare guessing game — one scan, honest recommendations from brands you already love. Meet the mission.",
+    "AetherSkin is building AI skin analysis that ends the skincare guessing game: one scan, honest recommendations from brands you already love. Meet the mission.",
   alternates: { canonical: "/about" },
   openGraph: {
     title: "About Us · AetherSkin",
@@ -24,7 +24,7 @@ const crumbs = [
 ];
 
 const VALUES = [
-  { title: "Honest by design", body: "Recommendations are matched to your scan — sponsored placements will always be labeled.", tone: "ed-card--peach" },
+  { title: "Honest by design", body: "Recommendations are matched to your scan, and sponsored placements will always be labeled.", tone: "ed-card--peach" },
   { title: "Privacy first", body: "No face photos are collected before launch. Scanning will need your separate consent, and you'll be able to delete your photo. We never sell personal data.", tone: "ed-card--lilac" },
   { title: "For every face", body: "Built to work across all skin tones and types. Skincare has no gender.", tone: "" },
 ];
@@ -52,14 +52,14 @@ export default function AboutPage() {
             Most people build their routine from ads, trends, and whatever a
             friend swears by. The result: cabinets full of half-used products
             and skin that never quite gets what it needs. AetherSkin exists to
-            replace that guesswork with a single, honest starting point — a
+            replace that guesswork with a single, honest starting point: a
             scan of your own skin.
           </p>
           <p style={{ margin: "0 0 20px" }}>
             Take one photo, and AetherSkin&apos;s AI reads what your skin is
-            actually doing — hydration, texture, and the everyday concerns
+            actually doing: hydration, texture, and the everyday concerns
             everyone has up close. Then, instead of selling you our own
-            products, we match you with ones that fit —{" "}
+            products, we match you with ones that fit:{" "}
             <strong>from brands you already know and love</strong>. When you buy
             through our links, the brand may pay us a commission. It never
             changes your price, and we&apos;ll always label it clearly.

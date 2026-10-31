@@ -12,6 +12,7 @@ import { DoorReveal } from "@/components/DoorReveal";
 import EditorialHero from "@/components/EditorialHero";
 import ProblemSplit from "@/components/ProblemSplit";
 import CategoriesSection from "@/components/CategoriesSection";
+import SkinIssuesMarquee from "@/components/SkinIssuesMarquee";
 import SiteFooter from "@/components/footer/SiteFooter";
 import BeeGuide from "@/components/BeeGuide";
 import dynamic from "next/dynamic";
@@ -101,6 +102,8 @@ function SolutionSection() {
           </p>
         </div>
 
+        <SkinIssuesMarquee />
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Card 1 — Deep Scan */}
           <div className="lg:col-span-2 neo-shadow neo-border p-7 flex flex-col gap-4" style={{ background: "var(--surface)" }}>
@@ -112,7 +115,7 @@ function SolutionSection() {
             </div>
             <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 400, fontSize: 16, color: "var(--ink)", lineHeight: 1.6, margin: 0 }}>
               One selfie. AetherSkin&apos;s AI reads your face and maps hydration,
-              texture, and everyday concerns — instantly.
+              texture, and everyday concerns, instantly.
             </p>
             {/* The scan readout is a device screen, so it stays dark in both
                 themes. Previously it used var(--ink) as its background, which
@@ -133,7 +136,7 @@ function SolutionSection() {
                   <span style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 14, color: m.color, width: 44, textAlign: "right" }}>{m.value}%</span>
                 </div>
               ))}
-              <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 11, letterSpacing: "1px", color: "rgba(249,249,247,0.5)", margin: 0, textTransform: "uppercase" }}>Sample readout — your scan will differ</p>
+              <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 11, letterSpacing: "1px", color: "rgba(249,249,247,0.5)", margin: 0, textTransform: "uppercase" }}>Sample readout. Your scan will differ</p>
             </div>
           </div>
 

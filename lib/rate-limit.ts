@@ -28,7 +28,7 @@ async function getUpstashLimiter() {
   const token = process.env.UPSTASH_REDIS_REST_TOKEN;
   if (!url || !token) {
     console.warn(
-      "[rate-limit] UPSTASH_REDIS_REST_URL not set — using per-instance in-memory limiter. " +
+      "[rate-limit] UPSTASH_REDIS_REST_URL not set; using per-instance in-memory limiter. " +
         "Configure Upstash for distributed limiting in production."
     );
     return null;
@@ -87,7 +87,7 @@ export async function rateLimit(identifier: string): Promise<LimitResult> {
       return { success, remaining, reset };
     }
   } catch (err) {
-    console.error("[rate-limit] limiter error — failing open:", err);
+    console.error("[rate-limit] limiter error, failing open:", err);
     return { success: true, remaining: 1, reset: Date.now() + WINDOW_SECONDS * 1000 };
   }
   return memoryLimit(identifier);

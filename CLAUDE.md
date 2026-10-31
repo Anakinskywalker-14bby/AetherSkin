@@ -35,6 +35,21 @@ Before any code is approved for deployment:
    - Never add, extend or widen an ignore on your own initiative to get a
      scan to pass.
 
+4. **Run the Cloudflare security-audit skill before every deployment**
+   (installed at `.agents/skills/security-audit`). Run these three prompts
+   in order, and fix or explicitly report every confirmed finding first.
+   **Run the whole sequence twice** before each deployment: the second pass
+   goes after fixes from the first, because a single run finds only about
+   half of what repeated runs do. Use a new output folder for the second pass
+   (e.g. ~/audits/aetherskin-run2):
+   `
+   security audit this codebase
+   find security vulnerabilities in ./src
+   do a security review, output to ~/audits/aetherskin
+   `
+   Nothing is ready to deploy until the audit is done and its confirmed
+   findings are fixed or accepted in writing by the human. This is in
+   addition to Sentry and Snyk, not instead of them.
 To test without touching production, push to a branch — Vercel builds an
 isolated preview URL, and the Sentry DSNs are configured for previews.
 

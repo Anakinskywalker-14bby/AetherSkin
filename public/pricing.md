@@ -1,4 +1,4 @@
-# Pricing — AetherSkin
+# Pricing | AetherSkin
 
 Last updated: 2026-10-21
 

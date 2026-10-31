@@ -679,8 +679,9 @@ html, body {
 /* Phones (portrait): photo covers, copy reflows over it in one screen. */
 @media (max-width:760px),(orientation:portrait) and (max-width:1024px){
   .eh{--u:calc(100vw / 390)}
-  .eh-media img,.eh-media video{object-position:62% top}
-  .eh-media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(59,47,92,.05) 40%,rgba(59,47,92,.55) 100%)}
+  .eh-media img,.eh-media video{object-position:67% top}
+  /* Light lilac wash behind the nav so the plum logo reads over his hair. */
+  .eh-media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(238,234,247,.78) 0,rgba(238,234,247,.35) 56px,rgba(238,234,247,0) 104px),linear-gradient(180deg,rgba(59,47,92,.05) 40%,rgba(59,47,92,.55) 100%)}
   .eh-stage{left:0;top:0;width:100%;height:100%;transform:none}
   .eh-line-v1,.eh-line-v2{display:none}
   .eh-line-top{left:0;right:0;top:64px}
@@ -868,3 +869,54 @@ html, body {
 .faq-q{font-family:var(--ed-sans),'Inter Tight',system-ui,sans-serif;font-size:clamp(17px,1.4vw,20px);font-weight:500;color:#3B2F5C;line-height:1.35}
 .ed-page .faq-chevron{color:#3B2F5C}
 @media (max-width:760px){.ed-page .faq-item p{padding-left:24px !important}}
+
+/* ─── Solution: "14+ skin issues" marquee card (components/SkinIssuesMarquee) ─── */
+.sk-card{position:relative;overflow:hidden;border-radius:28px;background:linear-gradient(180deg,rgba(255,255,255,.86),rgba(255,255,255,.62));border:1px solid rgba(122,91,176,.18);box-shadow:0 24px 60px -28px rgba(59,47,92,.35);padding:30px 0 34px;margin-bottom:32px}
+.sk-card::before{content:"";position:absolute;inset:-40% -10% auto;height:120%;background:radial-gradient(60% 50% at 20% 30%,rgba(244,184,162,.28),transparent 70%),radial-gradient(50% 45% at 80% 20%,rgba(156,123,216,.22),transparent 70%);pointer-events:none}
+.sk-rows{position:relative;display:flex;flex-direction:column;gap:14px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.sk-row{overflow:hidden}
+.sk-track{display:flex;width:max-content;gap:12px;margin:0;padding:4px 0;list-style:none;animation:skScroll 38s linear infinite}
+.sk-track--rev{animation-direction:reverse;animation-duration:44s}
+.sk-card:hover .sk-track{animation-play-state:paused}
+.sk-chip{display:flex;align-items:center;gap:10px;padding:10px 18px 10px 12px;border-radius:999px;background:rgba(255,255,255,.9);border:1px solid rgba(122,91,176,.14);box-shadow:0 6px 18px -12px rgba(59,47,92,.4);white-space:nowrap}
+.sk-orb{flex:none;width:26px;height:26px;border-radius:50%;background:radial-gradient(circle at 38% 34%,#fff 0,var(--sk-hue) 48%,transparent 74%);filter:blur(1.2px);box-shadow:0 0 18px 2px color-mix(in srgb,var(--sk-hue) 45%,transparent)}
+.sk-name{font-family:var(--ed-sans),'Inter Tight',system-ui,sans-serif;font-size:15px;font-weight:500;color:#3B2F5C}
+.sk-copy{position:relative;text-align:center;padding:34px 24px 0}
+.sk-badge{display:inline-flex;align-items:center;gap:8px;margin:0 0 12px;font-family:var(--ed-sans),'Inter Tight',system-ui,sans-serif;font-size:12px;font-weight:600;letter-spacing:.18em;color:#A9573F}
+.sk-badge svg{width:14px;height:14px;fill:#F4B8A2}
+.sk-title{margin:0;font-family:var(--ed-sans),'Inter Tight',system-ui,sans-serif;font-weight:300;font-size:clamp(28px,3.4vw,44px);line-height:1.1;letter-spacing:-.02em;color:#3B2F5C}
+.sk-title em{font-family:var(--ed-serif),'Playfair Display',Georgia,serif;font-style:italic;font-weight:400;color:#7A5BB0}
+.sk-note{margin:12px auto 0;max-width:46ch;font-family:var(--ed-sans),'Inter Tight',system-ui,sans-serif;font-size:16px;line-height:1.55;color:#66598A}
+@keyframes skScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (max-width:640px){.sk-card{border-radius:22px;padding:22px 0 26px}.sk-chip{padding:8px 14px 8px 10px}.sk-orb{width:22px;height:22px}.sk-name{font-size:14px}.sk-copy{padding-top:26px}}
+@media (prefers-reduced-motion:reduce){.sk-track{animation:none}.sk-row{overflow-x:auto}}
+
+/* ─── Legal pages (Privacy, Terms): numbered sections, contents, data table ─── */
+.lg-toc{margin:28px 0 8px}
+.lg-toc-title{margin:0 0 12px !important;font-size:12px !important;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#3B2F5C !important}
+.lg-toc ol{margin:0;padding:0;list-style:none;columns:2;column-gap:28px}
+.lg-toc li{break-inside:avoid;margin:0 0 8px;font-size:15px}
+.lg-toc a{color:#4E4475 !important;text-decoration:none !important}
+.lg-toc a:hover{color:#3B2F5C !important;text-decoration:underline !important}
+.lg-toc-n{display:inline-block;min-width:1.9em;color:#A9573F;font-weight:600;font-variant-numeric:tabular-nums}
+.lg-sec{scroll-margin-top:24px}
+.lg-sec h2{display:flex;align-items:baseline;gap:14px}
+.lg-n{flex:none;font-family:var(--ed-serif),'Playfair Display',Georgia,serif;font-style:italic;font-weight:400;color:#A9573F;font-size:.9em}
+.lg-list{margin:0 0 16px;padding:0;list-style:none}
+.lg-list li{position:relative;padding-left:22px;margin:0 0 10px;font-size:16px;line-height:1.7}
+.lg-list li::before{content:"";position:absolute;left:2px;top:.72em;width:8px;height:8px;border-radius:50%;background:linear-gradient(135deg,#F4B8A2,#9C7BD8)}
+.lg-table-wrap{margin:18px 0 22px;border-radius:20px;overflow:hidden;border:1px solid rgba(59,47,92,.12);background:rgba(255,255,255,.66)}
+.lg-table{width:100%;border-collapse:collapse;font-family:var(--ed-sans),'Inter Tight',system-ui,sans-serif;font-size:14.5px;line-height:1.55;color:#4E4475}
+.lg-table th{text-align:left;padding:14px 16px;background:rgba(201,193,226,.55);color:#3B2F5C;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;vertical-align:bottom}
+.lg-table td{padding:14px 16px;border-top:1px solid rgba(59,47,92,.1);vertical-align:top}
+.lg-table td:first-child{color:#3B2F5C;font-weight:600}
+.lg-table td small{display:block;margin-top:4px;color:#66598A;font-weight:400;font-size:13px}
+@media (max-width:720px){
+  .lg-toc ol{columns:1}
+  .lg-table thead{display:none}
+  .lg-table,.lg-table tbody,.lg-table tr,.lg-table td{display:block;width:100%}
+  .lg-table tr{padding:14px 16px;border-top:1px solid rgba(59,47,92,.1)}
+  .lg-table tr:first-child{border-top:0}
+  .lg-table td{padding:4px 0;border:0}
+  .lg-table td::before{content:attr(data-label);display:block;margin-bottom:2px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8A7EAD}
+}

@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "AetherSkin — your skin, in a better light.";
+export const alt = "AetherSkin: your skin, in a better light.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -108,7 +108,7 @@ export default function OgImage() {
             color: "#FFF6EC",
           }}
         >
-          Join the beta — free
+          Join the free beta
         </div>
       </div>
     ),

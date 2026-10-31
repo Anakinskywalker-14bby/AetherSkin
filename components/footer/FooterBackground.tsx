@@ -10,6 +10,8 @@ const wrappedAngle = (angle: number) => ((angle % TAU) + TAU) % TAU;
 // horizontally under the midpoint between the eyes (x=948, the same point the
 // gaze tracking uses) and vertically on the heart (which spans y=500-800).
 export const HOLD_X = 948;
+const SCRUB_SRC = "/footer-scrub.mp4";
+const MOBILE_SRC = "/footer-loop-mobile.mp4";
 export const HOLD_Y = 690;
 
 // These angles were measured from the actual pupil positions in the clip's
@@ -94,6 +96,35 @@ export default function FooterBackground({
       placeHold();
       updateTarget();
     };
+    // Phones get a light looping clip; the 13 MB all-keyframe file is only
+    // needed for pointer scrubbing on desktop.
+    const pickSource = () => {
+      const want = mobile.matches ? MOBILE_SRC : SCRUB_SRC;
+      if (video.getAttribute("src") !== want) {
+        video.setAttribute("src", want);
+        video.load();
+      }
+    };
+    // iOS Safari ignores preload, so "loadeddata" never fires until the video
+    // is played. A muted inline play() is allowed there; on scrub layouts
+    // (iPad) we pause straight after so the first frame is decoded.
+    const prime = () => {
+      // React sets `muted` only as a property; iOS checks the attribute too
+      // before allowing inline play without a tap.
+      video.muted = true;
+      video.defaultMuted = true;
+      video.setAttribute("muted", "");
+      video.setAttribute("playsinline", "");
+      if (reducedMotion.matches || video.readyState >= 2) return;
+      void video
+        .play()
+        .then(() => {
+          if (!mobile.matches) video.pause();
+        })
+        .catch(() => {
+          /* Low Power Mode etc.: the poster stays. */
+        });
+    };
     const ready = () => {
       placeHold();
       video.loop = mobile.matches;
@@ -114,13 +145,20 @@ export default function FooterBackground({
     const resizeObserver = new ResizeObserver(placeHold);
     resizeObserver.observe(video);
     video.addEventListener("seeked", schedule);
+    const onMediaChange = () => {
+      pickSource();
+      prime();
+      ready();
+    };
     video.addEventListener("loadeddata", ready);
-    mobile.addEventListener("change", ready);
+    mobile.addEventListener("change", onMediaChange);
     reducedMotion.addEventListener("change", ready);
     window.addEventListener("pointermove", move, { passive: true });
     window.addEventListener("resize", relayout);
     window.addEventListener("scroll", updateTarget, { passive: true });
+    pickSource();
     placeHold();
+    prime();
     if (video.readyState >= 2) ready();
 
     return () => {
@@ -129,7 +167,7 @@ export default function FooterBackground({
       resizeObserver.disconnect();
       video.removeEventListener("seeked", schedule);
       video.removeEventListener("loadeddata", ready);
-      mobile.removeEventListener("change", ready);
+      mobile.removeEventListener("change", onMediaChange);
       reducedMotion.removeEventListener("change", ready);
       window.removeEventListener("pointermove", move);
       window.removeEventListener("resize", relayout);
@@ -144,7 +182,7 @@ export default function FooterBackground({
         muted
         playsInline
         preload="auto"
-        src="/footer-scrub.mp4"
+        poster="/footer-poster.jpg"
       />
     </div>
   );
