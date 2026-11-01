@@ -13,6 +13,7 @@ export const metadata: Metadata = {
     title: "Privacy Policy · AetherSkin",
     description: "What AetherSkin collects, why, how long we keep it, and how to delete it.",
     url: "/privacy",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "AetherSkin" }],
   },
 };
 

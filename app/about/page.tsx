@@ -15,6 +15,7 @@ export const metadata: Metadata = {
     description:
       "AetherSkin is building AI skin analysis that ends the skincare guessing game. Meet the mission.",
     url: "/about",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "AetherSkin" }],
   },
 };
 

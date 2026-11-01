@@ -13,6 +13,7 @@ export const metadata: Metadata = {
     title: "Terms of Service · AetherSkin",
     description: "The terms that govern using AetherSkin's AI skin analysis service.",
     url: "/terms",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "AetherSkin" }],
   },
 };
 

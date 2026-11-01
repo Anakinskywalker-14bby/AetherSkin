@@ -14,6 +14,7 @@ export const metadata: Metadata = {
     title: "FAQ · AetherSkin",
     description: "Straight answers about AetherSkin's free AI skin analysis and waitlist.",
     url: "/faq",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "AetherSkin" }],
   },
 };
 
