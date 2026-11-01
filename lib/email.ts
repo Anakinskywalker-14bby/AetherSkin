@@ -159,7 +159,7 @@ export function verificationEmail(token: string) {
       <span style="color:#1a1c1b;word-break:break-all">${url}</span>
     </p>
     <p style="font-size:13px;color:#484739;margin:16px 0 0">
-      This link expires in 7 days.
+      This link works once and expires in 24 hours.
     </p>`);
 }
 

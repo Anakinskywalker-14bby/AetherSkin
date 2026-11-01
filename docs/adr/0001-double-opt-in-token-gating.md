@@ -44,7 +44,7 @@ Signup is a two-step double opt-in:
 - The user cannot retake the quiz from a new device without the original
   email link. Acceptable: the quiz is once-per-person by design.
 - Token is in a URL, so it can land in browser history or a shared screenshot.
-  Mitigated by a 7-day expiry and single-purpose scope (it grants quiz
+  Mitigated by a 24-hour expiry, single use and single-purpose scope (it grants quiz
   submission only, nothing else).
 - Email deliverability becomes a hard dependency. `/api/waitlist/join` returns
   HTTP 202 with `saved: true` when delivery fails, so the user sees the truth

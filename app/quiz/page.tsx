@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import * as Sentry from "@sentry/nextjs";
 import { QuizForm } from "@/components/QuizForm";
 import { QuizShell } from "@/components/QuizShell";
+import { createAdminClient } from "@/lib/supabase/admin";
+import { resolveQuizLink, type LinkState } from "@/lib/quiz-link";
 
 export const metadata: Metadata = {
   title: "Your Skin Quiz",
@@ -12,13 +15,41 @@ export const metadata: Metadata = {
 
 export const dynamic = "force-dynamic";
 
+/**
+ * Check the link before showing the quiz, so nobody answers seventeen
+ * questions on a link that has expired. If the check itself fails we still
+ * show the quiz: POST /api/quiz enforces the same rules on submit.
+ */
+async function checkLink(token: string): Promise<LinkState["state"] | "unknown"> {
+  if (!process.env.SUPABASE_SERVICE_ROLE_KEY) return "unknown";
+  try {
+    return (await resolveQuizLink(createAdminClient(), token)).state;
+  } catch (err) {
+    Sentry.captureException(err, { tags: { route: "quiz-page" } });
+    return "unknown";
+  }
+}
+
+function LinkProblem({ badge, lead, kicker, body }: { badge: string; lead: string; kicker: string; body: string }) {
+  return (
+    <QuizShell badge={badge} lead={lead} kicker={kicker}>
+      <div className="qz-card qz-center">
+        <p className="qz-lede">{body}</p>
+        <div className="qz-actions">
+          <Link href="/#footer" className="qz-pill">Get a fresh link</Link>
+        </div>
+      </div>
+    </QuizShell>
+  );
+}
+
 export default async function QuizPage({
   searchParams,
 }: {
   searchParams: Promise<{ token?: string }>;
 }) {
   const params = await searchParams;
-  const token = typeof params.token === "string" ? params.token : "";
+  const token = typeof params.token === "string" ? params.token.slice(0, 128) : "";
 
   if (!token) {
     return (
@@ -33,6 +64,28 @@ export default async function QuizPage({
           </div>
         </div>
       </QuizShell>
+    );
+  }
+
+  const state = await checkLink(token);
+  if (state === "expired") {
+    return (
+      <LinkProblem
+        badge="LINK EXPIRED"
+        lead="This link has"
+        kicker="expired."
+        body="Quiz links work for 24 hours. Enter your email on the home page and we'll send you a fresh one straight away."
+      />
+    );
+  }
+  if (state === "invalid") {
+    return (
+      <LinkProblem
+        badge="LINK NOT VALID"
+        lead="This link has"
+        kicker="already been used."
+        body="Each quiz link works once. If you haven't finished the quiz yet, enter your email on the home page for a new link."
+      />
     );
   }
 

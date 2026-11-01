@@ -34,7 +34,7 @@ export const FAQS = [
   },
   {
     q: "How do I delete my data?",
-    a: "Ask us and we will delete it. Waitlist and quiz data is kept for up to 24 months after your last interaction, unverified signups are removed after 90 days, and verification links expire after 7 days.",
+    a: "Ask us and we will delete it. Waitlist and quiz data is kept for up to 24 months after your last interaction, unverified signups are removed after 90 days, and quiz links work once and expire after 24 hours.",
   },
 ] as const;
 

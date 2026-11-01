@@ -94,7 +94,7 @@ sequenceDiagram
 | --- | --- |
 | Verified waitlist + quiz answers | 24 months after last interaction |
 | Unverified signups | deleted after 90 days |
-| Verification tokens | expire after 7 days |
+| Quiz links | work once, expire 24 hours after the email |
 | Audit log | hashed identifiers only; no raw IP or email |
 
 ## Environment variables

@@ -9,12 +9,12 @@ import { generateToken, sendVerificationEmail } from "@/lib/email";
 import { assertSameOrigin } from "@/lib/security";
 import { audit } from "@/lib/audit";
 import { withRetry } from "@/lib/retry";
+import { LINK_TTL_HOURS } from "@/lib/quiz-link";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 const MAX_BODY_BYTES = 4_096;
-const TOKEN_TTL_DAYS = 7;
 
 /**
  * POST /api/waitlist/join
@@ -112,7 +112,7 @@ export async function POST(req: Request) {
     // for a new signup so the response can't be used to test whether an
     // address has completed the quiz (security audit 2026-11-01, low).
     if (existing?.quiz_completed_at) {
-      return NextResponse.json({ ok: true, ttlDays: TOKEN_TTL_DAYS });
+      return NextResponse.json({ ok: true, ttlHours: LINK_TTL_HOURS });
     }
 
     if (existing) {
@@ -187,7 +187,7 @@ export async function POST(req: Request) {
       );
     }
 
-    return NextResponse.json({ ok: true, ttlDays: TOKEN_TTL_DAYS });
+    return NextResponse.json({ ok: true, ttlHours: LINK_TTL_HOURS });
   } catch (err) {
     /*
      * This catch keeps the user's response clean, but it also used to hide

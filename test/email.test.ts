@@ -33,8 +33,8 @@ describe("email templates", () => {
     expect(html).not.toContain("<script>");
   });
 
-  it("states the 7-day expiry the privacy page promises", () => {
-    expect(verificationEmail("t")).toContain("expires in 7 days");
+  it("states the 24-hour, single-use link the privacy page promises", () => {
+    expect(verificationEmail("t")).toContain("works once and expires in 24 hours");
   });
 
   it("contains no user-supplied text (the v2 quiz collects no name)", () => {

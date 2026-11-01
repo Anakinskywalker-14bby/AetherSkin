@@ -195,7 +195,7 @@ export default function PrivacyPage() {
         <LegalList>
           <li>Waitlist and quiz data: while your entry is active and for up to 24 months after your last interaction with us, then deleted or irreversibly anonymised.</li>
           <li>Unverified signups (you never clicked the confirmation link): deleted after 90 days.</li>
-          <li>Verification links: expire after 7 days.</li>
+          <li>Quiz links: work once and expire 24 hours after we email them.</li>
         </LegalList>
       </LegalSection>
 
