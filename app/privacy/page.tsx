@@ -41,7 +41,7 @@ const DATA_ROWS = [
   {
     data: "Your email address",
     how: "You give it to us when you join the waitlist",
-    why: "To confirm your spot, remind you once if your quiz link is about to expire, tell you when the beta opens, and send occasional product updates. Every email has an unsubscribe link.",
+    why: "To confirm your spot, tell you when the beta opens, and send occasional product updates. Every email has an unsubscribe link.",
     basis: "Your consent, given when you tick the box at signup (APP 3 and APP 7; Spam Act 2003 (Cth)). Unsubscribe any time",
   },
   {

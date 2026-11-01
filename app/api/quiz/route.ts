@@ -122,16 +122,26 @@ export async function POST(req: Request) {
       );
     }
 
-    await admin
+    // Single use: claim the link with a conditional update so two parallel
+    // submits can't both win, and the link stops working once the quiz is done.
+    const { data: claimed, error: claimError } = await admin
       .from("waitlist")
       .update({
         status: "verified",
         verified_at: new Date().toISOString(),
         quiz_completed_at: new Date().toISOString(),
-        // Single use: the link stops working once the quiz is done.
         verification_token_hash: null,
       })
-      .eq("id", entry.id);
+      .eq("id", entry.id)
+      .is("quiz_completed_at", null)
+      .select("id");
+    if (claimError) throw claimError;
+    if (!claimed || claimed.length === 0) {
+      return NextResponse.json(
+        { error: "This link is invalid or has already been used. Please sign up again." },
+        { status: 401 }
+      );
+    }
 
     await audit("quiz_submitted", {
       waitlistId: entry.id,

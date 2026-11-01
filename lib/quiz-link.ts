@@ -50,12 +50,15 @@ export async function resolveQuizLink(
 ): Promise<LinkState> {
   const hash = hashToken(token);
   if (!/^[0-9a-f]{64}$/.test(hash)) return { state: "invalid" };
-  const { data } = await admin
+  const { data, error } = await admin
     .from("waitlist")
     .select("id,email,position,quiz_completed_at,verification_sent_at")
     .eq("verification_token_hash", hash)
     .limit(1)
     .maybeSingle();
+  // A database failure is not "invalid link": surface it so Sentry sees it
+  // and the caller can answer with a server error instead.
+  if (error) throw error;
   const entry = data as LinkEntry | null;
   if (!entry || entry.quiz_completed_at) return { state: "invalid" };
   if (isLinkExpired(entry.verification_sent_at, now, graceMs)) return { state: "expired" };
