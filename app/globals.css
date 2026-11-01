@@ -969,3 +969,28 @@ html, body {
 .qz-place-n{margin:4px 0 0;font-family:var(--ed-serif),'Playfair Display',Georgia,serif;font-style:italic;font-size:56px;line-height:1;color:#3B2F5C}
 @media (max-width:640px){.qz-line-nav{top:64px}.qz-nav{height:64px}.qz-glass{width:40px;height:40px}.qz-top{min-height:230px}.qz-sky{object-position:62% 25%}}
 .qz-lede--gap{margin-bottom:24px}
+
+/* ─── Landing type system ─────────────────────────────────────────────────
+   One voice across the home page, matching the Solution section: Fraunces
+   800 for headlines, DM Sans for everything else. The footer keeps its own
+   type (.sf-*). Inner pages (About, FAQ, Privacy, Terms) are unchanged. */
+.eh,.ps,.cat-section{font-family:'DM Sans',system-ui,sans-serif}
+.eh{font-weight:400}
+.eh-headline,.ps-title,.cat-statement,.cat-section h2{font-family:'Fraunces',Georgia,serif;font-weight:800}
+.eh-headline,.ps-title{letter-spacing:-.02em}
+.eh-headline em,.ps-title em,.cat-statement em{font-family:'Fraunces',Georgia,serif;font-style:normal;font-weight:800}
+.eh-headline em{font-size:calc(84 * var(--u));letter-spacing:-.02em}
+.ps-title em{font-size:1.2em}
+.cat-statement{letter-spacing:-.02em}
+.cat-statement em{font-size:1em;letter-spacing:-.02em}
+.eh-watermark{font-family:'Fraunces',Georgia,serif;font-style:normal;font-weight:800}
+@media (max-width:760px),(orientation:portrait) and (max-width:1024px){
+  .eh-headline em{font-size:clamp(34px,10vw,44px)}
+}
+.sk-name,.sk-badge,.sk-note{font-family:'DM Sans',system-ui,sans-serif}
+.sk-title,.sk-title em{font-family:'Fraunces',Georgia,serif;font-weight:800}
+.sk-title{letter-spacing:-.02em}
+.sk-title em{font-style:normal}
+/* Fraunces runs wider than the old sans: keep the problem headline clear of the polaroid. */
+.ps-title{font-size:clamp(30px,3.5vw,52px);line-height:1.05}
+.ps-title em{font-size:1.08em}

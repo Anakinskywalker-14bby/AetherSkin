@@ -8,17 +8,13 @@ type AdminClient = ReturnType<typeof createAdminClient>;
 /**
  * Quiz link lifetime.
  *
- * A confirmation link opens the quiz for 24 hours after it is emailed. If the
- * quiz isn't done after 12 hours, one reminder email goes out with its own
- * link, valid until the same 24-hour mark. Finishing the quiz uses the link
- * up (both hashes are cleared). Asking to join again issues a fresh link and
- * a fresh 24 hours.
+ * A confirmation link opens the quiz for 24 hours after it is emailed.
+ * Finishing the quiz uses the link up (the hash is cleared). Asking to join
+ * again issues a fresh link and a fresh 24 hours.
  */
 export const LINK_TTL_HOURS = 24;
-export const REMINDER_AFTER_HOURS = 12;
 const HOUR = 60 * 60 * 1000;
 export const LINK_TTL_MS = LINK_TTL_HOURS * HOUR;
-export const REMINDER_AFTER_MS = REMINDER_AFTER_HOURS * HOUR;
 /** Someone who opened the quiz at 23h59 can still submit a few minutes later. */
 export const SUBMIT_GRACE_MS = 30 * 60 * 1000;
 
@@ -44,8 +40,7 @@ export type LinkState =
   | { state: "invalid" };
 
 /**
- * Look a raw token up by its hash. It may be the original link or the
- * reminder link. Hashes are hex, so they are safe inside the filter string.
+ * Look a raw token up by its hash.
  */
 export async function resolveQuizLink(
   admin: AdminClient,
@@ -58,7 +53,7 @@ export async function resolveQuizLink(
   const { data } = await admin
     .from("waitlist")
     .select("id,email,position,quiz_completed_at,verification_sent_at")
-    .or(`verification_token_hash.eq.${hash},reminder_token_hash.eq.${hash}`)
+    .eq("verification_token_hash", hash)
     .limit(1)
     .maybeSingle();
   const entry = data as LinkEntry | null;

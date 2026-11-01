@@ -181,8 +181,6 @@ export type Database = {
           id: string
           position: number
           quiz_completed_at: string | null
-          reminder_sent_at: string | null
-          reminder_token_hash: string | null
           signup_ip_hash: string | null
           status: Database["public"]["Enums"]["waitlist_status"]
           updated_at: string
@@ -198,8 +196,6 @@ export type Database = {
           id?: string
           position?: never
           quiz_completed_at?: string | null
-          reminder_sent_at?: string | null
-          reminder_token_hash?: string | null
           signup_ip_hash?: string | null
           status?: Database["public"]["Enums"]["waitlist_status"]
           updated_at?: string
@@ -215,8 +211,6 @@ export type Database = {
           id?: string
           position?: never
           quiz_completed_at?: string | null
-          reminder_sent_at?: string | null
-          reminder_token_hash?: string | null
           signup_ip_hash?: string | null
           status?: Database["public"]["Enums"]["waitlist_status"]
           updated_at?: string

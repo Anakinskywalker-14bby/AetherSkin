@@ -128,9 +128,8 @@ export async function POST(req: Request) {
         status: "verified",
         verified_at: new Date().toISOString(),
         quiz_completed_at: new Date().toISOString(),
-        // Single use: both the original and the reminder link stop working.
+        // Single use: the link stops working once the quiz is done.
         verification_token_hash: null,
-        reminder_token_hash: null,
       })
       .eq("id", entry.id);
 

@@ -18,7 +18,6 @@ export type AuditEvent =
   | "verification_opened"
   | "quiz_submitted"
   | "quiz_rejected"
-  | "quiz_reminder_sent"
   | "rate_limited";
 
 const SALT = process.env.IP_HASH_SALT ?? "aetherskin-default-salt";

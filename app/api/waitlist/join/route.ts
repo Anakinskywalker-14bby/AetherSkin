@@ -121,9 +121,6 @@ export async function POST(req: Request) {
         .update({
           verification_token_hash: hash,
           verification_sent_at: new Date().toISOString(),
-          // A new link starts a new 24 hours and a new reminder cycle.
-          reminder_token_hash: null,
-          reminder_sent_at: null,
           signup_ip_hash,
           user_agent,
         })
