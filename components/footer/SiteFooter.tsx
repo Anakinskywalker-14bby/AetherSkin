@@ -7,6 +7,9 @@ import { useWaitlistSignup } from "@/lib/use-waitlist-signup";
 
 const LINKEDIN = "https://www.linkedin.com/in/khaleed-mohammed-b5b431223";
 const INSTAGRAM = "https://www.instagram.com/aetherskincare/";
+const X = "https://x.com/AetherSkin_";
+const REDDIT = "https://www.reddit.com/user/AetherSkin_/";
+const FACEBOOK = "https://www.facebook.com/profile.php?id=61595904593448";
 
 function LinkedInIcon() {
   return (
@@ -22,6 +25,37 @@ function InstagramIcon() {
       <rect x="3" y="3" width="18" height="18" rx="5" />
       <circle cx="12" cy="12" r="4" />
       <circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+function XIcon() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M17.7 3h3.1l-6.8 7.7L22 21h-6.3l-4.9-6.4L5.2 21H2.1l7.3-8.3L2 3h6.4l4.4 5.9L17.7 3Zm-1.1 16.2h1.7L7.5 4.7H5.7l10.9 14.5Z" />
+    </svg>
+  );
+}
+
+function RedditIcon() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <ellipse cx="12" cy="14" rx="8" ry="5.5" />
+      <circle cx="9" cy="13.5" r="1" fill="currentColor" stroke="none" />
+      <circle cx="15" cy="13.5" r="1" fill="currentColor" stroke="none" />
+      <path d="M9.6 16.6c1.4.9 3.4.9 4.8 0" />
+      <path d="m12 8.5 1.2-4.5 4 1" />
+      <circle cx="18.3" cy="5.3" r="1.3" />
+      <circle cx="4.3" cy="11" r="1.4" />
+      <circle cx="19.7" cy="11" r="1.4" />
+    </svg>
+  );
+}
+
+function FacebookIcon() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M13.5 21v-7.7h2.6l.4-3h-3V8.4c0-.9.3-1.4 1.5-1.4h1.6V4.3c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.1H8v3h2.4V21h3.1Z" />
     </svg>
   );
 }
@@ -121,6 +155,15 @@ export default function SiteFooter() {
           </a>
           <a href={INSTAGRAM} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
             <InstagramIcon />
+          </a>
+          <a href={X} target="_blank" rel="noopener noreferrer" aria-label="X">
+            <XIcon />
+          </a>
+          <a href={REDDIT} target="_blank" rel="noopener noreferrer" aria-label="Reddit">
+            <RedditIcon />
+          </a>
+          <a href={FACEBOOK} target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            <FacebookIcon />
           </a>
         </div>
       </div>
