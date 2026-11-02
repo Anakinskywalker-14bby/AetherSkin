@@ -10,8 +10,7 @@ const playfair = Playfair_Display({ subsets: ["latin"], weight: ["400", "500"], 
 
 /**
  * Editorial hero: full-bleed portrait under a lilac-peach sky, thin white
- * grid, mixed sans/italic-serif headline, a tilted polaroid and a giant
- * watermark. Only the UI animates; the scene is a photo plus a looping clip
+ * top rule, mixed sans/italic-serif headline and a tilted polaroid. Only the UI animates; the scene is a photo plus a looping clip
  * (public/hero/hero-loop.mp4, played forward then backward so the wind in his
  * hair never jumps; built by scripts/hero-guy.py). Reduced motion: no video.
  */
