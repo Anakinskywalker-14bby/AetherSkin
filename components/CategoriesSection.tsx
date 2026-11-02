@@ -62,7 +62,7 @@ export default function CategoriesSection() {
           <article
             key={c.name}
             tabIndex={0}
-            className="cat-card group relative flex flex-col justify-between items-start p-6 sm:p-8 md:p-12 min-h-[400px] sm:min-h-[500px] md:min-h-[750px] overflow-hidden"
+            className="cat-card group relative flex flex-col justify-between items-start p-6 sm:p-8 md:p-12 min-h-[300px] sm:min-h-[500px] md:min-h-[750px] overflow-hidden"
             style={{ transitionDelay: `${i * 150}ms` }}
           >
             <video

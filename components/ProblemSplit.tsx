@@ -100,8 +100,10 @@ function ProblemPanel({ visible }: { visible: boolean }) {
         </h2>
         <p className="ps-body" {...anim(visible, 600, { y: 10, duration: 1400 })}>
           Buying serums based on vibes? Stop it. Your skin is a complex
-          ecosystem, not a mood board. Most routines fail because they chase
-          trends instead of what your skin actually needs.
+          ecosystem, not a mood board.
+          {/* Phones: the shorter version (CSS hides this sentence). */}
+          <span className="ps-more"> Most routines fail because they chase
+          trends instead of what your skin actually needs.</span>
         </p>
       </div>
 
@@ -173,7 +175,7 @@ export default function ProblemSplit() {
     >
       <div className="flex flex-col-reverse md:grid md:min-h-screen" style={{ gridTemplateColumns: "1fr 1fr" }}>
         <ProblemVideo className="hidden md:block relative overflow-hidden" style={{ backgroundColor: PLUM, minHeight: "100%" }} />
-        <ProblemVideo className="md:hidden relative overflow-hidden" style={{ height: "75vw", backgroundColor: PLUM }} />
+        <ProblemVideo className="md:hidden relative overflow-hidden" style={{ height: "60vw", backgroundColor: PLUM }} />
         <ProblemPanel visible={visible} />
       </div>
     </section>
