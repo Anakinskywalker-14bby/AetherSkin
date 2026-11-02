@@ -87,11 +87,6 @@ export default function EditorialHero() {
         </p>
 
         <div className="eh-side eh-fade">
-          <p>
-            AI skin analysis that matches you with products from brands you
-            already love. Join the free waitlist; photo scanning opens at beta
-            launch.
-          </p>
           <div className="eh-ctas">
             <a href="#beta" className="eh-pill">Join the waitlist</a>
             <a href="#solution" className="eh-arrow" aria-label="See how it works">
@@ -100,7 +95,6 @@ export default function EditorialHero() {
           </div>
         </div>
 
-        <p className="eh-season eh-fade">AI<br />SKIN<br />ANALYSIS</p>
 
         <figure className="eh-polaroid" aria-hidden="true">
           {/* eslint-disable-next-line @next/next/no-img-element -- decorative */}
