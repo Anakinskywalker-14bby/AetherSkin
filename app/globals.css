@@ -1079,3 +1079,8 @@ html, body {
   /* Hero: the polaroid sits lower, level with the "Join the waitlist" button. */
   .eh-polaroid{bottom:calc(24px + 2vh)}
 }
+@media (max-width:767px){
+  /* Two balanced lines, no orphaned "over." */
+  .ps-title{font-size:clamp(25px,7vw,30px);text-wrap:balance}
+}
+.ps-btn{gap:8px}
