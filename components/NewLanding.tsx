@@ -93,14 +93,10 @@ function SolutionSection() {
             THE SOLUTION
           </div>
           <h2 style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 800, fontSize: "clamp(36px, 4vw, 52px)", color: "var(--ink)", letterSpacing: "-1px", textAlign: "center", margin: 0 }}>
-            AetherSkin&apos;s AI Skin Analysis
+            AetherSkin&apos;s Analysis
           </h2>
-          {/* Status, stated where the features are described, so nobody has
-              to reach the FAQ to learn that scanning isn't live yet. */}
-          <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 400, fontSize: 17, color: "var(--ink)", lineHeight: 1.6, textAlign: "center", maxWidth: 620, margin: 0 }}>
-            <strong>Arriving with the beta launch.</strong> Photo analysis, product matching and
-            tracking go live then. Today you can join the free waitlist and take the 3-minute skin quiz.
-          </p>
+          {/* Launch status now lives on the "AT BETA LAUNCH" badge in the
+              skin-issues card just below. */}
         </div>
 
         <SkinIssuesMarquee />
@@ -116,7 +112,7 @@ function SolutionSection() {
               <h3 style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 800, fontSize: 32, color: "var(--ink)", margin: 0 }}>Deep Scan Tech</h3>
             </div>
             <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 400, fontSize: 16, color: "var(--ink)", lineHeight: 1.6, margin: 0 }}>
-              One selfie. AetherSkin&apos;s AI reads your face and maps hydration,
+              One selfie. AetherSkin reads your face and maps hydration,
               texture, and everyday concerns, instantly.
             </p>
             {/* The scan readout is a device screen, so it stays dark in both

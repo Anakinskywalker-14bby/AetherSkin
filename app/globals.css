@@ -1019,3 +1019,26 @@ html, body {
   .sol-card .scan-panel > div > span:first-child{width:78px !important;font-size:11px !important;letter-spacing:.06em !important}
   .sol-card .scan-panel > div > span:last-child{width:36px !important}
 }
+
+/* ─── Problem slide: readable pain points, a solid primary button and
+   single-line copy fragments. */
+.ps-line{display:block}
+.ps-line--stop{font-weight:700;color:#fff}
+.ps-pains li{align-items:center;text-align:left}
+.ps-pain-label{width:36px;height:36px}
+.ps-pain-label svg{width:20px;height:20px;fill:none;stroke:#3B2F5C;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.ps-pain-text{text-transform:none;letter-spacing:0;font-weight:600;line-height:1.35}
+.ps-btn{border:0;border-radius:999px;background:#fff;color:#3B2F5C;padding:15px 30px;font-size:15px;font-weight:700;letter-spacing:.01em;text-transform:none;
+  box-shadow:0 12px 28px -12px rgba(40,24,70,.6);transition:transform .2s ease,box-shadow .2s ease}
+.ps-btn:hover{transform:translateY(-1px);box-shadow:0 16px 32px -12px rgba(40,24,70,.7)}
+.ps-btn:active{transform:scale(.98)}
+@media (max-width:767px){
+  .ps-polaroid--mob{width:108px;margin:10px 4px 10px 14px}
+  .ps-body{clear:both;margin-top:16px;font-size:15px;line-height:1.5}
+  .ps-line + .ps-line{margin-top:4px}
+  .ps-pains li{gap:12px;padding:11px 14px}
+  .ps-pain-label{width:32px;height:32px}
+  .ps-pain-label svg{width:18px;height:18px}
+  .ps-pain-text{font-size:15px;letter-spacing:0}
+  .ps-btn{width:100%;justify-content:center;min-height:52px;font-size:16px}
+}

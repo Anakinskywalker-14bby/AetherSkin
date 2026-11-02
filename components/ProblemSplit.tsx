@@ -21,10 +21,42 @@ const VIDEO_SRC = "/problem/problem.mp4";
 const VIDEO_POSTER = "/problem/problem-poster.jpg";
 const POLAROID_SRC = "/problem/polaroid-frown.jpg";
 
+// Each pain point gets its own icon instead of a number, so it reads at a glance.
+function MoneyDrainIcon() {
+  // A coin with its value falling away: money spent on viral ingredients.
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="10" cy="10" r="6.5" />
+      <path d="M11.8 7.6c-.4-.6-1.1-.9-1.8-.9-1 0-1.9.6-1.9 1.4 0 1.9 3.8 1 3.8 2.9 0 .8-.9 1.4-1.9 1.4-.8 0-1.5-.4-1.9-1M10 5.6v.9M10 13.5v.9" />
+      <path d="M18.5 13v7M16 17.6l2.5 2.6 2.5-2.6" />
+    </svg>
+  );
+}
+function ClashIcon() {
+  // Two products colliding with a spark: mixing things that don't match.
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M4 10h4v10H4zM5 10V7.5h2V10M5.4 7.5V5.5h1.2v2" />
+      <path d="M16 12h4v8h-4zM17 12V9.5h2V12" />
+      <path d="M12.6 4.5 10.8 8h2.4l-1.8 3.5" />
+    </svg>
+  );
+}
+function WaitingIcon() {
+  // An hourglass: months of waiting.
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M6.5 3.5h11M6.5 20.5h11" />
+      <path d="M7.5 3.5c0 4 4.5 5.5 4.5 8.5s-4.5 4.5-4.5 8.5M16.5 3.5c0 4-4.5 5.5-4.5 8.5s4.5 4.5 4.5 8.5" />
+      <path d="M9.5 18.8c.8-1.3 1.6-1.8 2.5-1.8s1.7.5 2.5 1.8" />
+    </svg>
+  );
+}
+
 const PAINS = [
-  { label: "01", text: "Wasting money on hype ingredients." },
-  { label: "02", text: "Irritating your skin with contradictory products." },
-  { label: "03", text: "Waiting months for results with a routine that doesn't work." },
+  { key: "money", Icon: MoneyDrainIcon, text: "Wasting hundreds on viral ingredients that do nothing." },
+  { key: "clash", Icon: ClashIcon, text: "Breaking out from mixing products that don't match." },
+  { key: "wait", Icon: WaitingIcon, text: "Waiting months for changes that never show up." },
 ];
 
 function anim(visible: boolean, delay: number, opts: { y?: number; x?: number; duration?: number } = {}) {
@@ -99,11 +131,10 @@ function ProblemPanel({ visible }: { visible: boolean }) {
           <em>is over.</em>
         </h2>
         <p className="ps-body" {...anim(visible, 600, { y: 10, duration: 1400 })}>
-          Buying serums based on vibes? Stop it. Your skin is a complex
-          ecosystem, not a mood board.
-          {/* Phones: the shorter version (CSS hides this sentence). */}
-          <span className="ps-more"> Most routines fail because they chase
-          trends instead of what your skin actually needs.</span>
+          {/* Short, single-line fragments that read like the visitor's own thoughts. */}
+          <span className="ps-line">Buying serums based on TikTok trends?</span>
+          <span className="ps-line ps-line--stop">Stop it.</span>
+          <span className="ps-line">Your skin is a living ecosystem, not an aesthetic mood board.</span>
         </p>
       </div>
 
@@ -112,23 +143,15 @@ function ProblemPanel({ visible }: { visible: boolean }) {
       <div className="ps-bottom relative flex items-end justify-between gap-6 flex-wrap">
         <ul className="ps-pains" {...anim(visible, 900, { y: 16, duration: 1400 })}>
           {PAINS.map((p) => (
-            <li key={p.label}>
-              <span className="ps-pain-label">{p.label}</span>
+            <li key={p.key}>
+              <span className="ps-pain-label"><p.Icon /></span>
               <span className="ps-pain-text">{p.text}</span>
             </li>
           ))}
         </ul>
-        <a
-          href="#beta"
-          className="ps-btn group"
-          style={{ color: TEXT, borderColor: TEXT, ...anim(visible, 1150, { y: 16, duration: 1400 }).style }}
-        >
-          <span className="relative z-10 transition-colors duration-500 group-hover:text-[color:var(--ps-plum)]">Get your skin read</span>
-          <span
-            aria-hidden="true"
-            className="absolute inset-0 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out"
-            style={{ backgroundColor: "#ffffff" }}
-          />
+        {/* The primary action after the problems: solid, high contrast. */}
+        <a href="#beta" className="ps-btn" style={anim(visible, 1150, { y: 16, duration: 1400 }).style}>
+          Get your skin read
         </a>
       </div>
     </div>

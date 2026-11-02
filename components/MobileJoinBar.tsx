@@ -3,34 +3,38 @@
 import { useEffect, useState } from "react";
 
 /**
- * Phones only (CSS hides it above 767px): a slim "Join the waitlist" bar
+ * Phones only (CSS hides it above 767px): a slim "Join the free waitlist" bar
  * pinned to the bottom of the screen, so the signup is one tap away from
- * anywhere on the page. It stays out of the way while the hero's own button
- * is on screen and while the footer signup (#beta) is visible, and it sits
- * above the iPhone home indicator via env(safe-area-inset-bottom).
+ * anywhere on the page.
+ *
+ * It appears only once the hero's "Join the waitlist" button has scrolled
+ * completely off screen, and steps aside whenever another primary button is
+ * visible (the problem slide's "Get your skin read") or the footer signup
+ * (#beta) itself is on screen, so there is never a double call to action.
+ * It sits above the iPhone home indicator via env(safe-area-inset-bottom).
  */
 export default function MobileJoinBar() {
-  const [pastHero, setPastHero] = useState(false);
+  const [heroCtaHidden, setHeroCtaHidden] = useState(false);
+  const [otherCtaVisible, setOtherCtaVisible] = useState(false);
   const [signupVisible, setSignupVisible] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setPastHero(window.scrollY > window.innerHeight * 0.8);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-
-    let obs: IntersectionObserver | undefined;
-    const beta = document.getElementById("beta");
-    if (beta && typeof IntersectionObserver !== "undefined") {
-      obs = new IntersectionObserver(([e]) => setSignupVisible(e.isIntersecting), { rootMargin: "0px 0px 120px 0px" });
-      obs.observe(beta);
-    }
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      obs?.disconnect();
+    if (typeof IntersectionObserver === "undefined") return;
+    const watch = (el: Element | null, fn: (visible: boolean) => void, rootMargin = "0px") => {
+      if (!el) return undefined;
+      const o = new IntersectionObserver(([e]) => fn(e.isIntersecting), { rootMargin, threshold: 0 });
+      o.observe(el);
+      return o;
     };
+    const observers = [
+      watch(document.querySelector(".eh-ctas"), (v) => setHeroCtaHidden(!v)),
+      watch(document.querySelector(".ps-btn"), setOtherCtaVisible),
+      watch(document.getElementById("beta"), setSignupVisible, "0px 0px 120px 0px"),
+    ];
+    return () => observers.forEach((o) => o?.disconnect());
   }, []);
 
-  const show = pastHero && !signupVisible;
+  const show = heroCtaHidden && !otherCtaVisible && !signupVisible;
 
   return (
     <div className={`mjb${show ? " is-on" : ""}`} aria-hidden={!show}>
@@ -38,7 +42,7 @@ export default function MobileJoinBar() {
           hidden (aria-hidden) element must not keep focus. */}
       <a href="#beta" className="mjb-btn" tabIndex={show ? 0 : -1} onClick={(e) => e.currentTarget.blur()}>
         <span className="mjb-main">Join the free waitlist</span>
-        <span className="mjb-sub">3-minute skin quiz · no card</span>
+        <span className="mjb-sub">Start investing in you</span>
       </a>
     </div>
   );
