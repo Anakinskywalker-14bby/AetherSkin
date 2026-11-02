@@ -123,7 +123,7 @@ function ProblemPanel({ visible }: { visible: boolean }) {
         className="ps-mid relative flex flex-col py-10 md:py-8"
         style={{ flex: 1, justifyContent: "center", ...anim(visible, 300, { y: 40, duration: 1800 }).style }}
       >
-        {/* Phones: the same polaroid floats beside the headline instead. */}
+        {/* Phones: the same polaroid, centred under the headline (CSS order). */}
         <Polaroid className="ps-polaroid ps-polaroid--mob" />
         <h2 id="problem-heading" className="ps-title m-0">
           <span>The skincare</span>
@@ -134,7 +134,6 @@ function ProblemPanel({ visible }: { visible: boolean }) {
           {/* Short, single-line fragments that read like the visitor's own thoughts. */}
           <span className="ps-line">Buying serums based on TikTok trends?</span>
           <span className="ps-line ps-line--stop">Stop it.</span>
-          <span className="ps-line">Your skin is a living ecosystem, not an aesthetic mood board.</span>
         </p>
       </div>
 
@@ -151,7 +150,7 @@ function ProblemPanel({ visible }: { visible: boolean }) {
         </ul>
         {/* The primary action after the problems: solid, high contrast. */}
         <a href="#beta" className="ps-btn" style={anim(visible, 1150, { y: 16, duration: 1400 }).style}>
-          Get your skin read
+          Start Your 3-Minute Skin Quiz <span aria-hidden="true">→</span>
         </a>
       </div>
     </div>

@@ -1046,3 +1046,36 @@ html, body {
   /* Keep "Is it working?" on one line on the smaller phone polaroid. */
   .ps-polaroid--mob figcaption{font-size:12.5px;white-space:nowrap}
 }
+
+/* ─── Problem slide on phones: centred layout (owner's mockup). Label,
+   headline, a centred polaroid, the one-line quote, then the pain points
+   and the button. */
+@media (max-width:767px){
+  .ps-top{justify-content:center;margin-bottom:0}
+  .ps-kicker{background:transparent;box-shadow:none;padding:0;color:#3B2F5C;letter-spacing:.18em}
+  .ps-mid{text-align:center;padding-top:10px}
+  .ps-title{display:block;text-align:center;font-size:clamp(30px,8.6vw,36px);line-height:1.12}
+  .ps-title span,.ps-title em{display:inline;font-size:1em}
+  .ps-title span::after{content:" "}
+  .ps-polaroid--mob{float:none;display:block;width:150px;margin:22px auto 18px}
+  .ps-polaroid--mob figcaption{font-size:15px}
+  .ps-body{max-width:none;margin:0 auto;font-style:italic;font-size:18px;line-height:1.45;text-align:center}
+  .ps-body::before{content:"\201C"}
+  .ps-body::after{content:"\201D"}
+  .ps-line{display:inline}
+  .ps-line + .ps-line{margin-top:0}
+  .ps-line--stop::before{content:" "}
+  .ps-bottom{gap:14px}
+  .ps-pains{width:100%;max-width:none}
+}
+@media (max-width:767px){
+  /* Order on phones: headline, then the polaroid, then the quote. */
+  .ps-mid{display:flex !important;flex-direction:column;align-items:center}
+  .ps-title{order:1}
+  .ps-polaroid--mob{order:2}
+  .ps-body{order:3}
+}
+@media (max-width:760px),(orientation:portrait) and (max-width:1024px){
+  /* Hero: the polaroid sits lower, level with the "Join the waitlist" button. */
+  .eh-polaroid{bottom:calc(24px + 2vh)}
+}
