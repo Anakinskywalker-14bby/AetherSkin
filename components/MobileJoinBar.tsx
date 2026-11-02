@@ -34,7 +34,9 @@ export default function MobileJoinBar() {
 
   return (
     <div className={`mjb${show ? " is-on" : ""}`} aria-hidden={!show}>
-      <a href="#beta" className="mjb-btn" tabIndex={show ? 0 : -1}>
+      {/* Blur on tap: the bar hides as the signup scrolls into view, and a
+          hidden (aria-hidden) element must not keep focus. */}
+      <a href="#beta" className="mjb-btn" tabIndex={show ? 0 : -1} onClick={(e) => e.currentTarget.blur()}>
         <span className="mjb-main">Join the free waitlist</span>
         <span className="mjb-sub">3-minute skin quiz · no card</span>
       </a>
