@@ -56,9 +56,6 @@ export default function EditorialHero() {
 
       <div className="eh-stage">
         <span className="eh-line eh-line-top" aria-hidden="true" />
-        <span className="eh-line eh-line-v1" aria-hidden="true" />
-        <span className="eh-line eh-line-v2" aria-hidden="true" />
-        <span className="eh-line eh-line-h" aria-hidden="true" />
 
         <header className="eh-nav">
           <Link href="/" className="eh-logo eh-in" aria-label="AetherSkin home">
@@ -112,7 +109,6 @@ export default function EditorialHero() {
           <figcaption>your skin, decoded</figcaption>
         </figure>
 
-        <p className="eh-watermark" aria-hidden="true">AetherSkin</p>
       </div>
     </section>
   );

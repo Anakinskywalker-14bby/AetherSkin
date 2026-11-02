@@ -39,8 +39,6 @@ export default function FaqPage() {
         lead="Straight"
         kicker="answers."
         note="What AetherSkin costs (nothing), how the analysis works, and what happens to your data."
-        caption="is it working?"
-        photo="/problem/polaroid-frown.jpg"
       />
       <EdBody>
         <Breadcrumbs items={crumbs} />
