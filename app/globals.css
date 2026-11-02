@@ -1042,3 +1042,7 @@ html, body {
   .ps-pain-text{font-size:15px;letter-spacing:0}
   .ps-btn{width:100%;justify-content:center;min-height:52px;font-size:16px}
 }
+@media (max-width:767px){
+  /* Keep "Is it working?" on one line on the smaller phone polaroid. */
+  .ps-polaroid--mob figcaption{font-size:12.5px;white-space:nowrap}
+}
