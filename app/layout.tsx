@@ -43,6 +43,9 @@ const edSerif = Playfair_Display({
 export const viewport: Viewport = {
   colorScheme: "only light",
   themeColor: "#EEEAF7",
+  // Lets env(safe-area-inset-bottom) report the iPhone home-indicator inset,
+  // so the phone join bar sits clear of it.
+  viewportFit: "cover",
 };
 
 export const metadata: Metadata = {

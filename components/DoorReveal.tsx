@@ -116,7 +116,8 @@ export function DoorReveal({ children }: { children: ReactNode }) {
     };
     // Keyboard users tabbing into the hero shouldn't be stuck behind doors.
     const onFocusIn = (e: FocusEvent) => {
-      if (ref.current?.contains(e.target as Node)) open();
+      // e.target can be a non-Node (e.g. window) in some browsers (AETHERSKIN-4).
+      if (e.target instanceof Node && ref.current?.contains(e.target)) open();
     };
     // In-page links (nav, CTA) open instantly and then work as normal.
     const onClick = (e: MouseEvent) => {

@@ -42,7 +42,7 @@ export function CookieBanner() {
     <div
       role="region"
       aria-label="Cookie notice"
-      className="fixed bottom-0 left-0 right-0 z-[60] p-3 md:p-5"
+      className="fixed bottom-0 left-0 right-0 z-[60] p-3 pb-[max(12px,env(safe-area-inset-bottom))] md:p-5"
     >
       <div
         className="neo-shadow neo-border mx-auto flex max-w-3xl flex-col gap-4 p-5 md:flex-row md:items-center md:justify-between"
