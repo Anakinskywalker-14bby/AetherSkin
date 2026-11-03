@@ -39,7 +39,7 @@ export const DESKTOP_PATH: BeePoint[] | null = [
 ];
 
 export const MOBILE_PATH: BeePoint[] | null = [
-  { sec: ".eh", fx: 0.9153, fy: 0.699, perch: true },
+  { sec: ".eh", fx: 0.9187, fy: 0.7272, perch: true },
   { sec: ".eh", fx: 0.3554, fy: 0.8438 },
   { sec: "#problem", fx: 0.7851, fy: 0.0346 },
   { sec: "#problem", fx: 0.9112, fy: 0.0948 },
