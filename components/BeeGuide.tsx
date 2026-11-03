@@ -120,9 +120,11 @@ export default function BeeGuide() {
       scene.add(flight);
 
       // Wings: plane hinged at its root, two faint copies fake motion blur.
-      const wingTex = await new THREE.TextureLoader().loadAsync("/bee/wing.png");
+      // A blocked or failed wing image must not take the whole bee down (AETHERSKIN-7):
+      // fly with faint plain wings instead.
+      const wingTex = await new THREE.TextureLoader().loadAsync("/bee/wing.png").catch(() => null);
       if (disposed) return;
-      wingTex.colorSpace = THREE.SRGBColorSpace;
+      if (wingTex) wingTex.colorSpace = THREE.SRGBColorSpace;
       const flaps: { g: InstanceType<typeof THREE.Group>; phase: number }[] = [];
       const wingGeo = (span: number) => {
         const g = new THREE.PlaneGeometry(span, (span * 9) / 16);
@@ -132,7 +134,7 @@ export default function BeeGuide() {
         return g;
       };
       const wingMat = (opacity: number) =>
-        new THREE.MeshBasicMaterial({ map: wingTex, transparent: true, opacity, side: THREE.DoubleSide, depthWrite: false });
+        new THREE.MeshBasicMaterial({ map: wingTex, transparent: true, opacity: wingTex ? opacity : opacity * 0.35, side: THREE.DoubleSide, depthWrite: false });
       const buildSide = (anchor: InstanceType<typeof THREE.Vector3>, mirror: boolean) => {
         const side = new THREE.Group();
         side.position.copy(anchor);
@@ -162,7 +164,9 @@ export default function BeeGuide() {
       try {
         gltf = await loader.loadAsync("/bee/bee.glb");
       } catch (error) {
-        Sentry.captureException(error, { tags: { feature: "bee_guide" } });
+        // Load failures can reject with a DOM Event, not an Error; wrap it so Sentry groups it usefully.
+      const err = error instanceof Error ? error : new Error(`bee_guide_load_failed: ${(error as Event | undefined)?.type ?? String(error)}`);
+      Sentry.captureException(err, { tags: { feature: "bee_guide" } });
         renderer.dispose();
         return;
       }
@@ -382,12 +386,14 @@ export default function BeeGuide() {
             mats.forEach((mt) => mt.dispose());
           }
         });
-        wingTex.dispose();
+        wingTex?.dispose();
         pmrem.dispose();
         renderer.dispose();
       };
     })().catch((error) => {
-      Sentry.captureException(error, { tags: { feature: "bee_guide" } });
+      // Load failures can reject with a DOM Event, not an Error; wrap it so Sentry groups it usefully.
+      const err = error instanceof Error ? error : new Error(`bee_guide_load_failed: ${(error as Event | undefined)?.type ?? String(error)}`);
+      Sentry.captureException(err, { tags: { feature: "bee_guide" } });
     });
 
     return () => {

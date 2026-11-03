@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextResponse, after } from "next/server";
 import * as Sentry from "@sentry/nextjs";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { rateLimit, getClientIp } from "@/lib/rate-limit";
@@ -151,7 +151,9 @@ export async function POST(req: Request) {
     });
 
     // Best-effort confirmation; never blocks the response.
-    void sendQuizCompleteEmail(entry.email, entry.position).catch(() => undefined);
+    // after() keeps the serverless function alive until the email call finishes;
+    // fire-and-forget let Vercel freeze it mid-request (AETHERSKIN-6, Resend TimeoutError).
+    after(() => sendQuizCompleteEmail(entry.email, entry.position).catch(() => undefined));
 
     Sentry.metrics.count("quiz.completed", 1);
     return NextResponse.json({ ok: true, position: entry.position });
