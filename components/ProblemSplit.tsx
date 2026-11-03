@@ -150,7 +150,7 @@ function ProblemPanel({ visible }: { visible: boolean }) {
         </ul>
         {/* The primary action after the problems: solid, high contrast. */}
         <a href="#beta" className="ps-btn" style={anim(visible, 1150, { y: 16, duration: 1400 }).style}>
-          Start Your 3-Minute Skin Quiz <span aria-hidden="true">→</span>
+          Fix my routine Pls 😭
         </a>
       </div>
     </div>
