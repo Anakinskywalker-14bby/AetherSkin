@@ -215,11 +215,16 @@ describe("validateQuiz", () => {
     expect(validateQuiz(validPayload({ allergy_status: "maybe" })).ok).toBe(false);
   });
 
-  it("keeps the notes and gender out of the ML training schema", () => {
+  it("exports the new answers and both notes to the training CSV, but not as model inputs", () => {
     const py = readFileSync(join(process.cwd(), "ml/aetherskin_ml/schema.py"), "utf8");
+    const extra = py.slice(py.indexOf("EXTRA_COLUMNS = ["), py.indexOf("EXPORT_COLUMNS ="));
     for (const col of ["gender", "medication_use", "medication_details", "allergy_status", "allergy_details"]) {
-      expect(py).not.toContain(`"${col}"`);
+      expect(extra).toContain(`"${col}"`);
     }
+    // The model feature lists (everything before EXTRA_COLUMNS) must not use them.
+    const features = py.slice(0, py.indexOf("# Added 4 Nov 2026"));
+    expect(features).not.toContain("medication_details");
+    expect(features).not.toContain("allergy_details");
   });
 
   it.each([null, undefined, "x", 42, [], [1, 2]])("rejects a non-object body: %s", (bad) => {

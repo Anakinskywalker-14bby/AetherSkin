@@ -32,12 +32,15 @@ before this date simply have `NULL` in them.
 | `allergy_status` | text | `no`, `yes`, `unsure` (allergic to specific active ingredients) |
 | `allergy_details` | text, ≤200 | short typed list; only when `allergy_status = 'yes'` |
 
-These five columns are **not** model features or labels and are **not** in
-`ml/aetherskin_ml/schema.py`, so `export` never writes them (`test/quiz.test.ts`
-fails if they are added there). The feature vector stays 28 columns. If a future
-model should use them, add the code columns deliberately; keep the two free-text
-notes out of any training file. They are health information for the product team
-(for example, to avoid recommending a product containing a stated allergen).
+These five columns are written to the training CSV by `python -m aetherskin_ml export`
+(`EXTRA_COLUMNS` in `ml/aetherskin_ml/schema.py`; the owner has confirmed they may be
+used for training). They are **not** yet model features: the feature vector stays 28
+columns and the current models ignore them. Rows before 4 Nov 2026 have them empty.
+To use them in a model, build features deliberately (one-hot the three codes with an
+"unknown" level for old rows; the free-text notes need their own handling, for example
+a reviewed list of ingredient/medication names). The two notes are free text and are
+health information that could contain identifying detail: keep the CSV on a trusted
+machine, out of git, and delete it after training.
 
 ## Part 1: categorical (one-hot, one 0/1 column per code)
 

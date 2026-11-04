@@ -10,7 +10,8 @@ Wording rules for anything shown to users (see report()):
   * These are likelihoods learned from people with similar answers, not a
     diagnosis, and habit effects are associations, not proven causes.
   * Categories only, never brands, and no retinoids: the quiz doesn't ask
-    about pregnancy or prescriptions, so it can't screen for them.
+    about pregnancy, and its medication/allergy answers are not used by the
+    models yet, so it can't screen for them.
 """
 
 from __future__ import annotations

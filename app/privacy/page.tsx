@@ -152,10 +152,11 @@ export default function PrivacyPage() {
           breakouts, redness and dryness you have right now. It also asks your
           gender, whether you take any medication for skin concerns, and
           whether you are allergic to specific active ingredients. If you say
-          yes to the last two, you can list the medications or ingredients so
-          our suggestions can take them into account. Those typed notes
-          are used only for that purpose and are never part of the data we
-          train our models on.
+          yes to the last two, you can list the medications or ingredients to
+          help us match products to you as AetherSkin develops. Like your other
+          answers, these notes are stored apart from your email address and
+          may be included in the data we use to train and improve our own
+          models.
         </p>
         <p style={pStyle}>
           Your answers are stored separately from your email address, linked

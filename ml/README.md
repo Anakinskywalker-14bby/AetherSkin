@@ -33,7 +33,7 @@ python -m aetherskin_ml refresh
 
 It reads your Supabase credentials from the site's `.env.local`, then:
 
-1. exports every real quiz v3 response (answers only, no emails) to `ml/data/quiz_v3.csv`
+1. exports every real quiz v3 response (answers only, no emails; includes gender, medication and allergy answers and the two typed health notes, so keep the file private) to `ml/data/quiz_v3.csv`
 2. trains Model 1 if there are at least 20 responses
 3. runs Model 2 if there are at least 100
 4. writes `ml/models/dashboard.html`: open it in your browser to see the
@@ -119,7 +119,9 @@ These are baked into the report text and the tests:
   People who join a skincare waitlist aren't everyone, and genetics, hormones
   and the products people use aren't measured.
 - **Categories, not brands, and no retinoids.** The quiz no longer asks about
-  pregnancy or prescriptions, so it can't screen for them.
+  pregnancy, and the medication and allergy answers it does collect are not
+  used by the models yet, so it can't screen for them. Filter by the allergy
+  note before any routine is shown to users.
 - **Severe, painful or changing → see a GP or dermatologist.**
 
 Under Australian Consumer Law, a claim like "your habits are causing hidden

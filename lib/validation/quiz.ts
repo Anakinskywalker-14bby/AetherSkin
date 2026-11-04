@@ -10,8 +10,9 @@
  *                order is meaningful, so it is used as-is
  *   continuous   stored as the raw number; standard-scaled downstream
  *   conditional  a fixed code (yes / no / unsure) plus, only when the person
- *                says yes, a short typed note. The note is for the product
- *                team and is NEVER exported to the training data.
+ *                says yes, a short typed note. Both are written to the
+ *                training CSV (ml/aetherskin_ml/export.py) but are not in
+ *                the model's feature vector.
  *
  * Codes and integers are part of the dataset's schema. Changing one silently
  * changes what earlier rows mean, so never renumber or rename: add a new
@@ -367,10 +368,10 @@ export type QuizQuestionId = (typeof QUIZ_QUESTIONS)[number]["id"];
 export interface QuizPayload {
   gender: string;
   medication_use: string;
-  /** Only set when medication_use is "yes". Never used for training. */
+  /** Only set when medication_use is "yes". Free text; included in the training CSV. */
   medication_details: string | null;
   allergy_status: string;
-  /** Only set when allergy_status is "yes". Never used for training. */
+  /** Only set when allergy_status is "yes". Free text; included in the training CSV. */
   allergy_details: string | null;
   primary_goal: string;
   skin_type: string;

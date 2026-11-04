@@ -6,8 +6,10 @@ or, if those aren't set, from the site's own .env.local at the repo root
 The service-role key bypasses row-level security: never commit it, never
 put it in the browser.
 
-Only the 21 answer columns are written: no ids, emails or timestamps, so the
-CSV is not linked to anyone. It lands in ml/data/ (git-ignored).
+Only answer columns are written (the 17 coded answers plus gender, medication
+and allergy answers and their two typed notes): no ids, emails or timestamps,
+so the CSV is not linked to anyone. The typed notes are health information,
+so keep the file on this machine only. It lands in ml/data/ (git-ignored).
 """
 
 from __future__ import annotations
@@ -19,7 +21,7 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
-from .schema import ALL_COLUMNS
+from .schema import EXPORT_COLUMNS
 
 PAGE = 1000
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -44,6 +46,21 @@ def _credentials() -> tuple[str, str]:
     return url, key
 
 
+_FORMULA_START = ("=", "+", "-", "@", "\t", "\r", "\n")
+
+
+def safe_cell(value) -> str:
+    """Blank for None; a leading ' on text a spreadsheet would run as a formula.
+
+    The typed notes are member-supplied. Without this, a note such as
+    =HYPERLINK(...) would be a live formula if the CSV is opened in Excel.
+    """
+    if value is None:
+        return ""
+    s = str(value)
+    return "'" + s if s.startswith(_FORMULA_START) else s
+
+
 def _get(url: str, key: str, params: dict) -> list:
     req = urllib.request.Request(f"{url}/rest/v1/quiz_responses_v3?{urllib.parse.urlencode(params)}",
                                  headers={"apikey": key, "Authorization": f"Bearer {key}"})
@@ -56,7 +73,7 @@ def export(out: str | Path) -> tuple[int, str | None]:
     url, key = _credentials()
     rows, offset = [], 0
     while True:
-        page = _get(url, key, {"select": ",".join(ALL_COLUMNS), "quiz_version": "eq.3",
+        page = _get(url, key, {"select": ",".join(EXPORT_COLUMNS), "quiz_version": "eq.3",
                                "order": "id", "limit": PAGE, "offset": offset})
         rows.extend(page)
         if len(page) < PAGE:
@@ -65,7 +82,11 @@ def export(out: str | Path) -> tuple[int, str | None]:
     newest = _get(url, key, {"select": "created_at", "order": "created_at.desc", "limit": 1})
     Path(out).parent.mkdir(parents=True, exist_ok=True)
     with open(out, "w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=ALL_COLUMNS)
+        w = csv.DictWriter(f, fieldnames=EXPORT_COLUMNS)
         w.writeheader()
-        w.writerows({c: r[c] for c in ALL_COLUMNS} for r in rows)
+        # Older rows have no value for the 4 Nov 2026 columns: written empty.
+        # Text cells (only the two typed notes can start with a formula
+        # character) go through safe_cell; numbers pass untouched.
+        w.writerows({c: (safe_cell(r.get(c)) if isinstance(r.get(c), str) or r.get(c) is None
+                         else r[c]) for c in EXPORT_COLUMNS} for r in rows)
     return len(rows), (newest[0]["created_at"][:16].replace("T", " ") + " UTC") if newest else None

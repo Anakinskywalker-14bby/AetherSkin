@@ -63,3 +63,17 @@ MODIFIABLE_HABITS = {
 
 INPUT_COLUMNS = list(CATEGORICAL) + list(ORDINAL) + list(CONTINUOUS)
 ALL_COLUMNS = INPUT_COLUMNS + list(TARGETS)
+
+# Added 4 Nov 2026 (still quiz v3). Written to the training CSV for every row
+# but NOT part of the 28-column feature vector, so the current models ignore
+# them until a feature is deliberately built from them. Rows collected before
+# that date have them empty. The two *_details columns are short free text
+# typed by the member (health information): treat the CSV as sensitive.
+EXTRA_COLUMNS = [
+    "gender",
+    "medication_use",
+    "medication_details",
+    "allergy_status",
+    "allergy_details",
+]
+EXPORT_COLUMNS = ALL_COLUMNS + EXTRA_COLUMNS

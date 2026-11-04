@@ -265,6 +265,9 @@ export function QuizForm({ token }: { token: string }) {
             className="qz-input"
             style={{ width: "100%", marginTop: 8 }}
           />
+          <p className="qz-status" style={{ marginTop: 8 }}>
+            Stored with your other answers, apart from your email, and may be used to train our models.
+          </p>
           <button type="submit" disabled={submitting} className="qz-btn" style={{ marginTop: 12 }}>
             Continue
           </button>

@@ -6,9 +6,10 @@
 -- server-side to always include them (lib/validation/quiz.ts).
 --
 -- medication_details and allergy_details are short typed notes, stored only
--- when the person answers "yes". They are health information: they are never
--- exported to the training CSV (ml/aetherskin_ml/schema.py does not list them)
--- and never sent to Sentry. Service-role only (ADR-0002), as for the table.
+-- when the person answers "yes". They are health information: they are
+-- included in the training CSV export (ml/aetherskin_ml/schema.py,
+-- EXTRA_COLUMNS) but never sent to Sentry. Service-role only (ADR-0002), as
+-- for the table.
 -- Never renumber or rename a code; add an option or ship a new quiz_version.
 
 alter table public.quiz_responses_v3
