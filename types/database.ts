@@ -95,13 +95,18 @@ export type Database = {
         Row: {
           age: number
           alcohol_intake: number
+          allergy_details: string | null
+          allergy_status: string | null
           breakouts_level: number
           created_at: string
           dairy_intake: number
           dryness_level: number
           environment: string
           fruit_veg_intake: number
+          gender: string | null
           id: string
+          medication_details: string | null
+          medication_use: string | null
           primary_goal: string
           quiz_version: number
           redness_level: number
@@ -119,13 +124,18 @@ export type Database = {
         Insert: {
           age: number
           alcohol_intake: number
+          allergy_details?: string | null
+          allergy_status?: string | null
           breakouts_level: number
           created_at?: string
           dairy_intake: number
           dryness_level: number
           environment: string
           fruit_veg_intake: number
+          gender?: string | null
           id?: string
+          medication_details?: string | null
+          medication_use?: string | null
           primary_goal: string
           quiz_version?: number
           redness_level: number
@@ -143,13 +153,18 @@ export type Database = {
         Update: {
           age?: number
           alcohol_intake?: number
+          allergy_details?: string | null
+          allergy_status?: string | null
           breakouts_level?: number
           created_at?: string
           dairy_intake?: number
           dryness_level?: number
           environment?: string
           fruit_veg_intake?: number
+          gender?: string | null
           id?: string
+          medication_details?: string | null
+          medication_use?: string | null
           primary_goal?: string
           quiz_version?: number
           redness_level?: number

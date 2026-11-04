@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export const dynamic = "force-dynamic";
 
 /**
- * Check the link before showing the quiz, so nobody answers seventeen
+ * Check the link before showing the quiz, so nobody answers twenty
  * questions on a link that has expired. If the check itself fails we still
  * show the quiz: POST /api/quiz enforces the same rules on submit.
  */

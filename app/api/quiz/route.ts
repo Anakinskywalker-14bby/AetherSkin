@@ -101,9 +101,10 @@ export async function POST(req: Request) {
     const entry = link.entry;
 
     /*
-     * quiz_responses_v3 holds only the waitlist id and the seventeen coded
-     * answers: no email and no name, so the training dataset carries no
-     * direct identifiers. The v1 and v2 tables have been retired.
+     * quiz_responses_v3 holds only the waitlist id and the coded answers
+     * (plus the optional medication/allergy notes, which are never exported
+     * for training): no email and no name, so the dataset carries no direct
+     * identifiers. The v1 and v2 tables have been retired.
      */
     const { error: upsertError } = await admin.from("quiz_responses_v3").upsert(
       {

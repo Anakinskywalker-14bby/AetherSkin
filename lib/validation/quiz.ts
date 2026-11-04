@@ -1,19 +1,24 @@
 /**
- * Skin quiz, version 3: every answer is a number or a fixed code.
+ * Skin quiz, version 3: answers are numbers or fixed codes, with two optional
+ * short notes (medications, allergies).
  *
- * Built to be fed straight into a model, so there is no free text anywhere:
+ * Built to be fed straight into a model, so the model inputs are never free text:
  *
  *   categorical  stored as a stable code, one-hot encoded downstream
  *                (one 0/1 column per option)
  *   ordinal      stored as the integer printed next to each option; the
  *                order is meaningful, so it is used as-is
  *   continuous   stored as the raw number; standard-scaled downstream
+ *   conditional  a fixed code (yes / no / unsure) plus, only when the person
+ *                says yes, a short typed note. The note is for the product
+ *                team and is NEVER exported to the training data.
  *
  * Codes and integers are part of the dataset's schema. Changing one silently
  * changes what earlier rows mean, so never renumber or rename: add a new
  * option, or bump QUIZ_VERSION. The database enforces the same values with
- * CHECK constraints (supabase/migrations/20261021000002_quiz_v3.sql), and
- * docs/quiz-data-dictionary.md documents them for the training pipeline.
+ * CHECK constraints (supabase/migrations/20261021000002_quiz_v3.sql and
+ * 20261104000001_quiz_v3_about_you.sql), and docs/quiz-data-dictionary.md
+ * documents them for the training pipeline.
  *
  * Every answer is validated server-side against these definitions, so
  * nothing the client sends reaches the database unless it is on the list.
@@ -23,11 +28,24 @@
  * v3 (21 Oct 2026) adds Part 4, lifestyle habits, and Part 5, how the skin
  * looks now. Part 5 answers are the training labels for the models in ml/.
  * v3 rows live in quiz_responses_v3; the single v2 row stays in its table.
+ *
+ * 4 Nov 2026: v3 gains gender, medication and allergy questions (new nullable
+ * columns on the same table, so every earlier v3 row and the model inputs are
+ * untouched) and the quiz is reordered into "About you" then "Your skin".
+ * Question order is presentation only: storage is by column name.
  */
 export const QUIZ_VERSION = 3;
 
+export type QuizSection = "about_you" | "your_skin";
+
+export const QUIZ_SECTION_LABEL: Record<QuizSection, string> = {
+  about_you: "About you",
+  your_skin: "Your skin",
+};
+
 export interface CategoricalQuestion {
   kind: "categorical";
+  section: QuizSection;
   id: string;
   question: string;
   options: readonly { code: string; label: string }[];
@@ -35,6 +53,7 @@ export interface CategoricalQuestion {
 
 export interface OrdinalQuestion {
   kind: "ordinal";
+  section: QuizSection;
   id: string;
   question: string;
   options: readonly { value: number; label: string }[];
@@ -42,6 +61,7 @@ export interface OrdinalQuestion {
 
 export interface ContinuousQuestion {
   kind: "continuous";
+  section: QuizSection;
   id: string;
   question: string;
   unit: string;
@@ -54,95 +74,44 @@ export interface ContinuousQuestion {
   rangeMessage: string;
 }
 
-export type QuizQuestion = CategoricalQuestion | OrdinalQuestion | ContinuousQuestion;
+export interface ConditionalQuestion {
+  kind: "conditional";
+  section: QuizSection;
+  id: string;
+  question: string;
+  options: readonly { code: string; label: string }[];
+  /** Choosing this code reveals the note field. */
+  triggerCode: string;
+  /** Column that stores the note (null unless triggerCode was chosen). */
+  detailsId: string;
+  detailsPrompt: string;
+  detailsPlaceholder: string;
+  detailsMaxLength: number;
+}
+
+export type QuizQuestion =
+  | CategoricalQuestion
+  | OrdinalQuestion
+  | ContinuousQuestion
+  | ConditionalQuestion;
 
 export const QUIZ_QUESTIONS = [
-  // ── Part 1: categorical (one-hot) ───────────────────────────────────
+  // ═══ Phase 1: About you ═════════════════════════════════════════════
   {
     kind: "categorical",
-    id: "primary_goal",
-    question: "What is your primary skin goal?",
+    section: "about_you",
+    id: "gender",
+    question: "What is your gender?",
     options: [
-      { code: "hydration", label: "Hydration / Moisture" },
-      { code: "anti_aging", label: "Anti-aging / Fine lines" },
-      { code: "acne_control", label: "Acne control / Blemish clearing" },
-      { code: "brightening", label: "Brightening / Uneven skin tone" },
-      { code: "calming", label: "Calming / Redness reduction" },
+      { code: "female", label: "Female" },
+      { code: "male", label: "Male" },
+      { code: "non_binary_other", label: "Non-binary / Other" },
+      { code: "prefer_not_to_say", label: "Prefer not to say" },
     ],
   },
-  {
-    kind: "categorical",
-    id: "skin_type",
-    question: "How would you describe your current skin type?",
-    options: [
-      { code: "oily", label: "Oily" },
-      { code: "dry", label: "Dry" },
-      { code: "combination", label: "Combination" },
-      { code: "normal", label: "Normal" },
-      { code: "highly_sensitive", label: "Highly Sensitive" },
-    ],
-  },
-  {
-    kind: "categorical",
-    id: "environment",
-    question: "What environment do you spend most of your day in?",
-    options: [
-      { code: "climate_controlled_indoor", label: "Air-conditioned / heated indoor office" },
-      { code: "outdoors", label: "Outdoors / exposed to weather" },
-      { code: "urban_pollution", label: "High-pollution urban areas" },
-      { code: "balanced_indoor", label: "Balanced / moderate indoor environment" },
-    ],
-  },
-  {
-    kind: "categorical",
-    id: "texture_preference",
-    question: "What is your preferred texture for skincare products?",
-    options: [
-      { code: "gel_fluid", label: "Lightweight gels or fluids" },
-      { code: "rich_cream", label: "Rich, thick creams" },
-      { code: "oil_balm", label: "Oils or heavy balms" },
-      { code: "no_preference", label: "I have no preference" },
-    ],
-  },
-
-  // ── Part 2: ordinal (ranked) ────────────────────────────────────────
-  {
-    kind: "ordinal",
-    id: "sunscreen_frequency",
-    question: "How often do you apply sunscreen during the day?",
-    options: [
-      { value: 0, label: "Never" },
-      { value: 1, label: "Rarely / Only when sunny" },
-      { value: 2, label: "Once a day in the morning" },
-      { value: 3, label: "Multiple times a day / Reapply frequently" },
-    ],
-  },
-  {
-    kind: "ordinal",
-    id: "stress_level",
-    question: "Rate your average daily stress level over the past month:",
-    options: [
-      { value: 1, label: "Very low stress" },
-      { value: 2, label: "Low stress" },
-      { value: 3, label: "Moderate stress" },
-      { value: 4, label: "High stress" },
-      { value: 5, label: "Extremely high stress" },
-    ],
-  },
-  {
-    kind: "ordinal",
-    id: "routine_complexity",
-    question: "How complex is your current daily skincare routine?",
-    options: [
-      { value: 0, label: "Minimalist (just cleanser, or cleanser + moisturizer)" },
-      { value: 1, label: "Standard (cleanser, moisturizer, plus 1 active serum)" },
-      { value: 2, label: "Advanced (cleanser, toner, multiple serums, moisturizer, eye cream)" },
-    ],
-  },
-
-  // ── Part 3: continuous (raw numbers) ────────────────────────────────
   {
     kind: "continuous",
+    section: "about_you",
     id: "age",
     question: "What is your age?",
     unit: "years",
@@ -154,7 +123,51 @@ export const QUIZ_QUESTIONS = [
     rangeMessage: "AetherSkin is for adults: please enter an age from 18 to 100.",
   },
   {
+    kind: "conditional",
+    section: "about_you",
+    id: "medication_use",
+    question: "Are you on any medication to treat skin concerns?",
+    options: [
+      { code: "no", label: "No" },
+      { code: "yes", label: "Yes" },
+    ],
+    triggerCode: "yes",
+    detailsId: "medication_details",
+    detailsPrompt: "Please list your current medications.",
+    detailsPlaceholder: "e.g. isotretinoin, topical tretinoin",
+    detailsMaxLength: 200,
+  },
+  {
+    kind: "conditional",
+    section: "about_you",
+    id: "allergy_status",
+    question: "Are you allergic to specific active ingredients?",
+    options: [
+      { code: "no", label: "No" },
+      { code: "yes", label: "Yes" },
+      { code: "unsure", label: "Unsure" },
+    ],
+    triggerCode: "yes",
+    detailsId: "allergy_details",
+    detailsPrompt: "Please list the ingredients you are allergic to.",
+    detailsPlaceholder: "e.g. salicylic acid, fragrance",
+    detailsMaxLength: 200,
+  },
+  {
+    kind: "categorical",
+    section: "about_you",
+    id: "environment",
+    question: "What environment do you spend most of your day in?",
+    options: [
+      { code: "climate_controlled_indoor", label: "Air-conditioned / heated indoor office" },
+      { code: "outdoors", label: "Outdoors / exposed to weather" },
+      { code: "urban_pollution", label: "High-pollution urban areas" },
+      { code: "balanced_indoor", label: "Balanced / moderate indoor environment" },
+    ],
+  },
+  {
     kind: "continuous",
+    section: "about_you",
     id: "sleep_hours",
     question: "On average, how many hours of sleep do you get per night?",
     unit: "hours",
@@ -166,6 +179,7 @@ export const QUIZ_QUESTIONS = [
   },
   {
     kind: "continuous",
+    section: "about_you",
     id: "water_glasses",
     question: "Roughly how many glasses of water (250ml) do you drink a day?",
     unit: "glasses",
@@ -175,11 +189,24 @@ export const QUIZ_QUESTIONS = [
     step: 1,
     rangeMessage: "Please enter a whole number of glasses from 0 to 30.",
   },
-
-  // ── Part 4: lifestyle habits (ordinal 0-4), new in v3 ───────────────
-  // Model inputs. Higher always means "more of it".
   {
     kind: "ordinal",
+    section: "about_you",
+    id: "stress_level",
+    question: "Rate your average daily stress level over the past month:",
+    options: [
+      { value: 1, label: "Very low stress" },
+      { value: 2, label: "Low stress" },
+      { value: 3, label: "Moderate stress" },
+      { value: 4, label: "High stress" },
+      { value: 5, label: "Extremely high stress" },
+    ],
+  },
+  // Lifestyle habits (ordinal 0-4), new in v3. Model inputs. Higher always
+  // means "more of it".
+  {
+    kind: "ordinal",
+    section: "about_you",
     id: "sugar_intake",
     question: "How often do you have sugary foods or drinks (sweets, soft drinks, desserts)?",
     options: [
@@ -192,6 +219,7 @@ export const QUIZ_QUESTIONS = [
   },
   {
     kind: "ordinal",
+    section: "about_you",
     id: "dairy_intake",
     question: "How often do you have dairy (milk, cheese, yoghurt, ice cream)?",
     options: [
@@ -204,6 +232,7 @@ export const QUIZ_QUESTIONS = [
   },
   {
     kind: "ordinal",
+    section: "about_you",
     id: "fruit_veg_intake",
     question: "How many serves of fruit and vegetables do you eat on a typical day?",
     options: [
@@ -216,6 +245,7 @@ export const QUIZ_QUESTIONS = [
   },
   {
     kind: "ordinal",
+    section: "about_you",
     id: "alcohol_intake",
     question: "How many alcoholic drinks do you have in a typical week?",
     options: [
@@ -227,10 +257,73 @@ export const QUIZ_QUESTIONS = [
     ],
   },
 
-  // ── Part 5: how the skin looks now (ordinal 0-4), new in v3 ─────────
-  // Model TARGETS (training labels), self-reported. 0 = none, 4 = severe.
+  // ═══ Phase 2: Your skin ═════════════════════════════════════════════
+  {
+    kind: "categorical",
+    section: "your_skin",
+    id: "primary_goal",
+    question: "What is your primary skin goal?",
+    options: [
+      { code: "hydration", label: "Hydration / Moisture" },
+      { code: "anti_aging", label: "Anti-aging / Fine lines" },
+      { code: "acne_control", label: "Acne control / Blemish clearing" },
+      { code: "brightening", label: "Brightening / Uneven skin tone" },
+      { code: "calming", label: "Calming / Redness reduction" },
+    ],
+  },
+  {
+    kind: "categorical",
+    section: "your_skin",
+    id: "skin_type",
+    question: "How would you describe your current skin type?",
+    options: [
+      { code: "oily", label: "Oily" },
+      { code: "dry", label: "Dry" },
+      { code: "combination", label: "Combination" },
+      { code: "normal", label: "Normal" },
+      { code: "highly_sensitive", label: "Highly Sensitive" },
+    ],
+  },
+  {
+    kind: "categorical",
+    section: "your_skin",
+    id: "texture_preference",
+    question: "What is your preferred texture for skincare products?",
+    options: [
+      { code: "gel_fluid", label: "Lightweight gels or fluids" },
+      { code: "rich_cream", label: "Rich, thick creams" },
+      { code: "oil_balm", label: "Oils or heavy balms" },
+      { code: "no_preference", label: "I have no preference" },
+    ],
+  },
   {
     kind: "ordinal",
+    section: "your_skin",
+    id: "sunscreen_frequency",
+    question: "How often do you apply sunscreen during the day?",
+    options: [
+      { value: 0, label: "Never" },
+      { value: 1, label: "Rarely / Only when sunny" },
+      { value: 2, label: "Once a day in the morning" },
+      { value: 3, label: "Multiple times a day / Reapply frequently" },
+    ],
+  },
+  {
+    kind: "ordinal",
+    section: "your_skin",
+    id: "routine_complexity",
+    question: "How complex is your current daily skincare routine?",
+    options: [
+      { value: 0, label: "Minimalist (just cleanser, or cleanser + moisturizer)" },
+      { value: 1, label: "Standard (cleanser, moisturizer, plus 1 active serum)" },
+      { value: 2, label: "Advanced (cleanser, toner, multiple serums, moisturizer, eye cream)" },
+    ],
+  },
+  // How the skin looks now (ordinal 0-4). Model TARGETS (training labels),
+  // self-reported. 0 = none, 4 = severe.
+  {
+    kind: "ordinal",
+    section: "your_skin",
     id: "breakouts_level",
     question: "How would you rate your breakouts (pimples, blackheads) right now?",
     options: [
@@ -243,6 +336,7 @@ export const QUIZ_QUESTIONS = [
   },
   {
     kind: "ordinal",
+    section: "your_skin",
     id: "redness_level",
     question: "How much redness or flushing does your skin have right now?",
     options: [
@@ -255,6 +349,7 @@ export const QUIZ_QUESTIONS = [
   },
   {
     kind: "ordinal",
+    section: "your_skin",
     id: "dryness_level",
     question: "How dry or tight does your skin feel right now?",
     options: [
@@ -270,6 +365,13 @@ export const QUIZ_QUESTIONS = [
 export type QuizQuestionId = (typeof QUIZ_QUESTIONS)[number]["id"];
 
 export interface QuizPayload {
+  gender: string;
+  medication_use: string;
+  /** Only set when medication_use is "yes". Never used for training. */
+  medication_details: string | null;
+  allergy_status: string;
+  /** Only set when allergy_status is "yes". Never used for training. */
+  allergy_details: string | null;
   primary_goal: string;
   skin_type: string;
   environment: string;
@@ -296,17 +398,19 @@ export type ValidationResult =
 const CONTROL_CHARS = new RegExp("[\\u0000-\\u001F\\u007F]", "g");
 
 /**
- * Strip control chars, collapse whitespace, hard-cap length. No longer used
- * by the quiz itself (it has no text fields); kept for the token and email
- * inputs in the API routes.
+ * Strip control chars, collapse whitespace, hard-cap length. Used for the
+ * token and email inputs in the API routes and for the two optional notes.
  */
 export function sanitizeText(input: unknown, maxLength: number): string {
   if (typeof input !== "string") return "";
-  return input
+  const cleaned = input
+    // Replace unpaired UTF-16 surrogates, which Postgres/JSON can reject.
+    .replace(/[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?<![\uD800-\uDBFF])[\uDC00-\uDFFF]/g, "�")
     .replace(CONTROL_CHARS, " ")
     .replace(/\s+/g, " ")
-    .trim()
-    .slice(0, maxLength);
+    .trim();
+  // Cut by whole characters so an emoji is never split in half.
+  return Array.from(cleaned).slice(0, maxLength).join("");
 }
 
 /**
@@ -335,17 +439,28 @@ export function validateQuiz(raw: unknown): ValidationResult {
     return { ok: false, error: "Invalid submission." };
   }
   const body = raw as Record<string, unknown>;
-  const data: Record<string, string | number> = {};
+  const data: Record<string, string | number | null> = {};
 
   for (const q of QUIZ_QUESTIONS as readonly QuizQuestion[]) {
     const value = body[q.id];
 
-    if (q.kind === "categorical") {
+    if (q.kind === "categorical" || q.kind === "conditional") {
       const code = typeof value === "string" ? value : "";
       if (!q.options.some((o) => o.code === code)) {
         return { ok: false, error: `Please answer: ${q.question}` };
       }
       data[q.id] = code;
+
+      if (q.kind === "conditional") {
+        if (code === q.triggerCode) {
+          const note = sanitizeText(body[q.detailsId], q.detailsMaxLength);
+          if (!note) return { ok: false, error: q.detailsPrompt };
+          data[q.detailsId] = note;
+        } else {
+          // A note without the matching "yes" is dropped, never stored.
+          data[q.detailsId] = null;
+        }
+      }
       continue;
     }
 

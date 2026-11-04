@@ -16,57 +16,91 @@ const QUESTIONS = QUIZ_QUESTIONS as readonly QuizQuestion[];
 function validPayload(overrides: Record<string, unknown> = {}) {
   const answers: Record<string, string | number> = {};
   for (const q of QUESTIONS) {
-    if (q.kind === "categorical") answers[q.id] = q.options[0].code;
+    if (q.kind === "categorical" || q.kind === "conditional") answers[q.id] = q.options[0].code;
     else if (q.kind === "ordinal") answers[q.id] = q.options[0].value;
     else answers[q.id] = q.min;
   }
   return { ...answers, ...overrides };
 }
 
+/** Every migration that touches the v3 table, concatenated. */
+function v3Migrations() {
+  return [
+    "supabase/migrations/20261021000002_quiz_v3.sql",
+    "supabase/migrations/20261104000001_quiz_v3_about_you.sql",
+  ]
+    .map((f) => readFileSync(join(process.cwd(), f), "utf8"))
+    .join("\n");
+}
+
 describe("quiz definition (the dataset schema)", () => {
-  it("is exactly the ten agreed questions, in order", () => {
+  it("asks personal questions first, then skin questions", () => {
     expect(QUESTIONS.map((q) => q.id)).toEqual([
-      "primary_goal",
-      "skin_type",
-      "environment",
-      "texture_preference",
-      "sunscreen_frequency",
-      "stress_level",
-      "routine_complexity",
+      // About you
+      "gender",
       "age",
+      "medication_use",
+      "allergy_status",
+      "environment",
       "sleep_hours",
       "water_glasses",
+      "stress_level",
       "sugar_intake",
       "dairy_intake",
       "fruit_veg_intake",
       "alcohol_intake",
+      // Your skin
+      "primary_goal",
+      "skin_type",
+      "texture_preference",
+      "sunscreen_frequency",
+      "routine_complexity",
       "breakouts_level",
       "redness_level",
       "dryness_level",
     ]);
-    expect(QUESTIONS.map((q) => q.kind)).toEqual([
-      "categorical", "categorical", "categorical", "categorical",
-      "ordinal", "ordinal", "ordinal",
-      "continuous", "continuous", "continuous",
-      "ordinal", "ordinal", "ordinal", "ordinal",
-      "ordinal", "ordinal", "ordinal",
-    ]);
+    const sections = QUESTIONS.map((q) => q.section);
+    const firstSkin = sections.indexOf("your_skin");
+    expect(sections.slice(0, firstSkin).every((s) => s === "about_you")).toBe(true);
+    expect(sections.slice(firstSkin).every((s) => s === "your_skin")).toBe(true);
   });
 
-  it("has no free-text question", () => {
-    for (const q of QUESTIONS) expect(["categorical", "ordinal", "continuous"]).toContain(q.kind);
+  it("keeps every question the earlier v3 quiz asked (nothing dropped)", () => {
+    const ids = QUESTIONS.map((q) => q.id);
+    for (const old of [
+      "primary_goal", "skin_type", "environment", "texture_preference",
+      "sunscreen_frequency", "stress_level", "routine_complexity",
+      "age", "sleep_hours", "water_glasses",
+      "sugar_intake", "dairy_intake", "fruit_veg_intake", "alcohol_intake",
+      "breakouts_level", "redness_level", "dryness_level",
+    ]) {
+      expect(ids).toContain(old);
+    }
+    expect(QUIZ_VERSION).toBe(3);
+  });
+
+  it("has typed text only in the two conditional notes", () => {
+    for (const q of QUESTIONS) {
+      expect(["categorical", "ordinal", "continuous", "conditional"]).toContain(q.kind);
+    }
+    expect(
+      QUESTIONS.filter((q) => q.kind === "conditional").map((q) => (q as { detailsId: string }).detailsId)
+    ).toEqual(["medication_details", "allergy_details"]);
   });
 
   // Freezing the encodings: if one of these changes, rows already collected
   // would silently mean something else. Add an option or bump QUIZ_VERSION.
   it("keeps the categorical codes stable", () => {
     const codes = Object.fromEntries(
-      QUESTIONS.filter((q) => q.kind === "categorical").map((q) => [
+      QUESTIONS.filter((q) => q.kind === "categorical" || q.kind === "conditional").map((q) => [
         q.id,
         (q as Extract<QuizQuestion, { kind: "categorical" }>).options.map((o) => o.code),
       ])
     );
     expect(codes).toEqual({
+      gender: ["female", "male", "non_binary_other", "prefer_not_to_say"],
+      medication_use: ["no", "yes"],
+      allergy_status: ["no", "yes", "unsure"],
       primary_goal: ["hydration", "anti_aging", "acne_control", "brightening", "calming"],
       skin_type: ["oily", "dry", "combination", "normal", "highly_sensitive"],
       environment: ["climate_controlled_indoor", "outdoors", "urban_pollution", "balanced_indoor"],
@@ -96,13 +130,16 @@ describe("quiz definition (the dataset schema)", () => {
   });
 
   it("matches the database CHECK constraints in the migration", () => {
-    const sql = readFileSync(
-      join(process.cwd(), "supabase/migrations/20261021000002_quiz_v3.sql"),
-      "utf8"
-    );
+    const sql = v3Migrations();
     for (const q of QUESTIONS) {
       expect(sql).toContain(q.id);
-      if (q.kind === "categorical") for (const o of q.options) expect(sql).toContain(`'${o.code}'`);
+      if (q.kind === "categorical" || q.kind === "conditional") {
+        for (const o of q.options) expect(sql).toContain(`'${o.code}'`);
+      }
+      if (q.kind === "conditional") {
+        expect(sql).toContain(q.detailsId);
+        expect(sql).toContain(`char_length(${q.detailsId}) between 1 and ${q.detailsMaxLength}`);
+      }
       if (q.kind === "ordinal") {
         const vals = q.options.map((o) => o.value);
         expect(sql).toContain(`${q.id} between ${Math.min(...vals)} and ${Math.max(...vals)}`);
@@ -132,13 +169,56 @@ describe("validateQuiz", () => {
     if (r.ok) expect(r.data).toMatchObject({ age: 34, sleep_hours: 6.5, stress_level: 4 });
   });
 
-  it("drops every field that isn't a question (no free text gets through)", () => {
+  it("drops every field that isn't a question (no stray free text gets through)", () => {
     const r = validateQuiz(
       validPayload({ full_name: "Jane", allergies: "nuts", email: "a@b.co", pregnancy_status: "Yes" })
     );
     expect(r.ok).toBe(true);
     if (r.ok) {
-      expect(Object.keys(r.data).sort()).toEqual(QUESTIONS.map((q) => q.id).sort());
+      expect(Object.keys(r.data).sort()).toEqual(
+        [...QUESTIONS.map((q) => q.id), "medication_details", "allergy_details"].sort()
+      );
+    }
+  });
+
+  it("stores no medication or allergy note unless the answer is yes", () => {
+    const r = validateQuiz(
+      validPayload({ medication_use: "no", medication_details: "x", allergy_status: "unsure", allergy_details: "y" })
+    );
+    expect(r.ok).toBe(true);
+    if (r.ok) {
+      expect(r.data.medication_details).toBeNull();
+      expect(r.data.allergy_details).toBeNull();
+    }
+  });
+
+  it("requires the note when the answer is yes, and cleans it", () => {
+    for (const [use, note] of [["medication_use", "medication_details"], ["allergy_status", "allergy_details"]]) {
+      expect(validateQuiz(validPayload({ [use]: "yes" })).ok).toBe(false);
+      expect(validateQuiz(validPayload({ [use]: "yes", [note]: "   " })).ok).toBe(false);
+      const r = validateQuiz(validPayload({ [use]: "yes", [note]: "  retinol\u0000 \n serum  " }));
+      expect(r.ok).toBe(true);
+      if (r.ok) expect((r.data as unknown as Record<string, unknown>)[note]).toBe("retinol serum");
+    }
+  });
+
+  it("caps notes at 200 characters and rejects non-string notes", () => {
+    const r = validateQuiz(validPayload({ medication_use: "yes", medication_details: "a".repeat(500) }));
+    expect(r.ok).toBe(true);
+    if (r.ok) expect(r.data.medication_details).toHaveLength(200);
+    expect(validateQuiz(validPayload({ allergy_status: "yes", allergy_details: { a: 1 } })).ok).toBe(false);
+  });
+
+  it("rejects unknown gender, medication and allergy codes", () => {
+    expect(validateQuiz(validPayload({ gender: "other" })).ok).toBe(false);
+    expect(validateQuiz(validPayload({ medication_use: "unsure" })).ok).toBe(false);
+    expect(validateQuiz(validPayload({ allergy_status: "maybe" })).ok).toBe(false);
+  });
+
+  it("keeps the notes and gender out of the ML training schema", () => {
+    const py = readFileSync(join(process.cwd(), "ml/aetherskin_ml/schema.py"), "utf8");
+    for (const col of ["gender", "medication_use", "medication_details", "allergy_status", "allergy_details"]) {
+      expect(py).not.toContain(`"${col}"`);
     }
   });
 
@@ -205,6 +285,12 @@ describe("parseNumber", () => {
 describe("sanitizeText (still used for token and email inputs)", () => {
   it("returns an empty string for non-strings", () => {
     for (const bad of [null, undefined, 42, {}, [], true]) expect(sanitizeText(bad, 50)).toBe("");
+  });
+
+  it("never leaves a lone surrogate or splits an emoji when capping", () => {
+    expect(sanitizeText("a\uD83Db", 50)).toBe("a�b");
+    expect(sanitizeText("😀😀😀", 2)).toBe("😀😀");
+    expect(sanitizeText("x\uDE00", 50)).toBe("x�");
   });
 
   it("strips control characters, collapses whitespace and caps length", () => {

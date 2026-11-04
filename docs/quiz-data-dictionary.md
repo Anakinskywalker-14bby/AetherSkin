@@ -13,6 +13,32 @@ Rows carry no email or name. The earlier `quiz_responses` (v1) and
 `quiz_responses_v2` tables have been removed from the database (recorded in
 migration `20261031220546_quiz_link_expiry_reminders.sql`); only v3 exists.
 
+## Update 4 Nov 2026: "About you" questions and new order (still v3)
+
+The quiz now runs in two phases: **About you** (gender, age, medication, allergies,
+environment, sleep, water, stress, then the four lifestyle habits) followed by **Your
+skin** (goal, skin type, texture, sunscreen, routine, then the three skin-state
+labels). Order is presentation only: answers are stored by column name, so earlier
+rows and the models are unaffected. This stays quiz version 3 on purpose; the new
+columns are nullable additions to `quiz_responses_v3` (migration
+`20261104000001_quiz_v3_about_you.sql`), so every earlier row is kept and rows
+before this date simply have `NULL` in them.
+
+| Column | Type | Values |
+| --- | --- | --- |
+| `gender` | text | `female`, `male`, `non_binary_other`, `prefer_not_to_say` |
+| `medication_use` | text | `no`, `yes` (on medication to treat skin concerns) |
+| `medication_details` | text, ≤200 | short typed list; only when `medication_use = 'yes'` |
+| `allergy_status` | text | `no`, `yes`, `unsure` (allergic to specific active ingredients) |
+| `allergy_details` | text, ≤200 | short typed list; only when `allergy_status = 'yes'` |
+
+These five columns are **not** model features or labels and are **not** in
+`ml/aetherskin_ml/schema.py`, so `export` never writes them (`test/quiz.test.ts`
+fails if they are added there). The feature vector stays 28 columns. If a future
+model should use them, add the code columns deliberately; keep the two free-text
+notes out of any training file. They are health information for the product team
+(for example, to avoid recommending a product containing a stated allergen).
+
 ## Part 1: categorical (one-hot, one 0/1 column per code)
 
 | Column | Codes, in order |

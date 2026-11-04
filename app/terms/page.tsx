@@ -47,7 +47,7 @@ const title = (id: Id) => SECTIONS[n(id) - 1].title;
 
 export default function TermsPage() {
   return (
-    <LegalChrome lead="The terms," kicker="kept short and fair." updated="November 1, 2026">
+    <LegalChrome lead="The terms," kicker="kept short and fair." updated="November 4, 2026">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(crumbs)) }}
@@ -95,11 +95,11 @@ export default function TermsPage() {
           comprehensive and does not cover every skin condition or treatment.
         </p>
         <p style={pStyle}>
-          The skin quiz doesn&apos;t ask about pregnancy, breastfeeding,
-          prescription treatments or allergies, so our suggestions don&apos;t
-          account for them. If any of these apply to you, check every product
-          label and ask your doctor or pharmacist before using something we
-          suggest.
+          The skin quiz asks whether you take medication for skin concerns and
+          whether you have ingredient allergies, but not about pregnancy or
+          breastfeeding, and it can&apos;t know everything about your health.
+          If any of these apply to you, check every product label and ask your
+          doctor or pharmacist before using something we suggest.
         </p>
         <p style={pStyle}>
           If you have a persistent, painful, spreading or changing skin

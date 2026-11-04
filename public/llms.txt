@@ -12,7 +12,7 @@ short skin quiz. There is no payment at any stage.
 
 - Reads everyday skin characteristics from a photo: hydration, texture,
   visible pores, dark spots, fine lines, breakouts.
-- Builds a skin profile from a 17-question quiz (skin goal, skin type,
+- Builds a skin profile from a 20-question quiz (skin goal, skin type,
   daily environment, texture preference, sunscreen habit, stress level,
   routine complexity, age, sleep, water intake, sugar, dairy, fruit and
   vegetables, alcohol, and current breakouts, redness and dryness). Multiple choice and
@@ -40,9 +40,9 @@ See /pricing.md for machine-readable detail.
 
 - Signup cost: $0
 - Beta capacity: 500 early users
-- Quiz length: 13 questions, about 2 minutes
+- Quiz length: 20 questions, about 4 minutes
 - Data retention: 24 months from last interaction; unverified signups
-  deleted after 90 days; verification links expire after 7 days
+  deleted after 90 days; verification links expire after 24 hours and work once
 - Face scans: not collected pre-launch; will require separate explicit
   consent, and will never be used for model training without a distinct
   opt-in the user can decline

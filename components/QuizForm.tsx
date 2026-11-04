@@ -4,7 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   QUIZ_QUESTIONS,
+  QUIZ_SECTION_LABEL,
   parseNumber,
+  sanitizeText,
   type QuizQuestion,
 } from "@/lib/validation/quiz";
 
@@ -28,8 +30,10 @@ function continuousError(q: Extract<QuizQuestion, { kind: "continuous" }>, raw: 
  * The skin quiz. Reachable only from the emailed verification link, so the
  * token travels with the submission and acts as authorization.
  *
- * Seventeen questions, one per step, and no free text: every answer is a fixed
- * code, a ranked integer or a number (see lib/validation/quiz.ts).
+ * Twenty questions, one per step, in two phases: "About you" first, then
+ * "Your skin". Every answer is a fixed code, a ranked integer or a number
+ * (see lib/validation/quiz.ts). The only typed text is the optional note
+ * under the medication and allergy questions, shown only after "Yes".
  *
  * There is no Continue button. Answering starts a 2-second buffer, shown as
  * a filling bar, after which the quiz moves on by itself; changing the
@@ -77,7 +81,13 @@ export function QuizForm({ token }: { token: string }) {
   }
 
   async function submit(finalAnswers: Record<string, Answer>) {
-    const missing = QUESTIONS.findIndex((x) => finalAnswers[x.id] === undefined);
+    const missing = QUESTIONS.findIndex(
+      (x) =>
+        finalAnswers[x.id] === undefined ||
+        (x.kind === "conditional" &&
+          finalAnswers[x.id] === x.triggerCode &&
+          !sanitizeText(finalAnswers[x.detailsId], x.detailsMaxLength))
+    );
     if (missing !== -1) {
       go(missing);
       setError("Please answer this question before finishing.");
@@ -110,8 +120,8 @@ export function QuizForm({ token }: { token: string }) {
   }
 
   /** Record the answer, then move on (or submit) after the buffer. */
-  function answer(value: Answer, delay = ADVANCE_DELAY_MS) {
-    const nextAnswers = { ...answers, [q.id]: value };
+  function answer(value: Answer, delay = ADVANCE_DELAY_MS, base: Record<string, Answer> = answers) {
+    const nextAnswers = { ...base, [q.id]: value };
     setAnswers(nextAnswers);
     setError(null);
     cancelPending();
@@ -123,6 +133,46 @@ export function QuizForm({ token }: { token: string }) {
       if (from === total - 1) void submit(nextAnswers);
       else go(from + 1);
     }, delay);
+  }
+
+  /**
+   * Yes / No(/ Unsure) with an optional note. Any answer but the trigger
+   * ("Yes") moves on after the usual buffer and drops a stale note. "Yes"
+   * stops the auto-advance and reveals the note field instead; the person
+   * moves on with the Continue button once they have typed something.
+   */
+  function chooseConditional(code: string) {
+    if (q.kind !== "conditional") return;
+    if (code !== q.triggerCode) {
+      const base = { ...answers };
+      delete base[q.detailsId];
+      answer(code, ADVANCE_DELAY_MS, base);
+      return;
+    }
+    cancelPending();
+    setError(null);
+    setAnswers((a) => ({ ...a, [q.id]: code }));
+  }
+
+  function onNoteChange(text: string) {
+    if (q.kind !== "conditional") return;
+    cancelPending();
+    setAnswers((a) => ({ ...a, [q.detailsId]: text }));
+  }
+
+  function continueWithNote() {
+    if (q.kind !== "conditional") return;
+    const note = sanitizeText(answers[q.detailsId], q.detailsMaxLength);
+    if (!note) {
+      setError(q.detailsPrompt);
+      return;
+    }
+    const next = { ...answers, [q.detailsId]: note };
+    setAnswers(next);
+    cancelPending();
+    setError(null);
+    if (isLast) void submit(next);
+    else go(step + 1);
   }
 
   function onNumberChange(raw: string) {
@@ -137,7 +187,7 @@ export function QuizForm({ token }: { token: string }) {
   // Styling lives in app/globals.css under .qz-* (the site's lilac/peach
   // palette and hero type), so the quiz matches the rest of AetherSkin.
   const options =
-    q.kind === "categorical"
+    q.kind === "categorical" || q.kind === "conditional"
       ? q.options.map((o) => ({ key: o.code, value: o.code as Answer, label: o.label }))
       : q.kind === "ordinal"
         ? q.options.map((o) => ({ key: String(o.value), value: o.value as Answer, label: o.label }))
@@ -148,7 +198,9 @@ export function QuizForm({ token }: { token: string }) {
       {/* Progress */}
       <div className="qz-progress">
         <div className="qz-progress-row">
-          <span className="qz-eyebrow">Question {step + 1} of {total}</span>
+          <span className="qz-eyebrow">
+            {QUIZ_SECTION_LABEL[q.section]} · Question {step + 1} of {total}
+          </span>
           <span className="qz-eyebrow">{progress}%</span>
         </div>
         <div
@@ -177,7 +229,9 @@ export function QuizForm({ token }: { token: string }) {
                 type="button"
                 disabled={submitting}
                 aria-pressed={selected}
-                onClick={() => answer(opt.value)}
+                onClick={() =>
+                  q.kind === "conditional" ? chooseConditional(String(opt.value)) : answer(opt.value)
+                }
                 className={selected ? "qz-option is-selected" : "qz-option"}
               >
                 <span className="qz-dot" aria-hidden="true" />
@@ -186,6 +240,35 @@ export function QuizForm({ token }: { token: string }) {
             );
           })}
         </div>
+      )}
+
+      {q.kind === "conditional" && answers[q.id] === q.triggerCode && (
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            continueWithNote();
+          }}
+        >
+          <label htmlFor={`q-${q.detailsId}`} className="qz-question" style={{ fontSize: "1rem", marginTop: 16 }}>
+            {q.detailsPrompt}
+          </label>
+          <input
+            id={`q-${q.detailsId}`}
+            type="text"
+            autoFocus
+            autoComplete="off"
+            maxLength={q.detailsMaxLength}
+            disabled={submitting}
+            placeholder={q.detailsPlaceholder}
+            value={typeof answers[q.detailsId] === "string" ? String(answers[q.detailsId]) : ""}
+            onChange={(e) => onNoteChange(e.target.value)}
+            className="qz-input"
+            style={{ width: "100%", marginTop: 8 }}
+          />
+          <button type="submit" disabled={submitting} className="qz-btn" style={{ marginTop: 12 }}>
+            Continue
+          </button>
+        </form>
       )}
 
       {q.kind === "continuous" && (

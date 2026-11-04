@@ -53,7 +53,7 @@ const DATA_ROWS = [
   },
   {
     data: "Your skin quiz answers",
-    note: "17 multiple-choice and number answers; no free text, no name",
+    note: "20 multiple-choice and number answers, plus two optional typed notes (medications, allergies); no name",
     how: "You give them to us in the quiz",
     why: "To build your skin profile and match you with products.",
     basis: "Your consent, because some answers are health information, which is sensitive information (APP 3.3). You can withdraw it at any time",
@@ -81,7 +81,7 @@ const DATA_ROWS = [
 
 export default function PrivacyPage() {
   return (
-    <LegalChrome lead="Your data," kicker="in plain English." updated="November 1, 2026">
+    <LegalChrome lead="Your data," kicker="in plain English." updated="November 4, 2026">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(crumbs)) }}
@@ -149,13 +149,20 @@ export default function PrivacyPage() {
           past month, how complex your routine is, your age, your average hours
           of sleep, roughly how much water you drink, how often you have sugary
           foods, dairy, fruit and vegetables, and alcohol, and how much
-          breakouts, redness and dryness you have right now.
+          breakouts, redness and dryness you have right now. It also asks your
+          gender, whether you take any medication for skin concerns, and
+          whether you are allergic to specific active ingredients. If you say
+          yes to the last two, you can list the medications or ingredients so
+          our suggestions can take them into account. Those typed notes
+          are used only for that purpose and are never part of the data we
+          train our models on.
         </p>
         <p style={pStyle}>
           Your answers are stored separately from your email address, linked
-          only by an internal ID. Some of them (stress, sleep, diet, alcohol
-          and your skin&apos;s current condition) say something about your
-          health and wellbeing, so we treat them as sensitive data.
+          only by an internal ID. Some of them (stress, sleep, diet, alcohol,
+          medication, allergies and your skin&apos;s current condition) say
+          something about your health and wellbeing, so we treat them as
+          sensitive data.
         </p>
         <h3 style={h3Style}>How our models use your answers</h3>
         <p style={pStyle}>
