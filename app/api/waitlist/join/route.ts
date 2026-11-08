@@ -1,13 +1,12 @@
 import { NextResponse } from "next/server";
 import * as Sentry from "@sentry/nextjs";
-import crypto from "node:crypto";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { rateLimit, getClientIp } from "@/lib/rate-limit";
 import { isValidEmail } from "@/lib/utils";
 import { sanitizeText } from "@/lib/validation/quiz";
 import { generateToken, sendVerificationEmail } from "@/lib/email";
 import { assertSameOrigin } from "@/lib/security";
-import { audit } from "@/lib/audit";
+import { audit, hashPii } from "@/lib/audit";
 import { withRetry } from "@/lib/retry";
 import { LINK_TTL_HOURS } from "@/lib/quiz-link";
 
@@ -15,6 +14,8 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 const MAX_BODY_BYTES = 4_096;
+/** One confirmation email per address per window, whatever IP asks. */
+const RESEND_COOLDOWN_MS = 5 * 60 * 1000;
 
 /**
  * POST /api/waitlist/join
@@ -95,16 +96,12 @@ export async function POST(req: Request) {
     const admin = createAdminClient();
     const { token, hash } = generateToken();
 
-    const ipSalt = process.env.IP_HASH_SALT ?? "aetherskin-default-salt";
-    const signup_ip_hash = crypto
-      .createHash("sha256")
-      .update(ip + ipSalt)
-      .digest("hex");
+    const signup_ip_hash = hashPii(ip);
     const user_agent = sanitizeText(req.headers.get("user-agent"), 300);
 
     const { data: existing } = await admin
       .from("waitlist")
-      .select("id,verified_at,quiz_completed_at")
+      .select("id,verified_at,quiz_completed_at,verification_sent_at")
       .eq("email", email)
       .maybeSingle();
 
@@ -113,6 +110,20 @@ export async function POST(req: Request) {
     // address has completed the quiz (security audit 2026-11-01, low).
     if (existing?.quiz_completed_at) {
       return NextResponse.json({ ok: true, ttlHours: LINK_TTL_HOURS });
+    }
+
+    /*
+     * Per-address cooldown. The IP rate limit alone let anyone rotating IPs
+     * flood an inbox with confirmation emails, and every re-send replaced the
+     * token hash, killing the owner's pending link (vbsec scan 2026-11-09,
+     * medium). Within the cooldown the existing link stays valid, nothing is
+     * sent, and the answer is the same as a fresh signup.
+     */
+    if (existing?.verification_sent_at) {
+      const sentAt = Date.parse(existing.verification_sent_at);
+      if (Number.isFinite(sentAt) && Date.now() - sentAt < RESEND_COOLDOWN_MS) {
+        return NextResponse.json({ ok: true, ttlHours: LINK_TTL_HOURS });
+      }
     }
 
     if (existing) {

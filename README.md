@@ -49,7 +49,7 @@ npm run dev
 | `RESEND_API_KEY` | yes | signup returns 202 "saved, not sent" |
 | `NEXT_PUBLIC_SITE_URL` | recommended | canonical URLs fall back to a default |
 | `EMAIL_FROM` | yes in production | falls back to the Resend sandbox sender, which only delivers to the Resend account owner, so every real signup gets a 403 and no email |
-| `IP_HASH_SALT` | recommended | uses a default salt — set a real one |
+| `IP_HASH_SALT` | required in deploys | without it, deployed builds store no email/IP hashes; local dev uses a fixed dev salt |
 | `UPSTASH_REDIS_REST_URL` / `_TOKEN` | optional | rate limiting falls back to per-instance memory |
 
 Only `NEXT_PUBLIC_*` values are safe to commit. Everything else lives in

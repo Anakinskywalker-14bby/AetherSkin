@@ -3,7 +3,7 @@ import * as Sentry from "@sentry/nextjs";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { rateLimit, getClientIp } from "@/lib/rate-limit";
 import { validateQuiz, sanitizeText, QUIZ_VERSION } from "@/lib/validation/quiz";
-import { sendQuizCompleteEmail } from "@/lib/email";
+import { sendQuizCompleteEmail, hashToken } from "@/lib/email";
 import { resolveQuizLink, SUBMIT_GRACE_MS } from "@/lib/quiz-link";
 import { assertSameOrigin } from "@/lib/security";
 import { audit } from "@/lib/audit";
@@ -100,6 +100,30 @@ export async function POST(req: Request) {
     }
     const entry = link.entry;
 
+    // Single use: claim the link with a conditional update so two parallel
+    // submits can't both win, and the link stops working once the quiz is done.
+    // The claim comes BEFORE the answers are saved: saving first let a request
+    // that lost the claim overwrite the winner's answers (vbsec scan
+    // 2026-11-09, low). Only the request holding the claim writes answers.
+    const { data: claimed, error: claimError } = await admin
+      .from("waitlist")
+      .update({
+        status: "verified",
+        verified_at: new Date().toISOString(),
+        quiz_completed_at: new Date().toISOString(),
+        verification_token_hash: null,
+      })
+      .eq("id", entry.id)
+      .is("quiz_completed_at", null)
+      .select("id");
+    if (claimError) throw claimError;
+    if (!claimed || claimed.length === 0) {
+      return NextResponse.json(
+        { error: "This link is invalid or has already been used. Please sign up again." },
+        { status: 401 }
+      );
+    }
+
     /*
      * quiz_responses_v3 holds only the waitlist id and the coded answers
      * (plus the optional medication/allergy notes, which are health data and
@@ -117,30 +141,16 @@ export async function POST(req: Request) {
 
     if (upsertError) {
       console.error("[quiz] upsert failed:", upsertError.message);
+      // Hand the link back so "Please try again" is true. If the release
+      // fails too, throw: Sentry should see a user stuck with a used link.
+      const { error: releaseError } = await admin
+        .from("waitlist")
+        .update({ quiz_completed_at: null, verification_token_hash: hashToken(token) })
+        .eq("id", entry.id);
+      if (releaseError) throw releaseError;
       return NextResponse.json(
         { error: "Could not save your answers. Please try again." },
         { status: 500 }
-      );
-    }
-
-    // Single use: claim the link with a conditional update so two parallel
-    // submits can't both win, and the link stops working once the quiz is done.
-    const { data: claimed, error: claimError } = await admin
-      .from("waitlist")
-      .update({
-        status: "verified",
-        verified_at: new Date().toISOString(),
-        quiz_completed_at: new Date().toISOString(),
-        verification_token_hash: null,
-      })
-      .eq("id", entry.id)
-      .is("quiz_completed_at", null)
-      .select("id");
-    if (claimError) throw claimError;
-    if (!claimed || claimed.length === 0) {
-      return NextResponse.json(
-        { error: "This link is invalid or has already been used. Please sign up again." },
-        { status: 401 }
       );
     }
 

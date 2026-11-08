@@ -14,7 +14,7 @@ vi.mock("@/lib/rate-limit", () => ({
   getClientIp: () => "203.0.113.7",
 }));
 vi.mock("@/lib/security", () => ({ assertSameOrigin: () => ({ ok: true }) }));
-vi.mock("@/lib/audit", () => ({ audit: async () => {} }));
+vi.mock("@/lib/audit", () => ({ audit: async () => {}, hashPii: () => "h" }));
 vi.mock("@/lib/email", () => ({
   generateToken: () => ({ token: "t", hash: "h" }),
   hashToken: () => "h",

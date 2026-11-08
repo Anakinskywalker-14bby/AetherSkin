@@ -15,3 +15,6 @@ coverage/
 *.tsbuildinfo
 next-env.d.ts
 .DS_Store
+
+# Local security scan reports
+vbsec-reports/
