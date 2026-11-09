@@ -19,7 +19,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from .schema import CATEGORICAL, CONTINUOUS, ORDINAL, TARGETS
+from .schema import CATEGORICAL, CONTINUOUS, GENDER_CODES, MEDICATION_CODES, ORDINAL, TARGETS
 
 MIN_TRAIN = 300   # Model 1 release gate (predictor.MIN_TRAIN_ROWS)
 MIN_HABITS = 100  # Model 2 gate (habit_impact.MIN_ROWS)
@@ -74,6 +74,61 @@ def _effects_chart(target: str, rows: list[dict]) -> str:
     return "".join(p) + "</svg>"
 
 
+ALLERGY_CODES = ["no", "yes", "unsure"]
+
+
+def _col_counts(df: pd.DataFrame, col: str, codes: list[str]) -> dict:
+    """Counts per code; rows from before the question existed show as 'not asked'."""
+    s = df[col] if col in df.columns else pd.Series([None] * len(df))
+    counts = {c: int((s == c).sum()) for c in codes}
+    missing = int(s.isna().sum()) + int((s == "").sum())
+    if missing:
+        counts["not asked (old rows)"] = missing
+    return counts
+
+
+def _note_stats(df: pd.DataFrame, col: str) -> tuple[int, list[tuple[str, int]]]:
+    if col not in df.columns:
+        return 0, []
+    s = df[col].dropna().astype(str).str.strip()
+    s = s[s != ""]
+    top = s.str.lower().value_counts().head(8)
+    return int(len(s)), [(str(k)[:60], int(v)) for k, v in top.items()]
+
+
+def _inputs_table(df: pd.DataFrame | None, predictor_meta: dict | None, habit_report: dict | None) -> str:
+    """One row per question: which part of the pipeline uses it, and how much data it has."""
+    n = 0 if df is None else len(df)
+
+    def have(col: str) -> str:
+        if df is None or col not in df.columns:
+            return "0"
+        s = df[col]
+        return str(int((s.notna() & (s.astype(str).str.strip() != "")).sum()))
+
+    n_feat = len(predictor_meta["feature_names"]) if predictor_meta and "feature_names" in predictor_meta else 33
+    med = habit_report.get("medication_control") if habit_report else None
+    on = int((df["medication_use"] == "yes").sum()) if df is not None and "medication_use" in df.columns else 0
+    off = int((df["medication_use"] == "no").sum()) if df is not None and "medication_use" in df.columns else 0
+    med_state = ("estimated (see section 5)" if med else
+                 f"waiting: needs 30 on and 30 not on medication (have {on} / {off})")
+    rows = [
+        ("Gender", "gender", "Yes: 5 one-hot inputs (of %d)" % n_feat, "Yes: control variable", "No"),
+        ("Medication yes/no", "medication_use", "No (by design)", "Yes: control. " + med_state, "Drives gentle-mode rules"),
+        ("Medication details (typed)", "medication_details", "No", "No", "Yes: matched to your medication list, switches on gentle mode"),
+        ("Allergy status", "allergy_status", "No (by design)", "No", "Yes: turns the allergy filter on"),
+        ("Allergy details (typed)", "allergy_details", "No (by design)", "No", "Yes: matched to allergy + active-ingredient lists, allergens swapped out"),
+    ]
+    body = "".join(
+        f"<tr><td>{html.escape(q)}</td><td>{have(c) if df is not None else 0} / {n}</td><td>{html.escape(m1)}</td>"
+        f"<td>{html.escape(m2)}</td><td>{html.escape(sf)}</td></tr>"
+        for q, c, m1, m2, sf in rows)
+    return ("<p class=\"muted\">The three newest questions and what each one feeds. Allergy answers are deliberately "
+            "kept out of the neural network and handled by a hard-coded safety filter instead.</p>"
+            "<table><tr><th>Question</th><th>Answered</th><th>Model 1 (predictor)</th><th>Model 2 (habit impact)</th>"
+            f"<th>Safety filter / routine</th></tr>{body}</table>")
+
+
 def build(df: pd.DataFrame | None, *, predictor_meta: dict | None, habit_report: dict | None,
           sample_report: dict | None, out: Path, synthetic: bool, last_response: str | None = None) -> Path:
     n = 0 if df is None else len(df)
@@ -94,7 +149,11 @@ def build(df: pd.DataFrame | None, *, predictor_meta: dict | None, habit_report:
 
     answers = ""
     if df is not None and n:
-        charts = []
+        charts = [
+            _bars("gender", _col_counts(df, "gender", GENDER_CODES[:-1]), n),
+            _bars("medication_use", _col_counts(df, "medication_use", MEDICATION_CODES), n),
+            _bars("allergy_status", _col_counts(df, "allergy_status", ALLERGY_CODES), n),
+        ]
         for col, codes in CATEGORICAL.items():
             charts.append(_bars(col, {c: int((df[col] == c).sum()) for c in codes}, n))
         for col, (lo, hi) in {**ORDINAL, **TARGETS}.items():
@@ -103,6 +162,13 @@ def build(df: pd.DataFrame | None, *, predictor_meta: dict | None, habit_report:
             cuts = pd.cut(df[col], bins=6)
             charts.append(_bars(col, {f"{iv.left:.0f}-{iv.right:.0f}": int(c) for iv, c in cuts.value_counts(sort=False).items()}, n))
         answers = '<div class="grid">' + "".join(f'<div class="card">{c}</div>' for c in charts) + "</div>"
+        notes = ""
+        for label, col in (("Medication details", "medication_details"), ("Allergy details", "allergy_details")):
+            cnt, top = _note_stats(df, col)
+            lines = "".join(f"<tr><td>{html.escape(t)}</td><td>{c}</td></tr>" for t, c in top) or "<tr><td colspan=2>none yet</td></tr>"
+            notes += (f'<div class="card"><b>{cnt}</b>{label} typed<table><tr><th>Most common</th><th>#</th></tr>{lines}</table></div>')
+        answers += ('<h3>Typed notes</h3><p class="muted">Health data, shown only in this local file (never committed). '
+                    'Included in the training CSV.</p><div class="grid">' + notes + "</div>")
     else:
         answers = '<p class="muted">No responses yet. Charts appear here after people complete the new quiz.</p>'
 
@@ -127,13 +193,25 @@ def build(df: pd.DataFrame | None, *, predictor_meta: dict | None, habit_report:
               + "".join(f'<div class="card">{_effects_chart(t, r)}</div>' for t, r in habit_report["effects"].items())
               + "</div><ul>" + "".join(f"<li>{html.escape(h)}</li>" for h in habit_report["headlines"]) + "</ul>")
 
+    if habit_report is not None:
+        mc = habit_report.get("medication_control")
+        if mc:
+            m2 += ("<h3>Skin medication (control)</h3><p class=\"muted\">Change in each 0-4 score for people on skin medication vs not, "
+                   f"holding habits fixed ({mc['n_on_medication']} on medication). Interval excluding 0 = clear link.</p><table>"
+                   "<tr><th>Concern</th><th>Change</th><th>95% interval</th></tr>"
+                   + "".join(f"<tr><td>{html.escape(k)}</td><td>{v:+.2f}</td><td>{mc['ci95'][k][0]:+.2f} to {mc['ci95'][k][1]:+.2f}</td></tr>"
+                             for k, v in mc["score_change"].items()) + "</table>")
+        else:
+            m2 += '<p class="muted">Skin medication control: not reported yet (needs 30 people on and 30 not on medication).</p>'
+
     page = f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><title>AetherSkin model dashboard</title>
 <style>{CSS}</style></head><body>
 <h1>AetherSkin model dashboard</h1><p class="sub">Generated {datetime.now():%d %b %Y %H:%M}</p>{banner}
 <h2>1. Data pipeline</h2>{cards}
-<h2>2. What people answered</h2>{answers}
-<h2>3. Model 1: personal predictor</h2>{m1}
-<h2>4. Model 2: habit impact (whole population)</h2>{m2}
+<h2>2. What the models use from each new question</h2>{_inputs_table(df, predictor_meta, habit_report)}
+<h2>3. What people answered</h2>{answers}
+<h2>4. Model 1: personal predictor</h2>{m1}
+<h2>5. Model 2: habit impact (whole population)</h2>{m2}
 </body></html>"""
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(page, encoding="utf-8")

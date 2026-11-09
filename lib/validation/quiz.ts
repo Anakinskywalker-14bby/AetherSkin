@@ -314,7 +314,11 @@ export const QUIZ_QUESTIONS = [
     section: "your_skin",
     id: "routine_complexity",
     question: "How complex is your current daily skincare routine?",
+    // -1 was added later (Nov 2026) as the first option. It sits below
+    // "Minimalist" so the scale stays ordered and every older row (0-2) keeps
+    // its meaning; no stored answer had to change.
     options: [
+      { value: -1, label: "I don't have a routine / figuring it out" },
       { value: 0, label: "Minimalist (just cleanser, or cleanser + moisturizer)" },
       { value: 1, label: "Standard (cleanser, moisturizer, plus 1 active serum)" },
       { value: 2, label: "Advanced (cleanser, toner, multiple serums, moisturizer, eye cream)" },

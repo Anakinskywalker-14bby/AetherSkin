@@ -1,0 +1,118 @@
+User Typed Text (Raw Note Variations),Model Input Variable,Class / Category
+"fragrance, perfume, parfum, scent",allergy_fragrance_generic,Unspecified Fragrance Compound (EU 26 Allergen Class)
+linalool,allergy_fragrance_linalool,Specific Fragrance Allergen (Terpene)
+limonene,allergy_fragrance_limonene,Specific Fragrance Allergen (Terpene)
+geraniol,allergy_fragrance_geraniol,Specific Fragrance Allergen (Terpene)
+citronellol,allergy_fragrance_citronellol,Specific Fragrance Allergen (Terpene)
+eugenol,allergy_fragrance_eugenol,Specific Fragrance Allergen (Clove-derived)
+"balsam of peru, myroxylon pereirae",allergy_balsam_of_peru,Fragrance Fixative / Cross-reactors
+"essential oils, lavender oil, rose oil, citrus oil",allergy_essential_oils,Concentrated Volatile Plant Extracts
+"menthol, peppermint, mint",allergy_menthol,Counter-irritant Sensator
+"eucalyptus, eucalyptus oil",allergy_eucalyptus,Volatile Plant Extract
+"propolis, bee glue, honey, royal jelly",allergy_bee_products,Bee-derived Allergen
+"lanolin, wool alcohol, wool fat, acetylated lanolin",allergy_lanolin,Sheep Sebaceous Emollient
+"snail mucin, snail filtrate, snail secretion",allergy_snail_mucin,Animal-derived Glycoprotein
+"parabens, methylparaben, propylparaben",allergy_parabens,Esters of p-hydroxybenzoic acid
+phenoxyethanol,allergy_phenoxyethanol,Glycol Ether Preservative
+"methylisothiazolinone, mi, mit, kathon cg",allergy_methylisothiazolinone,Isothiazolinone Preservative
+"formaldehyde releasers, dmdm hydantoin, diazolidinyl urea",allergy_formaldehyde_releasers,Antimicrobial Preservative Class
+"propylene glycol, propanediol",allergy_propylene_glycol,Petroleum or Vegetable Solvent
+butylene glycol,allergy_butylene_glycol,Small-chain Diol Solvents
+"ls, sodium lauryl sulfate",allergy_sodium_lauryl_sulfate,High-strip Anionic Surfactants
+"les, sodium laureth sulfate",allergy_sodium_laureth_sulfate,Ethoxylated Anionic Surfactant
+"coco betaine, cocamidopropyl betaine, capb",allergy_cocamidopropyl_betaine,Amphoteric Surfactant
+"chemical sunscreen, organic filters",allergy_chemical_sunscreen_generic,Unspecified Organic UV Filter
+"avobenzone, butyl methoxydibenzoylmethane",allergy_uv_avobenzone,UVA Filter
+"oxybenzone, benzophenone-3",allergy_uv_oxybenzone,UVB/UVA2 Filter
+"octinoxate, octyl methoxycinnamate, omc",allergy_uv_octinoxate,UVB Filter
+octocrylene,allergy_uv_octocrylene,UVB/UVA2 Stabilising Filter
+homosalate,allergy_uv_homosalate,UVB Filter
+"octisalate, ethylhexyl salicylate",allergy_uv_octisalate,UVB Filter
+"tinosorb, bemotrizinol",allergy_uv_tinosorb,Modern Broad-spectrum Filter
+"mexoryl, ecamsule",allergy_uv_mexoryl,UVA Filter
+"physical sunscreen, mineral sunscreen",allergy_mineral_sunscreen_generic,Unspecified Inorganic UV Filter
+"zinc oxide, zinc",allergy_zinc_oxide,Inorganic UV Filter / Soothing Agent
+titanium dioxide,allergy_titanium_dioxide,Inorganic UV Filter / Opacifier
+"silicones, dimethicone, cyclopentasiloxane",allergy_silicones,Synthetic Polymer Emollient
+"mineral oil, paraffinum liquidum, petrolatum, vaseline",allergy_petroleum_derivatives,Hydrocarbon Occlusive
+"coconut oil, cocos nucifera oil",allergy_coconut_oil,Comedogenic Botanical Oil
+"almond oil, sweet almond oil",allergy_almond_oil,Tree Nut Derived Emollient
+"peanut oil, arachis oil",allergy_peanut_oil,Legume Derived Emollient
+"soy, soybean oil, glycine soja",allergy_soy,Plant Protein / Isoflavone
+"wheat germ oil, triticum vulgare, gluten",allergy_wheat_gluten,Cereal Grain Derived Extract
+"gold, thiosulfate, jewelry allergy",allergy_gold,Noble Metal
+"nickel, costume jewelry",allergy_nickel,Base Metal Contact Dermatitis
+"alcohol, alcohol denat, ethanol, sd alcohol",allergy_drying_alcohols,Volatile Solvent Evaporant
+"fatty alcohols, cetyl alcohol, cetearyl alcohol",allergy_fatty_alcohols,Wax-like Emulsion Stabiliser
+mica,allergy_mica,Silicate Shimmer Mineral
+"talc, talcum powder",allergy_talc,Hydrous Magnesium Silicate
+"collagen, soluble collagen",allergy_collagen,Structural Protein
+"coenzyme q10, ubiquinone",allergy_coenzyme_q10,Cellular Energy Antioxidant
+"peanuts, peanut allergen",allergy_food_peanuts,Food Allergen (Legume)
+"tree nuts, almonds, walnuts, cashews, hazelnuts",allergy_food_tree_nuts,Food Allergen (Tree Nut)
+"milk, dairy, cow milk protein, whey, casein",allergy_food_dairy,Food Allergen (Dairy)
+"eggs, egg white, egg yolk, ovalbumin",allergy_food_egg,Food Allergen (Poultry/Egg)
+"wheat, gluten",allergy_food_wheat,Food Allergen (Cereal Grain)
+"soy, soybeans, soy protein",allergy_food_soy,Food Allergen (Legume)
+"fish, finfish, cod, salmon",allergy_food_fish,Food Allergen (Seafood)
+"shellfish, crustaceans, shrimp, crab, lobster, mollusks",allergy_food_shellfish,Food Allergen (Seafood)
+"dust mites, dermatophagoides",allergy_inhalant_dust_mites,Inhalant / Environmental Allergen
+"pet dander, cat dander, dog dander",allergy_inhalant_pet_dander,Inhalant / Environmental Allergen
+"cockroach, cockroach allergen",allergy_inhalant_cockroach,Inhalant / Environmental Allergen
+"molds, indoor mold, alternaria, cladosporium, aspergillus",allergy_inhalant_molds,Inhalant / Environmental Allergen
+"pollen, tree pollen, grass pollen, weed pollen",allergy_inhalant_pollen,Inhalant / Environmental Allergen
+"latex, natural rubber latex, rubber gloves",allergy_latex,Natural Rubber Latex Allergen
+"cinnamal, cinnamic aldehyde",allergy_fragrance_cinnamal,Specific Fragrance Allergen (EU Labelled)
+citral,allergy_fragrance_citral,Specific Fragrance Allergen (EU Labelled)
+"methylchloroisothiazolinone, cmit, kathon",allergy_methylchloroisothiazolinone,Isothiazolinone Preservative
+quaternium-15,allergy_quaternium_15,Formaldehyde-Releasing Preservative
+"p-phenylenediamine, ppd, hair dye allergy",allergy_ppd_hair_dye,Aromatic Amine Hair Dye Allergen
+"coal tar, coal tar solution, liquor carbonis detergens",allergy_coal_tar,Keratolytic / Phenolic Compound
+imidazolidinyl urea,allergy_imidazolidinyl_urea,Formaldehyde-Releasing Preservative
+"methyldibromoglutaronitrile, mdbgn",allergy_mdbgn,Preservative
+fragrance mix i,allergy_fragrance_mix_1,Fragrance Allergen Mix (Standard)
+fragrance mix ii,allergy_fragrance_mix_2,Fragrance Allergen Mix (Standard)
+isoeugenol,allergy_fragrance_isoeugenol,Specific Fragrance Allergen
+cinnamyl alcohol,allergy_fragrance_cinnamyl_alcohol,Specific Fragrance Allergen
+farnesol,allergy_fragrance_farnesol,Specific Fragrance Allergen
+hydroxycitronellal,allergy_fragrance_hydroxycitronellal,Specific Fragrance Allergen
+ethylenediamine,allergy_ethylenediamine,Vehicle Base / Stabilizer
+"polyethylene glycol, peg",allergy_polyethylene_glycol,Vehicle Base / Excipient
+"tea tree oil, melaleuca oil",allergy_tea_tree_oil,Essential Oil Allergen
+"colophonium, rosin",allergy_colophonium,Resin / Botanical Adhesives
+hexyl cinnamal,allergy_fragrance_hexyl_cinnamal,Specific Fragrance Allergen (EU Labelled)
+coumarin,allergy_fragrance_coumarin,Specific Fragrance Allergen (EU Labelled)
+bronopol,allergy_bronopol,Formaldehyde-Releasing Preservative
+butylparaben,allergy_paraben_butyl,Specific Paraben Allergen
+ethylparaben,allergy_paraben_ethyl,Specific Paraben Allergen
+oleamidopropyl dimethylamine,allergy_oleamidopropyl_dimethylamine,Surfactant Allergen
+neomycin,allergy_antibiotic_neomycin,Topical Antibiotic Allergen
+bacitracin,allergy_antibiotic_bacitracin,Topical Antibiotic Allergen
+polymyxin b,allergy_antibiotic_polymyxin_b,Topical Antibiotic Allergen
+cobalt,allergy_metal_cobalt,Metal Allergen
+"chromium, chromate",allergy_metal_chromium,Metal Allergen
+palladium,allergy_metal_palladium,Metal Allergen
+thiuram mix,allergy_rubber_thiuram,Rubber Allergen Mix
+"carbamates, carba mix",allergy_rubber_carbamates,Rubber Allergen Mix
+"mercaptobenzothiazole, mbt",allergy_rubber_mbt,Rubber Allergen
+black rubber mix,allergy_rubber_black,Rubber Allergen Mix
+"toluene-2,5-diamine",allergy_hair_dye_toluene,Hair Dye Allergen
+arnica,allergy_botanical_arnica,Botanical Allergen
+chamomile,allergy_botanical_chamomile,Botanical Allergen
+ylang-ylang oil,allergy_botanical_ylang_ylang,Essential Oil Allergen
+"oat, colloidal oatmeal",allergy_food_oat,Food / Cosmetic Allergen
+"iodopropynyl butylcarbamate, ipbc",allergy_ipbc,Preservative Allergen
+"thiomersal, thimerosal",allergy_thiomersal,Preservative Allergen (Mercury-based)
+"2-bromo-2-nitropropane-1,3-diol",allergy_bronopol_alternative,Formaldehyde-Releasing Preservative
+triclosan,allergy_triclosan,Antimicrobial Preservative Allergen
+chlorphenesin,allergy_chlorphenesin,Preservative Allergen
+"chloromethylisothiazolinone, cmit",allergy_cmit,Isothiazolinone Preservative
+"oak moss extract, evernia prunastri",allergy_fragrance_oak_moss,Natural Fragrance Allergen
+amyl cinnamal,allergy_fragrance_amyl_cinnamal,Specific Fragrance Allergen (EU Labelled)
+"lyral, hicc",allergy_fragrance_lyral,Specific Fragrance Allergen (EU Labelled)
+limonene hydroperoxides,allergy_fragrance_limonene_hydroperoxides,Oxidized Terpene Allergen
+linalool hydroperoxides,allergy_fragrance_linalool_hydroperoxides,Oxidized Terpene Allergen
+acetylated lanolin alcohol,allergy_acetylated_lanolin,Lanolin Derivative Allergen
+"acrylates, methacrylates",allergy_acrylates,Adhesive / Nail Cosmetic Allergen
+"paba, 4-aminobenzoic acid",allergy_uv_paba,UV Filter Allergen
+disperse dyes,allergy_disperse_dyes,Textile Dye Allergen

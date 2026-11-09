@@ -31,11 +31,13 @@ def make_synthetic(n: int = 4000, seed: int = 7) -> pd.DataFrame:
     df = pd.DataFrame({col: rng.choice(codes, size=n) for col, codes in CATEGORICAL.items()})
     df["sunscreen_frequency"] = rng.integers(0, 4, n)
     df["stress_level"] = rng.integers(1, 6, n)
-    df["routine_complexity"] = rng.integers(0, 3, n)
+    df["routine_complexity"] = rng.integers(-1, 3, n)
     df["sugar_intake"] = rng.integers(0, 5, n)
     df["dairy_intake"] = rng.integers(0, 5, n)
     df["fruit_veg_intake"] = rng.integers(0, 5, n)
     df["alcohol_intake"] = rng.integers(0, 5, n)
+    df["gender"] = rng.choice(["female", "male", "non_binary_other", "prefer_not_to_say"], size=n, p=[0.5, 0.35, 0.08, 0.07])
+    df["medication_use"] = rng.choice(["no", "yes"], size=n, p=[0.85, 0.15])
     df["age"] = np.clip(rng.normal(32, 9, n).round(), 18, 100)
     df["sleep_hours"] = np.clip((rng.normal(7, 1.3, n) * 2).round() / 2, 3, 11)
     df["water_glasses"] = np.clip(rng.normal(6, 2.5, n).round(), 0, 20)
@@ -49,6 +51,13 @@ def make_synthetic(n: int = 4000, seed: int = 7) -> pd.DataFrame:
         "redness_level": 0.6 * (df["skin_type"] == "highly_sensitive") + 0.3 * (df["environment"] == "outdoors"),
         "dryness_level": 0.7 * (df["skin_type"] == "dry") + 0.4 * (df["environment"] == "climate_controlled_indoor"),
     }
+    # Planted control effects (illustrative): skin medication (think oral
+    # retinoid) dries the skin and reduces breakouts regardless of lifestyle;
+    # gender shifts breakouts slightly. Redness has neither.
+    on_med = (df["medication_use"] == "yes").to_numpy(dtype=float)
+    male = (df["gender"] == "male").to_numpy(dtype=float)
+    base["dryness_level"] = base["dryness_level"] + 0.9 * on_med
+    base["breakouts_level"] = base["breakouts_level"] - 0.6 * on_med + 0.3 * male
     for target, effects in PLANTED.items():
         latent = base[target].to_numpy(dtype=float) + rng.normal(0, 0.8, n)
         for habit, coef in effects.items():

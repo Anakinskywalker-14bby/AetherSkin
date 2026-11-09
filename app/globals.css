@@ -160,71 +160,6 @@ body {
 }
 
 /*
- * ── Wardrobe doors ──────────────────────────────────────────────────
- *
- * The walnut is layered gradients rather than an image: no extra request,
- * no CLS, and it recolours with the theme. Grain is two repeating gradients
- * at slightly different periods so the stripes never visibly tile, plus a
- * broad sheen so the panel reads as a curved surface catching the light.
- */
-.door-panel {
-  background-color: #4a2f22;
-  background-image:
-    /* recessed panel */
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.26) 0%, transparent 10%, transparent 90%, rgba(0, 0, 0, 0.3) 100%),
-    /* sheen across the face */
-    linear-gradient(105deg, rgba(255, 246, 236, 0.1) 0%, transparent 38%, transparent 62%, rgba(0, 0, 0, 0.16) 100%),
-    /* grain, two periods */
-    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.16) 0px, rgba(0, 0, 0, 0.16) 1px, transparent 1px, transparent 7px),
-    repeating-linear-gradient(90deg, rgba(255, 220, 180, 0.05) 0px, rgba(255, 220, 180, 0.05) 2px, transparent 2px, transparent 23px),
-    linear-gradient(to bottom, #553626 0%, #42281d 50%, #4e3124 100%);
-  box-shadow: inset 0 0 90px rgba(0, 0, 0, 0.42);
-  will-change: transform;
-}
-/* The inner moulding — a classic two-panel wardrobe door. */
-.door-panel::before {
-  content: "";
-  position: absolute;
-  inset: 7% 12%;
-  border-radius: 6px;
-  border: 2px solid rgba(0, 0, 0, 0.28);
-  box-shadow:
-    inset 0 2px 0 rgba(255, 230, 200, 0.07),
-    0 1px 0 rgba(255, 230, 200, 0.06);
-}
-/* The meeting edge, lit from the gap between the doors. */
-.door-left { border-right: 3px solid #2e1c14; box-shadow: inset -22px 0 42px rgba(0, 0, 0, 0.5); }
-.door-right { border-left: 3px solid #2e1c14; box-shadow: inset 22px 0 42px rgba(0, 0, 0, 0.5); }
-
-.door-handle {
-  position: absolute;
-  top: 50%;
-  width: 11px;
-  height: 46px;
-  border-radius: 999px;
-  background: linear-gradient(to right, #d8a24a, #f6d58c 40%, #b9822f);
-  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.5);
-  transform: translateY(-50%);
-}
-.door-handle-left { right: 16px; }
-.door-handle-right { left: 16px; }
-
-.door-hint {
-  font-family: "DM Sans", system-ui, sans-serif;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 2.2px;
-  text-transform: uppercase;
-  color: rgba(255, 246, 236, 0.78);
-}
-.door-hint-rule {
-  display: block;
-  width: 1px;
-  height: 34px;
-  background: linear-gradient(to bottom, rgba(255, 246, 236, 0.6), transparent);
-}
-
-/*
  * ── The dressing table ──────────────────────────────────────────────
  *
  * The site should feel like the place people actually get ready: a vanity,
@@ -496,8 +431,7 @@ button.neo-shadow-sm.neo-border,
  *
  * `clip`, not `hidden`. overflow-x:hidden makes the element a scroll
  * container, and a scroll container silently disables position:sticky for
- * everything inside it — which broke the door reveal: the pinned hero just
- * scrolled away. overflow:clip clips identically without creating one.
+ * everything inside it. overflow:clip clips identically without creating one.
  */
 html, body {
   max-width: 100%;
@@ -507,12 +441,10 @@ html, body {
 /*
  * Hero sizing: from the viewport's height as well as its width.
  *
- * When the wardrobe doors (DoorReveal) part, the whole first slide should
- * already be on screen, so the hero has to fit in one screen height.
+ * The whole first slide should already be on screen, so the hero has to
+ * fit in one screen height.
  * Width-only sizing let the headline and
  * a 640px image push both CTA buttons off the bottom of most laptops.
- * The doors open with the page held at the top; scrolling unlocks once
- * they finish, so on phones a slide taller than the screen stays reachable.
  */
 .hero-stage {
   padding-block: clamp(16px, 4.5vh, 64px);
@@ -587,7 +519,14 @@ html, body {
 .sf-hold-message,.sf-hold-status{margin:8px 0 0;padding:8px 12px;border-radius:14px;background:var(--sf-field);line-height:1.4;text-align:center}
 .sf-hold-status{margin:0}
 .sf-visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+/* Privacy + T&C: a small row at the dead bottom of the footer. */
+.sf-legal{position:absolute;left:0;right:0;bottom:0;z-index:1;display:flex;justify-content:center;gap:2.2vw;padding:1.1vw 0 1.3vw;font-size:max(13px,.85vw);background:rgba(255,255,255,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.sf-legal a{text-decoration:underline;text-underline-offset:3px}
+.sf-legal a:hover{opacity:.7}
 @media(max-width:700px){
+  /* Order: logo -> signup (held in the clip) -> team up + socials -> legal. */
+  .sf-legal{position:static;order:4;margin:0 -24px;padding:16px 24px calc(18px + env(safe-area-inset-bottom));gap:28px;font-size:14px}
+  .sf-legal a{display:flex;align-items:center;min-height:44px}
   .sf{display:flex;flex-direction:column;gap:36px;min-height:100svh;padding:40px 24px 0;background:var(--sf-mobile-bg)}
   .sf-logo{position:static;order:0;align-self:flex-start;width:auto;max-width:75%;margin-bottom:4px;text-align:left;font-size:44px}
   .sf-jobs{order:1;margin:0;width:100%}
@@ -596,14 +535,14 @@ html, body {
   .sf-links,.sf-contact-links{margin-top:19px}
   .sf-links{gap:4px}
   .sf-links a{display:flex;align-items:center;min-height:44px}
-  .sf-contact{position:static;order:2;width:100%}
+  .sf-contact{position:static;order:3;width:100%}
   .sf-contact-links{gap:4px;white-space:normal}
   .sf-note{max-width:34ch;margin:16px 0 0;font-size:14px;line-height:1.5;white-space:normal}
   .sf-socials{gap:18px;margin-top:20px}
   .sf-socials a{display:flex;align-items:center;justify-content:center;width:44px;height:44px}
   .sf-socials svg{width:30px;height:30px}
   .sf-socials a:first-child{margin-left:-7px}
-  .sf-background{position:relative;inset:auto;order:3;z-index:auto;flex:none;align-self:center;width:calc(100% + 48px);aspect-ratio:4/3;margin-top:-16px}
+  .sf-background{position:relative;inset:auto;order:1;z-index:auto;flex:none;align-self:center;width:calc(100% + 48px);aspect-ratio:4/3;margin-top:-16px}
   .sf-hold{width:min(300px,82%);font-size:12px}
 }
 
@@ -632,6 +571,8 @@ html, body {
 .eh-icons{display:flex;gap:calc(10 * var(--u))}
 .eh-glass{display:grid;place-items:center;width:calc(40 * var(--u));height:calc(40 * var(--u));min-width:36px;min-height:36px;border-radius:50%;background:var(--eh-glass);border:1px solid rgba(255,255,255,.35);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 .eh-glass svg{width:45%;height:45%;fill:none;stroke:#fff;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.eh-glass-text{width:auto;padding:0 calc(16 * var(--u));border-radius:999px;color:#fff;font-weight:700;font-size:max(13px,calc(13 * var(--u)));letter-spacing:.06em;white-space:nowrap}
+.eh-about-m{display:none}
 .eh-headline{position:absolute;left:calc(228 * var(--u));top:calc(104 * var(--u));margin:0;display:flex;flex-direction:column;font-weight:300;font-size:calc(64 * var(--u));line-height:1.02;letter-spacing:-.02em}
 .eh-headline em{font-family:var(--eh-serif),'Playfair Display',Georgia,serif;font-style:italic;font-weight:400;font-size:calc(104 * var(--u));line-height:1;letter-spacing:-.01em;margin-top:calc(4 * var(--u))}
 .eh-badge{position:absolute;left:calc(872 * var(--u));top:calc(100 * var(--u));margin:0;display:flex;align-items:center;gap:calc(10 * var(--u));font-size:calc(12.5 * var(--u));font-weight:500;letter-spacing:.16em}
@@ -654,6 +595,31 @@ html, body {
 @keyframes ehFade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 @keyframes ehDrop{0%{opacity:0;transform:translateY(-60px) rotate(4deg)}70%{opacity:1;transform:translateY(4px) rotate(-15deg)}100%{transform:rotate(-13deg)}}
 @media (prefers-reduced-motion:reduce){.eh-media video{display:none}.eh-in,.eh-rise,.eh-fade,.eh-polaroid{animation:none}}
+/* ─── Waitlist modal (components/WaitlistModal): phones, from the hero ─── */
+.wm{border:0;padding:0;background:transparent;max-width:none;max-height:none;width:100%;height:100%;margin:0;color:#3B2F5C;font-family:var(--eh-sans),'Inter Tight',system-ui,sans-serif}
+.wm[open]{display:grid;place-items:center}
+.wm::backdrop{background:rgba(59,47,92,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.wm[open] .wm-card{animation:wmIn .28s cubic-bezier(.2,.8,.2,1) both}
+@keyframes wmIn{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:none}}
+.wm-card{position:relative;width:min(360px,calc(100vw - 32px));padding:28px 22px 22px;border-radius:26px;
+  background:linear-gradient(165deg,#EEEAF7 0%,#F6D9E0 55%,#F9DCCF 100%);box-shadow:0 24px 60px rgba(40,24,70,.35)}
+.wm-close{position:absolute;top:12px;right:12px;display:grid;place-items:center;width:40px;height:40px;border:0;border-radius:50%;background:rgba(255,255,255,.6);cursor:pointer}
+.wm-close svg{width:18px;height:18px;fill:none;stroke:#3B2F5C;stroke-width:2;stroke-linecap:round}
+.wm-badge{display:flex;align-items:center;gap:8px;margin:0 0 10px;font-size:11px;font-weight:600;letter-spacing:.16em}
+.wm-badge svg{width:15px;height:15px;fill:#E8907D}
+.wm-title{margin:0;font-weight:300;font-size:30px;line-height:1.05;letter-spacing:-.02em}
+.wm-title em{font-family:var(--eh-serif),'Playfair Display',Georgia,serif;font-style:italic;font-weight:400;font-size:40px}
+.wm-sub{margin:10px 0 18px;font-size:14px;line-height:1.5;color:#66598A}
+.wm-form{display:flex;flex-direction:column;gap:12px}
+.wm-form input[type=email]{height:50px;padding:0 18px;border:1px solid rgba(59,47,92,.2);border-radius:999px;background:#fff;color:#3B2F5C;font:inherit;font-size:16px;outline:none}
+.wm-form input[type=email]:focus{border-color:#7A5BB0;box-shadow:0 0 0 3px rgba(122,91,176,.2)}
+.wm-consent{display:flex;align-items:flex-start;gap:8px;font-size:13px;line-height:1.4;color:#3B2F5C}
+.wm-consent input{margin:2px 0 0;width:18px;height:18px;accent-color:#7A5BB0;flex:none}
+.wm-consent a{text-decoration:underline}
+.wm-submit{height:54px;border:0;border-radius:999px;background:linear-gradient(135deg,#F4B8A2 0%,#E8907D 100%);color:#3B2F5C;font:inherit;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 8px 22px rgba(232,144,125,.45)}
+.wm-submit:disabled{opacity:.6;cursor:default}
+.wm-message,.wm-status{margin:0;padding:10px 14px;border-radius:14px;background:rgba(255,255,255,.75);font-size:14px;line-height:1.45}
+@media (prefers-reduced-motion:reduce){.wm[open] .wm-card{animation:none}}
 /* Phones (portrait): photo covers, copy reflows over it in one screen. */
 @media (max-width:760px),(orientation:portrait) and (max-width:1024px){
   .eh{--u:calc(100vw / 390)}
@@ -666,6 +632,9 @@ html, body {
   .eh-logo img{height:28px}
   .eh-links{display:none}
   .eh-glass{width:40px;height:40px}
+  /* Top right, opposite the logo: bold text pills, readable over the wash. */
+  .eh-about-m{display:grid}
+  .eh-glass-text{width:auto;height:38px;padding:0 14px;font-size:13px;background:rgba(59,47,92,.62);border-color:rgba(255,255,255,.4)}
   /* Sits low, just above the grid line, so it clears her face. */
   .eh-headline{left:20px;right:20px;top:auto;bottom:calc(110px + 4vh);font-size:clamp(26px,7.4vw,34px)}
   .eh-headline em{font-size:clamp(40px,12vw,52px)}
@@ -737,7 +706,7 @@ html, body {
 @media (prefers-reduced-motion:reduce){.cat-video{display:none}.cat-card{background:#3B2F5C}}
 
 /* ─── Bee guide (components/BeeGuide) ──────────────────────────────────
-   Under the hero doors (z-45) and the nav, above the page; never clickable. */
+   Under the nav, above the page; never clickable. */
 .bee-guide{position:fixed;inset:0;z-index:40;width:100%;height:100%;pointer-events:none;opacity:0;transition:opacity 1.2s ease}
 .bee-guide.ready{opacity:1}
 
@@ -1078,6 +1047,16 @@ html, body {
 @media (max-width:760px),(orientation:portrait) and (max-width:1024px){
   /* Hero: the polaroid sits lower, level with the "Join the waitlist" button. */
   .eh-polaroid{bottom:calc(24px + 2vh)}
+}
+/* Desktop hero: a bigger, filled call to action tucked toward the bottom-right corner. */
+@media (min-width:761px) and (min-aspect-ratio:1/1),(min-width:1025px){
+  .eh-side{left:calc(790 * var(--u));top:calc(612 * var(--u));width:calc(340 * var(--u))}
+  .eh-ctas{gap:calc(14 * var(--u))}
+  .eh-pill{height:calc(68 * var(--u));min-height:56px;padding:0 calc(44 * var(--u));font-size:max(18px,calc(21 * var(--u)));font-weight:600;
+    background:linear-gradient(135deg,#F4B8A2 0%,#E8907D 100%);color:#3B2F5C !important;
+    box-shadow:0 calc(10 * var(--u)) calc(30 * var(--u)) rgba(232,144,125,.55),0 0 0 calc(5 * var(--u)) rgba(255,255,255,.35)}
+  .eh-arrow{width:calc(68 * var(--u));height:calc(68 * var(--u));min-width:56px;min-height:56px;border:2px solid #fff;background:rgba(112,84,150,.34)}
+  .eh-pill:hover{box-shadow:0 calc(14 * var(--u)) calc(38 * var(--u)) rgba(232,144,125,.7),0 0 0 calc(6 * var(--u)) rgba(255,255,255,.45)}
 }
 @media (max-width:767px){
   /* Two balanced lines, no orphaned "over." */

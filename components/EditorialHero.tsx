@@ -3,6 +3,10 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { onMediaChange } from "@/lib/media-query";
+import WaitlistModal, { type WaitlistModalHandle } from "@/components/WaitlistModal";
+
+/** Must match the phone breakpoint of the .eh styles in globals.css. */
+const PHONE_LAYOUT = "(max-width:760px),(orientation:portrait) and (max-width:1024px)";
 import { Inter_Tight, Playfair_Display } from "next/font/google";
 
 const interTight = Inter_Tight({ subsets: ["latin"], weight: ["300", "400", "500"], variable: "--eh-sans", display: "swap" });
@@ -16,6 +20,7 @@ const playfair = Playfair_Display({ subsets: ["latin"], weight: ["400", "500"], 
  */
 export default function EditorialHero() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const modalRef = useRef<WaitlistModalHandle>(null);
 
   useEffect(() => {
     const v = videoRef.current;
@@ -66,12 +71,10 @@ export default function EditorialHero() {
             <a href="#solution">How it works</a>
           </nav>
           <div className="eh-icons eh-in">
-            <a href="#beta" className="eh-glass" aria-label="Join the free waitlist">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z" /></svg>
-            </a>
-            <Link href="/faq" className="eh-glass" aria-label="FAQ">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" /><path d="M9.6 9.4a2.5 2.5 0 1 1 3.4 2.3c-.6.3-1 .8-1 1.5v.6" /><circle cx="12" cy="16.6" r=".4" /></svg>
-            </Link>
+            {/* Text, not icons, so people can see what they are. "About us"
+                here is for phones; desktop already has it in the links. */}
+            <Link href="/about" className="eh-glass eh-glass-text eh-about-m">About us</Link>
+            <Link href="/faq" className="eh-glass eh-glass-text">FAQ</Link>
           </div>
         </header>
 
@@ -88,7 +91,19 @@ export default function EditorialHero() {
 
         <div className="eh-side eh-fade">
           <div className="eh-ctas">
-            <a href="#beta" className="eh-pill">Join the waitlist</a>
+            <a
+              href="#beta"
+              className="eh-pill"
+              onClick={(e) => {
+                // Phones: sign up right here in a modal instead of scrolling to the footer.
+                if (window.matchMedia(PHONE_LAYOUT).matches && modalRef.current) {
+                  e.preventDefault();
+                  modalRef.current.open();
+                }
+              }}
+            >
+              Join the waitlist
+            </a>
             <a href="#solution" className="eh-arrow" aria-label="See how it works">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" /></svg>
             </a>
@@ -103,6 +118,7 @@ export default function EditorialHero() {
         </figure>
 
       </div>
+      <WaitlistModal ref={modalRef} />
     </section>
   );
 }

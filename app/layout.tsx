@@ -59,6 +59,8 @@ export const metadata: Metadata = {
   openGraph: { siteName: SITE_NAME, type: "website", locale: "en_US", images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "AetherSkin" }] },
   twitter: { card: "summary_large_image", images: ["/og-image.jpg"] },
   robots: { index: true, follow: true },
+  // Commission Factory site verification (keep: they revalidate periodically).
+  other: { "commission-factory-verification": "24560833f0b74de8b8c68bd974efe51f" },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

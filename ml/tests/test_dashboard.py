@@ -21,3 +21,19 @@ def test_dashboard_with_trained_models_shows_everything(tmp_path):
     assert "<b>1500</b>" in page               # the row count the models used
     assert page.count("<svg") >= 20            # answer charts + 3 habit charts
     assert "nan" not in page.lower()
+
+
+def test_dashboard_shows_the_three_new_questions(tmp_path):
+    df = make_synthetic(n=400, seed=5)
+    df["medication_use"] = ["yes" if i % 3 == 0 else "no" for i in range(len(df))]
+    df["medication_details"] = ["accutane" if i % 3 == 0 else None for i in range(len(df))]
+    df["allergy_status"] = ["yes" if i % 10 == 0 else "no" for i in range(len(df))]
+    df["allergy_details"] = ["fragrance" if i % 10 == 0 else None for i in range(len(df))]
+    report = habit_impact.analyse(df, n_boot=20)
+    page = dashboard.build(df, predictor_meta=None, habit_report=report, sample_report=None,
+                           out=tmp_path / "d.html", synthetic=True).read_text(encoding="utf-8")
+    for needle in ("gender", "medication_use", "allergy_status", "Medication details typed",
+                   "Allergy details typed", "accutane", "fragrance", "Skin medication (control)",
+                   "kept out of the neural network"):
+        assert needle in page, needle
+    assert "nan" not in page.lower()

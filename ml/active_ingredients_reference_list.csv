@@ -1,0 +1,117 @@
+Class,Mechanism,User Typed Text (Raw Note Variations),Model Input Variable,Target Ingredient
+Class A: Hydrators,Pull moisture into the skin's outer and middle layers to plump and smooth texture.,"hyaluronic acid, ha, sodium hyaluronate, hyaluronan",active_hyaluronic_acid,Hyaluronic Acid
+Class A: Hydrators,Pull moisture into the skin's outer and middle layers to plump and smooth texture.,"glycerin, glycerol",active_glycerin,Glycerin
+Class A: Hydrators,Pull moisture into the skin's outer and middle layers to plump and smooth texture.,"beta glucan, oat beta glucan",active_beta_glucan,Beta Glucan
+Class A: Hydrators,Pull moisture into the skin's outer and middle layers to plump and smooth texture.,"polyglutamic acid, pga",active_polyglutamic_acid,Polyglutamic Acid
+Class A: Hydrators,Pull moisture into the skin's outer and middle layers to plump and smooth texture.,"panthenol, pro-vitamin b5, vitamin b5",active_panthenol,Panthenol
+Class A: Hydrators,Pull moisture into the skin's outer and middle layers to plump and smooth texture.,"urea, carbamide",active_urea,Urea
+Class A: Hydrators,Pull moisture into the skin's outer and middle layers to plump and smooth texture.,"squalane, squalene",active_squalane,Squalane
+Class A: Hydrators,Pull moisture into the skin's outer and middle layers to plump and smooth texture.,"centella, cica, centella asiatica, tiger grass, gotu kola",active_centella_asiatica,Centella Asiatica
+Class A: Hydrators,Pull moisture into the skin's outer and middle layers to plump and smooth texture.,"aloe vera, aloe, aloe barbadensis",active_aloe_vera,Aloe Vera
+Class A: Hydrators,Pull moisture into the skin's outer and middle layers to plump and smooth texture.,allantoin,active_allantoin,Allantoin
+Class A: Hydrators,Pull moisture into the skin's outer and middle layers to plump and smooth texture.,"snail mucin, snail filtrate, snail secretion",active_snail_mucin,Snail Mucin
+Class A: Hydrators,Pull moisture into the skin's outer and middle layers to plump and smooth texture.,"amino acids, arginine, glycine, alanine",active_amino_acids,Amino Acids
+Class A: Hydrators,Pull moisture into the skin's outer and middle layers to plump and smooth texture.,"sodium pca, pca",active_sodium_pca,Sodium PCA
+Class B: Antioxidants,"Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.","vitamin c, l-ascorbic acid, ascorbic acid, ascorbyl palmitate",active_vitamin_c_pure,L-Ascorbic Acid
+Class B: Antioxidants,"Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.","thd ascorbate, tetrahexyldecyl ascorbate, vitamin c derivative",active_vitamin_c_derivative,Stabilised Vitamin C Derivative
+Class B: Antioxidants,"Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.","tocopherol, vitamin e, tocopheryl acetate",active_vitamin_e,Vitamin E
+Class B: Antioxidants,"Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.","ferulic acid, ferulic",active_ferulic_acid,Ferulic Acid
+Class B: Antioxidants,"Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",resveratrol,active_resveratrol,Resveratrol
+Class B: Antioxidants,"Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.","green tea, camellia sinensis, egcg",active_green_tea,Green Tea Extract
+Class B: Antioxidants,"Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.","coenzyme q10, coq10, ubiquinone",active_coenzyme_q10,Coenzyme Q10
+Class B: Antioxidants,"Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",idebenone,active_idebenone,Idebenone
+Class B: Antioxidants,"Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.","alpha lipoic acid, ala, thioctic acid",active_alpha_lipoic_acid,Alpha Lipoic Acid
+Class B: Antioxidants,"Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",astaxanthin,active_astaxanthin,Astaxanthin
+Class B: Antioxidants,"Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.","silymarin, milk thistle",active_silymarin,Silymarin
+Class B: Antioxidants,"Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.","pycnogenol, pine bark extract",active_pycnogenol,Pycnogenol
+Class C: Resurfacing & Exfoliating Acids,"Dissolve dead skin cells, clear out pores, and speed up cell turnover.","salicylic acid, salicylic, bha, beta hydroxy acid",active_bha_salicylic,Salicylic Acid (BHA)
+Class C: Resurfacing & Exfoliating Acids,"Dissolve dead skin cells, clear out pores, and speed up cell turnover.","glycolic acid, glycolic, aha",active_aha_glycolic,Glycolic Acid (AHA)
+Class C: Resurfacing & Exfoliating Acids,"Dissolve dead skin cells, clear out pores, and speed up cell turnover.","lactic acid, lactic",active_aha_lactic,Lactic Acid (AHA)
+Class C: Resurfacing & Exfoliating Acids,"Dissolve dead skin cells, clear out pores, and speed up cell turnover.","mandelic acid, mandelic",active_aha_mandelic,Mandelic Acid (AHA)
+Class C: Resurfacing & Exfoliating Acids,"Dissolve dead skin cells, clear out pores, and speed up cell turnover.","gluconolactone, pha, polyhydroxy acid",active_pha_gluconolactone,Gluconolactone (PHA)
+Class C: Resurfacing & Exfoliating Acids,"Dissolve dead skin cells, clear out pores, and speed up cell turnover.","lactobionic acid, bionic acid",active_pha_lactobionic,Lactobionic Acid (PHA)
+Class C: Resurfacing & Exfoliating Acids,"Dissolve dead skin cells, clear out pores, and speed up cell turnover.","azelaic acid, azelaic, finacea, azclear",active_azelaic_acid,Azelaic Acid
+Class C: Resurfacing & Exfoliating Acids,"Dissolve dead skin cells, clear out pores, and speed up cell turnover.","lha, capryloyl salicylic acid",active_lha,Lipohydroxy Acid
+Class C: Resurfacing & Exfoliating Acids,"Dissolve dead skin cells, clear out pores, and speed up cell turnover.",citric acid,active_citric_acid,Citric Acid
+Class C: Resurfacing & Exfoliating Acids,"Dissolve dead skin cells, clear out pores, and speed up cell turnover.","malic acid, apple acid",active_malic_acid,Malic Acid
+Class C: Resurfacing & Exfoliating Acids,"Dissolve dead skin cells, clear out pores, and speed up cell turnover.",tartaric acid,active_tartaric_acid,Tartaric Acid
+Class C: Resurfacing & Exfoliating Acids,"Dissolve dead skin cells, clear out pores, and speed up cell turnover.","tranexamic acid, txa topical",active_tranexamic_acid,Tranexamic Acid
+Class C: Resurfacing & Exfoliating Acids,"Dissolve dead skin cells, clear out pores, and speed up cell turnover.",kojic acid,active_kojic_acid,Kojic Acid
+Class D: Cell-Communicating & Anti-Aging Agents,"Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.","retinol, retinyl palmitate, otc retinoid",active_retinol,Retinol
+Class D: Cell-Communicating & Anti-Aging Agents,"Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.","retinal, retinaldehyde, crystal retinal",active_retinal,Retinaldehyde
+Class D: Cell-Communicating & Anti-Aging Agents,"Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.","granactive retinoid, hydroxypinacolone retinoate, hpr",active_granactive_retinoid,Next-Gen Retinoid Ester
+Class D: Cell-Communicating & Anti-Aging Agents,"Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",bakuchiol,active_bakuchiol,Plant-Derived Retinol Alternative
+Class D: Cell-Communicating & Anti-Aging Agents,"Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.","niacinamide, vitamin b3, nicotinamide",active_niacinamide,Niacinamide
+Class D: Cell-Communicating & Anti-Aging Agents,"Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.","peptides, matrixyl, argireline, copper peptides, copper tripeptide",active_peptides,Peptide Complexes
+Class D: Cell-Communicating & Anti-Aging Agents,"Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.","ceramides, ceramide np, ceramide ap, ceramide eop",active_ceramides,Ceramides
+Class D: Cell-Communicating & Anti-Aging Agents,"Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.","growth factors, egf, human growth factors",active_growth_factors,Growth Factors / Cytokines
+Class D: Cell-Communicating & Anti-Aging Agents,"Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",adenosine,active_adenosine,Adenosine
+Class D: Cell-Communicating & Anti-Aging Agents,"Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.","ginseng, panax ginseng",active_ginseng,Ginseng Extract
+Class A: Hydrators,Pull moisture into the skin's outer and middle layers to plump and smooth texture.,sorbitol,active_sorbitol,Sorbitol
+Class A: Hydrators,Pull moisture into the skin's outer and middle layers to plump and smooth texture.,"honey, raw honey, manuka honey",active_honey,Honey Extract
+Class B: Antioxidants,"Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.","beta carotene, pro-vitamin a",active_beta_carotene,Beta Carotene
+Class A: Hydrators,Pull moisture into the skin's outer and middle layers to plump and smooth texture.,sodium lactate,active_sodium_lactate,Sodium Lactate
+Class A: Hydrators,Pull moisture into the skin's outer and middle layers to plump and smooth texture.,betaine,active_betaine,Betaine
+Class A: Hydrators,Pull moisture into the skin's outer and middle layers to plump and smooth texture.,birch sap,active_birch_sap,Birch Sap
+Class B: Antioxidants,"Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.","superoxide dismutase, sod",active_superoxide_dismutase,Superoxide Dismutase
+Class B: Antioxidants,"Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.","curcumin, turmeric extract",active_curcumin,Curcumin
+Class D: Cell-Communicating & Anti-Aging Agents,"Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.","palmitoyl pentapeptide-4, matrixyl",active_peptide_palmitoyl,Signal Peptide
+Class D: Cell-Communicating & Anti-Aging Agents,"Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.","acetyl hexapeptide-8, argireline",active_peptide_acetyl_hexapeptide,Neurotransmitter Peptide
+Class D: Cell-Communicating & Anti-Aging Agents,"Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",myristoyl nonapeptide-3,active_peptide_myristoyl_nonapeptide,Biomimetic Peptide
+Class A: Hydrators,Pull moisture into the skin's outer and middle layers to plump and smooth texture.,pentylene glycol,active_pentylene_glycol,Pentylene Glycol
+Class A: Hydrators,Pull moisture into the skin's outer and middle layers to plump and smooth texture.,xylitol,active_xylitol,Xylitol
+Class A: Hydrators,Pull moisture into the skin's outer and middle layers to plump and smooth texture.,trehalose,active_trehalose,Trehalose
+Class A: Hydrators,Pull moisture into the skin's outer and middle layers to plump and smooth texture.,ectoin,active_ectoin,Ectoin
+Class A: Hydrators,Pull moisture into the skin's outer and middle layers to plump and smooth texture.,saccharide isomerate,active_saccharide_isomerate,Saccharide Isomerate
+Class A: Hydrators,Pull moisture into the skin's outer and middle layers to plump and smooth texture.,cholesterol,active_cholesterol,Cholesterol
+Class A: Hydrators,Pull moisture into the skin's outer and middle layers to plump and smooth texture.,phytosphingosine,active_phytosphingosine,Phytosphingosine
+Class A: Hydrators,Pull moisture into the skin's outer and middle layers to plump and smooth texture.,linoleic acid,active_linoleic_acid,Linoleic Acid
+Class B: Antioxidants,"Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.","sodium ascorbyl phosphate, sap",active_sap,Sodium Ascorbyl Phosphate
+Class B: Antioxidants,"Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.","magnesium ascorbyl phosphate, map",active_map,Magnesium Ascorbyl Phosphate
+Class B: Antioxidants,"Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",ascorbyl glucoside,active_ascorbyl_glucoside,Ascorbyl Glucoside
+Class B: Antioxidants,"Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.","ethyl ascorbic acid, eaa",active_ethyl_ascorbic_acid,Ethyl Ascorbic Acid
+Class B: Antioxidants,"Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",tocotrienols,active_tocotrienols,Tocotrienols
+Class B: Antioxidants,"Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",quercetin,active_quercetin,Quercetin
+Class B: Antioxidants,"Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",genistein,active_genistein,Genistein
+Class B: Antioxidants,"Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",phloretin,active_phloretin,Phloretin
+Class B: Antioxidants,"Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",lycopene,active_lycopene,Lycopene
+Class B: Antioxidants,"Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",lutein,active_lutein,Lutein
+Class B: Antioxidants,"Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",caffeine,active_caffeine,Caffeine
+Class B: Antioxidants,"Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",ergothioneine,active_ergothioneine,Ergothioneine
+Class B: Antioxidants,"Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",glutathione,active_glutathione,Glutathione
+Class B: Antioxidants,"Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",melatonin,active_melatonin,Melatonin
+Class B: Antioxidants,"Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.","pqq, pyrroloquinoline quinone",active_pqq,PQQ
+Class C: Resurfacing & Exfoliating Acids,"Dissolve dead skin cells, clear out pores, and speed up cell turnover.",betaine salicylate,active_betaine_salicylate,Betaine Salicylate
+Class C: Resurfacing & Exfoliating Acids,"Dissolve dead skin cells, clear out pores, and speed up cell turnover.",galactose derivatives,active_galactose,Galactose Derivatives
+Class C: Resurfacing & Exfoliating Acids,"Dissolve dead skin cells, clear out pores, and speed up cell turnover.",succinic acid,active_succinic_acid,Succinic Acid
+Class C: Resurfacing & Exfoliating Acids,"Dissolve dead skin cells, clear out pores, and speed up cell turnover.",pyruvic acid,active_pyruvic_acid,Pyruvic Acid
+Class C: Resurfacing & Exfoliating Acids,"Dissolve dead skin cells, clear out pores, and speed up cell turnover.","papain, papaya extract",active_papain,Papain Enzyme
+Class C: Resurfacing & Exfoliating Acids,"Dissolve dead skin cells, clear out pores, and speed up cell turnover.","bromelain, pineapple extract",active_bromelain,Bromelain Enzyme
+Class C: Resurfacing & Exfoliating Acids,"Dissolve dead skin cells, clear out pores, and speed up cell turnover.",pumpkin enzymes,active_pumpkin_enzymes,Pumpkin Enzyme
+Class C: Resurfacing & Exfoliating Acids,"Dissolve dead skin cells, clear out pores, and speed up cell turnover.",bacillus ferment enzymes,active_bacillus_ferment,Bacillus Ferment Enzyme
+Class D: Cell-Communicating & Anti-Aging Agents,"Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",retinyl propionate,active_retinyl_propionate,Retinyl Propionate
+Class D: Cell-Communicating & Anti-Aging Agents,"Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",palmitoyl tripeptide-1,active_palmitoyl_tripeptide_1,Palmitoyl Tripeptide-1
+Class D: Cell-Communicating & Anti-Aging Agents,"Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",palmitoyl tetrapeptide-7,active_palmitoyl_tetrapeptide_7,Palmitoyl Tetrapeptide-7
+Class D: Cell-Communicating & Anti-Aging Agents,"Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.","syn-ake, dipeptide diaminobutyroyl benzylamide diacetate",active_syn_ake,Syn-Ake Peptide
+Class D: Cell-Communicating & Anti-Aging Agents,"Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",madecassoside,active_madecassoside,Madecassoside
+Class D: Cell-Communicating & Anti-Aging Agents,"Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",asiaticoside,active_asiaticoside,Asiaticoside
+Class D: Cell-Communicating & Anti-Aging Agents,"Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.","fgf, fibroblast growth factor",active_fgf,Fibroblast Growth Factor
+Class D: Cell-Communicating & Anti-Aging Agents,"Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.","tgf-beta, transforming growth factor beta",active_tgf_beta,TGF-beta
+Class D: Cell-Communicating & Anti-Aging Agents,"Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",exosomes,active_exosomes,Exosomes
+Class D: Cell-Communicating & Anti-Aging Agents,"Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.","pdrn, polydeoxyribonucleotide, salmon dna",active_pdrn,PDRN
+Class D: Cell-Communicating & Anti-Aging Agents,"Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",licorice root extract,active_licorice_root,Licorice Root Extract
+Class D: Cell-Communicating & Anti-Aging Agents,"Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",undecylenoyl phenylalanine,active_undecylenoyl_phenylalanine,Undecylenoyl Phenylalanine
+Class D: Cell-Communicating & Anti-Aging Agents,"Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",dmae,active_dmae,DMAE
+Class D: Cell-Communicating & Anti-Aging Agents,"Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",carnosine,active_carnosine,Carnosine
+Class D: Cell-Communicating & Anti-Aging Agents,"Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",acetyl zingerone,active_acetyl_zingerone,Acetyl Zingerone
+Class D: Cell-Communicating & Anti-Aging Agents,"Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",spermidine,active_spermidine,Spermidine
+Class A: Hydrators,Pull moisture into the skin's outer and middle layers to plump and smooth texture.,alpha-glucan,active_alpha_glucan,Alpha-Glucan
+Class B: Antioxidants,"Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",niacin,active_niacin,Niacin
+Class B: Antioxidants,"Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",grape seed extract,active_grape_seed,Grape Seed Extract
+Class C: Resurfacing & Exfoliating Acids,"Dissolve dead skin cells, clear out pores, and speed up cell turnover.",zinc pyrithione,active_zinc_pyrithione,Zinc Pyrithione
+Class C: Resurfacing & Exfoliating Acids,"Dissolve dead skin cells, clear out pores, and speed up cell turnover.",selenium sulfide,active_selenium_sulfide,Selenium Sulfide
+Class C: Resurfacing & Exfoliating Acids,"Dissolve dead skin cells, clear out pores, and speed up cell turnover.",sulfur,active_sulfur,Sulfur
+Class C: Resurfacing & Exfoliating Acids,"Dissolve dead skin cells, clear out pores, and speed up cell turnover.",coal tar,active_coal_tar_exfoliant,Coal Tar (Keratolytic)
+Class D: Cell-Communicating & Anti-Aging Agents,"Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.","pdgf, platelet-derived growth factor",active_pdgf,Platelet-Derived Growth Factor
+Class D: Cell-Communicating & Anti-Aging Agents,"Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",ginkgo biloba,active_ginkgo_biloba,Ginkgo Biloba Extract
+Class D: Cell-Communicating & Anti-Aging Agents,"Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",azeloyl penta-peptide,active_azeloyl_pentapeptide,Azeloyl Penta-Peptide

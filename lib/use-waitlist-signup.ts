@@ -11,7 +11,7 @@ export type SignupState = "idle" | "loading" | "sent" | "already" | "saved" | "e
  * idle -> loading -> sent (check your inbox) | already (signed up before,
  * nothing to do) | saved | error.
  */
-export function useWaitlistSignup() {
+export function useWaitlistSignup(surface: "footer" | "hero_modal" = "footer") {
   const [email, setEmail] = useState("");
   const [consent, setConsent] = useState(false);
   const [state, setState] = useState<SignupState>("idle");
@@ -60,7 +60,7 @@ export function useWaitlistSignup() {
     } catch (err) {
       // Network/server failures reach Sentry; the email itself never does
       // (the request body isn't attached, and sentry-scrub strips PII).
-      Sentry.captureException(err, { tags: { feature: "waitlist_signup", surface: "footer" } });
+      Sentry.captureException(err, { tags: { feature: "waitlist_signup", surface } });
       setState("error");
       setMessage(err instanceof Error ? err.message : "Something went wrong.");
     }

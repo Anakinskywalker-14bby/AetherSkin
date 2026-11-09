@@ -8,7 +8,6 @@
  */
 
 import { useState, useEffect, useRef } from "react";
-import { DoorReveal } from "@/components/DoorReveal";
 import EditorialHero from "@/components/EditorialHero";
 import ProblemSplit from "@/components/ProblemSplit";
 import CategoriesSection from "@/components/CategoriesSection";
@@ -190,12 +189,8 @@ function SolutionSection() {
 export default function NewLanding() {
   return (
     <div style={{ background: "var(--page-3)" }}>
-      {/* The hero is pinned inside the reveal while the doors part, so it is
-          framed exactly as they finish rather than half-scrolled away. It
-          carries its own nav, so the fixed SiteNav is not used here. */}
-      <DoorReveal>
-        <EditorialHero />
-      </DoorReveal>
+      {/* The hero carries its own nav, so the fixed SiteNav is not used here. */}
+      <EditorialHero />
       <ProblemSplit />
       <SolutionSection />
       <CategoriesSection />

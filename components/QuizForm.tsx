@@ -15,7 +15,7 @@ type Answer = string | number;
 const QUESTIONS = QUIZ_QUESTIONS as readonly QuizQuestion[];
 
 /** Pause between answering and moving on, so a mis-tap can be changed. */
-const ADVANCE_DELAY_MS = 2000;
+const ADVANCE_DELAY_MS = 900; // owner: at most 1 second between questions
 
 /** The client-side twin of the server's continuous-field check. */
 function continuousError(q: Extract<QuizQuestion, { kind: "continuous" }>, raw: string) {
