@@ -143,11 +143,21 @@ export async function POST(req: Request) {
       console.error("[quiz] upsert failed:", upsertError.message);
       // Hand the link back so "Please try again" is true. If the release
       // fails too, throw: Sentry should see a user stuck with a used link.
+      // status is restored to "pending" too: the claim UPDATE above is the
+      // only place that ever sets "verified", so that's always the prior
+      // value (vbsec/PYA audit 2026-11-11 — the row was otherwise left
+      // stuck at status="verified" despite the quiz never actually saving).
       const { error: releaseError } = await admin
         .from("waitlist")
-        .update({ quiz_completed_at: null, verification_token_hash: hashToken(token) })
+        .update({ status: "pending", quiz_completed_at: null, verification_token_hash: hashToken(token) })
         .eq("id", entry.id);
       if (releaseError) throw releaseError;
+      await audit("quiz_claim_released", {
+        waitlistId: entry.id,
+        email: entry.email,
+        ip,
+        detail: { reason: upsertError.message },
+      });
       return NextResponse.json(
         { error: "Could not save your answers. Please try again." },
         { status: 500 }

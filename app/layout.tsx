@@ -1,11 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import Script from "next/script";
 import { Manrope, Hanken_Grotesk, Inter_Tight, Playfair_Display } from "next/font/google";
 import { GeistSans } from "geist/font/sans";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { CookieBanner } from "@/components/CookieBanner";
+import { ConditionalScripts } from "@/components/ConditionalScripts";
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/site";
 import "./globals.css";
 
@@ -80,11 +80,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div id="main">{children}</div>
         </SmoothScroll>
         <CookieBanner />
-        {/* Google Preferred Sources button library. */}
-        <Script
-          src="https://news.google.com/swg/js/v1/publisher.js"
-          strategy="afterInteractive"
-        />
+        <ConditionalScripts />
         {/*
           Vercel Analytics is cookieless and stores no cross-site identifier,
           which is why the cookie banner is informational rather than a

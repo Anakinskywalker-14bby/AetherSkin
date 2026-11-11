@@ -1,4 +1,6 @@
-torch>=2.5,<3
-numpy>=1.26,<3
-pandas>=2.2,<3
-pytest>=8,<10
+# Pinned exact (vbsec/PYA audit 2026-11-11: unpinned ranges + no lockfile had
+# zero CI vulnerability-scanning coverage). Bump deliberately, not silently.
+torch==2.14.1
+numpy==2.5.4
+pandas==2.3.3
+pytest==9.1.1

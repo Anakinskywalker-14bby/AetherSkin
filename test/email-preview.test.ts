@@ -1,7 +1,7 @@
 import { describe, it } from "vitest";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { founderNoteEmail, quizCompleteEmail, verificationEmail } from "@/lib/email";
+import { founderNoteBroadcastEmail, founderNoteEmail, quizCompleteEmail, verificationEmail } from "@/lib/email";
 
 /**
  * Not a real test: when EMAIL_PREVIEW_DIR is set it writes the signup emails
@@ -20,5 +20,7 @@ describe.skipIf(!dir)("signup email preview", () => {
     writeFileSync(join(dir!, "signup-verify.html"), wrap(verificationEmail("preview-token")));
     writeFileSync(join(dir!, "signup-complete.html"), wrap(quizCompleteEmail(42)));
     writeFileSync(join(dir!, "founder-note.html"), wrap(founderNoteEmail()));
+    // Raw (logo by URL, unsubscribe placeholder intact): what the broadcast script sends.
+    writeFileSync(join(dir!, "founder-note-broadcast.raw.html"), founderNoteBroadcastEmail());
   });
 });

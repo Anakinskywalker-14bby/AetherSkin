@@ -3,7 +3,6 @@ import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { PageHero, EdBody } from "@/components/PageHero";
 import { JoinCta } from "@/components/JoinCta";
-import FounderNote from "@/components/FounderNote";
 import { breadcrumbJsonLd } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -72,9 +71,6 @@ export default function AboutPage() {
             than at them.
           </p>
         </div>
-
-        {/* The same note as on the home page and in the signup email. */}
-        <FounderNote bare cta={<JoinCta />} />
 
         <h2 style={{ fontSize: "clamp(28px,3vw,40px)", margin: "56px 0 24px", lineHeight: 1.1 }}>
           What we <span className="ed-em">stand for</span>

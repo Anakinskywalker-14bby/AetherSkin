@@ -19,6 +19,7 @@ export type AuditEvent =
   | "verification_opened"
   | "quiz_submitted"
   | "quiz_rejected"
+  | "quiz_claim_released"
   | "rate_limited";
 
 let warnedNoSalt = false;

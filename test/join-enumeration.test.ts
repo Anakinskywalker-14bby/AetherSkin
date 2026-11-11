@@ -26,12 +26,15 @@ vi.mock("@/lib/email", () => ({
   sendVerificationEmail: async () => ({ sent: true }),
   sendQuizCompleteEmail: async () => ({ sent: true }),
   sendFounderNoteEmail: async () => ({ sent: true }),
+  addResendContact: async () => true,
 }));
 vi.mock("@/lib/supabase/admin", () => ({
   createAdminClient: () => ({
     from: () => ({
       select: () => ({ eq: () => ({ maybeSingle: async () => ({ data: existingRow }) }) }),
-      update: () => ({ eq: async () => ({ error: null }) }),
+      update: () => ({
+        eq: () => ({ or: () => ({ select: async () => ({ error: null, data: [{ id: "1" }] }) }) }),
+      }),
       insert: async () => ({ error: null }),
     }),
   }),

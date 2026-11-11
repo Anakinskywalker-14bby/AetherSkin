@@ -8,13 +8,14 @@ import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
  *   the write fails.
  * Everything with side effects is mocked; nothing leaves the test.
  */
-const { sendVerificationEmail, calls, state } = vi.hoisted(() => ({
+const { sendVerificationEmail, calls, state, afterTasks } = vi.hoisted(() => ({
   sendVerificationEmail: vi.fn(async () => ({ sent: true })),
   calls: [] as string[],
   state: {
     existing: null as Record<string, unknown> | null,
     upsertError: null as { message: string } | null,
   },
+  afterTasks: [] as Promise<unknown>[],
 }));
 
 vi.mock("@sentry/nextjs", () => ({ captureException: vi.fn(), captureMessage: vi.fn(), metrics: { count: vi.fn() } }));
@@ -30,6 +31,7 @@ vi.mock("@/lib/email", () => ({
   sendVerificationEmail,
   sendQuizCompleteEmail: async () => ({ sent: true }),
   sendFounderNoteEmail: async () => ({ sent: true }),
+  addResendContact: async () => true,
 }));
 vi.mock("@/lib/quiz-link", () => ({
   LINK_TTL_HOURS: 24,
@@ -43,9 +45,15 @@ vi.mock("@/lib/validation/quiz", async (orig) => ({
   ...(await orig<typeof import("@/lib/validation/quiz")>()),
   validateQuiz: () => ({ ok: true, data: { skin_type: "oily" } }),
 }));
+// The join route now queues its email send via after() (vbsec/PYA audit
+// 2026-11-11: fixes the timing side-channel). Actually run the callback so
+// tests can still observe sendVerificationEmail, and track its promise so
+// the test can await it before asserting.
 vi.mock("next/server", async (orig) => ({
   ...(await orig<typeof import("next/server")>()),
-  after: () => {},
+  after: (fn: () => unknown) => {
+    afterTasks.push(Promise.resolve(fn()));
+  },
 }));
 vi.mock("@/lib/supabase/admin", () => ({
   createAdminClient: () => ({
@@ -62,10 +70,24 @@ vi.mock("@/lib/supabase/admin", () => ({
       update: (values: Record<string, unknown>) => {
         const kind = values.quiz_completed_at === null ? "release" : "update";
         calls.push(`${kind}:${table}`);
-        const result = { error: null, data: [{ id: "w1" }] };
+        const claimedResult = { error: null, data: [{ id: "w1" }] };
+        const emptyResult = { error: null, data: [] as { id: string }[] };
         return {
-          eq: () => Object.assign(Promise.resolve(result), {
-            is: () => ({ select: async () => result }),
+          eq: () => Object.assign(Promise.resolve(claimedResult), {
+            is: () => ({ select: async () => claimedResult }),
+            // Simulates the atomic cooldown claim: only "wins" (returns a
+            // row) if the mocked verification_sent_at is older than the
+            // cutoff embedded in the .or() filter string, or unset.
+            or: (filter: string) => ({
+              select: async () => {
+                const cutoffMatch = /verification_sent_at\.lt\.([^,]+)/.exec(filter);
+                const cutoff = cutoffMatch ? Date.parse(cutoffMatch[1]) : NaN;
+                const sentAtRaw = (state.existing?.verification_sent_at as string | null) ?? null;
+                const sentAt = sentAtRaw ? Date.parse(sentAtRaw) : null;
+                const claimed = sentAt === null || (!Number.isNaN(cutoff) && sentAt < cutoff);
+                return claimed ? claimedResult : emptyResult;
+              },
+            }),
           }),
         };
       },
@@ -86,20 +108,30 @@ const post = (path: string, body: unknown) =>
 
 beforeEach(() => {
   calls.length = 0;
+  afterTasks.length = 0;
   sendVerificationEmail.mockClear();
   state.existing = null;
   state.upsertError = null;
 });
 
 describe("join resend cooldown", () => {
-  const join = () => joinPOST(post("/api/waitlist/join", { email: "a@example.com", consent: true }));
+  const join = async () => {
+    const res = await joinPOST(post("/api/waitlist/join", { email: "a@example.com", consent: true }));
+    // The route queues its email send via after(); wait for it so
+    // assertions on sendVerificationEmail are not racing the response.
+    await Promise.all(afterTasks);
+    return res;
+  };
 
   it("does not re-send or replace the link inside the cooldown", async () => {
     state.existing = { id: "w1", quiz_completed_at: null, verification_sent_at: new Date().toISOString() };
     const res = await join();
     expect(await res.json()).toEqual({ ok: true, ttlHours: 24 });
     expect(sendVerificationEmail).not.toHaveBeenCalled();
-    expect(calls).toEqual([]);
+    // The atomic claim is still attempted (this is what closes the old
+    // TOCTOU race) but its WHERE clause matches zero rows while inside the
+    // cooldown, so no email is ever queued.
+    expect(calls).toEqual(["update:waitlist"]);
   });
 
   it("re-sends once the cooldown has passed", async () => {

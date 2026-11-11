@@ -967,6 +967,17 @@ html, body {
   .sol-grid{display:flex;gap:14px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0 -24px;padding:4px 24px 18px;scroll-padding:0 24px}
   .sol-grid::-webkit-scrollbar{display:none}
   .sol-card{flex:0 0 86%;scroll-snap-align:start}
+  /* Zero BS, Precision and Tracking: three short landscape cards stacked in
+     one swipe slide, the same height as the Deep Scan card beside them. */
+  .sol-stack{flex:0 0 86%;scroll-snap-align:start;display:flex;flex-direction:column;gap:12px;min-width:0}
+  .sol-stack .sol-card{flex:1 1 0;min-height:0;width:100%;padding:16px 18px !important;display:flex;flex-direction:column;justify-content:center;gap:6px !important}
+  .sol-stack .sol-card > div{gap:6px !important}
+  .sol-stack .sol-card h3{font-size:22px !important;line-height:1.15}
+  .sol-stack .sol-card p{font-size:14px !important;line-height:1.45 !important}
+  .sol-hide-m{display:none !important}
+  /* Continuous Tracking: text centred in its card. */
+  .sol-stack .sol-card:last-child{text-align:center;align-items:center}
+  .sol-stack .sol-card:last-child > div{width:100%;align-items:center}
 
   /* Pinned join bar, above the iPhone home indicator. */
   .mjb{display:block;position:fixed;left:0;right:0;bottom:0;z-index:50;padding:10px 16px calc(10px + env(safe-area-inset-bottom));pointer-events:none;
@@ -1181,6 +1192,9 @@ html, body {
   .hw-cta{justify-content:center}
 }
 
+/* Desktop: the stack wrapper is transparent so the grid is unchanged. */
+.sol-stack{display:contents}
+@media (max-width:767px){.sol-stack{display:flex}}
 /* Founder note (components/FounderNote). */
 .fn{background:#8A7EAD;background-image:radial-gradient(120% 80% at 15% 110%,rgba(244,184,162,.55),transparent 60%);padding:clamp(56px,7vw,96px) clamp(20px,5vw,64px);font-family:'DM Sans',system-ui,sans-serif;color:#3B2F5C}
 .fn-card{max-width:760px;margin:0 auto;padding:clamp(28px,4vw,52px);border-radius:30px;background:#F7F5FC;box-shadow:0 24px 60px -24px rgba(40,24,70,.55)}

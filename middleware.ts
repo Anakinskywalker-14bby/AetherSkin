@@ -12,7 +12,7 @@ import { NextResponse, type NextRequest } from "next/server";
  * runtime where we keep dependencies minimal.
  */
 
-const PROTECTED_API = ["/api/checkout", "/api/waitlist", "/api/account"];
+const PROTECTED_API = ["/api/waitlist", "/api/quiz"];
 
 const BLOCKED_UA_PATTERNS = [/curl\//i, /python-requests/i, /scrapy/i, /^$/];
 
@@ -38,7 +38,5 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  // Never intercept the Stripe webhook — signature verification needs
-  // the raw, untouched request.
-  matcher: ["/api/checkout/:path*", "/api/waitlist/:path*", "/api/account/:path*"],
+  matcher: ["/api/waitlist/:path*", "/api/quiz/:path*"],
 };

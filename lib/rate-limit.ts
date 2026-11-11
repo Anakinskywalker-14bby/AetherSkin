@@ -76,8 +76,9 @@ function memoryLimit(identifier: string): LimitResult {
 
 /**
  * Rate-limit an identifier (usually `route:ip`).
- * Fails OPEN on limiter infrastructure errors so a Redis outage
- * never takes the site down — but logs loudly.
+ * Falls back to the per-instance in-memory limiter on Upstash infrastructure
+ * errors, so a Redis outage degrades the limit rather than removing it
+ * entirely — but logs loudly.
  */
 export async function rateLimit(identifier: string): Promise<LimitResult> {
   try {
@@ -87,8 +88,7 @@ export async function rateLimit(identifier: string): Promise<LimitResult> {
       return { success, remaining, reset };
     }
   } catch (err) {
-    console.error("[rate-limit] limiter error, failing open:", err);
-    return { success: true, remaining: 1, reset: Date.now() + WINDOW_SECONDS * 1000 };
+    console.error("[rate-limit] limiter error, falling back to in-memory limiter:", err);
   }
   return memoryLimit(identifier);
 }

@@ -4,7 +4,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { rateLimit, getClientIp } from "@/lib/rate-limit";
 import { isValidEmail } from "@/lib/utils";
 import { sanitizeText } from "@/lib/validation/quiz";
-import { generateToken, sendVerificationEmail, sendFounderNoteEmail } from "@/lib/email";
+import { generateToken, sendVerificationEmail, addResendContact } from "@/lib/email";
 import { assertSameOrigin } from "@/lib/security";
 import { audit, hashPii } from "@/lib/audit";
 import { withRetry } from "@/lib/retry";
@@ -113,21 +113,23 @@ export async function POST(req: Request) {
     }
 
     /*
-     * Per-address cooldown. The IP rate limit alone let anyone rotating IPs
-     * flood an inbox with confirmation emails, and every re-send replaced the
-     * token hash, killing the owner's pending link (vbsec scan 2026-11-09,
-     * medium). Within the cooldown the existing link stays valid, nothing is
-     * sent, and the answer is the same as a fresh signup.
+     * Per-address cooldown, claimed atomically. The IP rate limit alone let
+     * anyone rotating IPs flood an inbox with confirmation emails, and every
+     * re-send replaced the token hash, killing the owner's pending link
+     * (vbsec scan 2026-11-09, medium) — fixed by the cooldown below.
+     *
+     * The cooldown itself used to be read-then-compare-then-write in
+     * application code: two concurrent requests could both read the same
+     * stale verification_sent_at, both pass the check, and both send a real
+     * email, defeating "one per window" (vbsec/PYA audit 2026-11-11, medium).
+     * The UPDATE's WHERE clause now re-evaluates the cutoff against the
+     * row Postgres has actually committed at write time, so only one
+     * concurrent request can ever win the claim; a loser's WHERE matches
+     * zero rows and it falls through to the same response as a fresh signup.
      */
-    if (existing?.verification_sent_at) {
-      const sentAt = Date.parse(existing.verification_sent_at);
-      if (Number.isFinite(sentAt) && Date.now() - sentAt < RESEND_COOLDOWN_MS) {
-        return NextResponse.json({ ok: true, ttlHours: LINK_TTL_HOURS });
-      }
-    }
-
     if (existing) {
-      await admin
+      const cooldownCutoff = new Date(Date.now() - RESEND_COOLDOWN_MS).toISOString();
+      const { data: claimed, error: claimError } = await admin
         .from("waitlist")
         .update({
           verification_token_hash: hash,
@@ -135,7 +137,13 @@ export async function POST(req: Request) {
           signup_ip_hash,
           user_agent,
         })
-        .eq("id", existing.id);
+        .eq("id", existing.id)
+        .or(`verification_sent_at.is.null,verification_sent_at.lt.${cooldownCutoff}`)
+        .select("id");
+      if (claimError) throw claimError;
+      if (!claimed || claimed.length === 0) {
+        return NextResponse.json({ ok: true, ttlHours: LINK_TTL_HOURS });
+      }
     } else {
       const { error: insertError } = await admin.from("waitlist").insert({
         email,
@@ -160,53 +168,50 @@ export async function POST(req: Request) {
       ip,
     });
 
-    /**
-     * Retry only transient delivery failures. `not_configured` means the API
-     * key is absent — retrying that just adds latency to an answer we already
-     * know, so we return it immediately.
-     */
-    const delivery = await withRetry(
-      async () => {
-        const result = await sendVerificationEmail(email, token);
-        if (!result.sent && result.reason === "provider_error") {
-          throw Object.assign(new Error("email_provider_error"), { retryable: true });
-        }
-        return result;
-      },
-      {
-        attempts: 3,
-        baseMs: 200,
-        maxMs: 1500,
-        shouldRetry: (e) => (e as { retryable?: boolean })?.retryable === true,
-      }
-    ).catch(() => ({ sent: false, reason: "provider_error" }) as const);
-
-    // Counts only. No email, no IP: attributes are the two categories below.
-    Sentry.metrics.count("waitlist.signup", 1, {
-      attributes: { kind: existing ? "resent" : "new", delivered: delivery.sent },
-    });
-
-    if (!delivery.sent) {
-      // Be honest rather than showing a fake success screen.
-      return NextResponse.json(
-        {
-          error:
-            "We saved your spot, but couldn't send the confirmation email just yet. We'll email you as soon as delivery is live.",
-          saved: true,
-        },
-        { status: 202 }
-      );
-    }
-
     /*
-     * New signups only (never a re-send, so nobody gets it twice): queue the
-     * founder's note with the email provider for two minutes from now. It
-     * runs after the response, and a failure here must not fail the signup;
-     * lib/email reports delivery failures to Sentry without the address.
+     * Fire-and-forget: the response only ever waits on the DB write above,
+     * never on the outbound Resend call. "Already quizzed" and "cooldown
+     * active" used to return in a few ms while a real send (with up to 3
+     * retries, backoff to 1.5s) kept this branch open for seconds — a
+     * timing side-channel that defeated the identical-response-body design
+     * meant to prevent email enumeration (vbsec/PYA audit 2026-11-11,
+     * medium). Delivery failures still reach Sentry (lib/email.ts); the
+     * user is no longer told synchronously, since that was itself the leak.
      */
-    if (!existing) {
-      after(() => sendFounderNoteEmail(email).catch(() => undefined));
-    }
+    after(async () => {
+      /**
+       * Retry only transient delivery failures. `not_configured` means the
+       * API key is absent — retrying that just adds a pointless delay.
+       */
+      const delivery = await withRetry(
+        async () => {
+          const result = await sendVerificationEmail(email, token);
+          if (!result.sent && result.reason === "provider_error") {
+            throw Object.assign(new Error("email_provider_error"), { retryable: true });
+          }
+          return result;
+        },
+        {
+          attempts: 3,
+          baseMs: 200,
+          maxMs: 1500,
+          shouldRetry: (e) => (e as { retryable?: boolean })?.retryable === true,
+        }
+      ).catch(() => ({ sent: false, reason: "provider_error" }) as const);
+
+      // Counts only. No email, no IP: attributes are the two categories below.
+      Sentry.metrics.count("waitlist.signup", 1, {
+        attributes: { kind: existing ? "resent" : "new", delivered: delivery.sent },
+      });
+
+      // New signups only, and only once delivery actually succeeded: add the
+      // address to the Resend contacts list so a future broadcast can reach
+      // it. A failure here must not surface anywhere user-visible (lib/email
+      // reports it to Sentry, no address).
+      if (delivery.sent && !existing) {
+        await addResendContact(email).catch(() => undefined);
+      }
+    });
 
     return NextResponse.json({ ok: true, ttlHours: LINK_TTL_HOURS });
   } catch (err) {

@@ -5,15 +5,26 @@ on:
     branches: [main]
   pull_request:
 
+# vbsec/PYA audit 2026-11-11: this job never calls the GitHub API, so it
+# gets no token permissions by default rather than inheriting the repo's
+# (possibly broad) default GITHUB_TOKEN scope. Add a scope explicitly if a
+# future step actually needs one.
+permissions: {}
+
 jobs:
   verify:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.3.0
         with:
-          node-version: 20
+          # This job never pushes back to the repo, so don't leave a
+          # GITHUB_TOKEN credential sitting in .git/config while npm ci
+          # (below) runs arbitrary dependency install scripts.
+          persist-credentials: false
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 22
           cache: npm
 
       - name: Install
@@ -32,6 +43,12 @@ jobs:
         # Fails the build on a high or critical advisory.
         run: npm audit --audit-level=high
 
+      - name: Audit Python ML dependencies
+        run: |
+          python3 -m pip install --quiet pip-audit
+          python3 -m pip install --quiet -r ml/requirements.txt
+          python3 -m pip_audit -r ml/requirements.txt
+
       - name: Build
         run: npm run build
         env:
@@ -42,7 +59,7 @@ jobs:
 
       - name: Fail if a secret-shaped string was committed
         run: |
-          if git grep -nEI '(service_role|sk_live_|re_[A-Za-z0-9]{20,}|eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9)' -- ':!*.md' ':!.github/**'; then
+          if git grep -nEI '(service_role|sk_live_|re_[A-Za-z0-9]{20,}|eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9)' -- ':!*.md' ':!.github/workflows/ci.yml'; then
             echo "::error::Possible secret committed to the repository."
             exit 1
           fi

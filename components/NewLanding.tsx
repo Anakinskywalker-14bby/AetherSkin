@@ -121,6 +121,9 @@ function SolutionSection() {
             <SelfieDemo />
           </div>
 
+          {/* Cards 2-4: on phones they stack as short landscape cards beside
+              the tall Deep Scan card; on desktop the wrapper is transparent. */}
+          <div className="sol-stack">
           {/* Card 2 — Zero BS */}
           <div className="sol-card on-accent neo-shadow neo-border p-7 flex flex-col justify-between" style={{ background: "var(--yellow)" }}>
             <div className="flex flex-col gap-4">
@@ -129,7 +132,7 @@ function SolutionSection() {
                 Straight answers in plain language. No hype, no ten-step upsell.
               </p>
             </div>
-            <div className="flex justify-end pt-8">
+            <div className="sol-hide-m flex justify-end pt-8">
               <svg width="55" height="52.5" viewBox="0 0 55 52.5" fill="none">
                 <path d={svgPaths.pac72180} fill="var(--ink)" />
               </svg>
@@ -142,7 +145,7 @@ function SolutionSection() {
             <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 400, fontSize: 16, color: "var(--ink)", lineHeight: 1.6, margin: 0 }}>
               Products matched to your scan, from the brands you already love, all in one spot.
             </p>
-            <a href="#beta" className="on-soft neo-border mt-auto py-3 w-full inline-block text-center" style={{ background: "var(--blue)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 15, letterSpacing: "1px", color: "var(--ink)", cursor: "pointer" }}>
+            <a href="#beta" className="sol-hide-m on-soft neo-border mt-auto py-3 w-full inline-block text-center" style={{ background: "var(--blue)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 15, letterSpacing: "1px", color: "var(--ink)", cursor: "pointer" }}>
               LEARN MORE
             </a>
           </div>
@@ -156,11 +159,12 @@ function SolutionSection() {
                 tracks your progress and adjusts your routine dynamically.
               </p>
             </div>
-            <div className="flex-shrink-0">
+            <div className="sol-hide-m flex-shrink-0">
               <div className="on-accent" style={{ transform: "rotate(-5deg)", background: "var(--yellow)", border: "3px solid var(--ink)", borderRadius: "9999px", width: 128, height: 128, display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <div style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 15, color: "var(--ink)", textAlign: "center", letterSpacing: "1px" }}>ALWAYS<br />ADAPTING</div>
               </div>
             </div>
+          </div>
           </div>
         </div>
       </div>

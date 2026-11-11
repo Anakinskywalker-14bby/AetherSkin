@@ -18,6 +18,7 @@ next-env.d.ts
 
 # Local security scan reports
 vbsec-reports/
+.vbsec-tmp/
 
 # Local previews (emails, quiz screenshots); regenerate with the preview tests.
 previews/

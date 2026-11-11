@@ -135,6 +135,45 @@ async function send(to: string, subject: string, html: string, delaySeconds = 0)
 }
 
 /**
+ * Add an address to the Resend contacts list (and to RESEND_SEGMENT_ID when
+ * set) so broadcasts can reach everyone who signs up. An address that already
+ * exists is fine (409/422 are treated as done). Never throws, and like the
+ * sends above it reports only status and error name, never the address.
+ */
+export async function addResendContact(email: string): Promise<boolean> {
+  const key = process.env.RESEND_API_KEY;
+  if (!key) return false;
+  const segmentId = process.env.RESEND_SEGMENT_ID;
+  try {
+    const res = await fetch("https://api.resend.com/contacts", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email,
+        unsubscribed: false,
+        ...(segmentId ? { segments: [{ id: segmentId }] } : {}),
+      }),
+      signal: AbortSignal.timeout(8000),
+    });
+    if (res.ok || res.status === 409) return true;
+    const errorName = await readErrorName(res);
+    // An existing contact answers with a validation-style error; not a failure.
+    if (res.status === 422 && /exist|already|duplicate/i.test(errorName)) return true;
+    Sentry.captureMessage("resend_contact_failed", {
+      level: "warning",
+      tags: { email_status: String(res.status), resend_error: errorName },
+    });
+    return false;
+  } catch (err) {
+    Sentry.captureMessage("resend_contact_failed", {
+      level: "warning",
+      tags: { email_status: "network", resend_error: err instanceof Error ? err.name : "unknown" },
+    });
+    return false;
+  }
+}
+
+/**
  * Brand tokens shared by every email. They mirror the site and quiz theme
  * (lilac room, plum ink, peach/coral accents, large rounded cards, pill
  * controls) because email clients cannot read our CSS variables.
@@ -272,6 +311,17 @@ export function founderNoteEmail() {
     <p style="font-size:12px;color:${BRAND.muted};margin:18px 0 0;line-height:1.6">
       Don't want emails from us? Reply to this email with "unsubscribe" and we'll take you off the list.
     </p>`);
+}
+
+/**
+ * The same note for a Resend broadcast: the reply-to-unsubscribe line becomes
+ * Resend's one-click unsubscribe link (filled in per contact at send time).
+ */
+export function founderNoteBroadcastEmail() {
+  return founderNoteEmail().replace(
+    /Don't want emails from us\?[^<]*/,
+    `Don't want emails from us? <a href="{{{RESEND_UNSUBSCRIBE_URL}}}" style="color:${BRAND.violet}">Unsubscribe here</a>.`
+  );
 }
 
 /** How long after signup the founder's note goes out. */
