@@ -4,7 +4,8 @@ Looks at the whole anonymised dataset at once (never one person) and
 estimates how each modifiable habit relates to each skin score.
 
 Method: for each skin score (0-4), a linear model on all habits at once,
-adjusted for age, skin type and environment, fitted with torch.linalg.lstsq.
+adjusted for age, skin type, environment, gender and whether the person is on
+skin medication, fitted with torch.linalg.lstsq.
 Fitting everything together means each habit's effect is measured holding the
 others fixed, so a habit isn't credited for something a correlated habit does
 (e.g. stress and poor sleep). 95% intervals come from a bootstrap: refit on
@@ -26,11 +27,13 @@ import pandas as pd
 import torch
 
 from .data import high_labels, validate
-from .schema import CATEGORICAL, MODIFIABLE_HABITS, QUIZ_VERSION, TARGETS
+from .schema import CATEGORICAL, GENDER_CODES, MODIFIABLE_HABITS, QUIZ_VERSION, TARGETS
 
 # Aggregates over fewer people are too noisy to publish, and risk singling
 # individuals out.
 MIN_ROWS = 100
+# A subgroup (here: people on skin medication) below this is not reported.
+MIN_SUBGROUP = 30
 
 LABEL = {
     "sleep_hours": "sleeping {step:g} hour more a night",
@@ -46,8 +49,10 @@ CONCERN = {"breakouts_level": "breakouts", "redness_level": "redness", "dryness_
 
 
 def _design(df: pd.DataFrame) -> tuple[torch.Tensor, list[str]]:
-    """Intercept + habits in natural units + controls (age, skin type and
-    environment as one-hot minus a reference level)."""
+    """Intercept + habits in natural units + controls (age, skin type,
+    environment and gender as one-hot minus a reference level, and whether the
+    person is on skin medication, which can change their skin far more than a
+    habit does)."""
     cols, names = [np.ones(len(df))], ["intercept"]
     for h in MODIFIABLE_HABITS:
         cols.append(df[h].to_numpy(dtype=float))
@@ -58,6 +63,11 @@ def _design(df: pd.DataFrame) -> tuple[torch.Tensor, list[str]]:
         for code in CATEGORICAL[col][1:]:  # first code is the reference level
             cols.append((df[col] == code).to_numpy(dtype=float))
             names.append(f"{col}={code}")
+    for code in GENDER_CODES[1:]:  # "female" is the reference level
+        cols.append((df["gender"] == code).to_numpy(dtype=float))
+        names.append(f"gender={code}")
+    cols.append(df["on_medication"].to_numpy(dtype=float))
+    names.append("on_medication")
     return torch.tensor(np.column_stack(cols), dtype=torch.float64), names
 
 
@@ -103,11 +113,24 @@ def analyse(df: pd.DataFrame, n_boot: int = 500, seed: int = 0, predictor=None) 
         rows.sort(key=lambda r: r["score_change_per_step"])
         results[target] = rows
 
+    # The medication control, reported only when both groups are big enough
+    # to say anything (never publish tiny subgroups).
+    n_med = int(df["on_medication"].sum())
+    medication = None
+    if n_med >= MIN_SUBGROUP and len(df) - n_med >= MIN_SUBGROUP:
+        i = names.index("on_medication")
+        medication = {
+            "n_on_medication": n_med,
+            "score_change": {CONCERN[t]: round(float(coef[i, j]), 3) for j, t in enumerate(TARGETS)},
+            "ci95": {CONCERN[t]: [round(float(lo[i, j]), 3), round(float(hi[i, j]), 3)] for j, t in enumerate(TARGETS)},
+        }
+
     return {
         "quiz_version": QUIZ_VERSION,
         "n": len(df),
-        "method": "Linear model per skin score (0-4) on all habits jointly, adjusted for age, skin type "
-                  f"and environment; {n_boot}-sample bootstrap 95% intervals.",
+        "medication_control": medication,
+        "method": "Linear model per skin score (0-4) on all habits jointly, adjusted for age, skin type, "
+                  f"environment, gender and skin medication; {n_boot}-sample bootstrap 95% intervals.",
         "caveat": "Associations in self-reported data from AetherSkin members, not proof of cause.",
         "share_high": {CONCERN[t]: round(float(v), 3) for t, v in zip(TARGETS, high_labels(df).mean(0))},
         "effects": results,

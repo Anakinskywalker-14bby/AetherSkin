@@ -53,11 +53,77 @@ function WaitingIcon() {
   );
 }
 
+function NoiseIcon() {
+  // Speech bubbles talking over each other: everyone has a different answer.
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M3.5 5.5h10v7h-5l-3 2.6v-2.6h-2z" />
+      <path d="M16 9.5h4.5v6.5h-2v2.4l-2.8-2.4H11" />
+    </svg>
+  );
+}
+
+/**
+ * The four pain points, each with a short story in the visitor's own voice
+ * and what AetherSkin does about it. `answer` never promises a skin result
+ * (docs: no health claims); the scan/tracking lines say "at beta launch".
+ * Images are AI-generated (Higgsfield) and show fictional people.
+ */
 const PAINS = [
-  { key: "money", Icon: MoneyDrainIcon, text: "Wasting hundreds on viral ingredients that do nothing." },
-  { key: "clash", Icon: ClashIcon, text: "Breaking out from mixing products that don't match." },
-  { key: "wait", Icon: WaitingIcon, text: "Waiting months for changes that never show up." },
-];
+  {
+    key: "money",
+    Icon: MoneyDrainIcon,
+    text: "Wasting hundreds on viral ingredients that do nothing.",
+    chapter: "The drawer",
+    img: "/story/drawer.jpg",
+    story: [
+      "It was all over your feed. Everyone swore by it.",
+      "So you bought it. Then the next one.",
+      "Now there's a drawer of half-used bottles, and your skin looks the same.",
+    ],
+    answer: "We start with your skin, not the trend. You only see products matched to you and your budget.",
+  },
+  {
+    key: "clash",
+    Icon: ClashIcon,
+    text: "Breaking out from mixing products that don't match.",
+    chapter: "The breakout",
+    img: "/story/breakout.jpg",
+    story: [
+      "A new serum on Monday. An acid on Wednesday.",
+      "By Friday your face is stinging,",
+      "and you can't even tell which one did it.",
+    ],
+    answer: "Your routine is built as a whole: steps picked to go together, in the right order.",
+  },
+  {
+    key: "wait",
+    Icon: WaitingIcon,
+    text: "Waiting months for changes that never show up.",
+    chapter: "The wait",
+    img: "/story/wait.jpg",
+    story: [
+      "Three months in. You check the mirror every morning.",
+      "Nothing.",
+      "You start to wonder if it's the product, or if it's you.",
+    ],
+    answer: "At beta launch you can track your skin over time, so you see what's changing instead of guessing.",
+  },
+  {
+    key: "noise",
+    Icon: NoiseIcon,
+    text: "A ten-step routine you can't keep up with, or still figuring it out through all the noise.",
+    chapter: "The noise",
+    img: "/story/noise.jpg",
+    story: [
+      "One video says ten steps. The next says three.",
+      "Your friend swears by something else entirely.",
+      "So you end up doing everything, or nothing at all.",
+    ],
+    answer: "One simple routine in plain language, built around you. No noise.",
+  },
+] as const;
+type PainKey = (typeof PAINS)[number]["key"];
 
 function anim(visible: boolean, delay: number, opts: { y?: number; x?: number; duration?: number } = {}) {
   const { y = 20, x = 0, duration = 1600 } = opts;
@@ -71,9 +137,18 @@ function anim(visible: boolean, delay: number, opts: { y?: number; x?: number; d
   };
 }
 
-function ProblemVideo({ className, style }: { className: string; style: React.CSSProperties }) {
+function ProblemVideo({ className, style, active }: { className: string; style: React.CSSProperties; active?: PainKey | null }) {
   return (
     <div className={className} style={style}>
+      {/* Desktop: the chosen chapter's photo fades in over the clip. */}
+      {active !== undefined &&
+        PAINS.map((p) => (
+          <figure key={p.key} className={`ps-shot${active === p.key ? " is-on" : ""}`} aria-hidden="true">
+            {/* eslint-disable-next-line @next/next/no-img-element -- decorative, lazy */}
+            <img src={p.img} alt="" loading="lazy" decoding="async" />
+            <figcaption>{p.chapter}</figcaption>
+          </figure>
+        ))}
       <video
         autoPlay
         muted
@@ -102,7 +177,7 @@ function Polaroid({ className, style }: { className: string; style?: React.CSSPr
   );
 }
 
-function ProblemPanel({ visible }: { visible: boolean }) {
+function ProblemPanel({ visible, active, onPick }: { visible: boolean; active: PainKey | null; onPick: (k: PainKey) => void }) {
   return (
     <div
       className="relative flex flex-col px-6 md:px-10 pt-6 md:pt-8 pb-8 md:pb-10 overflow-hidden"
@@ -140,14 +215,39 @@ function ProblemPanel({ visible }: { visible: boolean }) {
       <Polaroid className="ps-polaroid ps-polaroid--desk" style={anim(visible, 750, { y: -30, duration: 1600 }).style} />
 
       <div className="ps-bottom relative flex items-end justify-between gap-6 flex-wrap">
-        <ul className="ps-pains" {...anim(visible, 900, { y: 16, duration: 1400 })}>
-          {PAINS.map((p) => (
-            <li key={p.key}>
-              <span className="ps-pain-label"><p.Icon /></span>
-              <span className="ps-pain-text">{p.text}</span>
-            </li>
-          ))}
-        </ul>
+        <div className="ps-pick" {...anim(visible, 900, { y: 16, duration: 1400 })}>
+          <p className="ps-ask">Which one is you? <span>Tap it.</span></p>
+          {/* Each pain is a button; the chosen one opens its story. The choice
+              lives in component state only: it is never stored or sent. */}
+          <ul className="ps-pains">
+            {PAINS.map((p) => {
+              const on = active === p.key;
+              return (
+                <li key={p.key} className={on ? "is-on" : undefined}>
+                  <button type="button" className="ps-pain" aria-expanded={on} aria-controls={`ps-story-${p.key}`} onClick={() => onPick(p.key)}>
+                    <span className="ps-pain-label"><p.Icon /></span>
+                    <span className="ps-pain-text">{p.text}</span>
+                    <span className="ps-pain-chev" aria-hidden="true">{on ? "–" : "+"}</span>
+                  </button>
+                  <div id={`ps-story-${p.key}`} className="ps-story" hidden={!on}>
+                    {/* Phones see the photo here; desktop shows it on the left half. */}
+                    {/* eslint-disable-next-line @next/next/no-img-element -- decorative, lazy */}
+                    <img className="ps-story-img" src={p.img} alt="" loading="lazy" decoding="async" />
+                    <p className="ps-story-chapter">{p.chapter}</p>
+                    <p className="ps-story-lines">
+                      {p.story.map((line) => (
+                        <span key={line}>{line}</span>
+                      ))}
+                    </p>
+                    <p className="ps-story-answer">
+                      <strong>That&apos;s you?</strong> {p.answer}
+                    </p>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
         {/* The primary action after the problems: solid, high contrast. */}
         <a href="#beta" className="ps-btn" style={anim(visible, 1150, { y: 16, duration: 1400 }).style}>
           Fix my routine Pls 😭
@@ -165,6 +265,8 @@ function ProblemPanel({ visible }: { visible: boolean }) {
 export default function ProblemSplit() {
   const ref = useRef<HTMLElement>(null);
   const [visible, setVisible] = useState(false);
+  const [active, setActive] = useState<PainKey | null>(null);
+  const pick = (k: PainKey) => setActive((cur) => (cur === k ? null : k));
 
   useEffect(() => {
     const el = ref.current;
@@ -196,9 +298,9 @@ export default function ProblemSplit() {
       style={{ ["--ps-plum" as string]: PLUM } as React.CSSProperties}
     >
       <div className="flex flex-col-reverse md:grid md:min-h-screen" style={{ gridTemplateColumns: "1fr 1fr" }}>
-        <ProblemVideo className="hidden md:block relative overflow-hidden" style={{ backgroundColor: PLUM, minHeight: "100%" }} />
+        <ProblemVideo className="hidden md:block relative overflow-hidden" style={{ backgroundColor: PLUM, minHeight: "100%" }} active={active} />
         <ProblemVideo className="md:hidden relative overflow-hidden" style={{ height: "60vw", backgroundColor: PLUM }} />
-        <ProblemPanel visible={visible} />
+        <ProblemPanel visible={visible} active={active} onPick={pick} />
       </div>
     </section>
   );

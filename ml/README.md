@@ -6,7 +6,7 @@ Two separate models trained on quiz v3 answers (`public.quiz_responses_v3`).
 | --- | --- | --- |
 | Question | "How likely is *this person* to have moderate/severe breakouts, redness or dryness?" | "Across *everyone*, how much does each habit relate to each skin score?" |
 | Looks at | One person's answers | The whole anonymised dataset, never one person |
-| Method | Small multi-task neural network (PyTorch MLP, 28 inputs → 3 probabilities) | Joint linear model per skin score in PyTorch (`torch.linalg.lstsq`), adjusted for age, skin type and environment, with 500-sample bootstrap 95% intervals; cross-checked with Model 1 permutation importance |
+| Method | Small multi-task neural network (PyTorch MLP, 33 inputs incl. gender → 3 probabilities) | Joint linear model per skin score in PyTorch (`torch.linalg.lstsq`), adjusted for age, skin type, environment, gender and whether the person is on skin medication, with 500-sample bootstrap 95% intervals; cross-checked with Model 1 permutation importance |
 | Output | Likelihoods, the 3 habit changes that would lower them most, and a 3-step routine (Cleanser → Target serum → Moisturiser, categories only) | Ranked habit effects in points on the 0–4 scale, with intervals, plus plain-English headlines |
 | Code | `aetherskin_ml/predictor.py` | `aetherskin_ml/habit_impact.py` |
 

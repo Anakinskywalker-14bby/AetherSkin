@@ -3,18 +3,20 @@
 /**
  * AetherSkin - neo-brutalist landing.
  *
- * Signup is free: email -> double opt-in -> skin quiz. No payment,
- * no card fields anywhere on this page (see components/footer/SiteFooter).
+ * Signup is free: email -> double opt-in -> skin quiz
+ * (see components/footer/SiteFooter and components/WaitlistModal).
  */
 
 import { useState, useEffect, useRef } from "react";
-import { DoorReveal } from "@/components/DoorReveal";
 import EditorialHero from "@/components/EditorialHero";
 import ProblemSplit from "@/components/ProblemSplit";
 import CategoriesSection from "@/components/CategoriesSection";
 import SkinIssuesMarquee from "@/components/SkinIssuesMarquee";
 import SiteFooter from "@/components/footer/SiteFooter";
 import MobileJoinBar from "@/components/MobileJoinBar";
+import SelfieDemo from "@/components/SelfieDemo";
+import HowItWorks from "@/components/HowItWorks";
+import WaitlistModal from "@/components/WaitlistModal";
 import BeeGuide from "@/components/BeeGuide";
 import dynamic from "next/dynamic";
 import { isDrawMode } from "@/lib/bee-path";
@@ -113,29 +115,10 @@ function SolutionSection() {
             </div>
             <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 400, fontSize: 16, color: "var(--ink)", lineHeight: 1.6, margin: 0 }}>
               One selfie. AetherSkin reads your face and maps hydration,
-              texture, and everyday concerns, instantly.
+              texture, and everyday concerns. Try the demo.
             </p>
-            {/* The scan readout is a device screen, so it stays dark in both
-                themes. Previously it used var(--ink) as its background, which
-                inverted to Cream in dark mode and left Butter-on-Cream at
-                1.35:1 and the caption at 1.01:1. .scan-panel pins a fixed dark
-                ground and light foreground tokens for the whole subtree. */}
-            <div className="scan-panel neo-border p-6 flex flex-col justify-center gap-4" style={{ height: 200 }}>
-              {[
-                { label: "HYDRATION", value: 72, color: "var(--blue)" },
-                { label: "TEXTURE", value: 58, color: "var(--yellow)" },
-                { label: "GLOW", value: 86, color: "var(--surface)" },
-              ].map((m) => (
-                <div key={m.label} className="flex items-center gap-4">
-                  <span style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 12, letterSpacing: "1.2px", color: "var(--surface)", width: 96 }}>{m.label}</span>
-                  <div className="flex-1 h-4" style={{ background: "rgba(249,249,247,0.15)", border: "2px solid var(--surface)" }}>
-                    <div className="h-full scan-fill" style={{ width: `${m.value}%`, background: m.color }} />
-                  </div>
-                  <span style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 14, color: m.color, width: 44, textAlign: "right" }}>{m.value}%</span>
-                </div>
-              ))}
-              <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 11, letterSpacing: "1px", color: "rgba(249,249,247,0.5)", margin: 0, textTransform: "uppercase" }}>Sample readout. Your scan will differ</p>
-            </div>
+            {/* Interactive demo on a sample photo; real scanning opens at beta. */}
+            <SelfieDemo />
           </div>
 
           {/* Card 2 — Zero BS */}
@@ -143,7 +126,7 @@ function SolutionSection() {
             <div className="flex flex-col gap-4">
               <h3 style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 800, fontSize: 30, color: "var(--ink)", margin: 0 }}>Zero BS Policy</h3>
               <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 16, color: "var(--ink)", lineHeight: 1.6, margin: 0 }}>
-                We tell you exactly what you need. Nothing more. Nothing less.
+                Straight answers in plain language. No hype, no ten-step upsell.
               </p>
             </div>
             <div className="flex justify-end pt-8">
@@ -157,7 +140,7 @@ function SolutionSection() {
           <div className="sol-card neo-shadow neo-border p-7 flex flex-col gap-4" style={{ background: "var(--surface)" }}>
             <h3 style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 800, fontSize: 30, color: "var(--ink)", margin: 0 }}>Precision Matches</h3>
             <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 400, fontSize: 16, color: "var(--ink)", lineHeight: 1.6, margin: 0 }}>
-              Products picked from brands you already love, based on your exact scan.
+              Products matched to your scan, from the brands you already love, all in one spot.
             </p>
             <a href="#beta" className="on-soft neo-border mt-auto py-3 w-full inline-block text-center" style={{ background: "var(--blue)", fontFamily: "'DM Sans', system-ui, sans-serif", fontWeight: 700, fontSize: 15, letterSpacing: "1px", color: "var(--ink)", cursor: "pointer" }}>
               LEARN MORE
@@ -190,16 +173,15 @@ function SolutionSection() {
 export default function NewLanding() {
   return (
     <div style={{ background: "var(--page-3)" }}>
-      {/* The hero is pinned inside the reveal while the doors part, so it is
-          framed exactly as they finish rather than half-scrolled away. It
-          carries its own nav, so the fixed SiteNav is not used here. */}
-      <DoorReveal>
-        <EditorialHero />
-      </DoorReveal>
+      {/* The hero carries its own nav, so the fixed SiteNav is not used here. */}
+      <EditorialHero />
       <ProblemSplit />
       <SolutionSection />
+      <HowItWorks />
       <CategoriesSection />
       <SiteFooter />
+      {/* Opens from every link to #beta, so signup is one tap from anywhere. */}
+      <WaitlistModal />
       <MobileJoinBar />
       <BeeGuide />
       <BeePathEditorGate />

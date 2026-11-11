@@ -8,7 +8,7 @@
  */
 const ROW_A = [
   { name: "Wrinkles", hue: "#9C7BD8" },
-  { name: "Inflammatory acne", hue: "#F08C9E" },
+  { name: "Breakouts", hue: "#F08C9E" },
   { name: "Whiteheads", hue: "#8FB4F0" },
   { name: "Redness", hue: "#F29A8B" },
   { name: "Dark spots", hue: "#C79A7A" },
@@ -17,7 +17,7 @@ const ROW_A = [
   { name: "Dryness", hue: "#F4B8A2" },
 ];
 const ROW_B = [
-  { name: "Acne scars", hue: "#F3A673" },
+  { name: "Post-breakout marks", hue: "#F3A673" },
   { name: "Blackheads", hue: "#8C7AA8" },
   { name: "Pigmentation", hue: "#D9A15F" },
   { name: "Fine lines", hue: "#B59CE6" },
@@ -58,9 +58,9 @@ export default function SkinIssuesMarquee() {
           AT BETA LAUNCH
         </p>
         <h3 className="sk-title">
-          See the condition of <em>14+ skin issues</em>
+          See <em>14+ skin concerns</em>
         </h3>
-        <p className="sk-note">One selfie, every concern scored, so you treat what is actually there.</p>
+        <p className="sk-note">One selfie, every concern scored, so your routine fits what is actually there.</p>
       </div>
     </div>
   );

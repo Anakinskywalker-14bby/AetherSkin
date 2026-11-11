@@ -16,7 +16,7 @@ import pytest
 from aetherskin_ml import habit_impact
 from aetherskin_ml.data import Encoder, feature_names, validate
 from aetherskin_ml.predictor import Predictor, regimen
-from aetherskin_ml.schema import CATEGORICAL, CONTINUOUS, ORDINAL, TARGETS
+from aetherskin_ml.schema import CATEGORICAL, CONTINUOUS, GENDER_CODES, ORDINAL, TARGETS
 from synthetic import PLANTED, make_synthetic
 
 REPO = Path(__file__).resolve().parents[2]
@@ -34,7 +34,9 @@ def predictor(df):
 
 # ── schema ──────────────────────────────────────────────────────────────
 def test_schema_matches_the_database_migration():
-    sql = (REPO / "supabase/migrations/20261021000002_quiz_v3.sql").read_text()
+    # Later migrations can widen a range (routine_complexity gained -1).
+    sql = "\n".join((REPO / f"supabase/migrations/{f}").read_text() for f in (
+        "20261021000002_quiz_v3.sql", "20261110000001_routine_complexity_none.sql"))
     for col, codes in CATEGORICAL.items():
         block = re.search(rf"{col}\s+text not null check \({col} in\s*\(([^)]*)\)", sql)
         assert block, col
@@ -45,10 +47,34 @@ def test_schema_matches_the_database_migration():
         assert re.search(rf"{col}\s+\S+.*check \({col} between {lo} and {hi}", sql), col
 
 
-def test_feature_vector_has_28_columns(df):
+def test_feature_vector_has_33_columns_with_gender_but_not_medication_or_allergy(df):
     X = Encoder().fit(df).transform(validate(df))
-    assert X.shape == (len(df), 28) == (len(df), len(feature_names()))
+    assert X.shape == (len(df), 33) == (len(df), len(feature_names()))
     assert np.isfinite(X).all()
+    names = feature_names()
+    assert [n for n in names if n.startswith("gender=")] == [f"gender={c}" for c in GENDER_CODES]
+    assert not any("medication" in n or "allerg" in n for n in names)  # Model 1 never sees them
+
+
+def test_rows_from_before_the_new_questions_still_train():
+    old = make_synthetic(n=50, seed=1).drop(columns=["gender", "medication_use"])
+    v = validate(old)
+    assert (v["gender"] == "unknown").all() and (v["on_medication"] == 0).all()
+    X = Encoder().fit(v).transform(v)
+    assert X[:, -1].sum() == len(old)  # the "unknown" gender column is set for every old row
+
+
+def test_blank_and_bad_gender_or_medication_values():
+    d = make_synthetic(n=10, seed=2)
+    d.loc[0, "gender"] = None
+    d.loc[1, "medication_use"] = ""
+    v = validate(d)
+    assert v.loc[0, "gender"] == "unknown" and v.loc[1, "on_medication"] == 0
+    for col, bad in (("gender", "Female"), ("medication_use", "maybe")):
+        broken = d.copy()
+        broken.loc[2, col] = bad
+        with pytest.raises(ValueError):
+            validate(broken)
 
 
 def test_validate_rejects_bad_rows(df):
@@ -171,6 +197,22 @@ def test_model2_finds_every_planted_effect_in_the_right_direction(report, target
 def test_model2_does_not_invent_effects(report, target, habit):
     r = _effect(report, target, habit)
     assert abs(r["score_change_per_step"]) < 0.05, r
+
+
+def test_model2_controls_for_medication(df, report):
+    # Planted: medication dries the skin and reduces breakouts; no effect on redness.
+    m = report["medication_control"]
+    assert m and m["n_on_medication"] > 100
+    assert m["score_change"]["dryness"] > 0.2 and m["ci95"]["dryness"][0] > 0
+    assert m["score_change"]["breakouts"] < -0.1 and m["ci95"]["breakouts"][1] < 0
+    assert m["ci95"]["redness"][0] < 0 < m["ci95"]["redness"][1]
+
+
+def test_model2_medication_control_hidden_for_small_groups(df):
+    few = df.copy()
+    few["medication_use"] = "no"
+    few.loc[few.index[:10], "medication_use"] = "yes"  # only 10 on medication
+    assert habit_impact.analyse(few, n_boot=20)["medication_control"] is None
 
 
 def test_model2_refuses_tiny_datasets(df):

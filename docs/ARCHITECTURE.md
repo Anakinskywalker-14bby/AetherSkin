@@ -106,7 +106,7 @@ sequenceDiagram
 | `RESEND_API_KEY` | server only | yes | signup returns 202 "saved, not sent" |
 | `NEXT_PUBLIC_SITE_URL` | build | recommended | canonical URLs fall back to a default |
 | `EMAIL_FROM` | server | optional | falls back to the Resend sandbox sender |
-| `IP_HASH_SALT` | server | recommended | uses a default salt; rotate before launch |
+| `IP_HASH_SALT` | server | required in deploys | without it, deployed builds store no email/IP hashes (and warn in Sentry); local dev uses a fixed dev salt |
 | `UPSTASH_REDIS_REST_URL` / `_TOKEN` | server | optional | rate limiting falls back to per-instance memory |
 
 ## Verification

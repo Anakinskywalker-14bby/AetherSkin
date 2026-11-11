@@ -1,0 +1,3070 @@
+{
+ "medications": [
+  {
+   "code": "med_isotretinoin",
+   "cls": "Oral Retinoid",
+   "aliases": [
+    "accutane",
+    "roaccutane",
+    "isotretinoin",
+    "isotret",
+    "oratane"
+   ]
+  },
+  {
+   "code": "med_spironolactone",
+   "cls": "Oral Hormonal Anti-androgen",
+   "aliases": [
+    "spiro",
+    "spironolactone",
+    "aldactone"
+   ]
+  },
+  {
+   "code": "med_doxycycline",
+   "cls": "Oral Antibiotic (Tetracycline)",
+   "aliases": [
+    "doxy",
+    "doxycycline",
+    "doryx",
+    "vibramycin"
+   ]
+  },
+  {
+   "code": "med_minocycline",
+   "cls": "Oral Antibiotic (Tetracycline)",
+   "aliases": [
+    "mino",
+    "minocycline",
+    "minocin"
+   ]
+  },
+  {
+   "code": "med_lymecycline",
+   "cls": "Oral Antibiotic (Tetracycline)",
+   "aliases": [
+    "lyme",
+    "lymecycline",
+    "tetralysal"
+   ]
+  },
+  {
+   "code": "med_erythromycin_oral",
+   "cls": "Oral Macrolide Antibiotic",
+   "aliases": [
+    "erythromycin",
+    "erytab"
+   ]
+  },
+  {
+   "code": "med_oral_contraceptive",
+   "cls": "Oral Combined Contraceptive",
+   "aliases": [
+    "birth control",
+    "pill",
+    "yasmin",
+    "yaz",
+    "diane 35",
+    "estarylla"
+   ]
+  },
+  {
+   "code": "med_metformin",
+   "cls": "Oral Off-label Hormonal",
+   "aliases": [
+    "metformin",
+    "glucophage"
+   ]
+  },
+  {
+   "code": "med_oral_steroid",
+   "cls": "Oral Corticosteroid",
+   "aliases": [
+    "prednisone",
+    "prednisolone",
+    "steroid pills"
+   ]
+  },
+  {
+   "code": "med_topical_tretinoin",
+   "cls": "Topical Retinoid (First Gen)",
+   "aliases": [
+    "tret",
+    "tretinoin",
+    "retin-a",
+    "stieva-a",
+    "retrieve",
+    "cordran"
+   ]
+  },
+  {
+   "code": "med_topical_adapalene",
+   "cls": "Topical Retinoid (Third Gen)",
+   "aliases": [
+    "adapalene",
+    "differin"
+   ]
+  },
+  {
+   "code": "med_topical_tazarotene",
+   "cls": "Topical Retinoid (Third Gen)",
+   "aliases": [
+    "tazarotene",
+    "tazorac",
+    "zorac"
+   ]
+  },
+  {
+   "code": "med_topical_trifarotene",
+   "cls": "Topical Retinoid (Fourth Gen)",
+   "aliases": [
+    "trifarotene",
+    "aklief"
+   ]
+  },
+  {
+   "code": "med_topical_adapalene_bpo",
+   "cls": "Topical Retinoid + BPO Combo",
+   "aliases": [
+    "epiduo",
+    "adapalene bpo"
+   ]
+  },
+  {
+   "code": "med_topical_tretinoin_bpo",
+   "cls": "Topical Retinoid + BPO Combo",
+   "aliases": [
+    "twyneo"
+   ]
+  },
+  {
+   "code": "med_topical_clindamycin_tret",
+   "cls": "Topical Antibiotic + Retinoid",
+   "aliases": [
+    "acnatac",
+    "zalna",
+    "clindamycin tretinoin"
+   ]
+  },
+  {
+   "code": "med_topical_clindamycin",
+   "cls": "Topical Antibiotic",
+   "aliases": [
+    "clindamycin",
+    "clinda",
+    "cleocin",
+    "dalacin"
+   ]
+  },
+  {
+   "code": "med_topical_erythromycin",
+   "cls": "Topical Antibiotic",
+   "aliases": [
+    "erythromycin topical",
+    "erygel",
+    "akne-mycin"
+   ]
+  },
+  {
+   "code": "med_topical_dapsone",
+   "cls": "Topical Anti-inflammatory Sulfone",
+   "aliases": [
+    "aczone",
+    "dapsone"
+   ]
+  },
+  {
+   "code": "med_topical_azelaic_rx",
+   "cls": "Topical High-Potency Azelaic",
+   "aliases": [
+    "finacea",
+    "azelaic acid 15%",
+    "azelaic acid 20%",
+    "skinoren"
+   ]
+  },
+  {
+   "code": "med_topical_ivermectin",
+   "cls": "Topical Anti-parasitic (Rosacea)",
+   "aliases": [
+    "soolantra",
+    "ivermectin cream",
+    "rosiver"
+   ]
+  },
+  {
+   "code": "med_topical_metronidazole",
+   "cls": "Topical Nitroimidazole Antibiotic",
+   "aliases": [
+    "metrocream",
+    "metrogel",
+    "metronidazole"
+   ]
+  },
+  {
+   "code": "med_topical_hydroquinone",
+   "cls": "Topical Tyrosinase Inhibitor",
+   "aliases": [
+    "hydroquinone",
+    "hq",
+    "eldoquin",
+    "melanex"
+   ]
+  },
+  {
+   "code": "med_topical_triple_combination",
+   "cls": "Topical Pigmentation Combo",
+   "aliases": [
+    "kligman",
+    "tri-luma",
+    "triple cream",
+    "hq tret dex"
+   ]
+  },
+  {
+   "code": "med_topical_pimecrolimus",
+   "cls": "Topical Calcineurin Inhibitor",
+   "aliases": [
+    "elidel",
+    "pimecrolimus"
+   ]
+  },
+  {
+   "code": "med_topical_tacrolimus",
+   "cls": "Topical Calcineurin Inhibitor",
+   "aliases": [
+    "protopic",
+    "tacrolimus"
+   ]
+  },
+  {
+   "code": "med_topical_clascoterone",
+   "cls": "Topical Androgen Receptor Inhibitor",
+   "aliases": [
+    "winlevi",
+    "clascoterone"
+   ]
+  },
+  {
+   "code": "med_topical_brimonidine",
+   "cls": "Topical Vasoconstrictor (Rosacea)",
+   "aliases": [
+    "mirvaso",
+    "brimonidine tartrate"
+   ]
+  },
+  {
+   "code": "med_topical_oxymetazoline",
+   "cls": "Topical Vasoconstrictor (Rosacea)",
+   "aliases": [
+    "rhofade",
+    "oxymetazoline"
+   ]
+  },
+  {
+   "code": "med_topical_fluorouracil",
+   "cls": "Topical Antimetabolite (Actinic)",
+   "aliases": [
+    "fluorouracil",
+    "5-fu",
+    "efudex"
+   ]
+  },
+  {
+   "code": "med_topical_imiquimod",
+   "cls": "Topical Immune Response Modifier",
+   "aliases": [
+    "imiquimod",
+    "aldara"
+   ]
+  },
+  {
+   "code": "med_topical_tirbanibulin",
+   "cls": "Topical Microtubule Inhibitor",
+   "aliases": [
+    "klisyri",
+    "tirbanibulin"
+   ]
+  },
+  {
+   "code": "med_topical_calcipotriol",
+   "cls": "Topical Vitamin D Analogue",
+   "aliases": [
+    "calcipotriol",
+    "daivonex"
+   ]
+  },
+  {
+   "code": "med_systemic_biologic",
+   "cls": "Injection Systemic Biologic",
+   "aliases": [
+    "taltz",
+    "cosentyx",
+    "humira",
+    "stelara",
+    "skyrizi"
+   ]
+  },
+  {
+   "code": "med_methotrexate",
+   "cls": "Oral Antimetabolite / Immunosuppressant",
+   "aliases": [
+    "methotrexate",
+    "mtx",
+    "trexall"
+   ]
+  },
+  {
+   "code": "med_cyclosporine",
+   "cls": "Oral Immunosuppressant",
+   "aliases": [
+    "cyclosporine",
+    "neoral"
+   ]
+  },
+  {
+   "code": "med_oral_acitretin",
+   "cls": "Oral Retinoid (Psoriasis)",
+   "aliases": [
+    "acitretin",
+    "neotigason"
+   ]
+  },
+  {
+   "code": "med_oral_dapsone",
+   "cls": "Oral Sulfone Antibacterial",
+   "aliases": [
+    "dapsone pills",
+    "dapsone oral"
+   ]
+  },
+  {
+   "code": "med_oral_tranexamic_acid",
+   "cls": "Oral Antifibrinolytic (Melasma)",
+   "aliases": [
+    "tranexamic acid pills",
+    "txa oral"
+   ]
+  },
+  {
+   "code": "med_oral_antiviral",
+   "cls": "Oral Antiviral (Cold Sores)",
+   "aliases": [
+    "valaciclovir",
+    "valtrex",
+    "acyclovir",
+    "zovirax pills"
+   ]
+  },
+  {
+   "code": "med_oral_antfungal",
+   "cls": "Oral Antifungal",
+   "aliases": [
+    "terbinafine pills",
+    "lamisil oral",
+    "sporanox"
+   ]
+  },
+  {
+   "code": "med_oral_antihistamine",
+   "cls": "Oral H1 Antagonist (Hives/Eczema)",
+   "aliases": [
+    "antihistamines",
+    "zyrtec",
+    "claratyne",
+    "cetirizine"
+   ]
+  },
+  {
+   "code": "med_injectable_dupilumab",
+   "cls": "Injection IL-4/IL-13 Inhibitor",
+   "aliases": [
+    "dupixent",
+    "dupilumab"
+   ]
+  },
+  {
+   "code": "med_topical_hydrocortisone",
+   "cls": "Topical Corticosteroid (Mild)",
+   "aliases": [
+    "hydrocortisone",
+    "hct",
+    "hydrocortisone acetate"
+   ]
+  },
+  {
+   "code": "med_topical_clobetasone",
+   "cls": "Topical Corticosteroid (Moderate)",
+   "aliases": [
+    "clobetasone",
+    "clobetasone butyrate",
+    "eumovate"
+   ]
+  },
+  {
+   "code": "med_topical_betamethasone",
+   "cls": "Topical Corticosteroid (Potent)",
+   "aliases": [
+    "betamethasone",
+    "betamethasone valerate",
+    "betnovate",
+    "diprosone"
+   ]
+  },
+  {
+   "code": "med_topical_clobetasol",
+   "cls": "Topical Corticosteroid (Superpotent)",
+   "aliases": [
+    "clobetasol",
+    "clobetasol propionate",
+    "dermovate",
+    "clobex"
+   ]
+  },
+  {
+   "code": "med_topical_benzoyl_peroxide",
+   "cls": "Topical Antimicrobial / Acne Agent",
+   "aliases": [
+    "bpo",
+    "benzoyl peroxide",
+    "panoxyl",
+    "benzac"
+   ]
+  },
+  {
+   "code": "med_topical_mupirocin",
+   "cls": "Topical Antibacterial (Impetigo)",
+   "aliases": [
+    "mupirocin",
+    "bactroban"
+   ]
+  },
+  {
+   "code": "med_topical_clotrimazole",
+   "cls": "Topical Antifungal (Azole)",
+   "aliases": [
+    "clotrimazole",
+    "canesten"
+   ]
+  },
+  {
+   "code": "med_topical_miconazole",
+   "cls": "Topical Antifungal (Azole)",
+   "aliases": [
+    "miconazole",
+    "daktarin"
+   ]
+  },
+  {
+   "code": "med_topical_permethrin",
+   "cls": "Topical Scabicide / Anti-parasitic",
+   "aliases": [
+    "permethrin",
+    "lyclear",
+    "nix"
+   ]
+  },
+  {
+   "code": "med_oral_azathioprine",
+   "cls": "Oral Immunosuppressant",
+   "aliases": [
+    "azathioprine",
+    "imuran"
+   ]
+  },
+  {
+   "code": "med_systemic_secukinumab",
+   "cls": "Injection IL-17A Inhibitor Biologic",
+   "aliases": [
+    "secukinumab",
+    "cosentyx"
+   ]
+  },
+  {
+   "code": "med_systemic_etanercept",
+   "cls": "Injection TNF-Alpha Inhibitor Biologic",
+   "aliases": [
+    "etanercept",
+    "enbrel"
+   ]
+  },
+  {
+   "code": "med_systemic_adalimumab",
+   "cls": "Injection TNF-Alpha Inhibitor Biologic",
+   "aliases": [
+    "adalimumab",
+    "humira"
+   ]
+  },
+  {
+   "code": "med_systemic_ustekinumab",
+   "cls": "Injection IL-12/IL-23 Inhibitor Biologic",
+   "aliases": [
+    "ustekinumab",
+    "stelara"
+   ]
+  },
+  {
+   "code": "med_systemic_certolizumab",
+   "cls": "Injection PEGylated TNF-Alpha Inhibitor Biologic",
+   "aliases": [
+    "certolizumab",
+    "cimzia"
+   ]
+  },
+  {
+   "code": "med_topical_amcinonide",
+   "cls": "Topical Corticosteroid (High Potency)",
+   "aliases": [
+    "amcinonide"
+   ]
+  },
+  {
+   "code": "med_topical_betamethasone_dip",
+   "cls": "Topical Corticosteroid (Very High Potency)",
+   "aliases": [
+    "betamethasone dipropionate"
+   ]
+  },
+  {
+   "code": "med_oral_alitretinoin",
+   "cls": "Oral Retinoid (Hand Eczema)",
+   "aliases": [
+    "alitretinoin"
+   ]
+  },
+  {
+   "code": "med_oral_itraconazole",
+   "cls": "Oral Antifungal (Azole)",
+   "aliases": [
+    "itraconazole",
+    "sporanox"
+   ]
+  },
+  {
+   "code": "med_oral_fluconazole",
+   "cls": "Oral Antifungal (Azole)",
+   "aliases": [
+    "fluconazole",
+    "diflucan"
+   ]
+  },
+  {
+   "code": "med_oral_griseofulvin",
+   "cls": "Oral Antifungal",
+   "aliases": [
+    "griseofulvin"
+   ]
+  },
+  {
+   "code": "med_oral_mycophenolate",
+   "cls": "Oral Immunosuppressant",
+   "aliases": [
+    "mycophenolate mofetil",
+    "cellcept"
+   ]
+  },
+  {
+   "code": "med_oral_finasteride",
+   "cls": "Oral 5-Alpha Reductase Inhibitor",
+   "aliases": [
+    "finasteride",
+    "propecia"
+   ]
+  },
+  {
+   "code": "med_oral_dutasteride",
+   "cls": "Oral 5-Alpha Reductase Inhibitor",
+   "aliases": [
+    "dutasteride",
+    "avodart"
+   ]
+  },
+  {
+   "code": "med_systemic_ixekizumab",
+   "cls": "Injection IL-17A Inhibitor Biologic",
+   "aliases": [
+    "ixekizumab",
+    "taltz"
+   ]
+  },
+  {
+   "code": "med_topical_sulfacetamide",
+   "cls": "Topical Antibacterial",
+   "aliases": [
+    "sulfacetamide",
+    "sodium sulfacetamide"
+   ]
+  },
+  {
+   "code": "med_oral_sarecycline",
+   "cls": "Oral Antibiotic (Tetracycline)",
+   "aliases": [
+    "sarecycline",
+    "seysara"
+   ]
+  },
+  {
+   "code": "med_topical_mequinol",
+   "cls": "Topical Depigmenting Agent",
+   "aliases": [
+    "mequinol"
+   ]
+  },
+  {
+   "code": "med_topical_cysteamine",
+   "cls": "Topical Depigmenting Agent",
+   "aliases": [
+    "cysteamine"
+   ]
+  },
+  {
+   "code": "med_topical_alpha_arbutin",
+   "cls": "Topical Depigmenting Agent",
+   "aliases": [
+    "alpha-arbutin"
+   ]
+  },
+  {
+   "code": "med_topical_deoxyarbutin",
+   "cls": "Topical Depigmenting Agent",
+   "aliases": [
+    "deoxyarbutin"
+   ]
+  },
+  {
+   "code": "med_topical_desonide",
+   "cls": "Topical Corticosteroid (Low Potency)",
+   "aliases": [
+    "desonide",
+    "desowen"
+   ]
+  },
+  {
+   "code": "med_topical_fluocinolone",
+   "cls": "Topical Corticosteroid (Low/Medium Potency)",
+   "aliases": [
+    "fluocinolone",
+    "synalar"
+   ]
+  },
+  {
+   "code": "med_topical_triamcinolone",
+   "cls": "Topical Corticosteroid (Medium Potency)",
+   "aliases": [
+    "triamcinolone",
+    "kenalog"
+   ]
+  },
+  {
+   "code": "med_topical_mometasone",
+   "cls": "Topical Corticosteroid (Medium Potency)",
+   "aliases": [
+    "mometasone",
+    "elocon"
+   ]
+  },
+  {
+   "code": "med_topical_ketoconazole",
+   "cls": "Topical Antifungal (Azole)",
+   "aliases": [
+    "ketoconazole",
+    "nizoral"
+   ]
+  },
+  {
+   "code": "med_topical_econazole",
+   "cls": "Topical Antifungal (Azole)",
+   "aliases": [
+    "econazole"
+   ]
+  },
+  {
+   "code": "med_topical_ciclopirox",
+   "cls": "Topical Antifungal",
+   "aliases": [
+    "ciclopirox",
+    "loprox",
+    "penlac"
+   ]
+  },
+  {
+   "code": "med_topical_nystatin",
+   "cls": "Topical Antifungal",
+   "aliases": [
+    "nystatin"
+   ]
+  },
+  {
+   "code": "med_topical_penciclovir",
+   "cls": "Topical Antiviral",
+   "aliases": [
+    "penciclovir",
+    "denavir"
+   ]
+  },
+  {
+   "code": "med_topical_sucralfate",
+   "cls": "Topical Barrier Repair",
+   "aliases": [
+    "sucralfate",
+    "cicalfate"
+   ]
+  },
+  {
+   "code": "med_topical_crisaborole",
+   "cls": "Topical PDE4 Inhibitor",
+   "aliases": [
+    "crisaborole",
+    "eucrisa"
+   ]
+  },
+  {
+   "code": "med_topical_calcitriol",
+   "cls": "Topical Vitamin D Analogue",
+   "aliases": [
+    "calcitriol",
+    "vectical"
+   ]
+  },
+  {
+   "code": "med_topical_coal_tar",
+   "cls": "Topical Keratolytic / Anti-inflammatory",
+   "aliases": [
+    "coal tar"
+   ]
+  },
+  {
+   "code": "med_topical_capsaicin",
+   "cls": "Topical Analgesic (PHN)",
+   "aliases": [
+    "capsaicin"
+   ]
+  },
+  {
+   "code": "med_oral_azithromycin",
+   "cls": "Oral Macrolide Antibiotic",
+   "aliases": [
+    "azithromycin",
+    "zithromax"
+   ]
+  },
+  {
+   "code": "med_oral_bactrim",
+   "cls": "Oral Antibiotic (Sulfonamide)",
+   "aliases": [
+    "trimethoprim/sulfamethoxazole",
+    "bactrim"
+   ]
+  },
+  {
+   "code": "med_oral_voriconazole",
+   "cls": "Oral Antifungal (Azole)",
+   "aliases": [
+    "voriconazole",
+    "vfend"
+   ]
+  },
+  {
+   "code": "med_oral_famciclovir",
+   "cls": "Oral Antiviral",
+   "aliases": [
+    "famciclovir",
+    "famvir"
+   ]
+  },
+  {
+   "code": "med_oral_methylprednisolone",
+   "cls": "Oral Corticosteroid",
+   "aliases": [
+    "methylprednisolone",
+    "medrol"
+   ]
+  },
+  {
+   "code": "med_oral_hydroxychloroquine",
+   "cls": "Oral Antimalarial (Off-label Dermatology)",
+   "aliases": [
+    "hydroxychloroquine",
+    "plaquenil"
+   ]
+  },
+  {
+   "code": "med_oral_thalidomide",
+   "cls": "Oral Immunomodulator",
+   "aliases": [
+    "thalidomide",
+    "thalomid"
+   ]
+  },
+  {
+   "code": "med_systemic_infliximab",
+   "cls": "Injection TNF-Alpha Inhibitor Biologic",
+   "aliases": [
+    "infliximab",
+    "remicade"
+   ]
+  },
+  {
+   "code": "med_systemic_brodalumab",
+   "cls": "Injection IL-17 Receptor Antagonist Biologic",
+   "aliases": [
+    "brodalumab",
+    "siliq"
+   ]
+  },
+  {
+   "code": "med_systemic_guselkumab",
+   "cls": "Injection IL-23 Inhibitor Biologic",
+   "aliases": [
+    "guselkumab",
+    "tremfya"
+   ]
+  },
+  {
+   "code": "med_systemic_tildrakizumab",
+   "cls": "Injection IL-23 Inhibitor Biologic",
+   "aliases": [
+    "tildrakizumab",
+    "ilumya"
+   ]
+  },
+  {
+   "code": "med_systemic_omalizumab",
+   "cls": "Injection IgE Blocker Biologic",
+   "aliases": [
+    "omalizumab",
+    "xolair"
+   ]
+  },
+  {
+   "code": "med_oral_abrocitinib",
+   "cls": "Oral JAK Inhibitor",
+   "aliases": [
+    "abrocitinib",
+    "cibinqo"
+   ]
+  },
+  {
+   "code": "med_oral_upadacitinib",
+   "cls": "Oral JAK Inhibitor",
+   "aliases": [
+    "upadacitinib",
+    "rinvoq"
+   ]
+  },
+  {
+   "code": "med_topical_ruxolitinib",
+   "cls": "Topical JAK Inhibitor",
+   "aliases": [
+    "ruxolitinib",
+    "opzelura"
+   ]
+  },
+  {
+   "code": "med_oral_baricitinib",
+   "cls": "Oral JAK Inhibitor",
+   "aliases": [
+    "baricitinib",
+    "olumiant"
+   ]
+  }
+ ],
+ "allergies": [
+  {
+   "code": "allergy_fragrance_generic",
+   "cls": "Unspecified Fragrance Compound (EU 26 Allergen Class)",
+   "aliases": [
+    "fragrance",
+    "perfume",
+    "parfum",
+    "scent"
+   ]
+  },
+  {
+   "code": "allergy_fragrance_linalool",
+   "cls": "Specific Fragrance Allergen (Terpene)",
+   "aliases": [
+    "linalool"
+   ]
+  },
+  {
+   "code": "allergy_fragrance_limonene",
+   "cls": "Specific Fragrance Allergen (Terpene)",
+   "aliases": [
+    "limonene"
+   ]
+  },
+  {
+   "code": "allergy_fragrance_geraniol",
+   "cls": "Specific Fragrance Allergen (Terpene)",
+   "aliases": [
+    "geraniol"
+   ]
+  },
+  {
+   "code": "allergy_fragrance_citronellol",
+   "cls": "Specific Fragrance Allergen (Terpene)",
+   "aliases": [
+    "citronellol"
+   ]
+  },
+  {
+   "code": "allergy_fragrance_eugenol",
+   "cls": "Specific Fragrance Allergen (Clove-derived)",
+   "aliases": [
+    "eugenol"
+   ]
+  },
+  {
+   "code": "allergy_balsam_of_peru",
+   "cls": "Fragrance Fixative / Cross-reactors",
+   "aliases": [
+    "balsam of peru",
+    "myroxylon pereirae"
+   ]
+  },
+  {
+   "code": "allergy_essential_oils",
+   "cls": "Concentrated Volatile Plant Extracts",
+   "aliases": [
+    "essential oils",
+    "lavender oil",
+    "rose oil",
+    "citrus oil"
+   ]
+  },
+  {
+   "code": "allergy_menthol",
+   "cls": "Counter-irritant Sensator",
+   "aliases": [
+    "menthol",
+    "peppermint",
+    "mint"
+   ]
+  },
+  {
+   "code": "allergy_eucalyptus",
+   "cls": "Volatile Plant Extract",
+   "aliases": [
+    "eucalyptus",
+    "eucalyptus oil"
+   ]
+  },
+  {
+   "code": "allergy_bee_products",
+   "cls": "Bee-derived Allergen",
+   "aliases": [
+    "propolis",
+    "bee glue",
+    "honey",
+    "royal jelly"
+   ]
+  },
+  {
+   "code": "allergy_lanolin",
+   "cls": "Sheep Sebaceous Emollient",
+   "aliases": [
+    "lanolin",
+    "wool alcohol",
+    "wool fat",
+    "acetylated lanolin"
+   ]
+  },
+  {
+   "code": "allergy_snail_mucin",
+   "cls": "Animal-derived Glycoprotein",
+   "aliases": [
+    "snail mucin",
+    "snail filtrate",
+    "snail secretion"
+   ]
+  },
+  {
+   "code": "allergy_parabens",
+   "cls": "Esters of p-hydroxybenzoic acid",
+   "aliases": [
+    "parabens",
+    "methylparaben",
+    "propylparaben"
+   ]
+  },
+  {
+   "code": "allergy_phenoxyethanol",
+   "cls": "Glycol Ether Preservative",
+   "aliases": [
+    "phenoxyethanol"
+   ]
+  },
+  {
+   "code": "allergy_methylisothiazolinone",
+   "cls": "Isothiazolinone Preservative",
+   "aliases": [
+    "methylisothiazolinone",
+    "mi",
+    "mit",
+    "kathon cg"
+   ]
+  },
+  {
+   "code": "allergy_formaldehyde_releasers",
+   "cls": "Antimicrobial Preservative Class",
+   "aliases": [
+    "formaldehyde releasers",
+    "dmdm hydantoin",
+    "diazolidinyl urea"
+   ]
+  },
+  {
+   "code": "allergy_propylene_glycol",
+   "cls": "Petroleum or Vegetable Solvent",
+   "aliases": [
+    "propylene glycol",
+    "propanediol"
+   ]
+  },
+  {
+   "code": "allergy_butylene_glycol",
+   "cls": "Small-chain Diol Solvents",
+   "aliases": [
+    "butylene glycol"
+   ]
+  },
+  {
+   "code": "allergy_sodium_lauryl_sulfate",
+   "cls": "High-strip Anionic Surfactants",
+   "aliases": [
+    "ls",
+    "sodium lauryl sulfate"
+   ]
+  },
+  {
+   "code": "allergy_sodium_laureth_sulfate",
+   "cls": "Ethoxylated Anionic Surfactant",
+   "aliases": [
+    "les",
+    "sodium laureth sulfate"
+   ]
+  },
+  {
+   "code": "allergy_cocamidopropyl_betaine",
+   "cls": "Amphoteric Surfactant",
+   "aliases": [
+    "coco betaine",
+    "cocamidopropyl betaine",
+    "capb"
+   ]
+  },
+  {
+   "code": "allergy_chemical_sunscreen_generic",
+   "cls": "Unspecified Organic UV Filter",
+   "aliases": [
+    "chemical sunscreen",
+    "organic filters"
+   ]
+  },
+  {
+   "code": "allergy_uv_avobenzone",
+   "cls": "UVA Filter",
+   "aliases": [
+    "avobenzone",
+    "butyl methoxydibenzoylmethane"
+   ]
+  },
+  {
+   "code": "allergy_uv_oxybenzone",
+   "cls": "UVB/UVA2 Filter",
+   "aliases": [
+    "oxybenzone",
+    "benzophenone-3"
+   ]
+  },
+  {
+   "code": "allergy_uv_octinoxate",
+   "cls": "UVB Filter",
+   "aliases": [
+    "octinoxate",
+    "octyl methoxycinnamate",
+    "omc"
+   ]
+  },
+  {
+   "code": "allergy_uv_octocrylene",
+   "cls": "UVB/UVA2 Stabilising Filter",
+   "aliases": [
+    "octocrylene"
+   ]
+  },
+  {
+   "code": "allergy_uv_homosalate",
+   "cls": "UVB Filter",
+   "aliases": [
+    "homosalate"
+   ]
+  },
+  {
+   "code": "allergy_uv_octisalate",
+   "cls": "UVB Filter",
+   "aliases": [
+    "octisalate",
+    "ethylhexyl salicylate"
+   ]
+  },
+  {
+   "code": "allergy_uv_tinosorb",
+   "cls": "Modern Broad-spectrum Filter",
+   "aliases": [
+    "tinosorb",
+    "bemotrizinol"
+   ]
+  },
+  {
+   "code": "allergy_uv_mexoryl",
+   "cls": "UVA Filter",
+   "aliases": [
+    "mexoryl",
+    "ecamsule"
+   ]
+  },
+  {
+   "code": "allergy_mineral_sunscreen_generic",
+   "cls": "Unspecified Inorganic UV Filter",
+   "aliases": [
+    "physical sunscreen",
+    "mineral sunscreen"
+   ]
+  },
+  {
+   "code": "allergy_zinc_oxide",
+   "cls": "Inorganic UV Filter / Soothing Agent",
+   "aliases": [
+    "zinc oxide",
+    "zinc"
+   ]
+  },
+  {
+   "code": "allergy_titanium_dioxide",
+   "cls": "Inorganic UV Filter / Opacifier",
+   "aliases": [
+    "titanium dioxide"
+   ]
+  },
+  {
+   "code": "allergy_silicones",
+   "cls": "Synthetic Polymer Emollient",
+   "aliases": [
+    "silicones",
+    "dimethicone",
+    "cyclopentasiloxane"
+   ]
+  },
+  {
+   "code": "allergy_petroleum_derivatives",
+   "cls": "Hydrocarbon Occlusive",
+   "aliases": [
+    "mineral oil",
+    "paraffinum liquidum",
+    "petrolatum",
+    "vaseline"
+   ]
+  },
+  {
+   "code": "allergy_coconut_oil",
+   "cls": "Comedogenic Botanical Oil",
+   "aliases": [
+    "coconut oil",
+    "cocos nucifera oil"
+   ]
+  },
+  {
+   "code": "allergy_almond_oil",
+   "cls": "Tree Nut Derived Emollient",
+   "aliases": [
+    "almond oil",
+    "sweet almond oil"
+   ]
+  },
+  {
+   "code": "allergy_peanut_oil",
+   "cls": "Legume Derived Emollient",
+   "aliases": [
+    "peanut oil",
+    "arachis oil"
+   ]
+  },
+  {
+   "code": "allergy_soy",
+   "cls": "Plant Protein / Isoflavone",
+   "aliases": [
+    "soy",
+    "soybean oil",
+    "glycine soja"
+   ]
+  },
+  {
+   "code": "allergy_wheat_gluten",
+   "cls": "Cereal Grain Derived Extract",
+   "aliases": [
+    "wheat germ oil",
+    "triticum vulgare",
+    "gluten"
+   ]
+  },
+  {
+   "code": "allergy_gold",
+   "cls": "Noble Metal",
+   "aliases": [
+    "gold",
+    "thiosulfate",
+    "jewelry allergy"
+   ]
+  },
+  {
+   "code": "allergy_nickel",
+   "cls": "Base Metal Contact Dermatitis",
+   "aliases": [
+    "nickel",
+    "costume jewelry"
+   ]
+  },
+  {
+   "code": "allergy_drying_alcohols",
+   "cls": "Volatile Solvent Evaporant",
+   "aliases": [
+    "alcohol",
+    "alcohol denat",
+    "ethanol",
+    "sd alcohol"
+   ]
+  },
+  {
+   "code": "allergy_fatty_alcohols",
+   "cls": "Wax-like Emulsion Stabiliser",
+   "aliases": [
+    "fatty alcohols",
+    "cetyl alcohol",
+    "cetearyl alcohol"
+   ]
+  },
+  {
+   "code": "allergy_mica",
+   "cls": "Silicate Shimmer Mineral",
+   "aliases": [
+    "mica"
+   ]
+  },
+  {
+   "code": "allergy_talc",
+   "cls": "Hydrous Magnesium Silicate",
+   "aliases": [
+    "talc",
+    "talcum powder"
+   ]
+  },
+  {
+   "code": "allergy_collagen",
+   "cls": "Structural Protein",
+   "aliases": [
+    "collagen",
+    "soluble collagen"
+   ]
+  },
+  {
+   "code": "allergy_coenzyme_q10",
+   "cls": "Cellular Energy Antioxidant",
+   "aliases": [
+    "coenzyme q10",
+    "ubiquinone"
+   ]
+  },
+  {
+   "code": "allergy_food_peanuts",
+   "cls": "Food Allergen (Legume)",
+   "aliases": [
+    "peanuts",
+    "peanut allergen"
+   ]
+  },
+  {
+   "code": "allergy_food_tree_nuts",
+   "cls": "Food Allergen (Tree Nut)",
+   "aliases": [
+    "tree nuts",
+    "almonds",
+    "walnuts",
+    "cashews",
+    "hazelnuts"
+   ]
+  },
+  {
+   "code": "allergy_food_dairy",
+   "cls": "Food Allergen (Dairy)",
+   "aliases": [
+    "milk",
+    "dairy",
+    "cow milk protein",
+    "whey",
+    "casein"
+   ]
+  },
+  {
+   "code": "allergy_food_egg",
+   "cls": "Food Allergen (Poultry/Egg)",
+   "aliases": [
+    "eggs",
+    "egg white",
+    "egg yolk",
+    "ovalbumin"
+   ]
+  },
+  {
+   "code": "allergy_food_wheat",
+   "cls": "Food Allergen (Cereal Grain)",
+   "aliases": [
+    "wheat",
+    "gluten"
+   ]
+  },
+  {
+   "code": "allergy_food_soy",
+   "cls": "Food Allergen (Legume)",
+   "aliases": [
+    "soy",
+    "soybeans",
+    "soy protein"
+   ]
+  },
+  {
+   "code": "allergy_food_fish",
+   "cls": "Food Allergen (Seafood)",
+   "aliases": [
+    "fish",
+    "finfish",
+    "cod",
+    "salmon"
+   ]
+  },
+  {
+   "code": "allergy_food_shellfish",
+   "cls": "Food Allergen (Seafood)",
+   "aliases": [
+    "shellfish",
+    "crustaceans",
+    "shrimp",
+    "crab",
+    "lobster",
+    "mollusks"
+   ]
+  },
+  {
+   "code": "allergy_inhalant_dust_mites",
+   "cls": "Inhalant / Environmental Allergen",
+   "aliases": [
+    "dust mites",
+    "dermatophagoides"
+   ]
+  },
+  {
+   "code": "allergy_inhalant_pet_dander",
+   "cls": "Inhalant / Environmental Allergen",
+   "aliases": [
+    "pet dander",
+    "cat dander",
+    "dog dander"
+   ]
+  },
+  {
+   "code": "allergy_inhalant_cockroach",
+   "cls": "Inhalant / Environmental Allergen",
+   "aliases": [
+    "cockroach",
+    "cockroach allergen"
+   ]
+  },
+  {
+   "code": "allergy_inhalant_molds",
+   "cls": "Inhalant / Environmental Allergen",
+   "aliases": [
+    "molds",
+    "indoor mold",
+    "alternaria",
+    "cladosporium",
+    "aspergillus"
+   ]
+  },
+  {
+   "code": "allergy_inhalant_pollen",
+   "cls": "Inhalant / Environmental Allergen",
+   "aliases": [
+    "pollen",
+    "tree pollen",
+    "grass pollen",
+    "weed pollen"
+   ]
+  },
+  {
+   "code": "allergy_latex",
+   "cls": "Natural Rubber Latex Allergen",
+   "aliases": [
+    "latex",
+    "natural rubber latex",
+    "rubber gloves"
+   ]
+  },
+  {
+   "code": "allergy_fragrance_cinnamal",
+   "cls": "Specific Fragrance Allergen (EU Labelled)",
+   "aliases": [
+    "cinnamal",
+    "cinnamic aldehyde"
+   ]
+  },
+  {
+   "code": "allergy_fragrance_citral",
+   "cls": "Specific Fragrance Allergen (EU Labelled)",
+   "aliases": [
+    "citral"
+   ]
+  },
+  {
+   "code": "allergy_methylchloroisothiazolinone",
+   "cls": "Isothiazolinone Preservative",
+   "aliases": [
+    "methylchloroisothiazolinone",
+    "cmit",
+    "kathon"
+   ]
+  },
+  {
+   "code": "allergy_quaternium_15",
+   "cls": "Formaldehyde-Releasing Preservative",
+   "aliases": [
+    "quaternium-15"
+   ]
+  },
+  {
+   "code": "allergy_ppd_hair_dye",
+   "cls": "Aromatic Amine Hair Dye Allergen",
+   "aliases": [
+    "p-phenylenediamine",
+    "ppd",
+    "hair dye allergy"
+   ]
+  },
+  {
+   "code": "allergy_coal_tar",
+   "cls": "Keratolytic / Phenolic Compound",
+   "aliases": [
+    "coal tar",
+    "coal tar solution",
+    "liquor carbonis detergens"
+   ]
+  },
+  {
+   "code": "allergy_imidazolidinyl_urea",
+   "cls": "Formaldehyde-Releasing Preservative",
+   "aliases": [
+    "imidazolidinyl urea"
+   ]
+  },
+  {
+   "code": "allergy_mdbgn",
+   "cls": "Preservative",
+   "aliases": [
+    "methyldibromoglutaronitrile",
+    "mdbgn"
+   ]
+  },
+  {
+   "code": "allergy_fragrance_mix_1",
+   "cls": "Fragrance Allergen Mix (Standard)",
+   "aliases": [
+    "fragrance mix i"
+   ]
+  },
+  {
+   "code": "allergy_fragrance_mix_2",
+   "cls": "Fragrance Allergen Mix (Standard)",
+   "aliases": [
+    "fragrance mix ii"
+   ]
+  },
+  {
+   "code": "allergy_fragrance_isoeugenol",
+   "cls": "Specific Fragrance Allergen",
+   "aliases": [
+    "isoeugenol"
+   ]
+  },
+  {
+   "code": "allergy_fragrance_cinnamyl_alcohol",
+   "cls": "Specific Fragrance Allergen",
+   "aliases": [
+    "cinnamyl alcohol"
+   ]
+  },
+  {
+   "code": "allergy_fragrance_farnesol",
+   "cls": "Specific Fragrance Allergen",
+   "aliases": [
+    "farnesol"
+   ]
+  },
+  {
+   "code": "allergy_fragrance_hydroxycitronellal",
+   "cls": "Specific Fragrance Allergen",
+   "aliases": [
+    "hydroxycitronellal"
+   ]
+  },
+  {
+   "code": "allergy_ethylenediamine",
+   "cls": "Vehicle Base / Stabilizer",
+   "aliases": [
+    "ethylenediamine"
+   ]
+  },
+  {
+   "code": "allergy_polyethylene_glycol",
+   "cls": "Vehicle Base / Excipient",
+   "aliases": [
+    "polyethylene glycol",
+    "peg"
+   ]
+  },
+  {
+   "code": "allergy_tea_tree_oil",
+   "cls": "Essential Oil Allergen",
+   "aliases": [
+    "tea tree oil",
+    "melaleuca oil"
+   ]
+  },
+  {
+   "code": "allergy_colophonium",
+   "cls": "Resin / Botanical Adhesives",
+   "aliases": [
+    "colophonium",
+    "rosin"
+   ]
+  },
+  {
+   "code": "allergy_fragrance_hexyl_cinnamal",
+   "cls": "Specific Fragrance Allergen (EU Labelled)",
+   "aliases": [
+    "hexyl cinnamal"
+   ]
+  },
+  {
+   "code": "allergy_fragrance_coumarin",
+   "cls": "Specific Fragrance Allergen (EU Labelled)",
+   "aliases": [
+    "coumarin"
+   ]
+  },
+  {
+   "code": "allergy_bronopol",
+   "cls": "Formaldehyde-Releasing Preservative",
+   "aliases": [
+    "bronopol"
+   ]
+  },
+  {
+   "code": "allergy_paraben_butyl",
+   "cls": "Specific Paraben Allergen",
+   "aliases": [
+    "butylparaben"
+   ]
+  },
+  {
+   "code": "allergy_paraben_ethyl",
+   "cls": "Specific Paraben Allergen",
+   "aliases": [
+    "ethylparaben"
+   ]
+  },
+  {
+   "code": "allergy_oleamidopropyl_dimethylamine",
+   "cls": "Surfactant Allergen",
+   "aliases": [
+    "oleamidopropyl dimethylamine"
+   ]
+  },
+  {
+   "code": "allergy_antibiotic_neomycin",
+   "cls": "Topical Antibiotic Allergen",
+   "aliases": [
+    "neomycin"
+   ]
+  },
+  {
+   "code": "allergy_antibiotic_bacitracin",
+   "cls": "Topical Antibiotic Allergen",
+   "aliases": [
+    "bacitracin"
+   ]
+  },
+  {
+   "code": "allergy_antibiotic_polymyxin_b",
+   "cls": "Topical Antibiotic Allergen",
+   "aliases": [
+    "polymyxin b"
+   ]
+  },
+  {
+   "code": "allergy_metal_cobalt",
+   "cls": "Metal Allergen",
+   "aliases": [
+    "cobalt"
+   ]
+  },
+  {
+   "code": "allergy_metal_chromium",
+   "cls": "Metal Allergen",
+   "aliases": [
+    "chromium",
+    "chromate"
+   ]
+  },
+  {
+   "code": "allergy_metal_palladium",
+   "cls": "Metal Allergen",
+   "aliases": [
+    "palladium"
+   ]
+  },
+  {
+   "code": "allergy_rubber_thiuram",
+   "cls": "Rubber Allergen Mix",
+   "aliases": [
+    "thiuram mix"
+   ]
+  },
+  {
+   "code": "allergy_rubber_carbamates",
+   "cls": "Rubber Allergen Mix",
+   "aliases": [
+    "carbamates",
+    "carba mix"
+   ]
+  },
+  {
+   "code": "allergy_rubber_mbt",
+   "cls": "Rubber Allergen",
+   "aliases": [
+    "mercaptobenzothiazole",
+    "mbt"
+   ]
+  },
+  {
+   "code": "allergy_rubber_black",
+   "cls": "Rubber Allergen Mix",
+   "aliases": [
+    "black rubber mix"
+   ]
+  },
+  {
+   "code": "allergy_hair_dye_toluene",
+   "cls": "Hair Dye Allergen",
+   "aliases": [
+    "toluene-2",
+    "5-diamine"
+   ]
+  },
+  {
+   "code": "allergy_botanical_arnica",
+   "cls": "Botanical Allergen",
+   "aliases": [
+    "arnica"
+   ]
+  },
+  {
+   "code": "allergy_botanical_chamomile",
+   "cls": "Botanical Allergen",
+   "aliases": [
+    "chamomile"
+   ]
+  },
+  {
+   "code": "allergy_botanical_ylang_ylang",
+   "cls": "Essential Oil Allergen",
+   "aliases": [
+    "ylang-ylang oil"
+   ]
+  },
+  {
+   "code": "allergy_food_oat",
+   "cls": "Food / Cosmetic Allergen",
+   "aliases": [
+    "oat",
+    "colloidal oatmeal"
+   ]
+  },
+  {
+   "code": "allergy_ipbc",
+   "cls": "Preservative Allergen",
+   "aliases": [
+    "iodopropynyl butylcarbamate",
+    "ipbc"
+   ]
+  },
+  {
+   "code": "allergy_thiomersal",
+   "cls": "Preservative Allergen (Mercury-based)",
+   "aliases": [
+    "thiomersal",
+    "thimerosal"
+   ]
+  },
+  {
+   "code": "allergy_bronopol_alternative",
+   "cls": "Formaldehyde-Releasing Preservative",
+   "aliases": [
+    "2-bromo-2-nitropropane-1",
+    "3-diol"
+   ]
+  },
+  {
+   "code": "allergy_triclosan",
+   "cls": "Antimicrobial Preservative Allergen",
+   "aliases": [
+    "triclosan"
+   ]
+  },
+  {
+   "code": "allergy_chlorphenesin",
+   "cls": "Preservative Allergen",
+   "aliases": [
+    "chlorphenesin"
+   ]
+  },
+  {
+   "code": "allergy_cmit",
+   "cls": "Isothiazolinone Preservative",
+   "aliases": [
+    "chloromethylisothiazolinone",
+    "cmit"
+   ]
+  },
+  {
+   "code": "allergy_fragrance_oak_moss",
+   "cls": "Natural Fragrance Allergen",
+   "aliases": [
+    "oak moss extract",
+    "evernia prunastri"
+   ]
+  },
+  {
+   "code": "allergy_fragrance_amyl_cinnamal",
+   "cls": "Specific Fragrance Allergen (EU Labelled)",
+   "aliases": [
+    "amyl cinnamal"
+   ]
+  },
+  {
+   "code": "allergy_fragrance_lyral",
+   "cls": "Specific Fragrance Allergen (EU Labelled)",
+   "aliases": [
+    "lyral",
+    "hicc"
+   ]
+  },
+  {
+   "code": "allergy_fragrance_limonene_hydroperoxides",
+   "cls": "Oxidized Terpene Allergen",
+   "aliases": [
+    "limonene hydroperoxides"
+   ]
+  },
+  {
+   "code": "allergy_fragrance_linalool_hydroperoxides",
+   "cls": "Oxidized Terpene Allergen",
+   "aliases": [
+    "linalool hydroperoxides"
+   ]
+  },
+  {
+   "code": "allergy_acetylated_lanolin",
+   "cls": "Lanolin Derivative Allergen",
+   "aliases": [
+    "acetylated lanolin alcohol"
+   ]
+  },
+  {
+   "code": "allergy_acrylates",
+   "cls": "Adhesive / Nail Cosmetic Allergen",
+   "aliases": [
+    "acrylates",
+    "methacrylates"
+   ]
+  },
+  {
+   "code": "allergy_uv_paba",
+   "cls": "UV Filter Allergen",
+   "aliases": [
+    "paba",
+    "4-aminobenzoic acid"
+   ]
+  },
+  {
+   "code": "allergy_disperse_dyes",
+   "cls": "Textile Dye Allergen",
+   "aliases": [
+    "disperse dyes"
+   ]
+  }
+ ],
+ "actives": [
+  {
+   "code": "active_hyaluronic_acid",
+   "name": "Hyaluronic Acid",
+   "group": "A",
+   "groupName": "Hydrators",
+   "mechanism": "Pull moisture into the skin's outer and middle layers to plump and smooth texture.",
+   "aliases": [
+    "hyaluronic acid",
+    "ha",
+    "sodium hyaluronate",
+    "hyaluronan"
+   ]
+  },
+  {
+   "code": "active_glycerin",
+   "name": "Glycerin",
+   "group": "A",
+   "groupName": "Hydrators",
+   "mechanism": "Pull moisture into the skin's outer and middle layers to plump and smooth texture.",
+   "aliases": [
+    "glycerin",
+    "glycerol"
+   ]
+  },
+  {
+   "code": "active_beta_glucan",
+   "name": "Beta Glucan",
+   "group": "A",
+   "groupName": "Hydrators",
+   "mechanism": "Pull moisture into the skin's outer and middle layers to plump and smooth texture.",
+   "aliases": [
+    "beta glucan",
+    "oat beta glucan"
+   ]
+  },
+  {
+   "code": "active_polyglutamic_acid",
+   "name": "Polyglutamic Acid",
+   "group": "A",
+   "groupName": "Hydrators",
+   "mechanism": "Pull moisture into the skin's outer and middle layers to plump and smooth texture.",
+   "aliases": [
+    "polyglutamic acid",
+    "pga"
+   ]
+  },
+  {
+   "code": "active_panthenol",
+   "name": "Panthenol",
+   "group": "A",
+   "groupName": "Hydrators",
+   "mechanism": "Pull moisture into the skin's outer and middle layers to plump and smooth texture.",
+   "aliases": [
+    "panthenol",
+    "pro-vitamin b5",
+    "vitamin b5"
+   ]
+  },
+  {
+   "code": "active_urea",
+   "name": "Urea",
+   "group": "A",
+   "groupName": "Hydrators",
+   "mechanism": "Pull moisture into the skin's outer and middle layers to plump and smooth texture.",
+   "aliases": [
+    "urea",
+    "carbamide"
+   ]
+  },
+  {
+   "code": "active_squalane",
+   "name": "Squalane",
+   "group": "A",
+   "groupName": "Hydrators",
+   "mechanism": "Pull moisture into the skin's outer and middle layers to plump and smooth texture.",
+   "aliases": [
+    "squalane",
+    "squalene"
+   ]
+  },
+  {
+   "code": "active_centella_asiatica",
+   "name": "Centella Asiatica",
+   "group": "A",
+   "groupName": "Hydrators",
+   "mechanism": "Pull moisture into the skin's outer and middle layers to plump and smooth texture.",
+   "aliases": [
+    "centella",
+    "cica",
+    "centella asiatica",
+    "tiger grass",
+    "gotu kola"
+   ]
+  },
+  {
+   "code": "active_aloe_vera",
+   "name": "Aloe Vera",
+   "group": "A",
+   "groupName": "Hydrators",
+   "mechanism": "Pull moisture into the skin's outer and middle layers to plump and smooth texture.",
+   "aliases": [
+    "aloe vera",
+    "aloe",
+    "aloe barbadensis"
+   ]
+  },
+  {
+   "code": "active_allantoin",
+   "name": "Allantoin",
+   "group": "A",
+   "groupName": "Hydrators",
+   "mechanism": "Pull moisture into the skin's outer and middle layers to plump and smooth texture.",
+   "aliases": [
+    "allantoin"
+   ]
+  },
+  {
+   "code": "active_snail_mucin",
+   "name": "Snail Mucin",
+   "group": "A",
+   "groupName": "Hydrators",
+   "mechanism": "Pull moisture into the skin's outer and middle layers to plump and smooth texture.",
+   "aliases": [
+    "snail mucin",
+    "snail filtrate",
+    "snail secretion"
+   ]
+  },
+  {
+   "code": "active_amino_acids",
+   "name": "Amino Acids",
+   "group": "A",
+   "groupName": "Hydrators",
+   "mechanism": "Pull moisture into the skin's outer and middle layers to plump and smooth texture.",
+   "aliases": [
+    "amino acids",
+    "arginine",
+    "glycine",
+    "alanine"
+   ]
+  },
+  {
+   "code": "active_sodium_pca",
+   "name": "Sodium PCA",
+   "group": "A",
+   "groupName": "Hydrators",
+   "mechanism": "Pull moisture into the skin's outer and middle layers to plump and smooth texture.",
+   "aliases": [
+    "sodium pca",
+    "pca"
+   ]
+  },
+  {
+   "code": "active_vitamin_c_pure",
+   "name": "L-Ascorbic Acid",
+   "group": "B",
+   "groupName": "Antioxidants",
+   "mechanism": "Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",
+   "aliases": [
+    "vitamin c",
+    "l-ascorbic acid",
+    "ascorbic acid",
+    "ascorbyl palmitate"
+   ]
+  },
+  {
+   "code": "active_vitamin_c_derivative",
+   "name": "Stabilised Vitamin C Derivative",
+   "group": "B",
+   "groupName": "Antioxidants",
+   "mechanism": "Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",
+   "aliases": [
+    "thd ascorbate",
+    "tetrahexyldecyl ascorbate",
+    "vitamin c derivative"
+   ]
+  },
+  {
+   "code": "active_vitamin_e",
+   "name": "Vitamin E",
+   "group": "B",
+   "groupName": "Antioxidants",
+   "mechanism": "Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",
+   "aliases": [
+    "tocopherol",
+    "vitamin e",
+    "tocopheryl acetate"
+   ]
+  },
+  {
+   "code": "active_ferulic_acid",
+   "name": "Ferulic Acid",
+   "group": "B",
+   "groupName": "Antioxidants",
+   "mechanism": "Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",
+   "aliases": [
+    "ferulic acid",
+    "ferulic"
+   ]
+  },
+  {
+   "code": "active_resveratrol",
+   "name": "Resveratrol",
+   "group": "B",
+   "groupName": "Antioxidants",
+   "mechanism": "Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",
+   "aliases": [
+    "resveratrol"
+   ]
+  },
+  {
+   "code": "active_green_tea",
+   "name": "Green Tea Extract",
+   "group": "B",
+   "groupName": "Antioxidants",
+   "mechanism": "Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",
+   "aliases": [
+    "green tea",
+    "camellia sinensis",
+    "egcg"
+   ]
+  },
+  {
+   "code": "active_coenzyme_q10",
+   "name": "Coenzyme Q10",
+   "group": "B",
+   "groupName": "Antioxidants",
+   "mechanism": "Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",
+   "aliases": [
+    "coenzyme q10",
+    "coq10",
+    "ubiquinone"
+   ]
+  },
+  {
+   "code": "active_idebenone",
+   "name": "Idebenone",
+   "group": "B",
+   "groupName": "Antioxidants",
+   "mechanism": "Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",
+   "aliases": [
+    "idebenone"
+   ]
+  },
+  {
+   "code": "active_alpha_lipoic_acid",
+   "name": "Alpha Lipoic Acid",
+   "group": "B",
+   "groupName": "Antioxidants",
+   "mechanism": "Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",
+   "aliases": [
+    "alpha lipoic acid",
+    "ala",
+    "thioctic acid"
+   ]
+  },
+  {
+   "code": "active_astaxanthin",
+   "name": "Astaxanthin",
+   "group": "B",
+   "groupName": "Antioxidants",
+   "mechanism": "Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",
+   "aliases": [
+    "astaxanthin"
+   ]
+  },
+  {
+   "code": "active_silymarin",
+   "name": "Silymarin",
+   "group": "B",
+   "groupName": "Antioxidants",
+   "mechanism": "Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",
+   "aliases": [
+    "silymarin",
+    "milk thistle"
+   ]
+  },
+  {
+   "code": "active_pycnogenol",
+   "name": "Pycnogenol",
+   "group": "B",
+   "groupName": "Antioxidants",
+   "mechanism": "Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",
+   "aliases": [
+    "pycnogenol",
+    "pine bark extract"
+   ]
+  },
+  {
+   "code": "active_bha_salicylic",
+   "name": "Salicylic Acid (BHA)",
+   "group": "C",
+   "groupName": "Resurfacing & Exfoliating Acids",
+   "mechanism": "Dissolve dead skin cells, clear out pores, and speed up cell turnover.",
+   "aliases": [
+    "salicylic acid",
+    "salicylic",
+    "bha",
+    "beta hydroxy acid"
+   ]
+  },
+  {
+   "code": "active_aha_glycolic",
+   "name": "Glycolic Acid (AHA)",
+   "group": "C",
+   "groupName": "Resurfacing & Exfoliating Acids",
+   "mechanism": "Dissolve dead skin cells, clear out pores, and speed up cell turnover.",
+   "aliases": [
+    "glycolic acid",
+    "glycolic",
+    "aha"
+   ]
+  },
+  {
+   "code": "active_aha_lactic",
+   "name": "Lactic Acid (AHA)",
+   "group": "C",
+   "groupName": "Resurfacing & Exfoliating Acids",
+   "mechanism": "Dissolve dead skin cells, clear out pores, and speed up cell turnover.",
+   "aliases": [
+    "lactic acid",
+    "lactic"
+   ]
+  },
+  {
+   "code": "active_aha_mandelic",
+   "name": "Mandelic Acid (AHA)",
+   "group": "C",
+   "groupName": "Resurfacing & Exfoliating Acids",
+   "mechanism": "Dissolve dead skin cells, clear out pores, and speed up cell turnover.",
+   "aliases": [
+    "mandelic acid",
+    "mandelic"
+   ]
+  },
+  {
+   "code": "active_pha_gluconolactone",
+   "name": "Gluconolactone (PHA)",
+   "group": "C",
+   "groupName": "Resurfacing & Exfoliating Acids",
+   "mechanism": "Dissolve dead skin cells, clear out pores, and speed up cell turnover.",
+   "aliases": [
+    "gluconolactone",
+    "pha",
+    "polyhydroxy acid"
+   ]
+  },
+  {
+   "code": "active_pha_lactobionic",
+   "name": "Lactobionic Acid (PHA)",
+   "group": "C",
+   "groupName": "Resurfacing & Exfoliating Acids",
+   "mechanism": "Dissolve dead skin cells, clear out pores, and speed up cell turnover.",
+   "aliases": [
+    "lactobionic acid",
+    "bionic acid"
+   ]
+  },
+  {
+   "code": "active_azelaic_acid",
+   "name": "Azelaic Acid",
+   "group": "C",
+   "groupName": "Resurfacing & Exfoliating Acids",
+   "mechanism": "Dissolve dead skin cells, clear out pores, and speed up cell turnover.",
+   "aliases": [
+    "azelaic acid",
+    "azelaic",
+    "finacea",
+    "azclear"
+   ]
+  },
+  {
+   "code": "active_lha",
+   "name": "Lipohydroxy Acid",
+   "group": "C",
+   "groupName": "Resurfacing & Exfoliating Acids",
+   "mechanism": "Dissolve dead skin cells, clear out pores, and speed up cell turnover.",
+   "aliases": [
+    "lha",
+    "capryloyl salicylic acid"
+   ]
+  },
+  {
+   "code": "active_citric_acid",
+   "name": "Citric Acid",
+   "group": "C",
+   "groupName": "Resurfacing & Exfoliating Acids",
+   "mechanism": "Dissolve dead skin cells, clear out pores, and speed up cell turnover.",
+   "aliases": [
+    "citric acid"
+   ]
+  },
+  {
+   "code": "active_malic_acid",
+   "name": "Malic Acid",
+   "group": "C",
+   "groupName": "Resurfacing & Exfoliating Acids",
+   "mechanism": "Dissolve dead skin cells, clear out pores, and speed up cell turnover.",
+   "aliases": [
+    "malic acid",
+    "apple acid"
+   ]
+  },
+  {
+   "code": "active_tartaric_acid",
+   "name": "Tartaric Acid",
+   "group": "C",
+   "groupName": "Resurfacing & Exfoliating Acids",
+   "mechanism": "Dissolve dead skin cells, clear out pores, and speed up cell turnover.",
+   "aliases": [
+    "tartaric acid"
+   ]
+  },
+  {
+   "code": "active_tranexamic_acid",
+   "name": "Tranexamic Acid",
+   "group": "C",
+   "groupName": "Resurfacing & Exfoliating Acids",
+   "mechanism": "Dissolve dead skin cells, clear out pores, and speed up cell turnover.",
+   "aliases": [
+    "tranexamic acid",
+    "txa topical"
+   ]
+  },
+  {
+   "code": "active_kojic_acid",
+   "name": "Kojic Acid",
+   "group": "C",
+   "groupName": "Resurfacing & Exfoliating Acids",
+   "mechanism": "Dissolve dead skin cells, clear out pores, and speed up cell turnover.",
+   "aliases": [
+    "kojic acid"
+   ]
+  },
+  {
+   "code": "active_retinol",
+   "name": "Retinol",
+   "group": "D",
+   "groupName": "Cell-Communicating & Anti-Aging Agents",
+   "mechanism": "Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",
+   "aliases": [
+    "retinol",
+    "retinyl palmitate",
+    "otc retinoid"
+   ]
+  },
+  {
+   "code": "active_retinal",
+   "name": "Retinaldehyde",
+   "group": "D",
+   "groupName": "Cell-Communicating & Anti-Aging Agents",
+   "mechanism": "Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",
+   "aliases": [
+    "retinal",
+    "retinaldehyde",
+    "crystal retinal"
+   ]
+  },
+  {
+   "code": "active_granactive_retinoid",
+   "name": "Next-Gen Retinoid Ester",
+   "group": "D",
+   "groupName": "Cell-Communicating & Anti-Aging Agents",
+   "mechanism": "Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",
+   "aliases": [
+    "granactive retinoid",
+    "hydroxypinacolone retinoate",
+    "hpr"
+   ]
+  },
+  {
+   "code": "active_bakuchiol",
+   "name": "Plant-Derived Retinol Alternative",
+   "group": "D",
+   "groupName": "Cell-Communicating & Anti-Aging Agents",
+   "mechanism": "Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",
+   "aliases": [
+    "bakuchiol"
+   ]
+  },
+  {
+   "code": "active_niacinamide",
+   "name": "Niacinamide",
+   "group": "D",
+   "groupName": "Cell-Communicating & Anti-Aging Agents",
+   "mechanism": "Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",
+   "aliases": [
+    "niacinamide",
+    "vitamin b3",
+    "nicotinamide"
+   ]
+  },
+  {
+   "code": "active_peptides",
+   "name": "Peptide Complexes",
+   "group": "D",
+   "groupName": "Cell-Communicating & Anti-Aging Agents",
+   "mechanism": "Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",
+   "aliases": [
+    "peptides",
+    "matrixyl",
+    "argireline",
+    "copper peptides",
+    "copper tripeptide"
+   ]
+  },
+  {
+   "code": "active_ceramides",
+   "name": "Ceramides",
+   "group": "D",
+   "groupName": "Cell-Communicating & Anti-Aging Agents",
+   "mechanism": "Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",
+   "aliases": [
+    "ceramides",
+    "ceramide np",
+    "ceramide ap",
+    "ceramide eop"
+   ]
+  },
+  {
+   "code": "active_growth_factors",
+   "name": "Growth Factors / Cytokines",
+   "group": "D",
+   "groupName": "Cell-Communicating & Anti-Aging Agents",
+   "mechanism": "Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",
+   "aliases": [
+    "growth factors",
+    "egf",
+    "human growth factors"
+   ]
+  },
+  {
+   "code": "active_adenosine",
+   "name": "Adenosine",
+   "group": "D",
+   "groupName": "Cell-Communicating & Anti-Aging Agents",
+   "mechanism": "Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",
+   "aliases": [
+    "adenosine"
+   ]
+  },
+  {
+   "code": "active_ginseng",
+   "name": "Ginseng Extract",
+   "group": "D",
+   "groupName": "Cell-Communicating & Anti-Aging Agents",
+   "mechanism": "Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",
+   "aliases": [
+    "ginseng",
+    "panax ginseng"
+   ]
+  },
+  {
+   "code": "active_sorbitol",
+   "name": "Sorbitol",
+   "group": "A",
+   "groupName": "Hydrators",
+   "mechanism": "Pull moisture into the skin's outer and middle layers to plump and smooth texture.",
+   "aliases": [
+    "sorbitol"
+   ]
+  },
+  {
+   "code": "active_honey",
+   "name": "Honey Extract",
+   "group": "A",
+   "groupName": "Hydrators",
+   "mechanism": "Pull moisture into the skin's outer and middle layers to plump and smooth texture.",
+   "aliases": [
+    "honey",
+    "raw honey",
+    "manuka honey"
+   ]
+  },
+  {
+   "code": "active_beta_carotene",
+   "name": "Beta Carotene",
+   "group": "B",
+   "groupName": "Antioxidants",
+   "mechanism": "Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",
+   "aliases": [
+    "beta carotene",
+    "pro-vitamin a"
+   ]
+  },
+  {
+   "code": "active_sodium_lactate",
+   "name": "Sodium Lactate",
+   "group": "A",
+   "groupName": "Hydrators",
+   "mechanism": "Pull moisture into the skin's outer and middle layers to plump and smooth texture.",
+   "aliases": [
+    "sodium lactate"
+   ]
+  },
+  {
+   "code": "active_betaine",
+   "name": "Betaine",
+   "group": "A",
+   "groupName": "Hydrators",
+   "mechanism": "Pull moisture into the skin's outer and middle layers to plump and smooth texture.",
+   "aliases": [
+    "betaine"
+   ]
+  },
+  {
+   "code": "active_birch_sap",
+   "name": "Birch Sap",
+   "group": "A",
+   "groupName": "Hydrators",
+   "mechanism": "Pull moisture into the skin's outer and middle layers to plump and smooth texture.",
+   "aliases": [
+    "birch sap"
+   ]
+  },
+  {
+   "code": "active_superoxide_dismutase",
+   "name": "Superoxide Dismutase",
+   "group": "B",
+   "groupName": "Antioxidants",
+   "mechanism": "Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",
+   "aliases": [
+    "superoxide dismutase",
+    "sod"
+   ]
+  },
+  {
+   "code": "active_curcumin",
+   "name": "Curcumin",
+   "group": "B",
+   "groupName": "Antioxidants",
+   "mechanism": "Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",
+   "aliases": [
+    "curcumin",
+    "turmeric extract"
+   ]
+  },
+  {
+   "code": "active_peptide_palmitoyl",
+   "name": "Signal Peptide",
+   "group": "D",
+   "groupName": "Cell-Communicating & Anti-Aging Agents",
+   "mechanism": "Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",
+   "aliases": [
+    "palmitoyl pentapeptide-4",
+    "matrixyl"
+   ]
+  },
+  {
+   "code": "active_peptide_acetyl_hexapeptide",
+   "name": "Neurotransmitter Peptide",
+   "group": "D",
+   "groupName": "Cell-Communicating & Anti-Aging Agents",
+   "mechanism": "Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",
+   "aliases": [
+    "acetyl hexapeptide-8",
+    "argireline"
+   ]
+  },
+  {
+   "code": "active_peptide_myristoyl_nonapeptide",
+   "name": "Biomimetic Peptide",
+   "group": "D",
+   "groupName": "Cell-Communicating & Anti-Aging Agents",
+   "mechanism": "Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",
+   "aliases": [
+    "myristoyl nonapeptide-3"
+   ]
+  },
+  {
+   "code": "active_pentylene_glycol",
+   "name": "Pentylene Glycol",
+   "group": "A",
+   "groupName": "Hydrators",
+   "mechanism": "Pull moisture into the skin's outer and middle layers to plump and smooth texture.",
+   "aliases": [
+    "pentylene glycol"
+   ]
+  },
+  {
+   "code": "active_xylitol",
+   "name": "Xylitol",
+   "group": "A",
+   "groupName": "Hydrators",
+   "mechanism": "Pull moisture into the skin's outer and middle layers to plump and smooth texture.",
+   "aliases": [
+    "xylitol"
+   ]
+  },
+  {
+   "code": "active_trehalose",
+   "name": "Trehalose",
+   "group": "A",
+   "groupName": "Hydrators",
+   "mechanism": "Pull moisture into the skin's outer and middle layers to plump and smooth texture.",
+   "aliases": [
+    "trehalose"
+   ]
+  },
+  {
+   "code": "active_ectoin",
+   "name": "Ectoin",
+   "group": "A",
+   "groupName": "Hydrators",
+   "mechanism": "Pull moisture into the skin's outer and middle layers to plump and smooth texture.",
+   "aliases": [
+    "ectoin"
+   ]
+  },
+  {
+   "code": "active_saccharide_isomerate",
+   "name": "Saccharide Isomerate",
+   "group": "A",
+   "groupName": "Hydrators",
+   "mechanism": "Pull moisture into the skin's outer and middle layers to plump and smooth texture.",
+   "aliases": [
+    "saccharide isomerate"
+   ]
+  },
+  {
+   "code": "active_cholesterol",
+   "name": "Cholesterol",
+   "group": "A",
+   "groupName": "Hydrators",
+   "mechanism": "Pull moisture into the skin's outer and middle layers to plump and smooth texture.",
+   "aliases": [
+    "cholesterol"
+   ]
+  },
+  {
+   "code": "active_phytosphingosine",
+   "name": "Phytosphingosine",
+   "group": "A",
+   "groupName": "Hydrators",
+   "mechanism": "Pull moisture into the skin's outer and middle layers to plump and smooth texture.",
+   "aliases": [
+    "phytosphingosine"
+   ]
+  },
+  {
+   "code": "active_linoleic_acid",
+   "name": "Linoleic Acid",
+   "group": "A",
+   "groupName": "Hydrators",
+   "mechanism": "Pull moisture into the skin's outer and middle layers to plump and smooth texture.",
+   "aliases": [
+    "linoleic acid"
+   ]
+  },
+  {
+   "code": "active_sap",
+   "name": "Sodium Ascorbyl Phosphate",
+   "group": "B",
+   "groupName": "Antioxidants",
+   "mechanism": "Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",
+   "aliases": [
+    "sodium ascorbyl phosphate",
+    "sap"
+   ]
+  },
+  {
+   "code": "active_map",
+   "name": "Magnesium Ascorbyl Phosphate",
+   "group": "B",
+   "groupName": "Antioxidants",
+   "mechanism": "Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",
+   "aliases": [
+    "magnesium ascorbyl phosphate",
+    "map"
+   ]
+  },
+  {
+   "code": "active_ascorbyl_glucoside",
+   "name": "Ascorbyl Glucoside",
+   "group": "B",
+   "groupName": "Antioxidants",
+   "mechanism": "Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",
+   "aliases": [
+    "ascorbyl glucoside"
+   ]
+  },
+  {
+   "code": "active_ethyl_ascorbic_acid",
+   "name": "Ethyl Ascorbic Acid",
+   "group": "B",
+   "groupName": "Antioxidants",
+   "mechanism": "Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",
+   "aliases": [
+    "ethyl ascorbic acid",
+    "eaa"
+   ]
+  },
+  {
+   "code": "active_tocotrienols",
+   "name": "Tocotrienols",
+   "group": "B",
+   "groupName": "Antioxidants",
+   "mechanism": "Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",
+   "aliases": [
+    "tocotrienols"
+   ]
+  },
+  {
+   "code": "active_quercetin",
+   "name": "Quercetin",
+   "group": "B",
+   "groupName": "Antioxidants",
+   "mechanism": "Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",
+   "aliases": [
+    "quercetin"
+   ]
+  },
+  {
+   "code": "active_genistein",
+   "name": "Genistein",
+   "group": "B",
+   "groupName": "Antioxidants",
+   "mechanism": "Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",
+   "aliases": [
+    "genistein"
+   ]
+  },
+  {
+   "code": "active_phloretin",
+   "name": "Phloretin",
+   "group": "B",
+   "groupName": "Antioxidants",
+   "mechanism": "Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",
+   "aliases": [
+    "phloretin"
+   ]
+  },
+  {
+   "code": "active_lycopene",
+   "name": "Lycopene",
+   "group": "B",
+   "groupName": "Antioxidants",
+   "mechanism": "Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",
+   "aliases": [
+    "lycopene"
+   ]
+  },
+  {
+   "code": "active_lutein",
+   "name": "Lutein",
+   "group": "B",
+   "groupName": "Antioxidants",
+   "mechanism": "Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",
+   "aliases": [
+    "lutein"
+   ]
+  },
+  {
+   "code": "active_caffeine",
+   "name": "Caffeine",
+   "group": "B",
+   "groupName": "Antioxidants",
+   "mechanism": "Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",
+   "aliases": [
+    "caffeine"
+   ]
+  },
+  {
+   "code": "active_ergothioneine",
+   "name": "Ergothioneine",
+   "group": "B",
+   "groupName": "Antioxidants",
+   "mechanism": "Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",
+   "aliases": [
+    "ergothioneine"
+   ]
+  },
+  {
+   "code": "active_glutathione",
+   "name": "Glutathione",
+   "group": "B",
+   "groupName": "Antioxidants",
+   "mechanism": "Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",
+   "aliases": [
+    "glutathione"
+   ]
+  },
+  {
+   "code": "active_melatonin",
+   "name": "Melatonin",
+   "group": "B",
+   "groupName": "Antioxidants",
+   "mechanism": "Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",
+   "aliases": [
+    "melatonin"
+   ]
+  },
+  {
+   "code": "active_pqq",
+   "name": "PQQ",
+   "group": "B",
+   "groupName": "Antioxidants",
+   "mechanism": "Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",
+   "aliases": [
+    "pqq",
+    "pyrroloquinoline quinone"
+   ]
+  },
+  {
+   "code": "active_betaine_salicylate",
+   "name": "Betaine Salicylate",
+   "group": "C",
+   "groupName": "Resurfacing & Exfoliating Acids",
+   "mechanism": "Dissolve dead skin cells, clear out pores, and speed up cell turnover.",
+   "aliases": [
+    "betaine salicylate"
+   ]
+  },
+  {
+   "code": "active_galactose",
+   "name": "Galactose Derivatives",
+   "group": "C",
+   "groupName": "Resurfacing & Exfoliating Acids",
+   "mechanism": "Dissolve dead skin cells, clear out pores, and speed up cell turnover.",
+   "aliases": [
+    "galactose derivatives"
+   ]
+  },
+  {
+   "code": "active_succinic_acid",
+   "name": "Succinic Acid",
+   "group": "C",
+   "groupName": "Resurfacing & Exfoliating Acids",
+   "mechanism": "Dissolve dead skin cells, clear out pores, and speed up cell turnover.",
+   "aliases": [
+    "succinic acid"
+   ]
+  },
+  {
+   "code": "active_pyruvic_acid",
+   "name": "Pyruvic Acid",
+   "group": "C",
+   "groupName": "Resurfacing & Exfoliating Acids",
+   "mechanism": "Dissolve dead skin cells, clear out pores, and speed up cell turnover.",
+   "aliases": [
+    "pyruvic acid"
+   ]
+  },
+  {
+   "code": "active_papain",
+   "name": "Papain Enzyme",
+   "group": "C",
+   "groupName": "Resurfacing & Exfoliating Acids",
+   "mechanism": "Dissolve dead skin cells, clear out pores, and speed up cell turnover.",
+   "aliases": [
+    "papain",
+    "papaya extract"
+   ]
+  },
+  {
+   "code": "active_bromelain",
+   "name": "Bromelain Enzyme",
+   "group": "C",
+   "groupName": "Resurfacing & Exfoliating Acids",
+   "mechanism": "Dissolve dead skin cells, clear out pores, and speed up cell turnover.",
+   "aliases": [
+    "bromelain",
+    "pineapple extract"
+   ]
+  },
+  {
+   "code": "active_pumpkin_enzymes",
+   "name": "Pumpkin Enzyme",
+   "group": "C",
+   "groupName": "Resurfacing & Exfoliating Acids",
+   "mechanism": "Dissolve dead skin cells, clear out pores, and speed up cell turnover.",
+   "aliases": [
+    "pumpkin enzymes"
+   ]
+  },
+  {
+   "code": "active_bacillus_ferment",
+   "name": "Bacillus Ferment Enzyme",
+   "group": "C",
+   "groupName": "Resurfacing & Exfoliating Acids",
+   "mechanism": "Dissolve dead skin cells, clear out pores, and speed up cell turnover.",
+   "aliases": [
+    "bacillus ferment enzymes"
+   ]
+  },
+  {
+   "code": "active_retinyl_propionate",
+   "name": "Retinyl Propionate",
+   "group": "D",
+   "groupName": "Cell-Communicating & Anti-Aging Agents",
+   "mechanism": "Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",
+   "aliases": [
+    "retinyl propionate"
+   ]
+  },
+  {
+   "code": "active_palmitoyl_tripeptide_1",
+   "name": "Palmitoyl Tripeptide-1",
+   "group": "D",
+   "groupName": "Cell-Communicating & Anti-Aging Agents",
+   "mechanism": "Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",
+   "aliases": [
+    "palmitoyl tripeptide-1"
+   ]
+  },
+  {
+   "code": "active_palmitoyl_tetrapeptide_7",
+   "name": "Palmitoyl Tetrapeptide-7",
+   "group": "D",
+   "groupName": "Cell-Communicating & Anti-Aging Agents",
+   "mechanism": "Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",
+   "aliases": [
+    "palmitoyl tetrapeptide-7"
+   ]
+  },
+  {
+   "code": "active_syn_ake",
+   "name": "Syn-Ake Peptide",
+   "group": "D",
+   "groupName": "Cell-Communicating & Anti-Aging Agents",
+   "mechanism": "Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",
+   "aliases": [
+    "syn-ake",
+    "dipeptide diaminobutyroyl benzylamide diacetate"
+   ]
+  },
+  {
+   "code": "active_madecassoside",
+   "name": "Madecassoside",
+   "group": "D",
+   "groupName": "Cell-Communicating & Anti-Aging Agents",
+   "mechanism": "Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",
+   "aliases": [
+    "madecassoside"
+   ]
+  },
+  {
+   "code": "active_asiaticoside",
+   "name": "Asiaticoside",
+   "group": "D",
+   "groupName": "Cell-Communicating & Anti-Aging Agents",
+   "mechanism": "Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",
+   "aliases": [
+    "asiaticoside"
+   ]
+  },
+  {
+   "code": "active_fgf",
+   "name": "Fibroblast Growth Factor",
+   "group": "D",
+   "groupName": "Cell-Communicating & Anti-Aging Agents",
+   "mechanism": "Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",
+   "aliases": [
+    "fgf",
+    "fibroblast growth factor"
+   ]
+  },
+  {
+   "code": "active_tgf_beta",
+   "name": "TGF-beta",
+   "group": "D",
+   "groupName": "Cell-Communicating & Anti-Aging Agents",
+   "mechanism": "Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",
+   "aliases": [
+    "tgf-beta",
+    "transforming growth factor beta"
+   ]
+  },
+  {
+   "code": "active_exosomes",
+   "name": "Exosomes",
+   "group": "D",
+   "groupName": "Cell-Communicating & Anti-Aging Agents",
+   "mechanism": "Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",
+   "aliases": [
+    "exosomes"
+   ]
+  },
+  {
+   "code": "active_pdrn",
+   "name": "PDRN",
+   "group": "D",
+   "groupName": "Cell-Communicating & Anti-Aging Agents",
+   "mechanism": "Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",
+   "aliases": [
+    "pdrn",
+    "polydeoxyribonucleotide",
+    "salmon dna"
+   ]
+  },
+  {
+   "code": "active_licorice_root",
+   "name": "Licorice Root Extract",
+   "group": "D",
+   "groupName": "Cell-Communicating & Anti-Aging Agents",
+   "mechanism": "Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",
+   "aliases": [
+    "licorice root extract"
+   ]
+  },
+  {
+   "code": "active_undecylenoyl_phenylalanine",
+   "name": "Undecylenoyl Phenylalanine",
+   "group": "D",
+   "groupName": "Cell-Communicating & Anti-Aging Agents",
+   "mechanism": "Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",
+   "aliases": [
+    "undecylenoyl phenylalanine"
+   ]
+  },
+  {
+   "code": "active_dmae",
+   "name": "DMAE",
+   "group": "D",
+   "groupName": "Cell-Communicating & Anti-Aging Agents",
+   "mechanism": "Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",
+   "aliases": [
+    "dmae"
+   ]
+  },
+  {
+   "code": "active_carnosine",
+   "name": "Carnosine",
+   "group": "D",
+   "groupName": "Cell-Communicating & Anti-Aging Agents",
+   "mechanism": "Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",
+   "aliases": [
+    "carnosine"
+   ]
+  },
+  {
+   "code": "active_acetyl_zingerone",
+   "name": "Acetyl Zingerone",
+   "group": "D",
+   "groupName": "Cell-Communicating & Anti-Aging Agents",
+   "mechanism": "Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",
+   "aliases": [
+    "acetyl zingerone"
+   ]
+  },
+  {
+   "code": "active_spermidine",
+   "name": "Spermidine",
+   "group": "D",
+   "groupName": "Cell-Communicating & Anti-Aging Agents",
+   "mechanism": "Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",
+   "aliases": [
+    "spermidine"
+   ]
+  },
+  {
+   "code": "active_alpha_glucan",
+   "name": "Alpha-Glucan",
+   "group": "A",
+   "groupName": "Hydrators",
+   "mechanism": "Pull moisture into the skin's outer and middle layers to plump and smooth texture.",
+   "aliases": [
+    "alpha-glucan"
+   ]
+  },
+  {
+   "code": "active_niacin",
+   "name": "Niacin",
+   "group": "B",
+   "groupName": "Antioxidants",
+   "mechanism": "Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",
+   "aliases": [
+    "niacin"
+   ]
+  },
+  {
+   "code": "active_grape_seed",
+   "name": "Grape Seed Extract",
+   "group": "B",
+   "groupName": "Antioxidants",
+   "mechanism": "Neutralize free radicals caused by UV rays and pollution, helping to prevent brown spots and stimulate collagen production.",
+   "aliases": [
+    "grape seed extract"
+   ]
+  },
+  {
+   "code": "active_zinc_pyrithione",
+   "name": "Zinc Pyrithione",
+   "group": "C",
+   "groupName": "Resurfacing & Exfoliating Acids",
+   "mechanism": "Dissolve dead skin cells, clear out pores, and speed up cell turnover.",
+   "aliases": [
+    "zinc pyrithione"
+   ]
+  },
+  {
+   "code": "active_selenium_sulfide",
+   "name": "Selenium Sulfide",
+   "group": "C",
+   "groupName": "Resurfacing & Exfoliating Acids",
+   "mechanism": "Dissolve dead skin cells, clear out pores, and speed up cell turnover.",
+   "aliases": [
+    "selenium sulfide"
+   ]
+  },
+  {
+   "code": "active_sulfur",
+   "name": "Sulfur",
+   "group": "C",
+   "groupName": "Resurfacing & Exfoliating Acids",
+   "mechanism": "Dissolve dead skin cells, clear out pores, and speed up cell turnover.",
+   "aliases": [
+    "sulfur"
+   ]
+  },
+  {
+   "code": "active_coal_tar_exfoliant",
+   "name": "Coal Tar (Keratolytic)",
+   "group": "C",
+   "groupName": "Resurfacing & Exfoliating Acids",
+   "mechanism": "Dissolve dead skin cells, clear out pores, and speed up cell turnover.",
+   "aliases": [
+    "coal tar"
+   ]
+  },
+  {
+   "code": "active_pdgf",
+   "name": "Platelet-Derived Growth Factor",
+   "group": "D",
+   "groupName": "Cell-Communicating & Anti-Aging Agents",
+   "mechanism": "Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",
+   "aliases": [
+    "pdgf",
+    "platelet-derived growth factor"
+   ]
+  },
+  {
+   "code": "active_ginkgo_biloba",
+   "name": "Ginkgo Biloba Extract",
+   "group": "D",
+   "groupName": "Cell-Communicating & Anti-Aging Agents",
+   "mechanism": "Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",
+   "aliases": [
+    "ginkgo biloba"
+   ]
+  },
+  {
+   "code": "active_azeloyl_pentapeptide",
+   "name": "Azeloyl Penta-Peptide",
+   "group": "D",
+   "groupName": "Cell-Communicating & Anti-Aging Agents",
+   "mechanism": "Signal skin cells to behave more youthfully, reduce inflammation, strengthen the skin barrier, and minimize fine lines.",
+   "aliases": [
+    "azeloyl penta-peptide"
+   ]
+  }
+ ]
+}

@@ -10,7 +10,7 @@
 export const FAQS = [
   {
     q: "Is AetherSkin free?",
-    a: "Yes. Joining the waitlist, taking the skin quiz, and getting your scan results at launch all cost nothing. There is no card field anywhere on this site. AetherSkin earns an affiliate commission when you buy a recommended product, which never changes your price.",
+    a: "Yes. Joining the waitlist, taking the skin quiz, and getting your scan results at launch all cost nothing. AetherSkin earns an affiliate commission when you buy a recommended product, which never changes your price.",
   },
   {
     q: "How does the AI skin analysis work?",

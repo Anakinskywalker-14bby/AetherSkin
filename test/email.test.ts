@@ -9,7 +9,10 @@ import {
   quizCompleteEmail,
   sendVerificationEmail,
   sendQuizCompleteEmail,
+  founderNoteEmail,
+  sendFounderNoteEmail,
 } from "@/lib/email";
+import { FOUNDER_NOTE } from "@/lib/founder-note";
 import { getSiteUrl } from "@/lib/utils";
 
 describe("escapeHtml", () => {
@@ -83,6 +86,29 @@ describe("send()", () => {
     expect(count).toHaveBeenCalledWith("email.delivery", 1, {
       attributes: { result: "sent", sender: "sandbox" },
     });
+  });
+
+  it("founder's note: same words as the site, queued two minutes ahead, no quiz link", async () => {
+    const html = founderNoteEmail();
+    for (const para of FOUNDER_NOTE.paragraphs) {
+      for (const seg of para) expect(html).toContain(escapeHtml(seg.t));
+    }
+    expect(html).toContain("Khaleed");
+    expect(html).not.toContain("/verify?token=");
+    expect(html).toContain("unsubscribe");
+
+    process.env.RESEND_API_KEY = "test-key";
+    const fetchMock = vi.fn().mockResolvedValue({ ok: true });
+    vi.stubGlobal("fetch", fetchMock);
+    const before = Date.now();
+    await sendFounderNoteEmail("a@b.co");
+    const body = JSON.parse(fetchMock.mock.calls[0][1].body);
+    const delay = Date.parse(body.scheduled_at) - before;
+    expect(delay).toBeGreaterThanOrEqual(119_000);
+    expect(delay).toBeLessThan(125_000);
+    // Emails that should arrive straight away carry no schedule.
+    await sendVerificationEmail("a@b.co", "tok");
+    expect(JSON.parse(fetchMock.mock.calls[1][1].body).scheduled_at).toBeUndefined();
   });
 
   it("never leaks the API key into the request URL", async () => {

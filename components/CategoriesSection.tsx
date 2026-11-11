@@ -10,7 +10,7 @@ const playfair = Playfair_Display({ subsets: ["latin"], weight: ["600"], style: 
 // `lead` is set in the hero's sans; `kicker` in its italic serif.
 const CATEGORIES = [
   { name: "face", video: "/categories/face.mp4", poster: "/categories/face.jpg", lead: "Know what your skin", kicker: "is doing!" },
-  { name: "wellness", video: "/categories/supplements.mp4", poster: "/categories/supplements.jpg", lead: "Clear skin", kicker: "from within!" },
+  { name: "wellness", video: "/categories/supplements.mp4", poster: "/categories/supplements.jpg", lead: "Habits count", kicker: "as much as products!" },
   { name: "body", video: "/categories/body.mp4", poster: "/categories/body.jpg", lead: "Buzzwords are marketing!", kicker: "Your skin is real!" },
 ];
 

@@ -28,6 +28,7 @@ function v3Migrations() {
   return [
     "supabase/migrations/20261021000002_quiz_v3.sql",
     "supabase/migrations/20261104000001_quiz_v3_about_you.sql",
+    "supabase/migrations/20261110000001_routine_complexity_none.sql",
   ]
     .map((f) => readFileSync(join(process.cwd(), f), "utf8"))
     .join("\n");
@@ -118,7 +119,7 @@ describe("quiz definition (the dataset schema)", () => {
     expect(scales).toEqual({
       sunscreen_frequency: [0, 1, 2, 3],
       stress_level: [1, 2, 3, 4, 5],
-      routine_complexity: [0, 1, 2],
+      routine_complexity: [-1, 0, 1, 2],
       sugar_intake: [0, 1, 2, 3, 4],
       dairy_intake: [0, 1, 2, 3, 4],
       fruit_veg_intake: [0, 1, 2, 3, 4],

@@ -5,7 +5,9 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+// No whitespace, quotes, angle brackets, parentheses, commas, semicolons,
+// colons, brackets or backslashes: stops "Name<victim@x.com>" style addresses.
+const EMAIL_RE = /^[^\s@<>()[\]\\,;:"]+@[^\s@<>()[\]\\,;:"]+\.[^\s@<>()[\]\\,;:"]{2,}$/;
 
 export function isValidEmail(email: unknown): email is string {
   return typeof email === "string" && email.length <= 254 && EMAIL_RE.test(email);

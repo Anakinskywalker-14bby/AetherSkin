@@ -3,5 +3,9 @@ data/
 models/
 demo_output/
 *.csv
+# The three curated reference lists are source files, not exported data.
+!medication_reference_list.csv
+!allergy_reference_list.csv
+!active_ingredients_reference_list.csv
 __pycache__/
 .pytest_cache/

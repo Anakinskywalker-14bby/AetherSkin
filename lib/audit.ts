@@ -1,6 +1,7 @@
 import "server-only";
 
 import crypto from "node:crypto";
+import * as Sentry from "@sentry/nextjs";
 import { createAdminClient } from "@/lib/supabase/admin";
 
 /**
@@ -20,10 +21,32 @@ export type AuditEvent =
   | "quiz_rejected"
   | "rate_limited";
 
-const SALT = process.env.IP_HASH_SALT ?? "aetherskin-default-salt";
+let warnedNoSalt = false;
 
-export function hashPii(value: string): string {
-  return crypto.createHash("sha256").update(value + SALT).digest("hex");
+/**
+ * The salt for PII hashes. Deployed builds (production and previews, which
+ * share the database) refuse to hash without a real IP_HASH_SALT: a default
+ * salt is public in this repo, so anyone holding a DB dump could reverse the
+ * hashes by trying every IPv4 address or a list of emails (vbsec scan
+ * 2026-11-09, low). Storing no hash is safer than storing a reversible one.
+ * Local dev and tests fall back to a fixed salt so they work without config.
+ */
+function piiSalt(): string | null {
+  const salt = process.env.IP_HASH_SALT;
+  if (salt) return salt;
+  if (process.env.NODE_ENV !== "production") return "aetherskin-dev-salt";
+  if (!warnedNoSalt) {
+    warnedNoSalt = true;
+    Sentry.captureMessage("IP_HASH_SALT is not set; PII hashes are not being stored", "warning");
+  }
+  return null;
+}
+
+/** Salted SHA-256 of an email or IP, or null when no real salt is configured. */
+export function hashPii(value: string): string | null {
+  const salt = piiSalt();
+  if (!salt) return null;
+  return crypto.createHash("sha256").update(value + salt).digest("hex");
 }
 
 export async function audit(

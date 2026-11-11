@@ -1,0 +1,105 @@
+User Typed Text (Raw Note Variations),Model Input Variable,Class / Category
+"accutane, roaccutane, isotretinoin, isotret, oratane",med_isotretinoin,Oral Retinoid
+"spiro, spironolactone, aldactone",med_spironolactone,Oral Hormonal Anti-androgen
+"doxy, doxycycline, doryx, vibramycin",med_doxycycline,Oral Antibiotic (Tetracycline)
+"mino, minocycline, minocin",med_minocycline,Oral Antibiotic (Tetracycline)
+"lyme, lymecycline, tetralysal",med_lymecycline,Oral Antibiotic (Tetracycline)
+"erythromycin, erytab",med_erythromycin_oral,Oral Macrolide Antibiotic
+"birth control, pill, yasmin, yaz, diane 35, estarylla",med_oral_contraceptive,Oral Combined Contraceptive
+"metformin, glucophage",med_metformin,Oral Off-label Hormonal
+"prednisone, prednisolone, steroid pills",med_oral_steroid,Oral Corticosteroid
+"tret, tretinoin, retin-a, stieva-a, retrieve, cordran",med_topical_tretinoin,Topical Retinoid (First Gen)
+"adapalene, differin",med_topical_adapalene,Topical Retinoid (Third Gen)
+"tazarotene, tazorac, zorac",med_topical_tazarotene,Topical Retinoid (Third Gen)
+"trifarotene, aklief",med_topical_trifarotene,Topical Retinoid (Fourth Gen)
+"epiduo, adapalene bpo",med_topical_adapalene_bpo,Topical Retinoid + BPO Combo
+twyneo,med_topical_tretinoin_bpo,Topical Retinoid + BPO Combo
+"acnatac, zalna, clindamycin tretinoin",med_topical_clindamycin_tret,Topical Antibiotic + Retinoid
+"clindamycin, clinda, cleocin, dalacin",med_topical_clindamycin,Topical Antibiotic
+"erythromycin topical, erygel, akne-mycin",med_topical_erythromycin,Topical Antibiotic
+"aczone, dapsone",med_topical_dapsone,Topical Anti-inflammatory Sulfone
+"finacea, azelaic acid 15%, azelaic acid 20%, skinoren",med_topical_azelaic_rx,Topical High-Potency Azelaic
+"soolantra, ivermectin cream, rosiver",med_topical_ivermectin,Topical Anti-parasitic (Rosacea)
+"metrocream, metrogel, metronidazole",med_topical_metronidazole,Topical Nitroimidazole Antibiotic
+"hydroquinone, hq, eldoquin, melanex",med_topical_hydroquinone,Topical Tyrosinase Inhibitor
+"kligman, tri-luma, triple cream, hq tret dex",med_topical_triple_combination,Topical Pigmentation Combo
+"elidel, pimecrolimus",med_topical_pimecrolimus,Topical Calcineurin Inhibitor
+"protopic, tacrolimus",med_topical_tacrolimus,Topical Calcineurin Inhibitor
+"winlevi, clascoterone",med_topical_clascoterone,Topical Androgen Receptor Inhibitor
+"mirvaso, brimonidine tartrate",med_topical_brimonidine,Topical Vasoconstrictor (Rosacea)
+"rhofade, oxymetazoline",med_topical_oxymetazoline,Topical Vasoconstrictor (Rosacea)
+"fluorouracil, 5-fu, efudex",med_topical_fluorouracil,Topical Antimetabolite (Actinic)
+"imiquimod, aldara",med_topical_imiquimod,Topical Immune Response Modifier
+"klisyri, tirbanibulin",med_topical_tirbanibulin,Topical Microtubule Inhibitor
+"calcipotriol, daivonex",med_topical_calcipotriol,Topical Vitamin D Analogue
+"taltz, cosentyx, humira, stelara, skyrizi",med_systemic_biologic,Injection Systemic Biologic
+"methotrexate, mtx, trexall",med_methotrexate,Oral Antimetabolite / Immunosuppressant
+"cyclosporine, neoral",med_cyclosporine,Oral Immunosuppressant
+"acitretin, neotigason",med_oral_acitretin,Oral Retinoid (Psoriasis)
+"dapsone pills, dapsone oral",med_oral_dapsone,Oral Sulfone Antibacterial
+"tranexamic acid pills, txa oral",med_oral_tranexamic_acid,Oral Antifibrinolytic (Melasma)
+"valaciclovir, valtrex, acyclovir, zovirax pills",med_oral_antiviral,Oral Antiviral (Cold Sores)
+"terbinafine pills, lamisil oral, sporanox",med_oral_antfungal,Oral Antifungal
+"antihistamines, zyrtec, claratyne, cetirizine",med_oral_antihistamine,Oral H1 Antagonist (Hives/Eczema)
+"dupixent, dupilumab",med_injectable_dupilumab,Injection IL-4/IL-13 Inhibitor
+"hydrocortisone, hct, hydrocortisone acetate",med_topical_hydrocortisone,Topical Corticosteroid (Mild)
+"clobetasone, clobetasone butyrate, eumovate",med_topical_clobetasone,Topical Corticosteroid (Moderate)
+"betamethasone, betamethasone valerate, betnovate, diprosone",med_topical_betamethasone,Topical Corticosteroid (Potent)
+"clobetasol, clobetasol propionate, dermovate, clobex",med_topical_clobetasol,Topical Corticosteroid (Superpotent)
+"bpo, benzoyl peroxide, panoxyl, benzac",med_topical_benzoyl_peroxide,Topical Antimicrobial / Acne Agent
+"mupirocin, bactroban",med_topical_mupirocin,Topical Antibacterial (Impetigo)
+"clotrimazole, canesten",med_topical_clotrimazole,Topical Antifungal (Azole)
+"miconazole, daktarin",med_topical_miconazole,Topical Antifungal (Azole)
+"permethrin, lyclear, nix",med_topical_permethrin,Topical Scabicide / Anti-parasitic
+"azathioprine, imuran",med_oral_azathioprine,Oral Immunosuppressant
+"secukinumab, cosentyx",med_systemic_secukinumab,Injection IL-17A Inhibitor Biologic
+"etanercept, enbrel",med_systemic_etanercept,Injection TNF-Alpha Inhibitor Biologic
+"adalimumab, humira",med_systemic_adalimumab,Injection TNF-Alpha Inhibitor Biologic
+"ustekinumab, stelara",med_systemic_ustekinumab,Injection IL-12/IL-23 Inhibitor Biologic
+"certolizumab, cimzia",med_systemic_certolizumab,Injection PEGylated TNF-Alpha Inhibitor Biologic
+amcinonide,med_topical_amcinonide,Topical Corticosteroid (High Potency)
+betamethasone dipropionate,med_topical_betamethasone_dip,Topical Corticosteroid (Very High Potency)
+alitretinoin,med_oral_alitretinoin,Oral Retinoid (Hand Eczema)
+"itraconazole, sporanox",med_oral_itraconazole,Oral Antifungal (Azole)
+"fluconazole, diflucan",med_oral_fluconazole,Oral Antifungal (Azole)
+griseofulvin,med_oral_griseofulvin,Oral Antifungal
+"mycophenolate mofetil, cellcept",med_oral_mycophenolate,Oral Immunosuppressant
+"finasteride, propecia",med_oral_finasteride,Oral 5-Alpha Reductase Inhibitor
+"dutasteride, avodart",med_oral_dutasteride,Oral 5-Alpha Reductase Inhibitor
+"ixekizumab, taltz",med_systemic_ixekizumab,Injection IL-17A Inhibitor Biologic
+"sulfacetamide, sodium sulfacetamide",med_topical_sulfacetamide,Topical Antibacterial
+"sarecycline, seysara",med_oral_sarecycline,Oral Antibiotic (Tetracycline)
+mequinol,med_topical_mequinol,Topical Depigmenting Agent
+cysteamine,med_topical_cysteamine,Topical Depigmenting Agent
+alpha-arbutin,med_topical_alpha_arbutin,Topical Depigmenting Agent
+deoxyarbutin,med_topical_deoxyarbutin,Topical Depigmenting Agent
+"desonide, desowen",med_topical_desonide,Topical Corticosteroid (Low Potency)
+"fluocinolone, synalar",med_topical_fluocinolone,Topical Corticosteroid (Low/Medium Potency)
+"triamcinolone, kenalog",med_topical_triamcinolone,Topical Corticosteroid (Medium Potency)
+"mometasone, elocon",med_topical_mometasone,Topical Corticosteroid (Medium Potency)
+"ketoconazole, nizoral",med_topical_ketoconazole,Topical Antifungal (Azole)
+econazole,med_topical_econazole,Topical Antifungal (Azole)
+"ciclopirox, loprox, penlac",med_topical_ciclopirox,Topical Antifungal
+nystatin,med_topical_nystatin,Topical Antifungal
+"penciclovir, denavir",med_topical_penciclovir,Topical Antiviral
+"sucralfate, cicalfate",med_topical_sucralfate,Topical Barrier Repair
+"crisaborole, eucrisa",med_topical_crisaborole,Topical PDE4 Inhibitor
+"calcitriol, vectical",med_topical_calcitriol,Topical Vitamin D Analogue
+coal tar,med_topical_coal_tar,Topical Keratolytic / Anti-inflammatory
+capsaicin,med_topical_capsaicin,Topical Analgesic (PHN)
+"azithromycin, zithromax",med_oral_azithromycin,Oral Macrolide Antibiotic
+"trimethoprim/sulfamethoxazole, bactrim",med_oral_bactrim,Oral Antibiotic (Sulfonamide)
+"voriconazole, vfend",med_oral_voriconazole,Oral Antifungal (Azole)
+"famciclovir, famvir",med_oral_famciclovir,Oral Antiviral
+"methylprednisolone, medrol",med_oral_methylprednisolone,Oral Corticosteroid
+"hydroxychloroquine, plaquenil",med_oral_hydroxychloroquine,Oral Antimalarial (Off-label Dermatology)
+"thalidomide, thalomid",med_oral_thalidomide,Oral Immunomodulator
+"infliximab, remicade",med_systemic_infliximab,Injection TNF-Alpha Inhibitor Biologic
+"brodalumab, siliq",med_systemic_brodalumab,Injection IL-17 Receptor Antagonist Biologic
+"guselkumab, tremfya",med_systemic_guselkumab,Injection IL-23 Inhibitor Biologic
+"tildrakizumab, ilumya",med_systemic_tildrakizumab,Injection IL-23 Inhibitor Biologic
+"omalizumab, xolair",med_systemic_omalizumab,Injection IgE Blocker Biologic
+"abrocitinib, cibinqo",med_oral_abrocitinib,Oral JAK Inhibitor
+"upadacitinib, rinvoq",med_oral_upadacitinib,Oral JAK Inhibitor
+"ruxolitinib, opzelura",med_topical_ruxolitinib,Topical JAK Inhibitor
+"baricitinib, olumiant",med_oral_baricitinib,Oral JAK Inhibitor

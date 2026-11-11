@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   // image is a screenshot of the live hero (public/og-image.jpg).
   title: { absolute: "AetherSkin" },
   description:
-    "Skin analysis that matches you with products from brands you already love. Join the free waitlist (500 beta spots, no card) and take a 3-minute skin quiz; scanning opens at beta launch.",
+    "Skin analysis that matches you with products from brands you already love. Join the free waitlist (beta spots are open) and take a 3-minute skin quiz; scanning opens at beta launch.",
   alternates: { canonical: "/" },
   openGraph: {
     siteName: "AetherSkin",

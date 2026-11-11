@@ -133,15 +133,6 @@ export default function SiteFooter() {
   return (
     <footer id="footer" className="sf" aria-label="Footer">
       <FooterBackground holdRef={holdRef} />
-      <div className="sf-jobs">
-        <span className="sf-tag">get to know us</span>
-        <nav className="sf-headline sf-links" aria-label="Company">
-          <Link href="/about">About us</Link>
-          <Link href="/privacy">Privacy</Link>
-          <Link href="/terms">Terms &amp; Conditions</Link>
-        </nav>
-      </div>
-      <div className="sf-logo">AetherSkin</div>
       <div className="sf-contact">
         <span className="sf-tag">say hey</span>
         <div className="sf-headline sf-contact-links">
@@ -168,6 +159,11 @@ export default function SiteFooter() {
         </div>
       </div>
       <HeldSignup holdRef={holdRef} />
+      {/* Legal links sit at the very bottom, under the signup and socials. */}
+      <nav className="sf-legal" aria-label="Legal">
+        <Link href="/privacy">Privacy</Link>
+        <Link href="/terms">Terms &amp; Conditions</Link>
+      </nav>
     </footer>
   );
 }

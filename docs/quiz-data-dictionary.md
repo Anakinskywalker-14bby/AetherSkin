@@ -34,13 +34,20 @@ before this date simply have `NULL` in them.
 
 These five columns are written to the training CSV by `python -m aetherskin_ml export`
 (`EXTRA_COLUMNS` in `ml/aetherskin_ml/schema.py`; the owner has confirmed they may be
-used for training). They are **not** yet model features: the feature vector stays 28
-columns and the current models ignore them. Rows before 4 Nov 2026 have them empty.
-To use them in a model, build features deliberately (one-hot the three codes with an
-"unknown" level for old rows; the free-text notes need their own handling, for example
-a reviewed list of ingredient/medication names). The two notes are free text and are
-health information that could contain identifying detail: keep the CSV on a trusted
-machine, out of git, and delete it after training.
+used for training). Rows before 4 Nov 2026 have them empty. How the models use them:
+
+- `gender`: one-hot in **Model 1** (5 columns: the 4 codes plus `unknown`, which stands
+  in for every older row) and in **Model 2** as a control. Model 1 now has **33 inputs**.
+- `medication_use`: a 0/1 control (`yes` = 1; `no`/missing = 0) in **Model 2 only**, so
+  medication effects (for example isotretinoin) are not credited to lifestyle habits.
+  Model 2 reports the medication effect only when at least 30 people are on medication.
+- `allergy_status` / `allergy_details`: **never model inputs.** A typed allergy list is a
+  hard safety filter applied to the routine (`lib/routine/`), not something to learn from.
+- `medication_details`: not a model input either. The site reads it against the
+  reference lists (`ml/*_reference_list.csv`) to keep the routine safe.
+
+The two notes are free text and are health information that could contain identifying
+detail: keep the CSV on a trusted machine, out of git, and delete it after training.
 
 ## Part 1: categorical (one-hot, one 0/1 column per code)
 
@@ -57,7 +64,7 @@ machine, out of git, and delete it after training.
 | --- | --- |
 | `sunscreen_frequency` | 0 Never · 1 Rarely / only when sunny · 2 Once a day · 3 Multiple times a day |
 | `stress_level` | 1 Very low · 2 Low · 3 Moderate · 4 High · 5 Extremely high |
-| `routine_complexity` | 0 Minimalist · 1 Standard · 2 Advanced |
+| `routine_complexity` | -1 No routine yet / figuring it out (first option, added Nov 2026) · 0 Minimalist · 1 Standard · 2 Advanced |
 
 ## Part 3: continuous (standard-scale with training-split statistics)
 
@@ -85,7 +92,7 @@ used as inputs. Model 1's "high" means 3 or 4.
 ## Feature vector (inputs only)
 
 18 one-hot + 7 ordinal (Parts 2 and 4, rescaled to 0–1 by their fixed ranges) +
-3 continuous = **28 features**. Implemented in `ml/aetherskin_ml/data.py`.
+3 continuous + 5 gender one-hot (incl. `unknown`) = **33 features**. Implemented in `ml/aetherskin_ml/data.py`.
 
 ## Models (ml/)
 

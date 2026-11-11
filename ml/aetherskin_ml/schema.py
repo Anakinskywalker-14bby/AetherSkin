@@ -21,7 +21,7 @@ CATEGORICAL = {
 ORDINAL = {
     "sunscreen_frequency": (0, 3),
     "stress_level": (1, 5),
-    "routine_complexity": (0, 2),
+    "routine_complexity": (-1, 2),  # -1 = no routine yet (added Nov 2026)
     "sugar_intake": (0, 4),
     "dairy_intake": (0, 4),
     "fruit_veg_intake": (0, 4),
@@ -77,3 +77,19 @@ EXTRA_COLUMNS = [
     "allergy_details",
 ]
 EXPORT_COLUMNS = ALL_COLUMNS + EXTRA_COLUMNS
+
+# ── Added as MODEL INPUTS (still quiz v3) ───────────────────────────────
+# gender: one-hot in Model 1 AND Model 2. "unknown" stands in for every row
+# collected before 4 Nov 2026 (and any blank), so older responses still train.
+# It is a real level of its own, never silently treated as one of the others.
+GENDER_CODES = ["female", "male", "non_binary_other", "prefer_not_to_say", "unknown"]
+
+# medication_use: a 0/1 CONTROL in Model 2 only (on skin medication = 1;
+# "no" or unknown = 0). Medication changes breakouts and dryness (for
+# example isotretinoin), which would otherwise be credited to lifestyle
+# habits. Model 1 does not use it.
+MEDICATION_CODES = ["no", "yes"]
+
+# NOT a model input, on purpose: allergy_status and allergy_details. A typed
+# allergy list is not something to learn from; it is a hard safety filter
+# applied to the routine after the model (see lib/routine/ in the site).

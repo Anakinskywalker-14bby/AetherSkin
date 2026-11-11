@@ -23,7 +23,7 @@ const configured = () => (beeMode() === "mobile" ? MOBILE_PATH : DESKTOP_PATH);
  *   ease, hold and dive), lagging slightly behind the scroll.
  * - three.js loads only in the browser, after first paint. Nothing renders
  *   for reduced motion, without WebGL, or while the tab is hidden.
- * - The canvas sits under the hero doors (z-45) and never takes clicks.
+ * - The canvas sits under the nav and never takes clicks.
  */
 
 type Stop = {
