@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { PageHero, EdBody } from "@/components/PageHero";
 import { JoinCta } from "@/components/JoinCta";
+import FounderNote from "@/components/FounderNote";
 import { breadcrumbJsonLd } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -66,11 +67,14 @@ export default function AboutPage() {
             changes your price, and we&apos;ll always label it clearly.
           </p>
           <p style={{ margin: 0 }}>
-            We&apos;re starting small on purpose: 500 beta spots, free, with no
-            card or deposit, and a promise to build the product with early
-            users rather than at them.
+            We&apos;re starting small on purpose: beta spots are open, free to
+            join, with a promise to build the product with early users rather
+            than at them.
           </p>
         </div>
+
+        {/* The same note as on the home page and in the signup email. */}
+        <FounderNote bare cta={<JoinCta />} />
 
         <h2 style={{ fontSize: "clamp(28px,3vw,40px)", margin: "56px 0 24px", lineHeight: 1.1 }}>
           What we <span className="ed-em">stand for</span>
@@ -85,7 +89,7 @@ export default function AboutPage() {
         </div>
 
         <div className="ed-end" style={{ margin: "56px 0" }}>
-          <p className="ed-end-title">Be one of the first <span className="ed-em">500.</span></p>
+          <p className="ed-end-title">Beta spots are <span className="ed-em">open.</span></p>
           <JoinCta />
           <div className="ed-btns" style={{ marginTop: 18 }}>
             <Link href="/#solution" className="ed-btn ed-btn--white">How it works</Link>

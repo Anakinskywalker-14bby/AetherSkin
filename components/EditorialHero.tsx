@@ -3,10 +3,6 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { onMediaChange } from "@/lib/media-query";
-import WaitlistModal, { type WaitlistModalHandle } from "@/components/WaitlistModal";
-
-/** Must match the phone breakpoint of the .eh styles in globals.css. */
-const PHONE_LAYOUT = "(max-width:760px),(orientation:portrait) and (max-width:1024px)";
 import { Inter_Tight, Playfair_Display } from "next/font/google";
 
 const interTight = Inter_Tight({ subsets: ["latin"], weight: ["300", "400", "500"], variable: "--eh-sans", display: "swap" });
@@ -20,7 +16,6 @@ const playfair = Playfair_Display({ subsets: ["latin"], weight: ["400", "500"], 
  */
 export default function EditorialHero() {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const modalRef = useRef<WaitlistModalHandle>(null);
 
   useEffect(() => {
     const v = videoRef.current;
@@ -68,7 +63,7 @@ export default function EditorialHero() {
           </Link>
           <nav className="eh-links eh-in" aria-label="Main">
             <Link href="/about">About</Link>
-            <a href="#solution">How it works</a>
+            <a href="#how">How it works</a>
           </nav>
           <div className="eh-icons eh-in">
             {/* Text, not icons, so people can see what they are. "About us"
@@ -78,32 +73,28 @@ export default function EditorialHero() {
           </div>
         </header>
 
-        <h1 className="eh-headline">
-          <span className="eh-rise" style={{ animationDelay: ".35s" }}>Stop guessing,</span>
-          <span className="eh-rise" style={{ animationDelay: ".5s" }}>start knowing</span>
-          <em className="eh-rise" style={{ animationDelay: ".65s" }}>Your Skin</em>
-        </h1>
+        <div className="eh-headline">
+          <h1 className="eh-h1">
+            <span className="eh-rise" style={{ animationDelay: ".35s" }}>Stop guessing,</span>
+            <span className="eh-rise" style={{ animationDelay: ".5s" }}>start knowing</span>
+            <em className="eh-rise" style={{ animationDelay: ".65s" }}>Your Skin</em>
+          </h1>
+          {/* The hook. The scan is not live yet, so the small line says so. */}
+          <p className="eh-hook eh-fade">
+            <strong>One selfie. Your skin, read.</strong>
+            <span>Selfie scan opens at beta launch. Start today with the 3-minute quiz.</span>
+          </p>
+        </div>
 
         <p className="eh-badge eh-fade">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5 14 10l8.5 2-8.5 2-2 8.5-2-8.5L1.5 12 10 10Z" /></svg>
-          FREE WAITLIST
+          BETA SPOTS OPEN
         </p>
 
         <div className="eh-side eh-fade">
           <div className="eh-ctas">
-            <a
-              href="#beta"
-              className="eh-pill"
-              onClick={(e) => {
-                // Phones: sign up right here in a modal instead of scrolling to the footer.
-                if (window.matchMedia(PHONE_LAYOUT).matches && modalRef.current) {
-                  e.preventDefault();
-                  modalRef.current.open();
-                }
-              }}
-            >
-              Join the waitlist
-            </a>
+            {/* Every link to #beta opens the signup popup (components/WaitlistModal). */}
+            <a href="#beta" className="eh-pill">Join the waitlist</a>
             <a href="#solution" className="eh-arrow" aria-label="See how it works">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" /></svg>
             </a>
@@ -118,7 +109,6 @@ export default function EditorialHero() {
         </figure>
 
       </div>
-      <WaitlistModal ref={modalRef} />
     </section>
   );
 }

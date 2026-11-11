@@ -6,7 +6,7 @@
 > disclosed on every placement.
 
 AetherSkin is pre-launch. The public site collects free waitlist signups and a
-short skin quiz. There is no payment at any stage.
+short skin quiz.
 
 ## What AetherSkin does
 
@@ -39,7 +39,7 @@ See /pricing.md for machine-readable detail.
 ## Facts
 
 - Signup cost: $0
-- Beta capacity: 500 early users
+- Beta: spots are open
 - Quiz length: 20 questions, about 4 minutes
 - Data retention: 24 months from last interaction; unverified signups
   deleted after 90 days; verification links expire after 24 hours and work once

@@ -133,7 +133,6 @@ export default function SiteFooter() {
   return (
     <footer id="footer" className="sf" aria-label="Footer">
       <FooterBackground holdRef={holdRef} />
-      <div className="sf-logo">AetherSkin</div>
       <div className="sf-contact">
         <span className="sf-tag">say hey</span>
         <div className="sf-headline sf-contact-links">

@@ -6,7 +6,7 @@ Last updated: 2026-10-21
 - Price: $0
 - Includes: place in line, 20-question skin quiz, launch notification
 - Payment method required: none
-- Capacity: 500 early users
+- Beta: spots are open
 
 ## Scan & recommendations (at launch)
 - Price: $0 for the core scan and product matches

@@ -1,10 +1,10 @@
-import { NextResponse } from "next/server";
+import { NextResponse, after } from "next/server";
 import * as Sentry from "@sentry/nextjs";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { rateLimit, getClientIp } from "@/lib/rate-limit";
 import { isValidEmail } from "@/lib/utils";
 import { sanitizeText } from "@/lib/validation/quiz";
-import { generateToken, sendVerificationEmail } from "@/lib/email";
+import { generateToken, sendVerificationEmail, sendFounderNoteEmail } from "@/lib/email";
 import { assertSameOrigin } from "@/lib/security";
 import { audit, hashPii } from "@/lib/audit";
 import { withRetry } from "@/lib/retry";
@@ -196,6 +196,16 @@ export async function POST(req: Request) {
         },
         { status: 202 }
       );
+    }
+
+    /*
+     * New signups only (never a re-send, so nobody gets it twice): queue the
+     * founder's note with the email provider for two minutes from now. It
+     * runs after the response, and a failure here must not fail the signup;
+     * lib/email reports delivery failures to Sentry without the address.
+     */
+    if (!existing) {
+      after(() => sendFounderNoteEmail(email).catch(() => undefined));
     }
 
     return NextResponse.json({ ok: true, ttlHours: LINK_TTL_HOURS });

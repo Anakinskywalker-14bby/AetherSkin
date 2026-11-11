@@ -1,7 +1,7 @@
 import { describe, it } from "vitest";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { quizCompleteEmail, verificationEmail } from "@/lib/email";
+import { founderNoteEmail, quizCompleteEmail, verificationEmail } from "@/lib/email";
 
 /**
  * Not a real test: when EMAIL_PREVIEW_DIR is set it writes the signup emails
@@ -19,5 +19,6 @@ describe.skipIf(!dir)("signup email preview", () => {
         .replace(/src="[^"]*lockup-aetherskin\.png"/, `src="${logo}"`)}`;
     writeFileSync(join(dir!, "signup-verify.html"), wrap(verificationEmail("preview-token")));
     writeFileSync(join(dir!, "signup-complete.html"), wrap(quizCompleteEmail(42)));
+    writeFileSync(join(dir!, "founder-note.html"), wrap(founderNoteEmail()));
   });
 });

@@ -29,6 +29,7 @@ vi.mock("@/lib/email", () => ({
   hashToken: () => "h",
   sendVerificationEmail,
   sendQuizCompleteEmail: async () => ({ sent: true }),
+  sendFounderNoteEmail: async () => ({ sent: true }),
 }));
 vi.mock("@/lib/quiz-link", () => ({
   LINK_TTL_HOURS: 24,

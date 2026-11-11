@@ -15,11 +15,17 @@ vi.mock("@/lib/rate-limit", () => ({
 }));
 vi.mock("@/lib/security", () => ({ assertSameOrigin: () => ({ ok: true }) }));
 vi.mock("@/lib/audit", () => ({ audit: async () => {}, hashPii: () => "h" }));
+// The route queues the founder's note with after(); there is no request scope in a unit test.
+vi.mock("next/server", async (orig) => ({
+  ...(await orig<typeof import("next/server")>()),
+  after: () => {},
+}));
 vi.mock("@/lib/email", () => ({
   generateToken: () => ({ token: "t", hash: "h" }),
   hashToken: () => "h",
   sendVerificationEmail: async () => ({ sent: true }),
   sendQuizCompleteEmail: async () => ({ sent: true }),
+  sendFounderNoteEmail: async () => ({ sent: true }),
 }));
 vi.mock("@/lib/supabase/admin", () => ({
   createAdminClient: () => ({

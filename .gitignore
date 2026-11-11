@@ -21,3 +21,6 @@ vbsec-reports/
 
 # Local previews (emails, quiz screenshots); regenerate with the preview tests.
 previews/
+
+# Local-only copies of the email previews, viewable at localhost:3000/_previews/ (never deployed).
+public/_previews/

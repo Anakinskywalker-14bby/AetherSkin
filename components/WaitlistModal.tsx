@@ -1,27 +1,34 @@
 "use client";
 
-import { forwardRef, useImperativeHandle, useRef } from "react";
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { useWaitlistSignup } from "@/lib/use-waitlist-signup";
 
-export type WaitlistModalHandle = { open: () => void };
-
 /**
- * Phones: the hero's "Join the waitlist" opens this instead of scrolling to
- * the footer. A native <dialog> opened with showModal() gives the dimmed
- * backdrop, focus trapping and Esc-to-close for free. Same signup flow and
- * API as the footer form (double opt-in, consent required).
+ * The signup popup. Mounted once on the landing page; it opens whenever any
+ * link to the signup (`a[href="#beta"]`) is clicked, on phones and desktop,
+ * so nobody has to scroll to the footer to join. A native <dialog> opened with
+ * showModal() gives the dimmed backdrop, focus trapping and Esc-to-close.
+ * Same signup flow and API as the footer form (double opt-in, consent required).
+ * If <dialog> is unsupported the link simply scrolls to the footer form.
  */
-const WaitlistModal = forwardRef<WaitlistModalHandle>(function WaitlistModal(_props, ref) {
+export default function WaitlistModal() {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const s = useWaitlistSignup("hero_modal");
 
-  useImperativeHandle(ref, () => ({
-    open: () => {
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
       const d = dialogRef.current;
-      if (d && !d.open) d.showModal();
-    },
-  }));
+      if (!d || typeof d.showModal !== "function" || e.defaultPrevented) return;
+      if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      const link = (e.target as Element | null)?.closest?.('a[href="#beta"]');
+      if (!link) return;
+      e.preventDefault();
+      if (!d.open) d.showModal();
+    };
+    document.addEventListener("click", onClick);
+    return () => document.removeEventListener("click", onClick);
+  }, []);
 
   const close = () => dialogRef.current?.close();
 
@@ -30,7 +37,7 @@ const WaitlistModal = forwardRef<WaitlistModalHandle>(function WaitlistModal(_pr
       ref={dialogRef}
       className="wm"
       aria-labelledby="wm-title"
-      // Tap on the dimmed backdrop closes it (the click lands on <dialog> itself).
+      // A click on the dimmed backdrop lands on <dialog> itself: close.
       onClick={(e) => {
         if (e.target === e.currentTarget) close();
       }}
@@ -41,12 +48,12 @@ const WaitlistModal = forwardRef<WaitlistModalHandle>(function WaitlistModal(_pr
         </button>
         <p className="wm-badge">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5 14 10l8.5 2-8.5 2-2 8.5-2-8.5L1.5 12 10 10Z" /></svg>
-          FREE WAITLIST
+          BETA SPOTS OPEN
         </p>
         <h2 id="wm-title" className="wm-title">
           Join the <em>waitlist</em>
         </h2>
-        <p className="wm-sub">500 beta spots. No card, ever. Then a 3-minute skin quiz.</p>
+        <p className="wm-sub">Join free, then take the 3-minute skin quiz we email you.</p>
 
         {s.state === "already" ? (
           <p className="wm-status" role="status" aria-live="polite">
@@ -54,7 +61,7 @@ const WaitlistModal = forwardRef<WaitlistModalHandle>(function WaitlistModal(_pr
           </p>
         ) : s.state === "sent" ? (
           <p className="wm-status" role="status" aria-live="polite">
-            <strong>Check your inbox.</strong> We sent a link to {s.email}. Open it to confirm and take the quiz.
+            <strong>Check your inbox now.</strong> We sent a link to {s.email}. Open it to confirm and take the quiz. The link lasts 24 hours.
           </p>
         ) : (
           <form onSubmit={s.submit} noValidate className="wm-form">
@@ -101,6 +108,4 @@ const WaitlistModal = forwardRef<WaitlistModalHandle>(function WaitlistModal(_pr
       </div>
     </dialog>
   );
-});
-
-export default WaitlistModal;
+}

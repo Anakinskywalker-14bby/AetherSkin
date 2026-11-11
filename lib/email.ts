@@ -3,6 +3,7 @@ import "server-only";
 import crypto from "node:crypto";
 import * as Sentry from "@sentry/nextjs";
 import { SITE_URL } from "@/lib/site";
+import { FOUNDER_NOTE } from "@/lib/founder-note";
 
 /**
  * Email delivery + verification-token helpers.
@@ -89,7 +90,11 @@ async function readErrorName(res: Response): Promise<string> {
   }
 }
 
-async function send(to: string, subject: string, html: string): Promise<SendResult> {
+/**
+ * `delaySeconds` asks Resend to hold the message and deliver it later
+ * (its `scheduled_at` field), so a follow-up needs no cron job of our own.
+ */
+async function send(to: string, subject: string, html: string, delaySeconds = 0): Promise<SendResult> {
   const key = process.env.RESEND_API_KEY;
   if (!key) {
     console.warn("[email] RESEND_API_KEY not set. Skipping delivery.");
@@ -102,7 +107,13 @@ async function send(to: string, subject: string, html: string): Promise<SendResu
         Authorization: `Bearer ${key}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ from: FROM, to: [to], subject, html }),
+      body: JSON.stringify({
+        from: FROM,
+        to: [to],
+        subject,
+        html,
+        ...(delaySeconds > 0 ? { scheduled_at: new Date(Date.now() + delaySeconds * 1000).toISOString() } : {}),
+      }),
       signal: AbortSignal.timeout(8000),
     });
     if (!res.ok) {
@@ -189,7 +200,7 @@ export function verificationEmail(token: string) {
     </p>
     <p style="font-size:15px;color:${BRAND.ink};line-height:1.6;margin:0 0 22px">
       You're one tap from your spot. Confirm your email and we'll take you
-      straight to a 3-minute skin quiz. No payment, ever. Just answers.
+      straight to a 3-minute skin quiz.
     </p>
     <a href="${url}"
        style="display:inline-block;background:${BRAND.coral};background-image:linear-gradient(135deg,${BRAND.peach} 0%,${BRAND.coral} 100%);border-radius:999px;padding:18px 38px;font-size:15px;font-weight:700;color:${BRAND.ink};text-decoration:none;box-shadow:0 8px 22px rgba(232,144,125,.5)">
@@ -231,6 +242,44 @@ const WAITLIST_HERO = `
       <h1 style="margin:34px 0 0;font-size:34px;font-weight:300;line-height:1.1;letter-spacing:-.02em;color:${BRAND.ink}">
         Welcome to<br />the <em style="font-family:${BRAND.serif};font-size:54px;font-weight:400;line-height:1.05;letter-spacing:-.01em;color:#4A1D3A">waitlist</em>
       </h1>`;
+
+/**
+ * The founder's note, word for word as on the site (lib/founder-note.ts).
+ * Sent once, two minutes after a new signup. It carries no quiz link: the
+ * single-use token lives only in the verification email.
+ */
+export function founderNoteEmail() {
+  const n = FOUNDER_NOTE;
+  const paragraphs = n.paragraphs
+    .map(
+      (segments) =>
+        `<p style="font-size:16px;color:#4a3f6b;line-height:1.65;margin:0 0 14px">${segments
+          .map((s) => (s.b ? `<strong style="color:${BRAND.ink}">${escapeHtml(s.t)}</strong>` : escapeHtml(s.t)))
+          .join("")}</p>`
+    )
+    .join("");
+  return SHELL(`
+    <p style="display:inline-block;margin:0 0 14px;background:${BRAND.peach};border-radius:999px;padding:7px 14px;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:${BRAND.ink}">${escapeHtml(n.kicker)}</p>
+    <h1 style="margin:0 0 20px;font-size:32px;font-weight:300;line-height:1.1;letter-spacing:-.02em;color:${BRAND.ink}">
+      ${escapeHtml(n.titleLead)} <em style="font-family:${BRAND.serif};font-weight:400;font-size:36px">${escapeHtml(n.titleBrand)}</em>
+    </h1>
+    ${paragraphs}
+    <p style="margin:22px 0 0;font-family:${BRAND.serif};font-style:italic;font-size:32px;line-height:1.1;color:${BRAND.ink}">${escapeHtml(n.name)}</p>
+    <p style="margin:2px 0 0;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:${BRAND.violet}">${escapeHtml(n.role)}</p>
+    <p style="margin:26px 0 0;background:${BRAND.blush};border-radius:18px;padding:14px 18px;font-size:14px;line-height:1.55;color:${BRAND.ink}">
+      <strong>Haven't done your quiz yet?</strong> Your link is in our other email, "Confirm your AetherSkin spot". It works once and lasts 24 hours.
+    </p>
+    <p style="font-size:12px;color:${BRAND.muted};margin:18px 0 0;line-height:1.6">
+      Don't want emails from us? Reply to this email with "unsubscribe" and we'll take you off the list.
+    </p>`);
+}
+
+/** How long after signup the founder's note goes out. */
+export const FOUNDER_NOTE_DELAY_SECONDS = 120;
+
+export async function sendFounderNoteEmail(to: string) {
+  return send(to, "Why I'm building AetherSkin", founderNoteEmail(), FOUNDER_NOTE_DELAY_SECONDS);
+}
 
 export async function sendVerificationEmail(to: string, token: string) {
   return send(to, "Confirm your AetherSkin spot (+ 3-minute skin quiz)", verificationEmail(token));

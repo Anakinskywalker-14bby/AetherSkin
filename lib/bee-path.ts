@@ -14,7 +14,8 @@
  */
 export type BeePoint = { sec: string; fx: number; fy: number; perch?: boolean };
 
-export const BEE_SECTIONS = [".eh", "#problem", "#solution", "#gallery", "#footer"] as const;
+// "#how" was added with the Nov 2026 redesign so the path can stop there too.
+export const BEE_SECTIONS = [".eh", "#problem", "#solution", "#how", "#gallery", "#footer"] as const;
 
 // Drawn by the owner (desktop on 27 Oct 2026 at 1264px: 17 points;
 // phone redrawn on 3 Nov 2026 at 484px for the phone-first layout: 24 points).

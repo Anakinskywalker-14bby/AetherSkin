@@ -26,6 +26,7 @@ vi.mock("@/lib/email", () => ({
   hashToken: () => "h",
   sendVerificationEmail: async () => {},
   sendQuizCompleteEmail: async () => {},
+  sendFounderNoteEmail: async () => ({ sent: true }),
 }));
 
 const { POST: joinPOST } = await import("@/app/api/waitlist/join/route");
