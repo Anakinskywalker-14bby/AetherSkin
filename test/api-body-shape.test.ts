@@ -28,6 +28,11 @@ vi.mock("@/lib/email", () => ({
   sendQuizCompleteEmail: async () => {},
   sendFounderNoteEmail: async () => ({ sent: true }),
   addResendContact: async () => true,
+  sendRoutineEmail: async () => ({ sent: true }),
+  notifyOwnerRoutineHeld: async () => ({ sent: true }),
+  escapeHtml: (s: string) => s,
+  BRAND: {},
+  SHELL: (s: string) => s,
 }));
 
 const { POST: joinPOST } = await import("@/app/api/waitlist/join/route");

@@ -3066,5 +3066,4281 @@
     "azeloyl penta-peptide"
    ]
   }
- ]
+ ],
+ "swaps": {
+  "allergy": {
+   "allergy_snail_mucin": {
+    "blocks": [
+     "active_snail_mucin"
+    ],
+    "safe": [
+     "active_beta_glucan",
+     "active_polyglutamic_acid",
+     "active_hyaluronic_acid"
+    ]
+   },
+   "allergy_bee_products": {
+    "blocks": [
+     "active_honey"
+    ],
+    "safe": [
+     "active_glycerin",
+     "active_betaine",
+     "active_trehalose"
+    ]
+   },
+   "allergy_coenzyme_q10": {
+    "blocks": [
+     "active_coenzyme_q10"
+    ],
+    "safe": [
+     "active_idebenone",
+     "active_astaxanthin",
+     "active_ergothioneine"
+    ]
+   },
+   "allergy_coal_tar": {
+    "blocks": [
+     "active_coal_tar_exfoliant"
+    ],
+    "safe": [
+     "active_sulfur",
+     "active_zinc_pyrithione",
+     "active_azelaic_acid"
+    ]
+   },
+   "allergy_food_oat": {
+    "blocks": [
+     "active_beta_glucan"
+    ],
+    "safe": [
+     "active_panthenol",
+     "active_allantoin",
+     "active_ectoin"
+    ]
+   },
+   "allergy_soy": {
+    "blocks": [
+     "active_genistein"
+    ],
+    "safe": [
+     "active_resveratrol",
+     "active_green_tea",
+     "active_niacinamide"
+    ]
+   },
+   "allergy_food_soy": {
+    "blocks": [
+     "active_genistein"
+    ],
+    "safe": [
+     "active_resveratrol",
+     "active_green_tea",
+     "active_niacinamide"
+    ]
+   },
+   "allergy_food_fish": {
+    "blocks": [
+     "active_pdrn"
+    ],
+    "safe": [
+     "active_exosomes",
+     "active_peptides",
+     "active_growth_factors"
+    ]
+   },
+   "allergy_food_shellfish": {
+    "blocks": [
+     "active_pdrn"
+    ],
+    "safe": [
+     "active_exosomes",
+     "active_peptides",
+     "active_growth_factors"
+    ]
+   },
+   "allergy_uv_octisalate": {
+    "blocks": [
+     "active_bha_salicylic",
+     "active_betaine_salicylate",
+     "active_lha"
+    ],
+    "safe": [
+     "active_azelaic_acid",
+     "active_succinic_acid",
+     "active_pha_gluconolactone"
+    ]
+   },
+   "allergy_menthol": {
+    "blocks": [
+     "active_ginkgo_biloba",
+     "active_ginseng"
+    ],
+    "safe": [
+     "active_allantoin",
+     "active_panthenol",
+     "active_madecassoside"
+    ]
+   },
+   "allergy_eucalyptus": {
+    "blocks": [
+     "active_ginkgo_biloba",
+     "active_ginseng"
+    ],
+    "safe": [
+     "active_allantoin",
+     "active_panthenol",
+     "active_madecassoside"
+    ]
+   },
+   "allergy_tea_tree_oil": {
+    "blocks": [
+     "active_ginkgo_biloba",
+     "active_ginseng"
+    ],
+    "safe": [
+     "active_allantoin",
+     "active_panthenol",
+     "active_madecassoside"
+    ]
+   },
+   "allergy_botanical_arnica": {
+    "blocks": [
+     "active_curcumin",
+     "active_licorice_root",
+     "active_centella_asiatica"
+    ],
+    "safe": [
+     "active_allantoin",
+     "active_panthenol",
+     "active_ceramides"
+    ]
+   },
+   "allergy_botanical_chamomile": {
+    "blocks": [
+     "active_curcumin",
+     "active_licorice_root",
+     "active_centella_asiatica"
+    ],
+    "safe": [
+     "active_allantoin",
+     "active_panthenol",
+     "active_ceramides"
+    ]
+   },
+   "allergy_fragrance_generic": {
+    "blocks": [
+     "active_bakuchiol",
+     "active_pumpkin_enzymes",
+     "active_papain",
+     "active_bromelain",
+     "active_birch_sap",
+     "active_curcumin"
+    ],
+    "safe": [
+     "active_granactive_retinoid",
+     "active_peptides",
+     "active_pha_gluconolactone",
+     "active_bacillus_ferment",
+     "active_niacinamide"
+    ]
+   },
+   "allergy_fragrance_linalool": {
+    "blocks": [
+     "active_bakuchiol",
+     "active_pumpkin_enzymes",
+     "active_papain",
+     "active_bromelain",
+     "active_birch_sap",
+     "active_curcumin"
+    ],
+    "safe": [
+     "active_granactive_retinoid",
+     "active_peptides",
+     "active_pha_gluconolactone",
+     "active_bacillus_ferment",
+     "active_niacinamide"
+    ]
+   },
+   "allergy_fragrance_limonene": {
+    "blocks": [
+     "active_bakuchiol",
+     "active_pumpkin_enzymes",
+     "active_papain",
+     "active_bromelain",
+     "active_birch_sap",
+     "active_curcumin"
+    ],
+    "safe": [
+     "active_granactive_retinoid",
+     "active_peptides",
+     "active_pha_gluconolactone",
+     "active_bacillus_ferment",
+     "active_niacinamide"
+    ]
+   },
+   "allergy_fragrance_geraniol": {
+    "blocks": [
+     "active_bakuchiol",
+     "active_pumpkin_enzymes",
+     "active_papain",
+     "active_bromelain",
+     "active_birch_sap",
+     "active_curcumin"
+    ],
+    "safe": [
+     "active_granactive_retinoid",
+     "active_peptides",
+     "active_pha_gluconolactone",
+     "active_bacillus_ferment",
+     "active_niacinamide"
+    ]
+   },
+   "allergy_fragrance_citronellol": {
+    "blocks": [
+     "active_bakuchiol",
+     "active_pumpkin_enzymes",
+     "active_papain",
+     "active_bromelain",
+     "active_birch_sap",
+     "active_curcumin"
+    ],
+    "safe": [
+     "active_granactive_retinoid",
+     "active_peptides",
+     "active_pha_gluconolactone",
+     "active_bacillus_ferment",
+     "active_niacinamide"
+    ]
+   },
+   "allergy_fragrance_eugenol": {
+    "blocks": [
+     "active_bakuchiol",
+     "active_pumpkin_enzymes",
+     "active_papain",
+     "active_bromelain",
+     "active_birch_sap",
+     "active_curcumin"
+    ],
+    "safe": [
+     "active_granactive_retinoid",
+     "active_peptides",
+     "active_pha_gluconolactone",
+     "active_bacillus_ferment",
+     "active_niacinamide"
+    ]
+   },
+   "allergy_balsam_of_peru": {
+    "blocks": [
+     "active_bakuchiol",
+     "active_pumpkin_enzymes",
+     "active_papain",
+     "active_bromelain",
+     "active_birch_sap",
+     "active_curcumin"
+    ],
+    "safe": [
+     "active_granactive_retinoid",
+     "active_peptides",
+     "active_pha_gluconolactone",
+     "active_bacillus_ferment",
+     "active_niacinamide"
+    ]
+   },
+   "allergy_essential_oils": {
+    "blocks": [
+     "active_bakuchiol",
+     "active_pumpkin_enzymes",
+     "active_papain",
+     "active_bromelain",
+     "active_birch_sap",
+     "active_curcumin"
+    ],
+    "safe": [
+     "active_granactive_retinoid",
+     "active_peptides",
+     "active_pha_gluconolactone",
+     "active_bacillus_ferment",
+     "active_niacinamide"
+    ]
+   },
+   "allergy_fragrance_cinnamal": {
+    "blocks": [
+     "active_bakuchiol",
+     "active_pumpkin_enzymes",
+     "active_papain",
+     "active_bromelain",
+     "active_birch_sap",
+     "active_curcumin"
+    ],
+    "safe": [
+     "active_granactive_retinoid",
+     "active_peptides",
+     "active_pha_gluconolactone",
+     "active_bacillus_ferment",
+     "active_niacinamide"
+    ]
+   },
+   "allergy_fragrance_citral": {
+    "blocks": [
+     "active_bakuchiol",
+     "active_pumpkin_enzymes",
+     "active_papain",
+     "active_bromelain",
+     "active_birch_sap",
+     "active_curcumin"
+    ],
+    "safe": [
+     "active_granactive_retinoid",
+     "active_peptides",
+     "active_pha_gluconolactone",
+     "active_bacillus_ferment",
+     "active_niacinamide"
+    ]
+   },
+   "allergy_fragrance_mix_1": {
+    "blocks": [
+     "active_bakuchiol",
+     "active_pumpkin_enzymes",
+     "active_papain",
+     "active_bromelain",
+     "active_birch_sap",
+     "active_curcumin"
+    ],
+    "safe": [
+     "active_granactive_retinoid",
+     "active_peptides",
+     "active_pha_gluconolactone",
+     "active_bacillus_ferment",
+     "active_niacinamide"
+    ]
+   },
+   "allergy_fragrance_mix_2": {
+    "blocks": [
+     "active_bakuchiol",
+     "active_pumpkin_enzymes",
+     "active_papain",
+     "active_bromelain",
+     "active_birch_sap",
+     "active_curcumin"
+    ],
+    "safe": [
+     "active_granactive_retinoid",
+     "active_peptides",
+     "active_pha_gluconolactone",
+     "active_bacillus_ferment",
+     "active_niacinamide"
+    ]
+   },
+   "allergy_fragrance_isoeugenol": {
+    "blocks": [
+     "active_bakuchiol",
+     "active_pumpkin_enzymes",
+     "active_papain",
+     "active_bromelain",
+     "active_birch_sap",
+     "active_curcumin"
+    ],
+    "safe": [
+     "active_granactive_retinoid",
+     "active_peptides",
+     "active_pha_gluconolactone",
+     "active_bacillus_ferment",
+     "active_niacinamide"
+    ]
+   },
+   "allergy_fragrance_cinnamyl_alcohol": {
+    "blocks": [
+     "active_bakuchiol",
+     "active_pumpkin_enzymes",
+     "active_papain",
+     "active_bromelain",
+     "active_birch_sap",
+     "active_curcumin"
+    ],
+    "safe": [
+     "active_granactive_retinoid",
+     "active_peptides",
+     "active_pha_gluconolactone",
+     "active_bacillus_ferment",
+     "active_niacinamide"
+    ]
+   },
+   "allergy_fragrance_farnesol": {
+    "blocks": [
+     "active_bakuchiol",
+     "active_pumpkin_enzymes",
+     "active_papain",
+     "active_bromelain",
+     "active_birch_sap",
+     "active_curcumin"
+    ],
+    "safe": [
+     "active_granactive_retinoid",
+     "active_peptides",
+     "active_pha_gluconolactone",
+     "active_bacillus_ferment",
+     "active_niacinamide"
+    ]
+   },
+   "allergy_fragrance_hydroxycitronellal": {
+    "blocks": [
+     "active_bakuchiol",
+     "active_pumpkin_enzymes",
+     "active_papain",
+     "active_bromelain",
+     "active_birch_sap",
+     "active_curcumin"
+    ],
+    "safe": [
+     "active_granactive_retinoid",
+     "active_peptides",
+     "active_pha_gluconolactone",
+     "active_bacillus_ferment",
+     "active_niacinamide"
+    ]
+   },
+   "allergy_botanical_ylang_ylang": {
+    "blocks": [
+     "active_bakuchiol",
+     "active_pumpkin_enzymes",
+     "active_papain",
+     "active_bromelain",
+     "active_birch_sap",
+     "active_curcumin"
+    ],
+    "safe": [
+     "active_granactive_retinoid",
+     "active_peptides",
+     "active_pha_gluconolactone",
+     "active_bacillus_ferment",
+     "active_niacinamide"
+    ]
+   },
+   "allergy_fragrance_hexyl_cinnamal": {
+    "blocks": [
+     "active_bakuchiol",
+     "active_pumpkin_enzymes",
+     "active_papain",
+     "active_bromelain",
+     "active_birch_sap",
+     "active_curcumin"
+    ],
+    "safe": [
+     "active_granactive_retinoid",
+     "active_peptides",
+     "active_pha_gluconolactone",
+     "active_bacillus_ferment",
+     "active_niacinamide"
+    ]
+   },
+   "allergy_fragrance_coumarin": {
+    "blocks": [
+     "active_bakuchiol",
+     "active_pumpkin_enzymes",
+     "active_papain",
+     "active_bromelain",
+     "active_birch_sap",
+     "active_curcumin"
+    ],
+    "safe": [
+     "active_granactive_retinoid",
+     "active_peptides",
+     "active_pha_gluconolactone",
+     "active_bacillus_ferment",
+     "active_niacinamide"
+    ]
+   },
+   "allergy_fragrance_oak_moss": {
+    "blocks": [
+     "active_bakuchiol",
+     "active_pumpkin_enzymes",
+     "active_papain",
+     "active_bromelain",
+     "active_birch_sap",
+     "active_curcumin"
+    ],
+    "safe": [
+     "active_granactive_retinoid",
+     "active_peptides",
+     "active_pha_gluconolactone",
+     "active_bacillus_ferment",
+     "active_niacinamide"
+    ]
+   },
+   "allergy_fragrance_amyl_cinnamal": {
+    "blocks": [
+     "active_bakuchiol",
+     "active_pumpkin_enzymes",
+     "active_papain",
+     "active_bromelain",
+     "active_birch_sap",
+     "active_curcumin"
+    ],
+    "safe": [
+     "active_granactive_retinoid",
+     "active_peptides",
+     "active_pha_gluconolactone",
+     "active_bacillus_ferment",
+     "active_niacinamide"
+    ]
+   },
+   "allergy_fragrance_lyral": {
+    "blocks": [
+     "active_bakuchiol",
+     "active_pumpkin_enzymes",
+     "active_papain",
+     "active_bromelain",
+     "active_birch_sap",
+     "active_curcumin"
+    ],
+    "safe": [
+     "active_granactive_retinoid",
+     "active_peptides",
+     "active_pha_gluconolactone",
+     "active_bacillus_ferment",
+     "active_niacinamide"
+    ]
+   },
+   "allergy_fragrance_limonene_hydroperoxides": {
+    "blocks": [
+     "active_bakuchiol",
+     "active_pumpkin_enzymes",
+     "active_papain",
+     "active_bromelain",
+     "active_birch_sap",
+     "active_curcumin"
+    ],
+    "safe": [
+     "active_granactive_retinoid",
+     "active_peptides",
+     "active_pha_gluconolactone",
+     "active_bacillus_ferment",
+     "active_niacinamide"
+    ]
+   },
+   "allergy_fragrance_linalool_hydroperoxides": {
+    "blocks": [
+     "active_bakuchiol",
+     "active_pumpkin_enzymes",
+     "active_papain",
+     "active_bromelain",
+     "active_birch_sap",
+     "active_curcumin"
+    ],
+    "safe": [
+     "active_granactive_retinoid",
+     "active_peptides",
+     "active_pha_gluconolactone",
+     "active_bacillus_ferment",
+     "active_niacinamide"
+    ]
+   },
+   "allergy_parabens": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_retinol",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_ectoin",
+     "active_panthenol",
+     "active_squalane",
+     "active_pha_lactobionic"
+    ]
+   },
+   "allergy_phenoxyethanol": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_retinol",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_ectoin",
+     "active_panthenol",
+     "active_squalane",
+     "active_pha_lactobionic"
+    ]
+   },
+   "allergy_methylisothiazolinone": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_retinol",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_ectoin",
+     "active_panthenol",
+     "active_squalane",
+     "active_pha_lactobionic"
+    ]
+   },
+   "allergy_formaldehyde_releasers": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_retinol",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_ectoin",
+     "active_panthenol",
+     "active_squalane",
+     "active_pha_lactobionic"
+    ]
+   },
+   "allergy_propylene_glycol": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_retinol",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_ectoin",
+     "active_panthenol",
+     "active_squalane",
+     "active_pha_lactobionic"
+    ]
+   },
+   "allergy_butylene_glycol": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_retinol",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_ectoin",
+     "active_panthenol",
+     "active_squalane",
+     "active_pha_lactobionic"
+    ]
+   },
+   "allergy_quaternium_15": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_retinol",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_ectoin",
+     "active_panthenol",
+     "active_squalane",
+     "active_pha_lactobionic"
+    ]
+   },
+   "allergy_imidazolidinyl_urea": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_retinol",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_ectoin",
+     "active_panthenol",
+     "active_squalane",
+     "active_pha_lactobionic"
+    ]
+   },
+   "allergy_mdbgn": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_retinol",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_ectoin",
+     "active_panthenol",
+     "active_squalane",
+     "active_pha_lactobionic"
+    ]
+   },
+   "allergy_ethylenediamine": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_retinol",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_ectoin",
+     "active_panthenol",
+     "active_squalane",
+     "active_pha_lactobionic"
+    ]
+   },
+   "allergy_polyethylene_glycol": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_retinol",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_ectoin",
+     "active_panthenol",
+     "active_squalane",
+     "active_pha_lactobionic"
+    ]
+   },
+   "allergy_bronopol": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_retinol",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_ectoin",
+     "active_panthenol",
+     "active_squalane",
+     "active_pha_lactobionic"
+    ]
+   },
+   "allergy_paraben_butyl": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_retinol",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_ectoin",
+     "active_panthenol",
+     "active_squalane",
+     "active_pha_lactobionic"
+    ]
+   },
+   "allergy_paraben_ethyl": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_retinol",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_ectoin",
+     "active_panthenol",
+     "active_squalane",
+     "active_pha_lactobionic"
+    ]
+   },
+   "allergy_ipbc": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_retinol",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_ectoin",
+     "active_panthenol",
+     "active_squalane",
+     "active_pha_lactobionic"
+    ]
+   },
+   "allergy_thiomersal": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_retinol",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_ectoin",
+     "active_panthenol",
+     "active_squalane",
+     "active_pha_lactobionic"
+    ]
+   },
+   "allergy_bronopol_alternative": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_retinol",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_ectoin",
+     "active_panthenol",
+     "active_squalane",
+     "active_pha_lactobionic"
+    ]
+   },
+   "allergy_triclosan": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_retinol",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_ectoin",
+     "active_panthenol",
+     "active_squalane",
+     "active_pha_lactobionic"
+    ]
+   },
+   "allergy_chlorphenesin": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_retinol",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_ectoin",
+     "active_panthenol",
+     "active_squalane",
+     "active_pha_lactobionic"
+    ]
+   },
+   "allergy_cmit": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_retinol",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_ectoin",
+     "active_panthenol",
+     "active_squalane",
+     "active_pha_lactobionic"
+    ]
+   },
+   "allergy_sodium_lauryl_sulfate": {
+    "blocks": [
+     "None (Use Safe Swaps)"
+    ],
+    "safe": [
+     "active_polyglutamic_acid",
+     "active_saccharide_isomerate",
+     "active_trehalose",
+     "active_ceramides",
+     "active_cholesterol"
+    ]
+   },
+   "allergy_sodium_laureth_sulfate": {
+    "blocks": [
+     "None (Use Safe Swaps)"
+    ],
+    "safe": [
+     "active_polyglutamic_acid",
+     "active_saccharide_isomerate",
+     "active_trehalose",
+     "active_ceramides",
+     "active_cholesterol"
+    ]
+   },
+   "allergy_cocamidopropyl_betaine": {
+    "blocks": [
+     "None (Use Safe Swaps)"
+    ],
+    "safe": [
+     "active_polyglutamic_acid",
+     "active_saccharide_isomerate",
+     "active_trehalose",
+     "active_ceramides",
+     "active_cholesterol"
+    ]
+   },
+   "allergy_oleamidopropyl_dimethylamine": {
+    "blocks": [
+     "None (Use Safe Swaps)"
+    ],
+    "safe": [
+     "active_polyglutamic_acid",
+     "active_saccharide_isomerate",
+     "active_trehalose",
+     "active_ceramides",
+     "active_cholesterol"
+    ]
+   },
+   "allergy_lanolin": {
+    "blocks": [
+     "None (Use Safe Swaps)"
+    ],
+    "safe": [
+     "active_polyglutamic_acid",
+     "active_saccharide_isomerate",
+     "active_trehalose",
+     "active_ceramides",
+     "active_cholesterol"
+    ]
+   },
+   "allergy_acetylated_lanolin": {
+    "blocks": [
+     "None (Use Safe Swaps)"
+    ],
+    "safe": [
+     "active_polyglutamic_acid",
+     "active_saccharide_isomerate",
+     "active_trehalose",
+     "active_ceramides",
+     "active_cholesterol"
+    ]
+   },
+   "allergy_silicones": {
+    "blocks": [
+     "None (Use Safe Swaps)"
+    ],
+    "safe": [
+     "active_polyglutamic_acid",
+     "active_saccharide_isomerate",
+     "active_trehalose",
+     "active_ceramides",
+     "active_cholesterol"
+    ]
+   },
+   "allergy_petroleum_derivatives": {
+    "blocks": [
+     "None (Use Safe Swaps)"
+    ],
+    "safe": [
+     "active_polyglutamic_acid",
+     "active_saccharide_isomerate",
+     "active_trehalose",
+     "active_ceramides",
+     "active_cholesterol"
+    ]
+   },
+   "allergy_coconut_oil": {
+    "blocks": [
+     "None (Use Safe Swaps)"
+    ],
+    "safe": [
+     "active_polyglutamic_acid",
+     "active_saccharide_isomerate",
+     "active_trehalose",
+     "active_ceramides",
+     "active_cholesterol"
+    ]
+   },
+   "allergy_almond_oil": {
+    "blocks": [
+     "None (Use Safe Swaps)"
+    ],
+    "safe": [
+     "active_polyglutamic_acid",
+     "active_saccharide_isomerate",
+     "active_trehalose",
+     "active_ceramides",
+     "active_cholesterol"
+    ]
+   },
+   "allergy_peanut_oil": {
+    "blocks": [
+     "None (Use Safe Swaps)"
+    ],
+    "safe": [
+     "active_polyglutamic_acid",
+     "active_saccharide_isomerate",
+     "active_trehalose",
+     "active_ceramides",
+     "active_cholesterol"
+    ]
+   },
+   "allergy_fatty_alcohols": {
+    "blocks": [
+     "None (Use Safe Swaps)"
+    ],
+    "safe": [
+     "active_polyglutamic_acid",
+     "active_saccharide_isomerate",
+     "active_trehalose",
+     "active_ceramides",
+     "active_cholesterol"
+    ]
+   },
+   "allergy_colophonium": {
+    "blocks": [
+     "None (Use Safe Swaps)"
+    ],
+    "safe": [
+     "active_polyglutamic_acid",
+     "active_saccharide_isomerate",
+     "active_trehalose",
+     "active_ceramides",
+     "active_cholesterol"
+    ]
+   },
+   "allergy_acrylates": {
+    "blocks": [
+     "None (Use Safe Swaps)"
+    ],
+    "safe": [
+     "active_polyglutamic_acid",
+     "active_saccharide_isomerate",
+     "active_trehalose",
+     "active_ceramides",
+     "active_cholesterol"
+    ]
+   },
+   "allergy_chemical_sunscreen_generic": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_retinol",
+     "active_retinal",
+     "active_kojic_acid"
+    ],
+    "safe": [
+     "active_vitamin_c_derivative",
+     "active_vitamin_e",
+     "active_ferulic_acid",
+     "active_astaxanthin",
+     "active_ergothioneine"
+    ]
+   },
+   "allergy_uv_avobenzone": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_retinol",
+     "active_retinal",
+     "active_kojic_acid"
+    ],
+    "safe": [
+     "active_vitamin_c_derivative",
+     "active_vitamin_e",
+     "active_ferulic_acid",
+     "active_astaxanthin",
+     "active_ergothioneine"
+    ]
+   },
+   "allergy_uv_oxybenzone": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_retinol",
+     "active_retinal",
+     "active_kojic_acid"
+    ],
+    "safe": [
+     "active_vitamin_c_derivative",
+     "active_vitamin_e",
+     "active_ferulic_acid",
+     "active_astaxanthin",
+     "active_ergothioneine"
+    ]
+   },
+   "allergy_uv_octinoxate": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_retinol",
+     "active_retinal",
+     "active_kojic_acid"
+    ],
+    "safe": [
+     "active_vitamin_c_derivative",
+     "active_vitamin_e",
+     "active_ferulic_acid",
+     "active_astaxanthin",
+     "active_ergothioneine"
+    ]
+   },
+   "allergy_uv_octocrylene": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_retinol",
+     "active_retinal",
+     "active_kojic_acid"
+    ],
+    "safe": [
+     "active_vitamin_c_derivative",
+     "active_vitamin_e",
+     "active_ferulic_acid",
+     "active_astaxanthin",
+     "active_ergothioneine"
+    ]
+   },
+   "allergy_uv_homosalate": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_retinol",
+     "active_retinal",
+     "active_kojic_acid"
+    ],
+    "safe": [
+     "active_vitamin_c_derivative",
+     "active_vitamin_e",
+     "active_ferulic_acid",
+     "active_astaxanthin",
+     "active_ergothioneine"
+    ]
+   },
+   "allergy_uv_tinosorb": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_retinol",
+     "active_retinal",
+     "active_kojic_acid"
+    ],
+    "safe": [
+     "active_vitamin_c_derivative",
+     "active_vitamin_e",
+     "active_ferulic_acid",
+     "active_astaxanthin",
+     "active_ergothioneine"
+    ]
+   },
+   "allergy_uv_mexoryl": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_retinol",
+     "active_retinal",
+     "active_kojic_acid"
+    ],
+    "safe": [
+     "active_vitamin_c_derivative",
+     "active_vitamin_e",
+     "active_ferulic_acid",
+     "active_astaxanthin",
+     "active_ergothioneine"
+    ]
+   },
+   "allergy_mineral_sunscreen_generic": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_retinol",
+     "active_retinal",
+     "active_kojic_acid"
+    ],
+    "safe": [
+     "active_vitamin_c_derivative",
+     "active_vitamin_e",
+     "active_ferulic_acid",
+     "active_astaxanthin",
+     "active_ergothioneine"
+    ]
+   },
+   "allergy_zinc_oxide": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_retinol",
+     "active_retinal",
+     "active_kojic_acid"
+    ],
+    "safe": [
+     "active_vitamin_c_derivative",
+     "active_vitamin_e",
+     "active_ferulic_acid",
+     "active_astaxanthin",
+     "active_ergothioneine"
+    ]
+   },
+   "allergy_titanium_dioxide": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_retinol",
+     "active_retinal",
+     "active_kojic_acid"
+    ],
+    "safe": [
+     "active_vitamin_c_derivative",
+     "active_vitamin_e",
+     "active_ferulic_acid",
+     "active_astaxanthin",
+     "active_ergothioneine"
+    ]
+   },
+   "allergy_uv_paba": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_retinol",
+     "active_retinal",
+     "active_kojic_acid"
+    ],
+    "safe": [
+     "active_vitamin_c_derivative",
+     "active_vitamin_e",
+     "active_ferulic_acid",
+     "active_astaxanthin",
+     "active_ergothioneine"
+    ]
+   },
+   "allergy_drying_alcohols": {
+    "blocks": [
+     "active_snail_mucin"
+    ],
+    "safe": [
+     "active_beta_glucan",
+     "active_panthenol"
+    ]
+   },
+   "allergy_mica": {
+    "blocks": [
+     "active_snail_mucin"
+    ],
+    "safe": [
+     "active_beta_glucan",
+     "active_panthenol"
+    ]
+   },
+   "allergy_talc": {
+    "blocks": [
+     "active_snail_mucin"
+    ],
+    "safe": [
+     "active_beta_glucan",
+     "active_panthenol"
+    ]
+   },
+   "allergy_collagen": {
+    "blocks": [
+     "active_snail_mucin"
+    ],
+    "safe": [
+     "active_beta_glucan",
+     "active_panthenol"
+    ]
+   },
+   "allergy_wheat_gluten": {
+    "blocks": [
+     "active_snail_mucin"
+    ],
+    "safe": [
+     "active_beta_glucan",
+     "active_panthenol"
+    ]
+   },
+   "allergy_food_wheat": {
+    "blocks": [
+     "active_snail_mucin"
+    ],
+    "safe": [
+     "active_beta_glucan",
+     "active_panthenol"
+    ]
+   },
+   "allergy_food_peanuts": {
+    "blocks": [
+     "active_snail_mucin"
+    ],
+    "safe": [
+     "active_beta_glucan",
+     "active_panthenol"
+    ]
+   },
+   "allergy_food_tree_nuts": {
+    "blocks": [
+     "active_snail_mucin"
+    ],
+    "safe": [
+     "active_beta_glucan",
+     "active_panthenol"
+    ]
+   },
+   "allergy_food_dairy": {
+    "blocks": [
+     "active_snail_mucin"
+    ],
+    "safe": [
+     "active_beta_glucan",
+     "active_panthenol"
+    ]
+   },
+   "allergy_food_egg": {
+    "blocks": [
+     "active_snail_mucin"
+    ],
+    "safe": [
+     "active_beta_glucan",
+     "active_panthenol"
+    ]
+   },
+   "allergy_gold": {
+    "blocks": [
+     "active_snail_mucin"
+    ],
+    "safe": [
+     "active_beta_glucan",
+     "active_panthenol"
+    ]
+   },
+   "allergy_nickel": {
+    "blocks": [
+     "active_snail_mucin"
+    ],
+    "safe": [
+     "active_beta_glucan",
+     "active_panthenol"
+    ]
+   },
+   "allergy_metal_cobalt": {
+    "blocks": [
+     "active_snail_mucin"
+    ],
+    "safe": [
+     "active_beta_glucan",
+     "active_panthenol"
+    ]
+   },
+   "allergy_metal_chromium": {
+    "blocks": [
+     "active_snail_mucin"
+    ],
+    "safe": [
+     "active_beta_glucan",
+     "active_panthenol"
+    ]
+   },
+   "allergy_metal_palladium": {
+    "blocks": [
+     "active_snail_mucin"
+    ],
+    "safe": [
+     "active_beta_glucan",
+     "active_panthenol"
+    ]
+   },
+   "allergy_latex": {
+    "blocks": [
+     "active_snail_mucin"
+    ],
+    "safe": [
+     "active_beta_glucan",
+     "active_panthenol"
+    ]
+   },
+   "allergy_rubber_thiuram": {
+    "blocks": [
+     "active_snail_mucin"
+    ],
+    "safe": [
+     "active_beta_glucan",
+     "active_panthenol"
+    ]
+   },
+   "allergy_rubber_carbamates": {
+    "blocks": [
+     "active_snail_mucin"
+    ],
+    "safe": [
+     "active_beta_glucan",
+     "active_panthenol"
+    ]
+   },
+   "allergy_rubber_mbt": {
+    "blocks": [
+     "active_snail_mucin"
+    ],
+    "safe": [
+     "active_beta_glucan",
+     "active_panthenol"
+    ]
+   },
+   "allergy_rubber_black": {
+    "blocks": [
+     "active_snail_mucin"
+    ],
+    "safe": [
+     "active_beta_glucan",
+     "active_panthenol"
+    ]
+   },
+   "allergy_ppd_hair_dye": {
+    "blocks": [
+     "active_snail_mucin"
+    ],
+    "safe": [
+     "active_beta_glucan",
+     "active_panthenol"
+    ]
+   },
+   "allergy_hair_dye_toluene": {
+    "blocks": [
+     "active_snail_mucin"
+    ],
+    "safe": [
+     "active_beta_glucan",
+     "active_panthenol"
+    ]
+   },
+   "allergy_disperse_dyes": {
+    "blocks": [
+     "active_snail_mucin"
+    ],
+    "safe": [
+     "active_beta_glucan",
+     "active_panthenol"
+    ]
+   },
+   "allergy_antibiotic_neomycin": {
+    "blocks": [
+     "active_snail_mucin"
+    ],
+    "safe": [
+     "active_beta_glucan",
+     "active_panthenol"
+    ]
+   },
+   "allergy_antibiotic_bacitracin": {
+    "blocks": [
+     "active_snail_mucin"
+    ],
+    "safe": [
+     "active_beta_glucan",
+     "active_panthenol"
+    ]
+   },
+   "allergy_antibiotic_polymyxin_b": {
+    "blocks": [
+     "active_snail_mucin"
+    ],
+    "safe": [
+     "active_beta_glucan",
+     "active_panthenol"
+    ]
+   },
+   "allergy_inhalant_dust_mites": {
+    "blocks": [
+     "active_snail_mucin"
+    ],
+    "safe": [
+     "active_beta_glucan",
+     "active_panthenol"
+    ]
+   },
+   "allergy_inhalant_pet_dander": {
+    "blocks": [
+     "active_snail_mucin"
+    ],
+    "safe": [
+     "active_beta_glucan",
+     "active_panthenol"
+    ]
+   },
+   "allergy_inhalant_cockroach": {
+    "blocks": [
+     "active_snail_mucin"
+    ],
+    "safe": [
+     "active_beta_glucan",
+     "active_panthenol"
+    ]
+   },
+   "allergy_inhalant_molds": {
+    "blocks": [
+     "active_snail_mucin"
+    ],
+    "safe": [
+     "active_beta_glucan",
+     "active_panthenol"
+    ]
+   },
+   "allergy_inhalant_pollen": {
+    "blocks": [
+     "active_snail_mucin"
+    ],
+    "safe": [
+     "active_beta_glucan",
+     "active_panthenol"
+    ]
+   }
+  },
+  "active": {
+   "active_hyaluronic_acid": {
+    "blocks": [
+     "active_hyaluronic_acid"
+    ],
+    "safe": [
+     "active_polyglutamic_acid",
+     "active_beta_glucan"
+    ]
+   },
+   "active_glycerin": {
+    "blocks": [
+     "active_glycerin"
+    ],
+    "safe": [
+     "active_betaine",
+     "active_sorbitol"
+    ]
+   },
+   "active_beta_glucan": {
+    "blocks": [
+     "active_beta_glucan"
+    ],
+    "safe": [
+     "active_centella_asiatica",
+     "active_panthenol"
+    ]
+   },
+   "active_polyglutamic_acid": {
+    "blocks": [
+     "active_polyglutamic_acid"
+    ],
+    "safe": [
+     "active_hyaluronic_acid",
+     "active_saccharide_isomerate"
+    ]
+   },
+   "active_panthenol": {
+    "blocks": [
+     "active_panthenol"
+    ],
+    "safe": [
+     "active_allantoin",
+     "active_ectoin"
+    ]
+   },
+   "active_urea": {
+    "blocks": [
+     "active_urea"
+    ],
+    "safe": [
+     "active_sodium_lactate",
+     "active_pha_gluconolactone"
+    ]
+   },
+   "active_squalane": {
+    "blocks": [
+     "active_squalane"
+    ],
+    "safe": [
+     "active_linoleic_acid",
+     "active_ceramides"
+    ]
+   },
+   "active_centella_asiatica": {
+    "blocks": [
+     "active_centella_asiatica"
+    ],
+    "safe": [
+     "active_allantoin",
+     "active_panthenol"
+    ]
+   },
+   "active_aloe_vera": {
+    "blocks": [
+     "active_aloe_vera"
+    ],
+    "safe": [
+     "active_panthenol",
+     "active_betaine"
+    ]
+   },
+   "active_allantoin": {
+    "blocks": [
+     "active_allantoin"
+    ],
+    "safe": [
+     "active_panthenol",
+     "active_madecassoside"
+    ]
+   },
+   "active_snail_mucin": {
+    "blocks": [
+     "active_snail_mucin"
+    ],
+    "safe": [
+     "active_beta_glucan",
+     "active_polyglutamic_acid"
+    ]
+   },
+   "active_amino_acids": {
+    "blocks": [
+     "active_amino_acids"
+    ],
+    "safe": [
+     "active_sodium_pca",
+     "active_betaine"
+    ]
+   },
+   "active_sodium_pca": {
+    "blocks": [
+     "active_sodium_pca"
+    ],
+    "safe": [
+     "active_amino_acids",
+     "active_glycerin"
+    ]
+   },
+   "active_sorbitol": {
+    "blocks": [
+     "active_sorbitol"
+    ],
+    "safe": [
+     "active_xylitol",
+     "active_glycerin"
+    ]
+   },
+   "active_honey": {
+    "blocks": [
+     "active_honey"
+    ],
+    "safe": [
+     "active_glycerin",
+     "active_trehalose"
+    ]
+   },
+   "active_sodium_lactate": {
+    "blocks": [
+     "active_sodium_lactate"
+    ],
+    "safe": [
+     "active_sodium_pca",
+     "active_urea"
+    ]
+   },
+   "active_betaine": {
+    "blocks": [
+     "active_betaine"
+    ],
+    "safe": [
+     "active_ectoin",
+     "active_glycerin"
+    ]
+   },
+   "active_birch_sap": {
+    "blocks": [
+     "active_birch_sap"
+    ],
+    "safe": [
+     "active_aloe_vera",
+     "active_amino_acids"
+    ]
+   },
+   "active_pentylene_glycol": {
+    "blocks": [
+     "active_pentylene_glycol"
+    ],
+    "safe": [
+     "active_glycerin",
+     "active_betaine"
+    ]
+   },
+   "active_xylitol": {
+    "blocks": [
+     "active_xylitol"
+    ],
+    "safe": [
+     "active_trehalose",
+     "active_sorbitol"
+    ]
+   },
+   "active_trehalose": {
+    "blocks": [
+     "active_trehalose"
+    ],
+    "safe": [
+     "active_ectoin",
+     "active_xylitol"
+    ]
+   },
+   "active_ectoin": {
+    "blocks": [
+     "active_ectoin"
+    ],
+    "safe": [
+     "active_trehalose",
+     "active_beta_glucan"
+    ]
+   },
+   "active_saccharide_isomerate": {
+    "blocks": [
+     "active_saccharide_isomerate"
+    ],
+    "safe": [
+     "active_polyglutamic_acid",
+     "active_hyaluronic_acid"
+    ]
+   },
+   "active_cholesterol": {
+    "blocks": [
+     "active_cholesterol"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_squalane"
+    ]
+   },
+   "active_phytosphingosine": {
+    "blocks": [
+     "active_phytosphingosine"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_linoleic_acid"
+    ]
+   },
+   "active_linoleic_acid": {
+    "blocks": [
+     "active_linoleic_acid"
+    ],
+    "safe": [
+     "active_squalane",
+     "active_ceramides"
+    ]
+   },
+   "active_alpha_glucan": {
+    "blocks": [
+     "active_alpha_glucan"
+    ],
+    "safe": [
+     "active_beta_glucan",
+     "active_xylitol"
+    ]
+   },
+   "active_vitamin_c_pure": {
+    "blocks": [
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_vitamin_c_derivative",
+     "active_ergothioneine"
+    ]
+   },
+   "active_vitamin_c_derivative": {
+    "blocks": [
+     "active_vitamin_c_derivative"
+    ],
+    "safe": [
+     "active_ascorbyl_glucoside",
+     "active_niacinamide"
+    ]
+   },
+   "active_vitamin_e": {
+    "blocks": [
+     "active_vitamin_e"
+    ],
+    "safe": [
+     "active_tocotrienols",
+     "active_squalane"
+    ]
+   },
+   "active_ferulic_acid": {
+    "blocks": [
+     "active_ferulic_acid"
+    ],
+    "safe": [
+     "active_resveratrol",
+     "active_phloretin"
+    ]
+   },
+   "active_resveratrol": {
+    "blocks": [
+     "active_resveratrol"
+    ],
+    "safe": [
+     "active_green_tea",
+     "active_quercetin"
+    ]
+   },
+   "active_green_tea": {
+    "blocks": [
+     "active_green_tea"
+    ],
+    "safe": [
+     "active_resveratrol",
+     "active_ergothioneine"
+    ]
+   },
+   "active_coenzyme_q10": {
+    "blocks": [
+     "active_coenzyme_q10"
+    ],
+    "safe": [
+     "active_idebenone",
+     "active_astaxanthin"
+    ]
+   },
+   "active_idebenone": {
+    "blocks": [
+     "active_idebenone"
+    ],
+    "safe": [
+     "active_astaxanthin",
+     "active_ergothioneine"
+    ]
+   },
+   "active_alpha_lipoic_acid": {
+    "blocks": [
+     "active_alpha_lipoic_acid"
+    ],
+    "safe": [
+     "active_ergothioneine",
+     "active_glutathione"
+    ]
+   },
+   "active_astaxanthin": {
+    "blocks": [
+     "active_astaxanthin"
+    ],
+    "safe": [
+     "active_lycopene",
+     "active_beta_carotene"
+    ]
+   },
+   "active_silymarin": {
+    "blocks": [
+     "active_silymarin"
+    ],
+    "safe": [
+     "active_green_tea",
+     "active_quercetin"
+    ]
+   },
+   "active_pycnogenol": {
+    "blocks": [
+     "active_pycnogenol"
+    ],
+    "safe": [
+     "active_grape_seed",
+     "active_resveratrol"
+    ]
+   },
+   "active_beta_carotene": {
+    "blocks": [
+     "active_beta_carotene"
+    ],
+    "safe": [
+     "active_astaxanthin",
+     "active_lutein"
+    ]
+   },
+   "active_superoxide_dismutase": {
+    "blocks": [
+     "active_superoxide_dismutase"
+    ],
+    "safe": [
+     "active_ergothioneine",
+     "active_glutathione"
+    ]
+   },
+   "active_curcumin": {
+    "blocks": [
+     "active_curcumin"
+    ],
+    "safe": [
+     "active_resveratrol",
+     "active_niacinamide"
+    ]
+   },
+   "active_sap": {
+    "blocks": [
+     "active_sap"
+    ],
+    "safe": [
+     "active_map",
+     "active_azelaic_acid"
+    ]
+   },
+   "active_map": {
+    "blocks": [
+     "active_map"
+    ],
+    "safe": [
+     "active_sap",
+     "active_ascorbyl_glucoside"
+    ]
+   },
+   "active_ascorbyl_glucoside": {
+    "blocks": [
+     "active_ascorbyl_glucoside"
+    ],
+    "safe": [
+     "active_ethyl_ascorbic_acid",
+     "active_map"
+    ]
+   },
+   "active_ethyl_ascorbic_acid": {
+    "blocks": [
+     "active_ethyl_ascorbic_acid"
+    ],
+    "safe": [
+     "active_vitamin_c_derivative",
+     "active_ascorbyl_glucoside"
+    ]
+   },
+   "active_tocotrienols": {
+    "blocks": [
+     "active_tocotrienols"
+    ],
+    "safe": [
+     "active_vitamin_e",
+     "active_astaxanthin"
+    ]
+   },
+   "active_quercetin": {
+    "blocks": [
+     "active_quercetin"
+    ],
+    "safe": [
+     "active_green_tea",
+     "active_resveratrol"
+    ]
+   },
+   "active_genistein": {
+    "blocks": [
+     "active_genistein"
+    ],
+    "safe": [
+     "active_resveratrol",
+     "active_niacinamide"
+    ]
+   },
+   "active_phloretin": {
+    "blocks": [
+     "active_phloretin"
+    ],
+    "safe": [
+     "active_ferulic_acid",
+     "active_tranexamic_acid"
+    ]
+   },
+   "active_lycopene": {
+    "blocks": [
+     "active_lycopene"
+    ],
+    "safe": [
+     "active_astaxanthin",
+     "active_lutein"
+    ]
+   },
+   "active_lutein": {
+    "blocks": [
+     "active_lutein"
+    ],
+    "safe": [
+     "active_astaxanthin",
+     "active_lycopene"
+    ]
+   },
+   "active_caffeine": {
+    "blocks": [
+     "active_caffeine"
+    ],
+    "safe": [
+     "active_green_tea",
+     "active_ginkgo_biloba"
+    ]
+   },
+   "active_ergothioneine": {
+    "blocks": [
+     "active_ergothioneine"
+    ],
+    "safe": [
+     "active_glutathione",
+     "active_superoxide_dismutase"
+    ]
+   },
+   "active_glutathione": {
+    "blocks": [
+     "active_glutathione"
+    ],
+    "safe": [
+     "active_ergothioneine",
+     "active_tranexamic_acid"
+    ]
+   },
+   "active_melatonin": {
+    "blocks": [
+     "active_melatonin"
+    ],
+    "safe": [
+     "active_ergothioneine",
+     "active_resveratrol"
+    ]
+   },
+   "active_pqq": {
+    "blocks": [
+     "active_pqq"
+    ],
+    "safe": [
+     "active_idebenone",
+     "active_ergothioneine"
+    ]
+   },
+   "active_niacin": {
+    "blocks": [
+     "active_niacin"
+    ],
+    "safe": [
+     "active_niacinamide",
+     "active_azelaic_acid"
+    ]
+   },
+   "active_grape_seed": {
+    "blocks": [
+     "active_grape_seed"
+    ],
+    "safe": [
+     "active_pycnogenol",
+     "active_green_tea"
+    ]
+   },
+   "active_bha_salicylic": {
+    "blocks": [
+     "active_bha_salicylic"
+    ],
+    "safe": [
+     "active_betaine_salicylate",
+     "active_azelaic_acid"
+    ]
+   },
+   "active_aha_glycolic": {
+    "blocks": [
+     "active_aha_glycolic"
+    ],
+    "safe": [
+     "active_aha_lactic",
+     "active_pha_gluconolactone"
+    ]
+   },
+   "active_aha_lactic": {
+    "blocks": [
+     "active_aha_lactic"
+    ],
+    "safe": [
+     "active_aha_mandelic",
+     "active_pha_lactobionic"
+    ]
+   },
+   "active_aha_mandelic": {
+    "blocks": [
+     "active_aha_mandelic"
+    ],
+    "safe": [
+     "active_pha_gluconolactone",
+     "active_azelaic_acid"
+    ]
+   },
+   "active_pha_gluconolactone": {
+    "blocks": [
+     "active_pha_gluconolactone"
+    ],
+    "safe": [
+     "active_pha_lactobionic",
+     "active_galactose"
+    ]
+   },
+   "active_pha_lactobionic": {
+    "blocks": [
+     "active_pha_lactobionic"
+    ],
+    "safe": [
+     "active_pha_gluconolactone",
+     "active_bacillus_ferment"
+    ]
+   },
+   "active_azelaic_acid": {
+    "blocks": [
+     "active_azelaic_acid"
+    ],
+    "safe": [
+     "active_succinic_acid",
+     "active_tranexamic_acid"
+    ]
+   },
+   "active_lha": {
+    "blocks": [
+     "active_lha"
+    ],
+    "safe": [
+     "active_betaine_salicylate",
+     "active_succinic_acid"
+    ]
+   },
+   "active_citric_acid": {
+    "blocks": [
+     "active_citric_acid"
+    ],
+    "safe": [
+     "active_pha_gluconolactone",
+     "active_aha_mandelic"
+    ]
+   },
+   "active_malic_acid": {
+    "blocks": [
+     "active_malic_acid"
+    ],
+    "safe": [
+     "active_aha_mandelic",
+     "active_pha_gluconolactone"
+    ]
+   },
+   "active_tartaric_acid": {
+    "blocks": [
+     "active_tartaric_acid"
+    ],
+    "safe": [
+     "active_pha_lactobionic",
+     "active_aha_lactic"
+    ]
+   },
+   "active_tranexamic_acid": {
+    "blocks": [
+     "active_tranexamic_acid"
+    ],
+    "safe": [
+     "active_undecylenoyl_phenylalanine",
+     "active_licorice_root"
+    ]
+   },
+   "active_kojic_acid": {
+    "blocks": [
+     "active_kojic_acid"
+    ],
+    "safe": [
+     "active_tranexamic_acid",
+     "active_azelaic_acid"
+    ]
+   },
+   "active_betaine_salicylate": {
+    "blocks": [
+     "active_betaine_salicylate"
+    ],
+    "safe": [
+     "active_succinic_acid",
+     "active_azelaic_acid"
+    ]
+   },
+   "active_galactose": {
+    "blocks": [
+     "active_galactose"
+    ],
+    "safe": [
+     "active_pha_gluconolactone",
+     "active_bacillus_ferment"
+    ]
+   },
+   "active_succinic_acid": {
+    "blocks": [
+     "active_succinic_acid"
+    ],
+    "safe": [
+     "active_azelaic_acid",
+     "active_sulfur"
+    ]
+   },
+   "active_pyruvic_acid": {
+    "blocks": [
+     "active_pyruvic_acid"
+    ],
+    "safe": [
+     "active_aha_mandelic",
+     "active_azelaic_acid"
+    ]
+   },
+   "active_papain": {
+    "blocks": [
+     "active_papain"
+    ],
+    "safe": [
+     "active_bacillus_ferment",
+     "active_pha_gluconolactone"
+    ]
+   },
+   "active_bromelain": {
+    "blocks": [
+     "active_bromelain"
+    ],
+    "safe": [
+     "active_bacillus_ferment",
+     "active_pha_lactobionic"
+    ]
+   },
+   "active_pumpkin_enzymes": {
+    "blocks": [
+     "active_pumpkin_enzymes"
+    ],
+    "safe": [
+     "active_bacillus_ferment",
+     "active_pha_gluconolactone"
+    ]
+   },
+   "active_bacillus_ferment": {
+    "blocks": [
+     "active_bacillus_ferment"
+    ],
+    "safe": [
+     "active_pha_gluconolactone",
+     "active_galactose"
+    ]
+   },
+   "active_zinc_pyrithione": {
+    "blocks": [
+     "active_zinc_pyrithione"
+    ],
+    "safe": [
+     "active_sulfur",
+     "active_azelaic_acid"
+    ]
+   },
+   "active_selenium_sulfide": {
+    "blocks": [
+     "active_selenium_sulfide"
+    ],
+    "safe": [
+     "active_zinc_pyrithione",
+     "active_sulfur"
+    ]
+   },
+   "active_sulfur": {
+    "blocks": [
+     "active_sulfur"
+    ],
+    "safe": [
+     "active_zinc_pyrithione",
+     "active_succinic_acid"
+    ]
+   },
+   "active_coal_tar_exfoliant": {
+    "blocks": [
+     "active_coal_tar_exfoliant"
+    ],
+    "safe": [
+     "active_sulfur",
+     "active_bha_salicylic"
+    ]
+   },
+   "active_retinol": {
+    "blocks": [
+     "active_retinol"
+    ],
+    "safe": [
+     "active_bakuchiol",
+     "active_granactive_retinoid"
+    ]
+   },
+   "active_retinal": {
+    "blocks": [
+     "active_retinal"
+    ],
+    "safe": [
+     "active_granactive_retinoid",
+     "active_bakuchiol"
+    ]
+   },
+   "active_granactive_retinoid": {
+    "blocks": [
+     "active_granactive_retinoid"
+    ],
+    "safe": [
+     "active_bakuchiol",
+     "active_peptides"
+    ]
+   },
+   "active_bakuchiol": {
+    "blocks": [
+     "active_bakuchiol"
+    ],
+    "safe": [
+     "active_peptides",
+     "active_granactive_retinoid"
+    ]
+   },
+   "active_niacinamide": {
+    "blocks": [
+     "active_niacinamide"
+    ],
+    "safe": [
+     "active_azelaic_acid",
+     "active_ceramides"
+    ]
+   },
+   "active_peptides": {
+    "blocks": [
+     "active_peptides"
+    ],
+    "safe": [
+     "active_growth_factors",
+     "active_adenosine"
+    ]
+   },
+   "active_ceramides": {
+    "blocks": [
+     "active_ceramides"
+    ],
+    "safe": [
+     "active_cholesterol",
+     "active_phytosphingosine"
+    ]
+   },
+   "active_growth_factors": {
+    "blocks": [
+     "active_growth_factors"
+    ],
+    "safe": [
+     "active_peptides",
+     "active_exosomes"
+    ]
+   },
+   "active_adenosine": {
+    "blocks": [
+     "active_adenosine"
+    ],
+    "safe": [
+     "active_peptide_acetyl_hexapeptide",
+     "active_niacinamide"
+    ]
+   },
+   "active_ginseng": {
+    "blocks": [
+     "active_ginseng"
+    ],
+    "safe": [
+     "active_adenosine",
+     "active_peptides"
+    ]
+   },
+   "active_peptide_palmitoyl": {
+    "blocks": [
+     "active_peptide_palmitoyl"
+    ],
+    "safe": [
+     "active_palmitoyl_tripeptide_1",
+     "active_growth_factors"
+    ]
+   },
+   "active_peptide_acetyl_hexapeptide": {
+    "blocks": [
+     "active_peptide_acetyl_hexapeptide"
+    ],
+    "safe": [
+     "active_syn_ake",
+     "active_adenosine"
+    ]
+   },
+   "active_peptide_myristoyl_nonapeptide": {
+    "blocks": [
+     "active_peptide_myristoyl_nonapeptide"
+    ],
+    "safe": [
+     "active_peptides",
+     "active_bakuchiol"
+    ]
+   },
+   "active_retinyl_propionate": {
+    "blocks": [
+     "active_retinyl_propionate"
+    ],
+    "safe": [
+     "active_granactive_retinoid",
+     "active_bakuchiol"
+    ]
+   },
+   "active_palmitoyl_tripeptide_1": {
+    "blocks": [
+     "active_palmitoyl_tripeptide_1"
+    ],
+    "safe": [
+     "active_peptide_palmitoyl",
+     "active_palmitoyl_tetrapeptide_7"
+    ]
+   },
+   "active_palmitoyl_tetrapeptide_7": {
+    "blocks": [
+     "active_palmitoyl_tetrapeptide_7"
+    ],
+    "safe": [
+     "active_madecassoside",
+     "active_carnosine"
+    ]
+   },
+   "active_syn_ake": {
+    "blocks": [
+     "active_syn_ake"
+    ],
+    "safe": [
+     "active_peptide_acetyl_hexapeptide",
+     "active_adenosine"
+    ]
+   },
+   "active_madecassoside": {
+    "blocks": [
+     "active_madecassoside"
+    ],
+    "safe": [
+     "active_allantoin",
+     "active_panthenol"
+    ]
+   },
+   "active_asiaticoside": {
+    "blocks": [
+     "active_asiaticoside"
+    ],
+    "safe": [
+     "active_madecassoside",
+     "active_peptides"
+    ]
+   },
+   "active_fgf": {
+    "blocks": [
+     "active_fgf"
+    ],
+    "safe": [
+     "active_peptides",
+     "active_exosomes"
+    ]
+   },
+   "active_tgf_beta": {
+    "blocks": [
+     "active_tgf_beta"
+    ],
+    "safe": [
+     "active_peptide_palmitoyl",
+     "active_bakuchiol"
+    ]
+   },
+   "active_exosomes": {
+    "blocks": [
+     "active_exosomes"
+    ],
+    "safe": [
+     "active_growth_factors",
+     "active_peptides"
+    ]
+   },
+   "active_pdrn": {
+    "blocks": [
+     "active_pdrn"
+    ],
+    "safe": [
+     "active_exosomes",
+     "active_peptides"
+    ]
+   },
+   "active_licorice_root": {
+    "blocks": [
+     "active_licorice_root"
+    ],
+    "safe": [
+     "active_tranexamic_acid",
+     "active_niacinamide"
+    ]
+   },
+   "active_undecylenoyl_phenylalanine": {
+    "blocks": [
+     "active_undecylenoyl_phenylalanine"
+    ],
+    "safe": [
+     "active_tranexamic_acid",
+     "active_azelaic_acid"
+    ]
+   },
+   "active_dmae": {
+    "blocks": [
+     "active_dmae"
+    ],
+    "safe": [
+     "active_peptides",
+     "active_carnosine"
+    ]
+   },
+   "active_carnosine": {
+    "blocks": [
+     "active_carnosine"
+    ],
+    "safe": [
+     "active_ergothioneine",
+     "active_niacinamide"
+    ]
+   },
+   "active_acetyl_zingerone": {
+    "blocks": [
+     "active_acetyl_zingerone"
+    ],
+    "safe": [
+     "active_resveratrol",
+     "active_ferulic_acid"
+    ]
+   },
+   "active_spermidine": {
+    "blocks": [
+     "active_spermidine"
+    ],
+    "safe": [
+     "active_peptides",
+     "active_ergothioneine"
+    ]
+   },
+   "active_pdgf": {
+    "blocks": [
+     "active_pdgf"
+    ],
+    "safe": [
+     "active_growth_factors",
+     "active_peptides"
+    ]
+   },
+   "active_ginkgo_biloba": {
+    "blocks": [
+     "active_ginkgo_biloba"
+    ],
+    "safe": [
+     "active_caffeine",
+     "active_resveratrol"
+    ]
+   },
+   "active_azeloyl_pentapeptide": {
+    "blocks": [
+     "active_azeloyl_pentapeptide"
+    ],
+    "safe": [
+     "active_azelaic_acid",
+     "active_niacinamide"
+    ]
+   }
+  },
+  "medication": {
+   "med_isotretinoin": {
+    "blocks": [
+     "active_retinol",
+     "active_retinal",
+     "active_granactive_retinoid",
+     "active_retinyl_propionate",
+     "active_bakuchiol",
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_bha_salicylic",
+     "active_pyruvic_acid",
+     "active_lha",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_cholesterol",
+     "active_phytosphingosine",
+     "active_panthenol",
+     "active_peptides"
+    ]
+   },
+   "med_oral_acitretin": {
+    "blocks": [
+     "active_retinol",
+     "active_retinal",
+     "active_granactive_retinoid",
+     "active_retinyl_propionate",
+     "active_bakuchiol",
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_bha_salicylic",
+     "active_pyruvic_acid",
+     "active_lha",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_cholesterol",
+     "active_phytosphingosine",
+     "active_panthenol",
+     "active_peptides"
+    ]
+   },
+   "med_oral_alitretinoin": {
+    "blocks": [
+     "active_retinol",
+     "active_retinal",
+     "active_granactive_retinoid",
+     "active_retinyl_propionate",
+     "active_bakuchiol",
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_bha_salicylic",
+     "active_pyruvic_acid",
+     "active_lha",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_cholesterol",
+     "active_phytosphingosine",
+     "active_panthenol",
+     "active_peptides"
+    ]
+   },
+   "med_topical_tretinoin": {
+    "blocks": [
+     "active_retinol",
+     "active_retinal",
+     "active_granactive_retinoid",
+     "active_retinyl_propionate",
+     "active_bakuchiol",
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_bha_salicylic",
+     "active_pyruvic_acid",
+     "active_lha",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_cholesterol",
+     "active_phytosphingosine",
+     "active_panthenol",
+     "active_peptides"
+    ]
+   },
+   "med_topical_adapalene": {
+    "blocks": [
+     "active_retinol",
+     "active_retinal",
+     "active_granactive_retinoid",
+     "active_retinyl_propionate",
+     "active_bakuchiol",
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_bha_salicylic",
+     "active_pyruvic_acid",
+     "active_lha",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_cholesterol",
+     "active_phytosphingosine",
+     "active_panthenol",
+     "active_peptides"
+    ]
+   },
+   "med_topical_tazarotene": {
+    "blocks": [
+     "active_retinol",
+     "active_retinal",
+     "active_granactive_retinoid",
+     "active_retinyl_propionate",
+     "active_bakuchiol",
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_bha_salicylic",
+     "active_pyruvic_acid",
+     "active_lha",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_cholesterol",
+     "active_phytosphingosine",
+     "active_panthenol",
+     "active_peptides"
+    ]
+   },
+   "med_topical_trifarotene": {
+    "blocks": [
+     "active_retinol",
+     "active_retinal",
+     "active_granactive_retinoid",
+     "active_retinyl_propionate",
+     "active_bakuchiol",
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_bha_salicylic",
+     "active_pyruvic_acid",
+     "active_lha",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_cholesterol",
+     "active_phytosphingosine",
+     "active_panthenol",
+     "active_peptides"
+    ]
+   },
+   "med_topical_adapalene_bpo": {
+    "blocks": [
+     "active_retinol",
+     "active_retinal",
+     "active_granactive_retinoid",
+     "active_retinyl_propionate",
+     "active_bakuchiol",
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_bha_salicylic",
+     "active_pyruvic_acid",
+     "active_lha",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_cholesterol",
+     "active_phytosphingosine",
+     "active_panthenol",
+     "active_peptides"
+    ]
+   },
+   "med_topical_tretinoin_bpo": {
+    "blocks": [
+     "active_retinol",
+     "active_retinal",
+     "active_granactive_retinoid",
+     "active_retinyl_propionate",
+     "active_bakuchiol",
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_bha_salicylic",
+     "active_pyruvic_acid",
+     "active_lha",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_cholesterol",
+     "active_phytosphingosine",
+     "active_panthenol",
+     "active_peptides"
+    ]
+   },
+   "med_topical_clindamycin_tret": {
+    "blocks": [
+     "active_retinol",
+     "active_retinal",
+     "active_granactive_retinoid",
+     "active_retinyl_propionate",
+     "active_bakuchiol",
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_bha_salicylic",
+     "active_pyruvic_acid",
+     "active_lha",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_cholesterol",
+     "active_phytosphingosine",
+     "active_panthenol",
+     "active_peptides"
+    ]
+   },
+   "med_topical_triple_combination": {
+    "blocks": [
+     "active_retinol",
+     "active_retinal",
+     "active_granactive_retinoid",
+     "active_retinyl_propionate",
+     "active_bakuchiol",
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_bha_salicylic",
+     "active_pyruvic_acid",
+     "active_lha",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_cholesterol",
+     "active_phytosphingosine",
+     "active_panthenol",
+     "active_peptides"
+    ]
+   },
+   "med_topical_benzoyl_peroxide": {
+    "blocks": [
+     "active_vitamin_c_pure",
+     "active_retinol",
+     "active_retinal"
+    ],
+    "safe": [
+     "active_niacinamide",
+     "active_azelaic_acid",
+     "active_vitamin_e",
+     "active_ferulic_acid"
+    ]
+   },
+   "med_topical_clindamycin": {
+    "blocks": [
+     "active_vitamin_c_pure",
+     "active_retinol",
+     "active_retinal"
+    ],
+    "safe": [
+     "active_niacinamide",
+     "active_azelaic_acid",
+     "active_vitamin_e",
+     "active_ferulic_acid"
+    ]
+   },
+   "med_topical_erythromycin": {
+    "blocks": [
+     "active_vitamin_c_pure",
+     "active_retinol",
+     "active_retinal"
+    ],
+    "safe": [
+     "active_niacinamide",
+     "active_azelaic_acid",
+     "active_vitamin_e",
+     "active_ferulic_acid"
+    ]
+   },
+   "med_topical_dapsone": {
+    "blocks": [
+     "active_vitamin_c_pure",
+     "active_retinol",
+     "active_retinal"
+    ],
+    "safe": [
+     "active_niacinamide",
+     "active_azelaic_acid",
+     "active_vitamin_e",
+     "active_ferulic_acid"
+    ]
+   },
+   "med_topical_sulfacetamide": {
+    "blocks": [
+     "active_vitamin_c_pure",
+     "active_retinol",
+     "active_retinal"
+    ],
+    "safe": [
+     "active_niacinamide",
+     "active_azelaic_acid",
+     "active_vitamin_e",
+     "active_ferulic_acid"
+    ]
+   },
+   "med_topical_azelaic_rx": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_niacin",
+     "active_alpha_lipoic_acid",
+     "active_retinol",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_niacinamide",
+     "active_madecassoside",
+     "active_centella_asiatica",
+     "active_pha_gluconolactone"
+    ]
+   },
+   "med_topical_ivermectin": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_niacin",
+     "active_alpha_lipoic_acid",
+     "active_retinol",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_niacinamide",
+     "active_madecassoside",
+     "active_centella_asiatica",
+     "active_pha_gluconolactone"
+    ]
+   },
+   "med_topical_metronidazole": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_niacin",
+     "active_alpha_lipoic_acid",
+     "active_retinol",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_niacinamide",
+     "active_madecassoside",
+     "active_centella_asiatica",
+     "active_pha_gluconolactone"
+    ]
+   },
+   "med_topical_brimonidine": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_niacin",
+     "active_alpha_lipoic_acid",
+     "active_retinol",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_niacinamide",
+     "active_madecassoside",
+     "active_centella_asiatica",
+     "active_pha_gluconolactone"
+    ]
+   },
+   "med_topical_oxymetazoline": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_niacin",
+     "active_alpha_lipoic_acid",
+     "active_retinol",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_niacinamide",
+     "active_madecassoside",
+     "active_centella_asiatica",
+     "active_pha_gluconolactone"
+    ]
+   },
+   "med_topical_hydroquinone": {
+    "blocks": [
+     "active_kojic_acid",
+     "active_aha_glycolic",
+     "active_pyruvic_acid"
+    ],
+    "safe": [
+     "active_undecylenoyl_phenylalanine",
+     "active_licorice_root",
+     "active_niacinamide",
+     "active_vitamin_c_derivative"
+    ]
+   },
+   "med_topical_mequinol": {
+    "blocks": [
+     "active_kojic_acid",
+     "active_aha_glycolic",
+     "active_pyruvic_acid"
+    ],
+    "safe": [
+     "active_undecylenoyl_phenylalanine",
+     "active_licorice_root",
+     "active_niacinamide",
+     "active_vitamin_c_derivative"
+    ]
+   },
+   "med_topical_cysteamine": {
+    "blocks": [
+     "active_kojic_acid",
+     "active_aha_glycolic",
+     "active_pyruvic_acid"
+    ],
+    "safe": [
+     "active_undecylenoyl_phenylalanine",
+     "active_licorice_root",
+     "active_niacinamide",
+     "active_vitamin_c_derivative"
+    ]
+   },
+   "med_topical_alpha_arbutin": {
+    "blocks": [
+     "active_kojic_acid",
+     "active_aha_glycolic",
+     "active_pyruvic_acid"
+    ],
+    "safe": [
+     "active_undecylenoyl_phenylalanine",
+     "active_licorice_root",
+     "active_niacinamide",
+     "active_vitamin_c_derivative"
+    ]
+   },
+   "med_topical_deoxyarbutin": {
+    "blocks": [
+     "active_kojic_acid",
+     "active_aha_glycolic",
+     "active_pyruvic_acid"
+    ],
+    "safe": [
+     "active_undecylenoyl_phenylalanine",
+     "active_licorice_root",
+     "active_niacinamide",
+     "active_vitamin_c_derivative"
+    ]
+   },
+   "med_oral_tranexamic_acid": {
+    "blocks": [
+     "active_kojic_acid",
+     "active_aha_glycolic",
+     "active_pyruvic_acid"
+    ],
+    "safe": [
+     "active_undecylenoyl_phenylalanine",
+     "active_licorice_root",
+     "active_niacinamide",
+     "active_vitamin_c_derivative"
+    ]
+   },
+   "med_topical_hydrocortisone": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_aha_mandelic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_pumpkin_enzymes",
+     "active_retinol",
+     "active_retinal",
+     "active_dmae",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_cholesterol",
+     "active_linoleic_acid",
+     "active_colloidal_oat"
+    ]
+   },
+   "med_topical_clobetasone": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_aha_mandelic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_pumpkin_enzymes",
+     "active_retinol",
+     "active_retinal",
+     "active_dmae",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_cholesterol",
+     "active_linoleic_acid",
+     "active_colloidal_oat"
+    ]
+   },
+   "med_topical_betamethasone": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_aha_mandelic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_pumpkin_enzymes",
+     "active_retinol",
+     "active_retinal",
+     "active_dmae",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_cholesterol",
+     "active_linoleic_acid",
+     "active_colloidal_oat"
+    ]
+   },
+   "med_topical_clobetasol": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_aha_mandelic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_pumpkin_enzymes",
+     "active_retinol",
+     "active_retinal",
+     "active_dmae",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_cholesterol",
+     "active_linoleic_acid",
+     "active_colloidal_oat"
+    ]
+   },
+   "med_topical_desonide": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_aha_mandelic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_pumpkin_enzymes",
+     "active_retinol",
+     "active_retinal",
+     "active_dmae",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_cholesterol",
+     "active_linoleic_acid",
+     "active_colloidal_oat"
+    ]
+   },
+   "med_topical_fluocinolone": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_aha_mandelic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_pumpkin_enzymes",
+     "active_retinol",
+     "active_retinal",
+     "active_dmae",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_cholesterol",
+     "active_linoleic_acid",
+     "active_colloidal_oat"
+    ]
+   },
+   "med_topical_triamcinolone": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_aha_mandelic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_pumpkin_enzymes",
+     "active_retinol",
+     "active_retinal",
+     "active_dmae",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_cholesterol",
+     "active_linoleic_acid",
+     "active_colloidal_oat"
+    ]
+   },
+   "med_topical_mometasone": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_aha_mandelic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_pumpkin_enzymes",
+     "active_retinol",
+     "active_retinal",
+     "active_dmae",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_cholesterol",
+     "active_linoleic_acid",
+     "active_colloidal_oat"
+    ]
+   },
+   "med_topical_amcinonide": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_aha_mandelic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_pumpkin_enzymes",
+     "active_retinol",
+     "active_retinal",
+     "active_dmae",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_cholesterol",
+     "active_linoleic_acid",
+     "active_colloidal_oat"
+    ]
+   },
+   "med_topical_betamethasone_dip": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_aha_mandelic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_pumpkin_enzymes",
+     "active_retinol",
+     "active_retinal",
+     "active_dmae",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_cholesterol",
+     "active_linoleic_acid",
+     "active_colloidal_oat"
+    ]
+   },
+   "med_oral_steroid": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_aha_mandelic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_pumpkin_enzymes",
+     "active_retinol",
+     "active_retinal",
+     "active_dmae",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_cholesterol",
+     "active_linoleic_acid",
+     "active_colloidal_oat"
+    ]
+   },
+   "med_oral_methylprednisolone": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_aha_mandelic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_pumpkin_enzymes",
+     "active_retinol",
+     "active_retinal",
+     "active_dmae",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_cholesterol",
+     "active_linoleic_acid",
+     "active_colloidal_oat"
+    ]
+   },
+   "med_topical_pimecrolimus": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_aha_mandelic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_pumpkin_enzymes",
+     "active_retinol",
+     "active_retinal",
+     "active_dmae",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_cholesterol",
+     "active_linoleic_acid",
+     "active_colloidal_oat"
+    ]
+   },
+   "med_topical_tacrolimus": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_aha_mandelic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_pumpkin_enzymes",
+     "active_retinol",
+     "active_retinal",
+     "active_dmae",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_cholesterol",
+     "active_linoleic_acid",
+     "active_colloidal_oat"
+    ]
+   },
+   "med_topical_crisaborole": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_aha_mandelic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_pumpkin_enzymes",
+     "active_retinol",
+     "active_retinal",
+     "active_dmae",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_cholesterol",
+     "active_linoleic_acid",
+     "active_colloidal_oat"
+    ]
+   },
+   "med_topical_ruxolitinib": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_aha_mandelic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_pumpkin_enzymes",
+     "active_retinol",
+     "active_retinal",
+     "active_dmae",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_cholesterol",
+     "active_linoleic_acid",
+     "active_colloidal_oat"
+    ]
+   },
+   "med_topical_sucralfate": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_aha_mandelic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_pumpkin_enzymes",
+     "active_retinol",
+     "active_retinal",
+     "active_dmae",
+     "active_vitamin_c_pure"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_cholesterol",
+     "active_linoleic_acid",
+     "active_colloidal_oat"
+    ]
+   },
+   "med_doxycycline": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_retinol",
+     "active_retinal",
+     "active_kojic_acid"
+    ],
+    "safe": [
+     "active_vitamin_c_derivative",
+     "active_vitamin_e",
+     "active_astaxanthin",
+     "active_green_tea"
+    ]
+   },
+   "med_minocycline": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_retinol",
+     "active_retinal",
+     "active_kojic_acid"
+    ],
+    "safe": [
+     "active_vitamin_c_derivative",
+     "active_vitamin_e",
+     "active_astaxanthin",
+     "active_green_tea"
+    ]
+   },
+   "med_lymecycline": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_retinol",
+     "active_retinal",
+     "active_kojic_acid"
+    ],
+    "safe": [
+     "active_vitamin_c_derivative",
+     "active_vitamin_e",
+     "active_astaxanthin",
+     "active_green_tea"
+    ]
+   },
+   "med_sarecycline": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_retinol",
+     "active_retinal",
+     "active_kojic_acid"
+    ],
+    "safe": [
+     "active_vitamin_c_derivative",
+     "active_vitamin_e",
+     "active_astaxanthin",
+     "active_green_tea"
+    ]
+   },
+   "med_oral_bactrim": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_retinol",
+     "active_retinal",
+     "active_kojic_acid"
+    ],
+    "safe": [
+     "active_vitamin_c_derivative",
+     "active_vitamin_e",
+     "active_astaxanthin",
+     "active_green_tea"
+    ]
+   },
+   "med_oral_hydroxychloroquine": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_retinol",
+     "active_retinal",
+     "active_kojic_acid"
+    ],
+    "safe": [
+     "active_vitamin_c_derivative",
+     "active_vitamin_e",
+     "active_astaxanthin",
+     "active_green_tea"
+    ]
+   },
+   "med_oral_dapsone": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_aha_lactic",
+     "active_retinol",
+     "active_retinal",
+     "active_kojic_acid"
+    ],
+    "safe": [
+     "active_vitamin_c_derivative",
+     "active_vitamin_e",
+     "active_astaxanthin",
+     "active_green_tea"
+    ]
+   },
+   "med_topical_fluorouracil": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_lha",
+     "active_coal_tar_exfoliant",
+     "active_sulfur",
+     "active_retinol",
+     "active_retinal"
+    ],
+    "safe": [
+     "active_allantoin",
+     "active_panthenol",
+     "active_hyaluronic_acid",
+     "active_squalane"
+    ]
+   },
+   "med_topical_imiquimod": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_lha",
+     "active_coal_tar_exfoliant",
+     "active_sulfur",
+     "active_retinol",
+     "active_retinal"
+    ],
+    "safe": [
+     "active_allantoin",
+     "active_panthenol",
+     "active_hyaluronic_acid",
+     "active_squalane"
+    ]
+   },
+   "med_topical_tirbanibulin": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_lha",
+     "active_coal_tar_exfoliant",
+     "active_sulfur",
+     "active_retinol",
+     "active_retinal"
+    ],
+    "safe": [
+     "active_allantoin",
+     "active_panthenol",
+     "active_hyaluronic_acid",
+     "active_squalane"
+    ]
+   },
+   "med_topical_calcipotriol": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_lha",
+     "active_coal_tar_exfoliant",
+     "active_sulfur",
+     "active_retinol",
+     "active_retinal"
+    ],
+    "safe": [
+     "active_allantoin",
+     "active_panthenol",
+     "active_hyaluronic_acid",
+     "active_squalane"
+    ]
+   },
+   "med_topical_calcitriol": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_lha",
+     "active_coal_tar_exfoliant",
+     "active_sulfur",
+     "active_retinol",
+     "active_retinal"
+    ],
+    "safe": [
+     "active_allantoin",
+     "active_panthenol",
+     "active_hyaluronic_acid",
+     "active_squalane"
+    ]
+   },
+   "med_topical_coal_tar": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_lha",
+     "active_coal_tar_exfoliant",
+     "active_sulfur",
+     "active_retinol",
+     "active_retinal"
+    ],
+    "safe": [
+     "active_allantoin",
+     "active_panthenol",
+     "active_hyaluronic_acid",
+     "active_squalane"
+    ]
+   },
+   "med_topical_capsaicin": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_lha",
+     "active_coal_tar_exfoliant",
+     "active_sulfur",
+     "active_retinol",
+     "active_retinal"
+    ],
+    "safe": [
+     "active_allantoin",
+     "active_panthenol",
+     "active_hyaluronic_acid",
+     "active_squalane"
+    ]
+   },
+   "med_topical_clascoterone": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_lha",
+     "active_coal_tar_exfoliant",
+     "active_sulfur",
+     "active_retinol",
+     "active_retinal"
+    ],
+    "safe": [
+     "active_allantoin",
+     "active_panthenol",
+     "active_hyaluronic_acid",
+     "active_squalane"
+    ]
+   },
+   "med_systemic_biologic": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_retinol"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_beta_glucan",
+     "active_niacinamide",
+     "active_peptides"
+    ]
+   },
+   "med_injectable_dupilumab": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_retinol"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_beta_glucan",
+     "active_niacinamide",
+     "active_peptides"
+    ]
+   },
+   "med_systemic_secukinumab": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_retinol"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_beta_glucan",
+     "active_niacinamide",
+     "active_peptides"
+    ]
+   },
+   "med_systemic_etanercept": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_retinol"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_beta_glucan",
+     "active_niacinamide",
+     "active_peptides"
+    ]
+   },
+   "med_systemic_adalimumab": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_retinol"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_beta_glucan",
+     "active_niacinamide",
+     "active_peptides"
+    ]
+   },
+   "med_systemic_ustekinumab": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_retinol"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_beta_glucan",
+     "active_niacinamide",
+     "active_peptides"
+    ]
+   },
+   "med_systemic_certolizumab": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_retinol"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_beta_glucan",
+     "active_niacinamide",
+     "active_peptides"
+    ]
+   },
+   "med_systemic_ixekizumab": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_retinol"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_beta_glucan",
+     "active_niacinamide",
+     "active_peptides"
+    ]
+   },
+   "med_systemic_infliximab": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_retinol"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_beta_glucan",
+     "active_niacinamide",
+     "active_peptides"
+    ]
+   },
+   "med_systemic_brodalumab": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_retinol"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_beta_glucan",
+     "active_niacinamide",
+     "active_peptides"
+    ]
+   },
+   "med_systemic_guselkumab": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_retinol"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_beta_glucan",
+     "active_niacinamide",
+     "active_peptides"
+    ]
+   },
+   "med_systemic_tildrakizumab": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_retinol"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_beta_glucan",
+     "active_niacinamide",
+     "active_peptides"
+    ]
+   },
+   "med_systemic_omalizumab": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_retinol"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_beta_glucan",
+     "active_niacinamide",
+     "active_peptides"
+    ]
+   },
+   "med_oral_abrocitinib": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_retinol"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_beta_glucan",
+     "active_niacinamide",
+     "active_peptides"
+    ]
+   },
+   "med_oral_upadacitinib": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_retinol"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_beta_glucan",
+     "active_niacinamide",
+     "active_peptides"
+    ]
+   },
+   "med_oral_baricitinib": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_retinol"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_beta_glucan",
+     "active_niacinamide",
+     "active_peptides"
+    ]
+   },
+   "med_methotrexate": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_retinol"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_beta_glucan",
+     "active_niacinamide",
+     "active_peptides"
+    ]
+   },
+   "med_cyclosporine": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_retinol"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_beta_glucan",
+     "active_niacinamide",
+     "active_peptides"
+    ]
+   },
+   "med_oral_azathioprine": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_retinol"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_beta_glucan",
+     "active_niacinamide",
+     "active_peptides"
+    ]
+   },
+   "med_oral_mycophenolate": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_retinol"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_beta_glucan",
+     "active_niacinamide",
+     "active_peptides"
+    ]
+   },
+   "med_oral_thalidomide": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_retinol"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_beta_glucan",
+     "active_niacinamide",
+     "active_peptides"
+    ]
+   },
+   "med_spironolactone": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_retinol"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_beta_glucan",
+     "active_niacinamide",
+     "active_peptides"
+    ]
+   },
+   "med_erythromycin_oral": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_retinol"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_beta_glucan",
+     "active_niacinamide",
+     "active_peptides"
+    ]
+   },
+   "med_oral_contraceptive": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_retinol"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_beta_glucan",
+     "active_niacinamide",
+     "active_peptides"
+    ]
+   },
+   "med_metformin": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_retinol"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_beta_glucan",
+     "active_niacinamide",
+     "active_peptides"
+    ]
+   },
+   "med_oral_antiviral": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_retinol"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_beta_glucan",
+     "active_niacinamide",
+     "active_peptides"
+    ]
+   },
+   "med_oral_antfungal": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_retinol"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_beta_glucan",
+     "active_niacinamide",
+     "active_peptides"
+    ]
+   },
+   "med_oral_antihistamine": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_retinol"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_beta_glucan",
+     "active_niacinamide",
+     "active_peptides"
+    ]
+   },
+   "med_topical_mupirocin": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_retinol"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_beta_glucan",
+     "active_niacinamide",
+     "active_peptides"
+    ]
+   },
+   "med_topical_clotrimazole": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_retinol"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_beta_glucan",
+     "active_niacinamide",
+     "active_peptides"
+    ]
+   },
+   "med_topical_miconazole": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_retinol"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_beta_glucan",
+     "active_niacinamide",
+     "active_peptides"
+    ]
+   },
+   "med_topical_permethrin": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_retinol"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_beta_glucan",
+     "active_niacinamide",
+     "active_peptides"
+    ]
+   },
+   "med_oral_itraconazole": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_retinol"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_beta_glucan",
+     "active_niacinamide",
+     "active_peptides"
+    ]
+   },
+   "med_oral_fluconazole": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_retinol"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_beta_glucan",
+     "active_niacinamide",
+     "active_peptides"
+    ]
+   },
+   "med_oral_griseofulvin": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_retinol"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_beta_glucan",
+     "active_niacinamide",
+     "active_peptides"
+    ]
+   },
+   "med_oral_finasteride": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_retinol"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_beta_glucan",
+     "active_niacinamide",
+     "active_peptides"
+    ]
+   },
+   "med_oral_dutasteride": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_retinol"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_beta_glucan",
+     "active_niacinamide",
+     "active_peptides"
+    ]
+   },
+   "med_topical_ketoconazole": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_retinol"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_beta_glucan",
+     "active_niacinamide",
+     "active_peptides"
+    ]
+   },
+   "med_topical_econazole": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_retinol"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_beta_glucan",
+     "active_niacinamide",
+     "active_peptides"
+    ]
+   },
+   "med_topical_ciclopirox": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_retinol"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_beta_glucan",
+     "active_niacinamide",
+     "active_peptides"
+    ]
+   },
+   "med_topical_nystatin": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_retinol"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_beta_glucan",
+     "active_niacinamide",
+     "active_peptides"
+    ]
+   },
+   "med_topical_penciclovir": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_retinol"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_beta_glucan",
+     "active_niacinamide",
+     "active_peptides"
+    ]
+   },
+   "med_oral_azithromycin": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_retinol"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_beta_glucan",
+     "active_niacinamide",
+     "active_peptides"
+    ]
+   },
+   "med_oral_voriconazole": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_retinol"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_beta_glucan",
+     "active_niacinamide",
+     "active_peptides"
+    ]
+   },
+   "med_oral_famciclovir": {
+    "blocks": [
+     "active_aha_glycolic",
+     "active_bha_salicylic",
+     "active_papain",
+     "active_bromelain",
+     "active_retinol"
+    ],
+    "safe": [
+     "active_ceramides",
+     "active_beta_glucan",
+     "active_niacinamide",
+     "active_peptides"
+    ]
+   }
+  }
+ }
 }

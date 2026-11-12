@@ -17,7 +17,7 @@ import {
   type SerumDef,
 } from "./catalogue";
 import { matchAllergyNote, matchMedicationNote } from "./match";
-import { displayName } from "./reference";
+import { SWAPS, displayName, swapRuleFor } from "./reference";
 
 /**
  * Builds a member's morning and night routine from their quiz answers.
@@ -96,6 +96,8 @@ export interface Routine {
   unrecognisedMedication: string[];
   /** A person should look at this before it is sent. */
   needsReview: boolean;
+  /** One personal sentence: what we heard from the quiz, for the email intro. */
+  summary: string;
   notes: string[];
 }
 
@@ -122,6 +124,26 @@ function phrases(i: RoutineInput): Record<Concern, string> {
     tone: "you want a brighter, more even tone",
     aging: "you want to smooth fine lines and protect your skin for the long run",
   };
+}
+
+/** The most steps in a morning or night routine. */
+export const MAX_STEPS = 5;
+
+/** Trims a routine in place to MAX_STEPS, removing the least important steps first. */
+function simplify(steps: RoutineStep[]): void {
+  const drop = (i: number) => steps.splice(i, 1);
+  const serumIdx = () => steps.map((s, i) => (s.key === "serum" ? i : -1)).filter((i) => i >= 0);
+  while (steps.length > MAX_STEPS) {
+    const serums = serumIdx();
+    if (serums.length > 2) { drop(serums[serums.length - 1]); continue; }
+    const toner = steps.findIndex((s) => s.key === "toner");
+    if (toner >= 0) { drop(toner); continue; }
+    if (serums.length > 1) { drop(serums[serums.length - 1]); continue; }
+    // Face oil is only added for dry skin or drying medication, so it goes last.
+    const oil = steps.findIndex((s) => s.key === "face_oil");
+    if (oil >= 0) { drop(oil); continue; }
+    break;
+  }
 }
 
 export function buildRoutine(input: RoutineInput): Routine {
@@ -157,6 +179,9 @@ export function buildRoutine(input: RoutineInput): Routine {
     [...medCodes].some((c) => GENTLE_MODE_MEDS.has(c)) ||
     unrecognisedMedication.length > 0 ||
     (input.medication_use === "yes" && medCodes.size === 0);
+  // Actives the swaps list marks as unsuitable alongside a medication.
+  const medBlocked = new Set<string>();
+  for (const c of medCodes) for (const a of SWAPS.medication[c]?.blocks ?? []) medBlocked.add(a);
   const veryDrying = [...medCodes].some((c) => VERY_DRYING_MEDS.has(c));
   const photosensitive = [...medCodes].some((c) => PHOTOSENSITIVE_MEDS.has(c));
   const medicationNames = [...new Set((medNote?.entries ?? []).map((e) => className(e.cls ?? "")))].filter(Boolean);
@@ -188,7 +213,8 @@ export function buildRoutine(input: RoutineInput): Routine {
     (!!def.exfoliant && picks.some((p) => p.def.exfoliant)) ||
     (!!def.drying && drySkin) ||
     (conservative && !MOST_INERT.includes(def.code)) ||
-    (gentleMode && def.code === "active_bakuchiol");
+    (gentleMode && def.code === "active_bakuchiol") ||
+    medBlocked.has(def.code);
 
   const allergenFor = (def: SerumDef): string => {
     const hit = allergy.entries.find(
@@ -200,7 +226,13 @@ export function buildRoutine(input: RoutineInput): Routine {
   function pickFor(concern: Concern): boolean {
     const usable = CANDIDATES[concern].map((c) => SERUMS[c]).filter((def) => def && !skipped(def));
     const ideal = usable[0];
-    const chosen = usable.find((def) => !blockedActives.has(def.code) && !picks.some((p) => p.def.code === def.code));
+    const free = (def: SerumDef) => !blockedActives.has(def.code) && !picks.some((p) => p.def.code === def.code);
+    // When the first choice is ruled out, prefer an ingredient the swaps list
+    // names as the safe stand-in for that allergen, then any other safe option.
+    const safeCodes = ideal && blockedActives.has(ideal.code)
+      ? allergy.entries.flatMap((e) => swapRuleFor(e.code)?.safe ?? [])
+      : [];
+    const chosen = usable.find((def) => free(def) && safeCodes.includes(def.code)) ?? usable.find(free);
     if (ideal && blockedActives.has(ideal.code) && !swaps.some((s) => s.from === ideal.label)) {
       swaps.push({ from: ideal.label, to: chosen?.label ?? null, because: allergenFor(ideal) });
     }
@@ -368,6 +400,33 @@ export function buildRoutine(input: RoutineInput): Routine {
     });
   }
 
+  // A simple routine: at most five steps each for morning and night. When a
+  // routine runs long, drop the extras first (a third serum, the toner, a
+  // second serum, then the optional face oil), so the core is never lost.
+  simplify(morning);
+  simplify(night);
+
+  const SKIN_CLAUSE: Record<string, string> = {
+    oily: "your skin is oily", dry: "your skin is dry", combination: "your skin is combination",
+    normal: "your skin is fairly balanced", highly_sensitive: "your skin is very sensitive",
+  };
+  const ENV_CLAUSE: Record<string, string> = {
+    climate_controlled_indoor: "you spend your days in air-conditioned indoor air",
+    outdoors: "you spend a lot of time outdoors",
+    urban_pollution: "you spend your days in city pollution",
+    balanced_indoor: "you are mostly indoors",
+  };
+  const heard = [
+    SKIN_CLAUSE[skin],
+    ...ranked.slice(0, 2).map((c) => phrase[c]),
+    ENV_CLAUSE[input.environment],
+    input.medication_use === "yes" ? "you take medication" : undefined,
+    allergenNames.length ? `you are allergic to ${allergenNames.slice(0, 3).join(", ")}` : undefined,
+  ].filter((x): x is string => !!x);
+  const summary = heard.length
+    ? `We built this exact plan from what you told us: ${heard.length > 1 ? `${heard.slice(0, -1).join(", ")} and ${heard[heard.length - 1]}` : heard[0]}.`
+    : "We built this exact plan from your quiz answers.";
+
   const notes = [
     "Patch-test every new product on your inner arm for 24 hours before using it on your face, and introduce one new product at a time.",
     "This is cosmetic skincare guidance based on your quiz answers, not a diagnosis or medical advice. If a skin concern is severe, painful or changing, see a GP or dermatologist.",
@@ -392,6 +451,7 @@ export function buildRoutine(input: RoutineInput): Routine {
     unrecognisedAllergy: allergy.unrecognised,
     unrecognisedMedication,
     needsReview,
+    summary,
     notes,
   };
 }

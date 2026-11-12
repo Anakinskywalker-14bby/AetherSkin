@@ -20,6 +20,9 @@ export type AuditEvent =
   | "quiz_submitted"
   | "quiz_rejected"
   | "quiz_claim_released"
+  | "routine_held"
+  | "routine_backfill_sent"
+  | "routine_queued"
   | "rate_limited";
 
 let warnedNoSalt = false;
@@ -62,13 +65,15 @@ export async function audit(
   try {
     if (!process.env.SUPABASE_SERVICE_ROLE_KEY) return;
     const admin = createAdminClient();
-    await admin.from("audit_log").insert({
+    const { error } = await admin.from("audit_log").insert({
       event,
       waitlist_id: opts.waitlistId ?? null,
       email_hash: opts.email ? hashPii(opts.email.toLowerCase()) : null,
       ip_hash: opts.ip ? hashPii(opts.ip) : null,
       detail: (opts.detail ?? {}) as never,
     });
+    // supabase-js reports failures in `error` instead of throwing.
+    if (error) throw new Error(`audit insert failed: ${error.code ?? "unknown"}`);
   } catch (err) {
     // Never blocks the request path, but a failure here means the abuse
     // trail went dark -- that must still be observable (PYA audit

@@ -48,6 +48,11 @@ vi.mock("@/lib/email", () => ({
   sendQuizCompleteEmail,
   sendFounderNoteEmail,
   addResendContact,
+  sendRoutineEmail: async () => ({ sent: true }),
+  notifyOwnerRoutineHeld: async () => ({ sent: true }),
+  escapeHtml: (s: string) => s,
+  BRAND: {},
+  SHELL: (s: string) => s,
 }));
 vi.mock("@/lib/quiz-link", () => ({
   LINK_TTL_HOURS: 24,
@@ -146,7 +151,7 @@ describe("join resend cooldown", () => {
   it("does not re-send or replace the link inside the cooldown", async () => {
     state.existing = { id: "w1", quiz_completed_at: null, verification_sent_at: new Date().toISOString() };
     const res = await join();
-    expect(await res.json()).toEqual({ ok: true, ttlHours: 24 });
+    expect(await res.json()).toEqual({ ok: true, ttlHours: 24, alreadySignedUp: true });
     expect(sendVerificationEmail).not.toHaveBeenCalled();
     expect(addResendContact).toHaveBeenCalledWith("a@example.com");
     expect(sendFounderNoteEmail).not.toHaveBeenCalled();
@@ -163,7 +168,7 @@ describe("join resend cooldown", () => {
       verification_sent_at: new Date().toISOString(),
     };
     const res = await join();
-    expect(await res.json()).toEqual({ ok: true, ttlHours: 24 });
+    expect(await res.json()).toEqual({ ok: true, ttlHours: 24, alreadySignedUp: true });
     expect(addResendContact).toHaveBeenCalledWith("a@example.com");
     expect(sendVerificationEmail).not.toHaveBeenCalled();
     expect(sendFounderNoteEmail).not.toHaveBeenCalled();
@@ -176,7 +181,7 @@ describe("join resend cooldown", () => {
       verification_sent_at: new Date(Date.now() - 6 * 60 * 1000).toISOString(),
     };
     const res = await join();
-    expect(await res.json()).toEqual({ ok: true, ttlHours: 24 });
+    expect(await res.json()).toEqual({ ok: true, ttlHours: 24, alreadySignedUp: true });
     expect(sendVerificationEmail).toHaveBeenCalledOnce();
     expect(calls).toEqual(["update:waitlist"]);
   });

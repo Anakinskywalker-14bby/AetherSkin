@@ -1,9 +1,9 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 
 /*
- * Regression test for the 2026-11-01 security audit (low): the waitlist join
- * response must not reveal whether an address has already completed the
- * quiz. New, pending and completed emails get the same status and body.
+ * The join response distinguishes new addresses from existing waitlist
+ * records so the signup form can show the right confirmation. This explicitly
+ * reveals signup status, as requested for the user experience.
  * Everything with side effects is mocked; nothing leaves the test.
  */
 let existingRow: Record<string, unknown> | null = null;
@@ -58,18 +58,18 @@ async function answer(row: Record<string, unknown> | null) {
   return { status: res.status, body: await res.json() };
 }
 
-describe("waitlist join does not reveal signup state", () => {
+describe("waitlist join reports existing signup state", () => {
   beforeEach(() => {
     existingRow = null;
   });
 
-  it("new, pending and completed emails get identical responses", async () => {
+  it("marks new addresses false and existing pending/completed addresses true", async () => {
     const fresh = await answer(null);
     const pending = await answer({ id: "1", verified_at: null, quiz_completed_at: null });
     const completed = await answer({ id: "1", verified_at: "2026-10-01", quiz_completed_at: "2026-10-02" });
     expect(fresh.status).toBe(200);
-    expect(pending).toEqual(fresh);
-    expect(completed).toEqual(fresh);
-    expect(completed.body).not.toHaveProperty("alreadyComplete");
+    expect(fresh.body.alreadySignedUp).toBe(false);
+    expect(pending.body.alreadySignedUp).toBe(true);
+    expect(completed.body.alreadySignedUp).toBe(true);
   });
 });

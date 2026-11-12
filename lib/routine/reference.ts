@@ -20,7 +20,23 @@ export const MEDICATIONS = data.medications as unknown as RefEntry[];
 export const ALLERGIES = data.allergies as unknown as RefEntry[];
 export const ACTIVES = data.actives as unknown as RefEntry[];
 
-const BY_CODE = new Map<string, RefEntry>(
+/** One row of ml/active_ingredient_swaps.csv: what a trigger rules out, and what is safe instead. */
+export interface SwapRule {
+  blocks: string[];
+  safe: string[];
+}
+export const SWAPS = data.swaps as unknown as {
+  allergy: Record<string, SwapRule>;
+  active: Record<string, SwapRule>;
+  medication: Record<string, SwapRule>;
+};
+
+/** The swap rule for an allergen or ingredient code, if the list has one. */
+export function swapRuleFor(code: string): SwapRule | undefined {
+  return SWAPS.allergy[code] ?? SWAPS.active[code];
+}
+
+const BY_CODE =new Map<string, RefEntry>(
   [...MEDICATIONS, ...ALLERGIES, ...ACTIVES].map((e) => [e.code, e])
 );
 

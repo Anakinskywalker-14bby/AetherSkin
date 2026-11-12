@@ -1,6 +1,6 @@
 /**
- * Builds lib/routine/reference.generated.json from the three curated lists in
- * ml/ (medication, allergy, active ingredient). The lists are the source of
+ * Builds lib/routine/reference.generated.json from the curated lists in ml/
+ * (medication, allergy, active ingredient, and active_ingredient_swaps). The lists are the source of
  * truth; the JSON is what the site reads at runtime.
  *
  *   node scripts/build-routine-reference.mjs          write the JSON
@@ -74,6 +74,21 @@ export function buildReference(dir) {
     aliases: aliases(typed),
   }));
 
+  // active_ingredient_swaps.csv: Type, Trigger, Blocked actives, Safe swaps, Rationale.
+  const codeList = (cell) => [...new Set(cell.split(",").map((c) => c.trim()).filter(Boolean))];
+  const swaps = { allergy: {}, active: {}, medication: {} };
+  const SWAP_TYPES = { Allergy: "allergy", "Active Sensitivity": "active", "Medication Contraindication": "medication" };
+  for (const [type, trigger, blocked, safe] of read("active_ingredient_swaps.csv")) {
+    const kind = SWAP_TYPES[type.trim()];
+    if (!kind) throw new Error(`swaps list: unknown type ${type}`);
+    const key = trigger.trim();
+    const prev = swaps[kind][key] ?? { blocks: [], safe: [] };
+    swaps[kind][key] = {
+      blocks: [...new Set([...prev.blocks, ...codeList(blocked)])],
+      safe: [...new Set([...prev.safe, ...codeList(safe)])],
+    };
+  }
+
   for (const [label, list] of [["medication", medications], ["allergy", allergies], ["active", actives]]) {
     const codes = new Set();
     for (const e of list) {
@@ -82,7 +97,7 @@ export function buildReference(dir) {
       codes.add(e.code);
     }
   }
-  return { medications, allergies, actives };
+  return { medications, allergies, actives, swaps };
 }
 
 export function render(dir) {

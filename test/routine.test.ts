@@ -119,6 +119,28 @@ describe("note matching", () => {
   });
 });
 
+describe("buildRoutine: simple five-step routines", () => {
+  it("never has more than five steps in the morning or at night, and keeps the core", () => {
+    for (const goal of ["hydration", "anti_aging", "acne_control", "brightening", "calming"]) {
+      for (const skin_type of ["oily", "dry", "combination", "normal", "highly_sensitive"]) {
+        for (const routine_complexity of [0, 1, 2]) {
+          const r = buildRoutine(
+            make({ primary_goal: goal, skin_type, routine_complexity, breakouts_level: 3, redness_level: 2, dryness_level: 3, age: 40 })
+          );
+          expect(r.morning.length).toBeLessThanOrEqual(5);
+          expect(r.night.length).toBeLessThanOrEqual(5);
+          const am = r.morning.map((s) => s.key);
+          expect(am[0]).toBe("cleanser");
+          expect(am.at(-1)).toBe("sunscreen");
+          expect(am).toContain("moisturiser");
+          expect(r.night.map((s) => s.key)).toContain("night_cream");
+          expect(r.night.some((s) => s.key === "serum")).toBe(true);
+        }
+      }
+    }
+  });
+});
+
 describe("buildRoutine: shape", () => {
   it("has the agreed morning and night order", () => {
     const r = buildRoutine(make());
@@ -287,7 +309,7 @@ describe("medication safety", () => {
     for (const l of serumLabels(r)) expect(l).not.toMatch(/Salicylic|Azelaic|Lactic|Mandelic|Gluconolactone|L-ascorbic|Bakuchiol/);
     expect(r.night.map((s) => s.key)).toContain("face_oil");
     expect(r.morning.at(-1)!.why).toMatch(/burn more easily/);
-    expect(r.notes.join(" ")).toMatch(/prescriber/);
+    expect(renderRoutineText(r)).toMatch(/GP/);
   });
 
   it("topical retinoids and benzoyl peroxide also switch to gentle mode", () => {
@@ -316,11 +338,11 @@ describe("medication safety", () => {
 describe("email", () => {
   it("renders subject, text and HTML for a typical member", () => {
     const m = renderRoutineEmail(buildRoutine(make()));
-    expect(m.subject).toContain("Skin Lab Report");
-    for (const part of ["THE MORNING ROUTINE", "THE NIGHT ROUTINE", "Why it's for you", "What it does", "ACTIVE SERUMS"]) {
+    expect(m.subject).toContain("Checkout your routine");
+    for (const part of ["START TONIGHT", "MORNING:", "NIGHT:", "QUICK RULES", "Targeted Correctors"]) {
       expect(m.text).toContain(part);
     }
-    expect(m.html).toContain("Why it's for you");
+    expect(m.html).toContain("Start tonight");
     expect(m.text).not.toMatch(/\bAI\b/);
     expect(m.text).not.toMatch(/model/i);
   });
@@ -343,5 +365,55 @@ describe("email", () => {
 
   it("asks the member to reply when text was unreadable", () => {
     expect(renderRoutineText(buildRoutine(withAllergy("xyzzyfoam")))).toMatch(/Reply with the ingredient name/);
+  });
+});
+
+describe("swaps list (active_ingredient_swaps.csv)", () => {
+  it("is loaded: every row names real blocked and safe actives", async () => {
+    const { SWAPS } = await import("@/lib/routine/reference");
+    expect(Object.keys(SWAPS.allergy).length).toBeGreaterThan(100);
+    for (const rule of [...Object.values(SWAPS.allergy), ...Object.values(SWAPS.active)]) {
+      expect(rule.blocks.length).toBeGreaterThan(0);
+      expect(rule.safe.length).toBeGreaterThan(0);
+    }
+  });
+
+  it("an oat allergy rules out beta-glucan and swaps in a listed safe option", () => {
+    const r = buildRoutine({ ...BASE, primary_goal: "calming", redness_level: 3, allergy_status: "yes", allergy_details: "oats" });
+    const picks = [...r.morning, ...r.night].filter((s) => s.key === "serum").map((s) => s.pick.toLowerCase());
+    expect(picks.join(" ")).not.toContain("glucan");
+  });
+
+  it("a snail mucin allergy never yields snail mucin", () => {
+    const r = buildRoutine({ ...BASE, allergy_status: "yes", allergy_details: "snail mucin" });
+    expect(JSON.stringify(r).toLowerCase()).not.toContain("snail mucin serum");
+  });
+
+  it("ends every email with the GP disclaimer", () => {
+    const e = renderRoutineEmail(buildRoutine(BASE));
+    expect(e.text.trim().split("\n").slice(-3).join(" ")).toContain("double-check with your GP");
+    expect(e.html).toContain("double-check with your GP");
+  });
+});
+
+describe("holding routines for review", () => {
+  it("holds an unreadable allergy note, with no health text in the reasons", async () => {
+    const { holdReasons } = await import("@/lib/routine/review");
+    const r = buildRoutine({ ...BASE, allergy_status: "yes", allergy_details: "zzqxv blorptin" });
+    expect(holdReasons(r)).toEqual(["unreadable_allergy_note"]);
+    expect(JSON.stringify(holdReasons(r))).not.toContain("zzqxv");
+  });
+
+  it("holds an unreadable medication note but not a readable one", async () => {
+    const { holdReasons } = await import("@/lib/routine/review");
+    const bad = buildRoutine({ ...BASE, medication_use: "yes", medication_details: "qwzzy pills" });
+    expect(holdReasons(bad)).toContain("unreadable_medication_note");
+    const ok = buildRoutine({ ...BASE, medication_use: "yes", medication_details: "isotretinoin" });
+    expect(holdReasons(ok)).toEqual([]);
+  });
+
+  it("sends a plain quiz with no allergies or medication straight through", async () => {
+    const { holdReasons } = await import("@/lib/routine/review");
+    expect(holdReasons(buildRoutine(BASE))).toEqual([]);
   });
 });

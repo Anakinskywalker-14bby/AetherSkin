@@ -12,6 +12,7 @@ import {
   addResendContact,
   founderNoteEmail,
   sendFounderNoteEmail,
+  sendRoutineEmail,
 } from "@/lib/email";
 import { FOUNDER_NOTE } from "@/lib/founder-note";
 import { getSiteUrl } from "@/lib/utils";
@@ -110,6 +111,19 @@ describe("send()", () => {
         }),
       })
     );
+  });
+
+  it("queues the personal routine 12 hours after the quiz", async () => {
+    process.env.RESEND_API_KEY = "test-key";
+    const fetchMock = vi.fn().mockResolvedValue({ ok: true });
+    vi.stubGlobal("fetch", fetchMock);
+    const before = Date.now();
+    await sendRoutineEmail("a@b.co", "Your routine", "<p>hi</p>");
+    const body = JSON.parse(fetchMock.mock.calls[0][1].body as string);
+    const delay = new Date(body.scheduled_at).getTime() - before;
+    expect(delay).toBeGreaterThanOrEqual(12 * 3600 * 1000 - 5000);
+    expect(delay).toBeLessThanOrEqual(12 * 3600 * 1000 + 5000);
+    expect(body.subject).toBe("Your routine");
   });
 
   it("reports when contact sync is not configured", async () => {

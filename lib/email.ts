@@ -149,9 +149,9 @@ async function send(to: string, subject: string, html: string, delaySeconds = 0)
 
 /**
  * Add an address to the Resend contacts list (and to RESEND_SEGMENT_ID when
- * set) so broadcasts can reach everyone who signs up. An address that already
- * exists is fine (409/422 are treated as done). Never throws, and like the
- * sends above it reports only status and error name, never the address.
+ * set). An address that already exists is fine (409/422 are treated as done).
+ * Never throws, and like the sends above it reports only status and error
+ * name, never the address.
  */
 export async function addResendContact(email: string): Promise<boolean> {
   const key = process.env.RESEND_API_KEY;
@@ -333,17 +333,6 @@ export function founderNoteEmail() {
     </p>`);
 }
 
-/**
- * The same note for a Resend broadcast: the reply-to-unsubscribe line becomes
- * Resend's one-click unsubscribe link (filled in per contact at send time).
- */
-export function founderNoteBroadcastEmail() {
-  return founderNoteEmail().replace(
-    /Don't want emails from us\?[^<]*/,
-    `Don't want emails from us? <a href="{{{RESEND_UNSUBSCRIBE_URL}}}" style="color:${BRAND.violet}">Unsubscribe here</a>.`
-  );
-}
-
 /** How long after the verification email is accepted the founder's note goes out. */
 export const FOUNDER_NOTE_DELAY_SECONDS = 120;
 
@@ -353,6 +342,42 @@ export async function sendFounderNoteEmail(to: string) {
 
 export async function sendVerificationEmail(to: string, token: string) {
   return send(to, "Confirm your AetherSkin spot (+ 3-minute skin quiz)", verificationEmail(token));
+}
+
+/** How long after finishing the quiz the personal routine arrives. */
+export const ROUTINE_DELAY_SECONDS = 12 * 60 * 60;
+
+/**
+ * Queue the member's personal morning and night routine with Resend, to be
+ * delivered 12 hours from now (its `scheduled_at` field, so no cron job).
+ * The HTML is built from the member's quiz answers by lib/routine; nothing
+ * about it is logged or sent to Sentry.
+ */
+export async function sendRoutineEmail(
+  to: string,
+  subject: string,
+  html: string,
+  delaySeconds: number = ROUTINE_DELAY_SECONDS
+) {
+  return send(to, subject, html, delaySeconds);
+}
+
+/**
+ * Tells the owner a routine is waiting for review. Carries the waitlist
+ * position and reason codes only: no address and none of the member's answers
+ * (health data). The owner looks the member up by position. Set
+ * ROUTINE_REVIEW_EMAIL to receive these.
+ */
+export async function notifyOwnerRoutineHeld(position: number, reasons: string[]) {
+  const to = process.env.ROUTINE_REVIEW_EMAIL;
+  if (!to) return { sent: false, reason: "not_configured" } as const;
+  const n = Number.isFinite(position) ? Math.trunc(position) : 0;
+  const why = reasons.map((r) => escapeHtml(r.replace(/_/g, " "))).join(", ");
+  const html = SHELL(`
+    <p style="font-size:16px;line-height:1.7;margin:0 0 12px">A personal routine is on hold and needs your review before it is sent.</p>
+    <p style="font-size:16px;line-height:1.7;margin:0 0 12px">Waitlist position: <strong>#${n}</strong><br>Reason: ${why}</p>
+    <p style="font-size:14px;line-height:1.6;margin:0">Check their quiz answers in Supabase (quiz_responses_v3), then release it with the send-routines script. Nothing has been sent to them.</p>`);
+  return send(to, `Routine on hold: waitlist #${n}`, html);
 }
 
 export async function sendQuizCompleteEmail(to: string, position: number) {

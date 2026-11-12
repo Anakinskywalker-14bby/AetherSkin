@@ -3,7 +3,10 @@ import * as Sentry from "@sentry/nextjs";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { rateLimit, getClientIp } from "@/lib/rate-limit";
 import { validateQuiz, sanitizeText, QUIZ_VERSION } from "@/lib/validation/quiz";
-import { sendQuizCompleteEmail, hashToken } from "@/lib/email";
+import { sendQuizCompleteEmail, sendRoutineEmail, notifyOwnerRoutineHeld, hashToken } from "@/lib/email";
+import { buildRoutine } from "@/lib/routine/build";
+import { holdReasons } from "@/lib/routine/review";
+import { renderRoutineEmail } from "@/lib/routine/email";
 import { resolveQuizLink, SUBMIT_GRACE_MS } from "@/lib/quiz-link";
 import { assertSameOrigin } from "@/lib/security";
 import { audit } from "@/lib/audit";
@@ -174,6 +177,34 @@ export async function POST(req: Request) {
     // after() keeps the serverless function alive until the email call finishes;
     // fire-and-forget let Vercel freeze it mid-request (AETHERSKIN-6, Resend TimeoutError).
     after(() => sendQuizCompleteEmail(entry.email, entry.position).catch(() => undefined));
+
+    /*
+     * Twelve hours later, the member's simple morning and night routine (five
+     * steps each), built from their own answers. Queued with the provider now;
+     * a failure here must not affect the response. The quiz answers (including
+     * the allergy and medication notes) are health data: only the tag below
+     * goes to Sentry, never the answers.
+     */
+    after(async () => {
+      try {
+        const routine = buildRoutine(validation.data);
+        const reasons = holdReasons(routine);
+        if (reasons.length > 0) {
+          // We could not fully read their allergy or medication note: hold the
+          // email for the owner instead of sending it. Reason codes only.
+          await audit("routine_held", { waitlistId: entry.id, email: entry.email, detail: { reasons } });
+          Sentry.captureMessage("routine_held_for_review", { level: "warning", tags: { reason: reasons.join(",") } });
+          await notifyOwnerRoutineHeld(entry.position, reasons);
+          return;
+        }
+        const rendered = renderRoutineEmail(routine);
+        const queued = await sendRoutineEmail(entry.email, rendered.subject, rendered.html);
+        // Marker so the backfill script never double-sends to this member.
+        if (queued.sent) await audit("routine_queued", { waitlistId: entry.id, email: entry.email });
+      } catch (err) {
+        Sentry.captureException(err, { tags: { route: "quiz", step: "routine_email" } });
+      }
+    });
 
     Sentry.metrics.count("quiz.completed", 1);
     return NextResponse.json({ ok: true });

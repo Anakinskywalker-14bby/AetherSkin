@@ -1,7 +1,9 @@
 import { describe, it } from "vitest";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { founderNoteBroadcastEmail, founderNoteEmail, quizCompleteEmail, verificationEmail } from "@/lib/email";
+import { buildRoutine } from "@/lib/routine/build";
+import { renderRoutineEmail } from "@/lib/routine/email";
+import { founderNoteEmail, quizCompleteEmail, verificationEmail } from "@/lib/email";
 
 /**
  * Not a real test: when EMAIL_PREVIEW_DIR is set it writes the signup emails
@@ -20,7 +22,13 @@ describe.skipIf(!dir)("signup email preview", () => {
     writeFileSync(join(dir!, "signup-verify.html"), wrap(verificationEmail("preview-token")));
     writeFileSync(join(dir!, "signup-complete.html"), wrap(quizCompleteEmail(42)));
     writeFileSync(join(dir!, "founder-note.html"), wrap(founderNoteEmail()));
-    // Raw (logo by URL, unsubscribe placeholder intact): what the broadcast script sends.
-    writeFileSync(join(dir!, "founder-note-broadcast.raw.html"), founderNoteBroadcastEmail());
+    const sample = renderRoutineEmail(
+      buildRoutine({
+        gender: "female", medication_use: "no", medication_details: null, allergy_status: "no", allergy_details: null,
+        primary_goal: "acne_control", skin_type: "oily", environment: "urban_pollution", texture_preference: "gel_fluid",
+        sunscreen_frequency: 2, routine_complexity: 1, age: 24, breakouts_level: 3, redness_level: 1, dryness_level: 0,
+      })
+    );
+    writeFileSync(join(dir!, "routine.html"), wrap(sample.html));
   });
 });
