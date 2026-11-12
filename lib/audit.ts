@@ -70,7 +70,11 @@ export async function audit(
       detail: (opts.detail ?? {}) as never,
     });
   } catch (err) {
-    // Deliberately swallowed: logging must never break the request path.
+    // Never blocks the request path, but a failure here means the abuse
+    // trail went dark -- that must still be observable (PYA audit
+    // 2026-11-12, low). No PII in this report: `event` is an enum and `err`
+    // is a DB/driver error, never the email/IP that was being hashed.
     console.error("[audit] write failed:", err);
+    Sentry.captureException(err, { tags: { feature: "audit", event } });
   }
 }

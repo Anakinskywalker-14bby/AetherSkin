@@ -55,11 +55,7 @@ export default function WaitlistModal() {
         </h2>
         <p className="wm-sub">Join free, then take the 3-minute skin quiz we email you.</p>
 
-        {s.state === "already" ? (
-          <p className="wm-status" role="status" aria-live="polite">
-            If you&apos;ve already signed up, you&apos;re all set.
-          </p>
-        ) : s.state === "sent" ? (
+        {s.state === "sent" ? (
           <p className="wm-status" role="status" aria-live="polite">
             <strong>If you&apos;ve already signed up, you&apos;re all set.</strong> Otherwise, check your inbox for a link to confirm your spot.
           </p>

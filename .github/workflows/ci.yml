@@ -59,7 +59,7 @@ jobs:
 
       - name: Fail if a secret-shaped string was committed
         run: |
-          if git grep -nEI '(service_role|sk_live_|re_[A-Za-z0-9]{20,}|eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9)' -- ':!*.md' ':!.github/workflows/ci.yml'; then
+          if git grep -nEI '(service_role|sk_live_|sntrys_[A-Za-z0-9_]{20,}|re_[A-Za-z0-9]{20,}|eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9)' -- ':!*.md' ':!.github/workflows/ci.yml'; then
             echo "::error::Possible secret committed to the repository."
             exit 1
           fi

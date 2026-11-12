@@ -4,12 +4,20 @@ import { useState } from "react";
 import * as Sentry from "@sentry/nextjs";
 import { isValidEmail } from "@/lib/utils";
 
-export type SignupState = "idle" | "loading" | "sent" | "already" | "saved" | "error";
+export type SignupState = "idle" | "loading" | "sent" | "error";
 
 /**
  * Free waitlist signup with double opt-in. No payment.
- * idle -> loading -> sent (check your inbox) | already (signed up before,
- * nothing to do) | saved | error.
+ * idle -> loading -> sent | error.
+ *
+ * The API intentionally returns the identical `{ ok: true }` body and status
+ * for every accepted case (new signup, resend, cooldown, already quizzed) --
+ * that's what keeps this endpoint from being an email-enumeration oracle.
+ * This hook used to branch on a `saved`/`alreadyComplete`/202 shape the API
+ * never actually sent, a client/server contract that had silently drifted
+ * (PYA audit 2026-11-12, low) and risked a future edit re-introducing the
+ * enumeration gap by having the two sides disagree again. Don't reintroduce
+ * a state here unless the API is changed to match.
  */
 export function useWaitlistSignup(surface: "footer" | "hero_modal" = "footer") {
   const [email, setEmail] = useState("");
@@ -40,23 +48,16 @@ export function useWaitlistSignup(surface: "footer" | "hero_modal" = "footer") {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, consent: true }),
       });
-      let data: { ok?: boolean; error?: string; saved?: boolean; alreadyComplete?: boolean } = {};
+      let data: { ok?: boolean; error?: string } = {};
       try {
         data = await res.json();
       } catch {
         throw new Error("Something went wrong. Please try again.");
       }
-      if (res.status === 202 && data.saved) {
-        setState("saved");
-        setMessage(data.error ?? "We saved your spot.");
-        return;
-      }
       if (!res.ok || !data.ok) {
         throw new Error(data.error ?? "Something went wrong. Please try again.");
       }
-      // Already confirmed and quizzed: no email is sent (the API returns
-      // early), so don't tell them to check their inbox.
-      setState(data.alreadyComplete ? "already" : "sent");
+      setState("sent");
     } catch (err) {
       // Network/server failures reach Sentry; the email itself never does
       // (the request body isn't attached, and sentry-scrub strips PII).

@@ -93,9 +93,22 @@ export async function rateLimit(identifier: string): Promise<LimitResult> {
   return memoryLimit(identifier);
 }
 
-/** Extract the best-effort client IP behind Vercel's proxy. */
-export function getClientIp(req: Request): string {
+/**
+ * Extract the best-effort client IP behind Vercel's proxy.
+ *
+ * `x-forwarded-for` is a hop-by-hop list: each proxy *appends* its view of
+ * the connecting peer, it doesn't overwrite what came before. A client can
+ * send its own `X-Forwarded-For` header, so Vercel's edge (the only hop here)
+ * ends up with `<attacker-chosen>, <real client ip>` — the real IP is always
+ * the **last** entry, never the first. Keying rate limits on the first entry
+ * let an attacker pick a fresh "IP" per request and bypass the limiter
+ * entirely (PYA audit 2026-11-12, high).
+ */
+export function getClientIp(req: { headers: { get(name: string): string | null } }): string {
   const fwd = req.headers.get("x-forwarded-for");
-  if (fwd) return fwd.split(",")[0]!.trim();
+  if (fwd) {
+    const parts = fwd.split(",").map((p) => p.trim()).filter(Boolean);
+    if (parts.length > 0) return parts[parts.length - 1]!;
+  }
   return req.headers.get("x-real-ip") ?? "unknown";
 }

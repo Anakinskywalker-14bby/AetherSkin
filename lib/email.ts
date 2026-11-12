@@ -94,6 +94,18 @@ async function readErrorName(res: Response): Promise<string> {
  * `delaySeconds` asks Resend to hold the message and deliver it later
  * (its `scheduled_at` field), so a follow-up needs no cron job of our own.
  */
+/**
+ * A send retried after an ambiguous timeout (Resend may have already queued
+ * it before our 8s AbortSignal fired) must not become a second real email.
+ * Hashing the exact recipient+subject+html gives retries of the *same* send
+ * a stable key, while a genuine resend (new token, so different html) still
+ * gets a fresh one -- Resend dedupes on this header for 24h (PYA audit
+ * 2026-11-12, low).
+ */
+function idempotencyKey(to: string, subject: string, html: string): string {
+  return crypto.createHash("sha256").update(`${to}\n${subject}\n${html}`).digest("hex");
+}
+
 async function send(to: string, subject: string, html: string, delaySeconds = 0): Promise<SendResult> {
   const key = process.env.RESEND_API_KEY;
   if (!key) {
@@ -106,6 +118,7 @@ async function send(to: string, subject: string, html: string, delaySeconds = 0)
       headers: {
         Authorization: `Bearer ${key}`,
         "Content-Type": "application/json",
+        "Idempotency-Key": idempotencyKey(to, subject, html),
       },
       body: JSON.stringify({
         from: FROM,

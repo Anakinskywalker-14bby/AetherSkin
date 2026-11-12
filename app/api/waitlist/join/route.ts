@@ -161,6 +161,18 @@ export async function POST(req: Request) {
         user_agent,
       });
       if (insertError) {
+        // A unique-violation here means a concurrent request for the same
+        // brand-new address won the race between our existence check and
+        // this insert. That's not a failure, just a lost race -- the winner
+        // already queued the verification email. Answering with the same
+        // 200 the winner gets (instead of a 500) keeps this path from being
+        // a timing/status oracle for "was this email already on the
+        // waitlist?" (PYA audit 2026-11-12, medium; same class of gap as the
+        // cooldown race fixed 2026-11-11).
+        if (insertError.code === "23505") {
+          after(() => addResendContact(email));
+          return NextResponse.json({ ok: true, ttlHours: LINK_TTL_HOURS });
+        }
         console.error("[join] insert failed:", insertError.message);
         return NextResponse.json(
           { error: "Could not save your spot. Please try again." },

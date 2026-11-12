@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import Link from "next/link";
 import * as Sentry from "@sentry/nextjs";
 import { QuizForm } from "@/components/QuizForm";
 import { QuizShell } from "@/components/QuizShell";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { resolveQuizLink, type LinkState } from "@/lib/quiz-link";
+import { rateLimit, getClientIp } from "@/lib/rate-limit";
 
 export const metadata: Metadata = {
   title: "Your Skin Quiz",
@@ -20,8 +22,16 @@ export const dynamic = "force-dynamic";
  * questions on a link that has expired. If the check itself fails we still
  * show the quiz: POST /api/quiz enforces the same rules on submit.
  */
-async function checkLink(token: string): Promise<LinkState["state"] | "unknown"> {
+async function checkLink(token: string): Promise<LinkState["state"] | "unknown" | "rate_limited"> {
   if (!process.env.SUPABASE_SERVICE_ROLE_KEY) return "unknown";
+
+  // Unlike the API routes, this page had no throttling at all: a GET here
+  // runs a real DB lookup per request, and the page is reachable with no
+  // rate limit regardless of the token value (PYA audit 2026-11-12, low).
+  const ip = getClientIp({ headers: await headers() });
+  const { success } = await rateLimit(`quiz-page:${ip}`);
+  if (!success) return "rate_limited";
+
   try {
     return (await resolveQuizLink(createAdminClient(), token)).state;
   } catch (err) {
@@ -68,6 +78,16 @@ export default async function QuizPage({
   }
 
   const state = await checkLink(token);
+  if (state === "rate_limited") {
+    return (
+      <LinkProblem
+        badge="TOO MANY REQUESTS"
+        lead="Slow down"
+        kicker="for a moment."
+        body="You've opened this a lot in the last minute. Wait a bit and try again."
+      />
+    );
+  }
   if (state === "expired") {
     return (
       <LinkProblem
