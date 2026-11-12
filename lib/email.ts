@@ -142,7 +142,14 @@ async function send(to: string, subject: string, html: string, delaySeconds = 0)
  */
 export async function addResendContact(email: string): Promise<boolean> {
   const key = process.env.RESEND_API_KEY;
-  if (!key) return false;
+  if (!key) {
+    console.warn("[email] RESEND_API_KEY not set. Skipping contact sync.");
+    Sentry.captureMessage("resend_contact_failed", {
+      level: "warning",
+      tags: { email_status: "not_configured", resend_error: "missing_api_key" },
+    });
+    return false;
+  }
   const segmentId = process.env.RESEND_SEGMENT_ID;
   try {
     const res = await fetch("https://api.resend.com/contacts", {
@@ -324,7 +331,7 @@ export function founderNoteBroadcastEmail() {
   );
 }
 
-/** How long after signup the founder's note goes out. */
+/** How long after the verification email is accepted the founder's note goes out. */
 export const FOUNDER_NOTE_DELAY_SECONDS = 120;
 
 export async function sendFounderNoteEmail(to: string) {

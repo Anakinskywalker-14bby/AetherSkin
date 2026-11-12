@@ -57,11 +57,11 @@ export default function WaitlistModal() {
 
         {s.state === "already" ? (
           <p className="wm-status" role="status" aria-live="polite">
-            <strong>You&apos;ve already signed up.</strong> Your spot is locked.
+            If you&apos;ve already signed up, you&apos;re all set.
           </p>
         ) : s.state === "sent" ? (
           <p className="wm-status" role="status" aria-live="polite">
-            <strong>Check your inbox now.</strong> We sent a link to {s.email}. Open it to confirm and take the quiz. The link lasts 24 hours.
+            <strong>If you&apos;ve already signed up, you&apos;re all set.</strong> Otherwise, check your inbox for a link to confirm your spot.
           </p>
         ) : (
           <form onSubmit={s.submit} noValidate className="wm-form">

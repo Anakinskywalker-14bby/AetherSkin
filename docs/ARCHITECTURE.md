@@ -41,7 +41,9 @@ flowchart TD
     G3 --> QR
     J -.->|"hashed IP + email"| AL
     Q -.->|"hashed IP + email"| AL
-    J -->|"withRetry, 3 attempts"| R
+    J -->|"verification email, withRetry"| R
+    J -->|"contact sync (accepted submissions)"| R
+    J -->|"delayed founder note (new signups)"| R
     Q -->|"best effort"| R
     R -->|"verification link"| V
     V -.-> AN
@@ -69,8 +71,16 @@ sequenceDiagram
     Note over S,DB: possession of the token IS the authorization
     S->>DB: insert quiz_responses; mark verified
     S->>M: "You're in — #position"
-    S-->>U: position confirmation
+    S-->>U: Thank-you page (no waitlist number)
+    Note over M,U: The waitlist number is sent by email only
 ```
+
+After each accepted signup form submission, including repeat submissions, the
+site adds the address to Resend contacts so a prior contact-sync failure can be
+retried. This happens whether or not the quiz is completed. For a new signup,
+once Resend accepts the quiz-link email, the site queues the founder's note for
+delivery two minutes later. If the quiz-link email is not accepted, the
+founder's note is not scheduled.
 
 ## Trust boundaries
 
@@ -106,6 +116,7 @@ sequenceDiagram
 | `RESEND_API_KEY` | server only | yes | signup returns 202 "saved, not sent" |
 | `NEXT_PUBLIC_SITE_URL` | build | recommended | canonical URLs fall back to a default |
 | `EMAIL_FROM` | server | optional | falls back to the Resend sandbox sender |
+| `RESEND_SEGMENT_ID` | server only | optional | adds new contacts to this Resend segment |
 | `IP_HASH_SALT` | server | required in deploys | without it, deployed builds store no email/IP hashes (and warn in Sentry); local dev uses a fixed dev salt |
 | `UPSTASH_REDIS_REST_URL` / `_TOKEN` | server | optional | rate limiting falls back to per-instance memory |
 

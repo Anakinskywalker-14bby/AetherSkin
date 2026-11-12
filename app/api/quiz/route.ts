@@ -168,7 +168,6 @@ export async function POST(req: Request) {
       waitlistId: entry.id,
       email: entry.email,
       ip,
-      detail: { position: entry.position },
     });
 
     // Best-effort confirmation; never blocks the response.
@@ -177,7 +176,7 @@ export async function POST(req: Request) {
     after(() => sendQuizCompleteEmail(entry.email, entry.position).catch(() => undefined));
 
     Sentry.metrics.count("quiz.completed", 1);
-    return NextResponse.json({ ok: true, position: entry.position });
+    return NextResponse.json({ ok: true });
   } catch (err) {
     /*
      * This catch keeps the user's response clean, but it also used to hide

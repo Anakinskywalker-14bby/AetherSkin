@@ -921,8 +921,6 @@ html, body {
 .qz-btn--small{padding:8px 16px;font-size:13px;flex:none;background:#fff}
 .qz-pill{display:inline-flex;align-items:center;justify-content:center;padding:14px 30px;border-radius:999px;background:#3B2F5C;color:#fff;font-size:16px;font-weight:500;text-decoration:none;box-shadow:0 12px 26px -14px rgba(59,47,92,.8)}
 .qz-actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:26px}
-.qz-place{margin:26px auto 0;max-width:260px;padding:18px 22px;border-radius:22px;background:linear-gradient(160deg,#F9D6C9,#F4B8A2)}
-.qz-place-n{margin:4px 0 0;font-family:var(--ed-serif),'Playfair Display',Georgia,serif;font-style:italic;font-size:56px;line-height:1;color:#3B2F5C}
 @media (max-width:640px){.qz-line-nav{top:64px}.qz-nav{height:64px}.qz-glass{width:40px;height:40px}.qz-top{min-height:230px}.qz-sky{object-position:62% 25%}}
 .qz-lede--gap{margin-bottom:24px}
 
@@ -975,9 +973,9 @@ html, body {
   .sol-stack .sol-card h3{font-size:22px !important;line-height:1.15}
   .sol-stack .sol-card p{font-size:14px !important;line-height:1.45 !important}
   .sol-hide-m{display:none !important}
-  /* Continuous Tracking: text centred in its card. */
-  .sol-stack .sol-card:last-child{text-align:center;align-items:center}
-  .sol-stack .sol-card:last-child > div{width:100%;align-items:center}
+  /* Keep Continuous Tracking text aligned like the two cards above it. */
+  .sol-stack .sol-card:last-child{text-align:left;align-items:stretch}
+  .sol-stack .sol-card:last-child > div{justify-content:center}
 
   /* Pinned join bar, above the iPhone home indicator. */
   .mjb{display:block;position:fixed;left:0;right:0;bottom:0;z-index:50;padding:10px 16px calc(10px + env(safe-area-inset-bottom));pointer-events:none;

@@ -9,6 +9,7 @@ import {
   quizCompleteEmail,
   sendVerificationEmail,
   sendQuizCompleteEmail,
+  addResendContact,
   founderNoteEmail,
   sendFounderNoteEmail,
 } from "@/lib/email";
@@ -58,6 +59,7 @@ describe("email templates", () => {
 
 describe("send()", () => {
   const OLD = process.env.RESEND_API_KEY;
+  const OLD_SEGMENT = process.env.RESEND_SEGMENT_ID;
 
   beforeEach(() => {
     vi.spyOn(console, "warn").mockImplementation(() => {});
@@ -68,6 +70,8 @@ describe("send()", () => {
     vi.restoreAllMocks();
     if (OLD === undefined) delete process.env.RESEND_API_KEY;
     else process.env.RESEND_API_KEY = OLD;
+    if (OLD_SEGMENT === undefined) delete process.env.RESEND_SEGMENT_ID;
+    else process.env.RESEND_SEGMENT_ID = OLD_SEGMENT;
   });
 
   it("reports not_configured rather than faking success when no key is set", async () => {
@@ -86,6 +90,40 @@ describe("send()", () => {
     expect(count).toHaveBeenCalledWith("email.delivery", 1, {
       attributes: { result: "sent", sender: "sandbox" },
     });
+  });
+
+  it("adds a new signup to Resend contacts and the configured segment", async () => {
+    process.env.RESEND_API_KEY = "test-key";
+    process.env.RESEND_SEGMENT_ID = "segment-1";
+    const fetchMock = vi.fn().mockResolvedValue({ ok: true });
+    vi.stubGlobal("fetch", fetchMock);
+
+    await expect(addResendContact("a@b.co")).resolves.toBe(true);
+    expect(fetchMock).toHaveBeenCalledWith(
+      "https://api.resend.com/contacts",
+      expect.objectContaining({
+        method: "POST",
+        body: JSON.stringify({
+          email: "a@b.co",
+          unsubscribed: false,
+          segments: [{ id: "segment-1" }],
+        }),
+      })
+    );
+  });
+
+  it("reports when contact sync is not configured", async () => {
+    delete process.env.RESEND_API_KEY;
+    captureMessage.mockClear();
+    vi.spyOn(console, "warn").mockImplementation(() => {});
+
+    await expect(addResendContact("a@b.co")).resolves.toBe(false);
+    expect(captureMessage).toHaveBeenCalledWith(
+      "resend_contact_failed",
+      expect.objectContaining({
+        tags: { email_status: "not_configured", resend_error: "missing_api_key" },
+      })
+    );
   });
 
   it("founder's note: same words as the site, queued two minutes ahead, no quiz link", async () => {

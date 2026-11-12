@@ -8,13 +8,29 @@ import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
  *   the write fails.
  * Everything with side effects is mocked; nothing leaves the test.
  */
-const { sendVerificationEmail, calls, state, afterTasks } = vi.hoisted(() => ({
-  sendVerificationEmail: vi.fn(async () => ({ sent: true })),
-  calls: [] as string[],
+const {
+  sendVerificationEmail,
+  sendQuizCompleteEmail,
+  sendFounderNoteEmail,
+  addResendContact,
+  calls,
+  state,
+  afterTasks,
+} = vi.hoisted(() => ({
   state: {
     existing: null as Record<string, unknown> | null,
     upsertError: null as { message: string } | null,
+    verificationDelivery: "sent" as "sent" | "not_configured",
   },
+  sendVerificationEmail: vi.fn(async () =>
+    state.verificationDelivery === "sent"
+      ? ({ sent: true } as const)
+      : ({ sent: false, reason: "not_configured" } as const)
+  ),
+  sendQuizCompleteEmail: vi.fn(async () => ({ sent: true })),
+  sendFounderNoteEmail: vi.fn(async () => ({ sent: true })),
+  addResendContact: vi.fn(async () => true),
+  calls: [] as string[],
   afterTasks: [] as Promise<unknown>[],
 }));
 
@@ -29,9 +45,9 @@ vi.mock("@/lib/email", () => ({
   generateToken: () => ({ token: "t", hash: "h" }),
   hashToken: () => "h",
   sendVerificationEmail,
-  sendQuizCompleteEmail: async () => ({ sent: true }),
-  sendFounderNoteEmail: async () => ({ sent: true }),
-  addResendContact: async () => true,
+  sendQuizCompleteEmail,
+  sendFounderNoteEmail,
+  addResendContact,
 }));
 vi.mock("@/lib/quiz-link", () => ({
   LINK_TTL_HOURS: 24,
@@ -110,8 +126,12 @@ beforeEach(() => {
   calls.length = 0;
   afterTasks.length = 0;
   sendVerificationEmail.mockClear();
+  sendQuizCompleteEmail.mockClear();
+  sendFounderNoteEmail.mockClear();
+  addResendContact.mockClear();
   state.existing = null;
   state.upsertError = null;
+  state.verificationDelivery = "sent";
 });
 
 describe("join resend cooldown", () => {
@@ -128,10 +148,25 @@ describe("join resend cooldown", () => {
     const res = await join();
     expect(await res.json()).toEqual({ ok: true, ttlHours: 24 });
     expect(sendVerificationEmail).not.toHaveBeenCalled();
+    expect(addResendContact).toHaveBeenCalledWith("a@example.com");
+    expect(sendFounderNoteEmail).not.toHaveBeenCalled();
     // The atomic claim is still attempted (this is what closes the old
     // TOCTOU race) but its WHERE clause matches zero rows while inside the
     // cooldown, so no email is ever queued.
     expect(calls).toEqual(["update:waitlist"]);
+  });
+
+  it("retries contact sync for an address that already completed the quiz", async () => {
+    state.existing = {
+      id: "w1",
+      quiz_completed_at: new Date().toISOString(),
+      verification_sent_at: new Date().toISOString(),
+    };
+    const res = await join();
+    expect(await res.json()).toEqual({ ok: true, ttlHours: 24 });
+    expect(addResendContact).toHaveBeenCalledWith("a@example.com");
+    expect(sendVerificationEmail).not.toHaveBeenCalled();
+    expect(sendFounderNoteEmail).not.toHaveBeenCalled();
   });
 
   it("re-sends once the cooldown has passed", async () => {
@@ -145,14 +180,36 @@ describe("join resend cooldown", () => {
     expect(sendVerificationEmail).toHaveBeenCalledOnce();
     expect(calls).toEqual(["update:waitlist"]);
   });
+
+  it("syncs new contacts and queues the founder note", async () => {
+    await join();
+    expect(addResendContact).toHaveBeenCalledWith("a@example.com");
+    expect(sendFounderNoteEmail).toHaveBeenCalledWith("a@example.com");
+    expect(sendVerificationEmail.mock.invocationCallOrder[0]).toBeLessThan(
+      sendFounderNoteEmail.mock.invocationCallOrder[0]
+    );
+  });
+
+  it("syncs new contacts but does not schedule the founder note if the quiz-link email was not sent", async () => {
+    state.verificationDelivery = "not_configured";
+    await join();
+    expect(addResendContact).toHaveBeenCalledWith("a@example.com");
+    expect(sendFounderNoteEmail).not.toHaveBeenCalled();
+  });
 });
 
 describe("quiz claim order", () => {
-  const submit = () => quizPOST(post("/api/quiz", { token: "tok" }));
+  const submit = async () => {
+    const res = await quizPOST(post("/api/quiz", { token: "tok" }));
+    await Promise.all(afterTasks);
+    return res;
+  };
 
   it("claims the link before writing answers", async () => {
     const res = await submit();
     expect(res.status).toBe(200);
+    expect(await res.json()).toEqual({ ok: true });
+    expect(sendQuizCompleteEmail).toHaveBeenCalledWith("a@example.com", 7);
     expect(calls).toEqual(["update:waitlist", "upsert:quiz_responses_v3"]);
   });
 

@@ -68,13 +68,12 @@ function HeldSignup({ holdRef }: { holdRef: React.RefObject<HTMLDivElement> }) {
     <div id="beta" ref={holdRef} className="sf-hold">
       {s.state === "already" ? (
         <p className="sf-hold-status" role="status" aria-live="polite">
-          <strong>You&apos;ve already signed up.</strong> {s.email} is confirmed
-          and your quiz is done, so your spot is locked.
+          If you&apos;ve already signed up, you&apos;re all set.
         </p>
       ) : s.state === "sent" ? (
         <p className="sf-hold-status" role="status" aria-live="polite">
-          <strong>Check your inbox.</strong> We sent a link to {s.email}. Open it
-          to confirm and take the 3-minute skin quiz.
+          <strong>If you&apos;ve already signed up, you&apos;re all set.</strong>{" "}
+          Otherwise, check your inbox for a link to confirm your spot.
         </p>
       ) : (
         <form onSubmit={s.submit} noValidate className="sf-form">

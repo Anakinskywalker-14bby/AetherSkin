@@ -4,7 +4,12 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { rateLimit, getClientIp } from "@/lib/rate-limit";
 import { isValidEmail } from "@/lib/utils";
 import { sanitizeText } from "@/lib/validation/quiz";
-import { generateToken, sendVerificationEmail, addResendContact } from "@/lib/email";
+import {
+  generateToken,
+  sendVerificationEmail,
+  sendFounderNoteEmail,
+  addResendContact,
+} from "@/lib/email";
 import { assertSameOrigin } from "@/lib/security";
 import { audit, hashPii } from "@/lib/audit";
 import { withRetry } from "@/lib/retry";
@@ -109,6 +114,7 @@ export async function POST(req: Request) {
     // for a new signup so the response can't be used to test whether an
     // address has completed the quiz (security audit 2026-11-01, low).
     if (existing?.quiz_completed_at) {
+      after(() => addResendContact(email));
       return NextResponse.json({ ok: true, ttlHours: LINK_TTL_HOURS });
     }
 
@@ -142,6 +148,7 @@ export async function POST(req: Request) {
         .select("id");
       if (claimError) throw claimError;
       if (!claimed || claimed.length === 0) {
+        after(() => addResendContact(email));
         return NextResponse.json({ ok: true, ttlHours: LINK_TTL_HOURS });
       }
     } else {
@@ -204,13 +211,14 @@ export async function POST(req: Request) {
         attributes: { kind: existing ? "resent" : "new", delivered: delivery.sent },
       });
 
-      // New signups only, and only once delivery actually succeeded: add the
-      // address to the Resend contacts list so a future broadcast can reach
-      // it. A failure here must not surface anywhere user-visible (lib/email
-      // reports it to Sentry, no address).
-      if (delivery.sent && !existing) {
-        await addResendContact(email).catch(() => undefined);
-      }
+      // Retry contact sync on every accepted signup submission. It is
+      // idempotent in Resend, and covers prior sync failures on repeat visits.
+      // Start both follow-ups together so sync cannot shift the founder note's
+      // two-minute schedule after Resend accepts the quiz-link email.
+      await Promise.all([
+        addResendContact(email),
+        ...(!existing && delivery.sent ? [sendFounderNoteEmail(email)] : []),
+      ]);
     });
 
     return NextResponse.json({ ok: true, ttlHours: LINK_TTL_HOURS });

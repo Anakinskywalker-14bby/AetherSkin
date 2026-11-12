@@ -103,7 +103,7 @@ export function QuizForm({ token }: { token: string }) {
         body: JSON.stringify({ token, ...finalAnswers }),
       });
 
-      let data: { ok?: boolean; position?: number; error?: string } = {};
+      let data: { ok?: boolean; error?: string } = {};
       try {
         data = await res.json();
       } catch {
@@ -112,7 +112,7 @@ export function QuizForm({ token }: { token: string }) {
       if (!res.ok || !data.ok) {
         throw new Error(data.error ?? "Something went wrong. Please try again.");
       }
-      router.push(`/thank-you?position=${data.position ?? ""}`);
+      router.push("/thank-you");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong.");
       setSubmitting(false);

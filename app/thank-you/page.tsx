@@ -11,15 +11,7 @@ export const metadata: Metadata = {
 
 export const dynamic = "force-dynamic";
 
-export default async function ThankYouPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ position?: string }>;
-}) {
-  const params = await searchParams;
-  const raw = params.position ?? "";
-  const position = /^\d{1,7}$/.test(raw) ? raw : null;
-
+export default function ThankYouPage() {
   return (
     <QuizShell badge="CONFIRMED" lead="Thank you," kicker="you're on the list.">
       {/* A burst of confetti on arrival (skipped for reduced motion). */}
@@ -30,13 +22,6 @@ export default async function ThankYouPage({
           profile is saved. We&apos;ve also sent you an email with your place
           in line. We&apos;ll email you again the moment your first scan is ready.
         </p>
-
-        {position && (
-          <div className="qz-place">
-            <p className="qz-eyebrow">Your place on the waitlist</p>
-            <p className="qz-place-n">#{position}</p>
-          </div>
-        )}
 
         <div className="qz-actions">
           <Link href="/" className="qz-pill">Back home</Link>
